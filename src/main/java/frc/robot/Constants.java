@@ -139,4 +139,27 @@ public final class Constants {
   public static final class NeoMotorConstants {
     public static final double kFreeSpeedRpm = 5676;
   }
+
+  public static final class VisionConstants {
+    public static final double kCameraCenterX = 285;
+    public static final double kTargetCenterXRange = 10;
+    public static final double kConeTargetWidth = 50;
+    public static final double kConeTargetWidthRange = 10;
+    public static final double kCubeTargetRadius = 50;
+    public static final double kCubeTargetRadiusRange = 10;
+    public static final double kAprilTagConeTargetX = 300;
+    public static final double kAprilTagConeTargetXRange = 10;
+    public static final double kAprilTagConeTargetArea = 100;
+    public static final double kAprilTagConeTargetAreaRange = 10;
+    public static final double kAprilTagCubeTargetX = 285;
+    public static final double kAprilTagCubeTargetXRange = 10;
+    public static final double kAprilTagCubeTargetArea = 100;
+    public static final double kAprilTagCubeTargetAreaRange = 10;
+    public static final double kDecelerationDistance = 9;
+
+    public static final double kHighestXDifferenceLED = 30;
+    public static final double kHighestZDifferenceLED = 30;
+    public static final double kHighestTagAreaDifferenceLED = 30;
+
+  }
 }
