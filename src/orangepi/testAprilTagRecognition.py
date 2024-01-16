@@ -55,7 +55,6 @@ def plotPoint(image, center, color):
                      3)
     return image
 
-
 # main program
 #configs the detector
 vs = myWebcamVideoStream(0).start() 
@@ -88,14 +87,15 @@ while iteration < 1000:
        cv2.imshow('frame', frame)
        #cv2.imwrite("fulmer.jpg",frame)
        cv2.waitKey(1)
-       continue
    else:
        #iterates over all tags detected
        for detect in detections:
-           dblPub = ntcore.DoubleTopic.publish() #I want to publish
-           dblPub = ntcore.DoubleTopic.publish(ntcore.PubSubOptions(keepDuplicates=False)) #Dont keep duplicates
+           #dblPub = ntcore.DoubleTopic.publish() #I want to publish
+           #dblPub = ntcore.DoubleTopic.publish(ntcore.PubSubOptions(keepDuplicates=False)) #Dont keep duplicates
            #sends the tag data named the tag_ID with Center, TopLeft, BottomRight Locations
-           dblPub = ntcore.DoubleTopic.publishEx(detect.tag_id, '{"Center": detect.center, "TopLeft": detect.corners[0], "BottomRight": detect.corners[2]}')
+           #
+           dblTopic = ntcore.DoubleTopic(topic=ntcore._ntcore.Topic())
+           dblPub = dblTopic.publishEx(detect.tag_id, '{"Center": detect.center, "TopLeft": detect.corners[0], "BottomRight": detect.corners[2]}')
            print("tag_id: %s, center: %s, corners: %s, corner.top_left: %s , corner.bottom-right: %s" % (detect.tag_id, detect.center, detect.corners[0:], detect.corners[0], detect.corners[2]))
            frame=plotPoint(frame, detect.center, (255,0,255)) #purpe center
            cornerIndex=0
