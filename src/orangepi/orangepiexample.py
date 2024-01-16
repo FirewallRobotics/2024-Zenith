@@ -7,7 +7,8 @@ class myWebcamVideoStream:
   def __init__(self, src=0):
     
     # initialize the video camera stream and read the 
-    # first frame from the streamself.stream = cv2.VideoCapture(src, cv2.CAP_V4L)
+    # first frame from the stream
+    self.stream = cv2.VideoCapture(src)
     (self.grabbed, self.frame) = self.stream.read()
 
     # flag to stop the thread
@@ -54,7 +55,7 @@ def plotPoint(image, center, color):
 
 
 # main program
-vs = myWebcamVideoStream(1).start() 
+vs = myWebcamVideoStream(0).start()
 options = apriltag.DetectorOptions(families="tag36h11")
 detector = apriltag.Detector(options)
 
@@ -64,6 +65,8 @@ saved = False
 while iteration < 500:
    frame = vs.read()
    grayimage = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+   cv2.imshow('frame', frame)
+   cv2.imwrite("fulmer.jpg",frame)
 
    detections = detector.detect(grayimage)
    if not detections:
