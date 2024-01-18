@@ -3,6 +3,7 @@ import ntcore
 import cv2
 import numpy
 import apriltag
+from wpilib import SmartDashboard
 
 class myWebcamVideoStream:
   def __init__(self, src=0):
@@ -68,10 +69,6 @@ if not vs:
 iteration = 0
 saved = False
 
-# start NetworkTables
-inst = ntcore.NetworkTableInstance.getDefault()
-inst.startServer()
-
 
 #Todo: Make not timed but not stupid
 while iteration < 1000:
@@ -90,12 +87,13 @@ while iteration < 1000:
    else:
        #iterates over all tags detected
        for detect in detections:
-           #dblPub = ntcore.DoubleTopic.publish() #I want to publish
-           #dblPub = ntcore.DoubleTopic.publish(ntcore.PubSubOptions(keepDuplicates=False)) #Dont keep duplicates
            #sends the tag data named the tag_ID with Center, TopLeft, BottomRight Locations
-           #
-           dblTopic = ntcore.DoubleTopic(topic=ntcore._ntcore.Topic())
-           dblPub = dblTopic.publishEx(detect.tag_id, '{"Center": detect.center, "TopLeft": detect.corners[0], "BottomRight": detect.corners[2]}')
+           Center = str(detect.tag_id) + "center";
+           SmartDashboard.putNumberArray(Center, detect.center)
+           TopCorrnor = str(detect.tag_id) + "TopLeft";
+           SmartDashboard.putNumberArray(TopCorrnor, detect.corners[0])
+           BottomCorrnor = str(detect.tag_id) + "BottomRight";
+           SmartDashboard.putNumberArray(BottomCorrnor, detect.corners[2])
            print("tag_id: %s, center: %s, corners: %s, corner.top_left: %s , corner.bottom-right: %s" % (detect.tag_id, detect.center, detect.corners[0:], detect.corners[0], detect.corners[2]))
            frame=plotPoint(frame, detect.center, (255,0,255)) #purpe center
            cornerIndex=0
