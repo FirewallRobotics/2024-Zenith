@@ -173,7 +173,10 @@ while iteration < 500:
                                              ('InitError', e1),
                                              ('FinalError', f1)]),
                     indent=2))
-           draw_pose(frame, cameraParams, FRCtagSize, pos, z_sign=1)
+          
+          
+          
+          # draw_pose(frame, cameraParams, FRCtagSize, pos, z_sign=1)
            frame=plotPoint(frame, detect.center, (255,0,255)) #purpe center
            cornerIndex=0
            for corner in detect.corners:
