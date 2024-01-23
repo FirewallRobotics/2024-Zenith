@@ -5,11 +5,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.ClimbSubsystem;
 
 public class ClimbLeftCommand extends Command {
   /** Creates a new ShootSpeakerCommand. */
-  public ClimbLeftCommand() {
+
+  private final ClimbSubsystem m_Climb;
+
+  public ClimbLeftCommand(ClimbSubsystem c_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
+
+    m_Climb = c_Subsystem;
+
+    addRequirements(c_Subsystem);
   }
 
   // Called when the command is initially scheduled.

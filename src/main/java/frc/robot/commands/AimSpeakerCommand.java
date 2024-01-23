@@ -5,11 +5,27 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.SeesawSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 
 public class AimSpeakerCommand extends Command {
   /** Creates a new ShootSpeakerCommand. */
-  public AimSpeakerCommand() {
+  
+  private final DriveSubsystem m_Drivetrain;
+  private final VisionSubsystem m_Vision;
+  private final SeesawSubsystem m_Seesaw;
+
+  public AimSpeakerCommand(DriveSubsystem dt_Subsystem, VisionSubsystem v_Subsystem, SeesawSubsystem ss_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
+
+    m_Drivetrain = dt_Subsystem;
+    m_Vision = v_Subsystem;
+    m_Seesaw = ss_Subsystem;
+
+    addRequirements(dt_Subsystem);
+    addRequirements(v_Subsystem);
+    addRequirements(ss_Subsystem);
   }
 
   // Called when the command is initially scheduled.
