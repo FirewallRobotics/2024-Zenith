@@ -5,11 +5,23 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.SeesawSubsystem;
 
 public class IntakeFloorCommand extends Command {
   /** Creates a new ShootSpeakerCommand. */
-  public IntakeFloorCommand() {
+
+  private final IntakeSubsystem m_Intake;
+  private final SeesawSubsystem m_Seesaw;
+
+  public IntakeFloorCommand(IntakeSubsystem i_Subsystem, SeesawSubsystem ss_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
+
+    m_Intake = i_Subsystem;
+    m_Seesaw = ss_Subsystem;
+
+    addRequirements(i_Subsystem);
+    addRequirements(ss_Subsystem);
   }
 
   // Called when the command is initially scheduled.

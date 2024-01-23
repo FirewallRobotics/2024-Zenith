@@ -14,11 +14,11 @@ public class VisionSubsystem extends SubsystemBase {
 
   public NetworkTableInstance inst = NetworkTableInstance.getDefault();
 
-  public NetworkTable aprilTag = inst.getTable("apriltag");
-  public NetworkTableEntry ntTagCenterX = aprilTag.getEntry("center_x");
-  public NetworkTableEntry ntTagCenterY = aprilTag.getEntry("center_y");
-  public NetworkTableEntry ntTagID = aprilTag.getEntry("ID");
-  public NetworkTableEntry ntPose = aprilTag.getEntry("pose");
+  public NetworkTable apriltag = inst.getTable("Apriltag");
+  public NetworkTableEntry ntTagCenterX = apriltag.getEntry("Center_x");
+  public NetworkTableEntry ntTagCenterY = apriltag.getEntry("Center_y");
+  public NetworkTableEntry ntTagID = apriltag.getEntry("ID");
+  public NetworkTableEntry ntPose = apriltag.getEntry("Pose");
 
   public double decelerationDistance = Constants.VisionConstants.kDecelerationDistance;
 

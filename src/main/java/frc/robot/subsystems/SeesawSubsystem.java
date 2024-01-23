@@ -14,4 +14,28 @@ public class SeesawSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
+  public void DefaultAngle(){
+
+  }
+
+  public void AimAmpAngle(){
+
+  }
+
+  public void AimSpeakerAngle(){
+
+  }
+
+  public void AimTrapAngle(){
+
+  }
+
+  public void IntakeFloorAngle(){
+
+  }
+
+  public void IntakeSourceAngle(){
+    
+  }
 }

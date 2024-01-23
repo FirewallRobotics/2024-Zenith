@@ -14,4 +14,20 @@ public class ClimbSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
+  public void DefaultHeight(){
+    
+  }
+
+  public void ClimbLeft(){
+
+  }
+
+  public void ClimbMiddle(){
+
+  }
+
+  public void ClimbRight(){
+
+  }
 }
