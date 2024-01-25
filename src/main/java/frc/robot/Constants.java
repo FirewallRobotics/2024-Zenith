@@ -144,6 +144,7 @@ public final class Constants {
     
     public static final double kCameraCenterX = 285;
     public static final double kDecelerationDistance = 9;
+    public static final int kTotalAprilTags = 12;
 
   }
 }
