@@ -1,34 +1,52 @@
 package frc.robot.subsystems;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Set;
+
+import javax.xml.crypto.dsig.keyinfo.KeyInfo;
+
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.networktables.IntegerArrayPublisher;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableValue;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class VisionSubsystem extends SubsystemBase {
 
-  public NetworkTableInstance inst = NetworkTableInstance.getDefault();
+  private NetworkTableInstance inst = NetworkTableInstance.getDefault();  
+  private NetworkTable aprilTagsTable = inst.getTable("AprilTagsTable");
 
-  public NetworkTable apriltag = inst.getTable("Apriltag");
-  public NetworkTableEntry ntTagCenterX = apriltag.getEntry("Center_x");
-  public NetworkTableEntry ntTagCenterY = apriltag.getEntry("Center_y");
-  public NetworkTableEntry ntTagID = apriltag.getEntry("ID");
-  public NetworkTableEntry ntPose = apriltag.getEntry("Pose");
+  private double decelerationDistance = Constants.VisionConstants.kDecelerationDistance;
 
-  public double decelerationDistance = Constants.VisionConstants.kDecelerationDistance;
+  private Set<String> tags; 
 
   public VisionSubsystem() {}
 
   @Override
   public void periodic() {
 
-    double tagCenterX = ntTagCenterX.getDouble(0);
-    double tagCenterY = ntTagCenterY.getDouble(0);
+    tags = aprilTagsTable.getKeys();
+    
+  }
+
+  private void printAllTags(){
+    String tagStr = "";
+
+    for(String tag : tags){
+      tagStr += tag + ", ";
+    }
+
+    System.out.println(tagStr);
+  }
+
+  private void testTag(String tagName){
+    System.out.println("We have " + tagName + ": " + tags.contains(tagName));
   }
 
   private double VisionAdjust(double difference, double targetRange) {
