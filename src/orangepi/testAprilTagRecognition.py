@@ -8,6 +8,16 @@ from wpilib import SmartDashboard
 class myWebcamVideoStream:
   def __init__(self, src=0):
     
+    #init network tables
+
+    global myStrPub, table
+
+    TEAM = 5607
+    ntinst = ntcore.NetworkTableInstance.getDefault()
+    table = ntinst.getTable("AprilTagsTable")
+    ntinst.startClient4("pi1 vision client")
+    ntinst.setServer("127.0.0.1")
+
     # initialize the video camera stream and read the 
     # first frame from the stream
     self.stream = cv2.VideoCapture(src) 
@@ -40,6 +50,7 @@ class myWebcamVideoStream:
       # signal thread to end
       self.stopped = True
       return
+      
 
 #I think this plots the locations on the screen?
 def plotPoint(image, center, color):
@@ -70,6 +81,7 @@ iteration = 0
 saved = False
 
 
+
 #Todo: Make not timed but not stupid
 while iteration < 1000:
    frame = vs.read()
@@ -87,13 +99,9 @@ while iteration < 1000:
    else:
        #iterates over all tags detected
        for detect in detections:
-           #sends the tag data named the tag_ID with Center, TopLeft, BottomRight Locations
-           Center = str(detect.tag_id) + "center";
-           SmartDashboard.putNumberArray(Center, detect.center)
-           TopCorrnor = str(detect.tag_id) + "TopLeft";
-           SmartDashboard.putNumberArray(TopCorrnor, detect.corners[0])
-           BottomCorrnor = str(detect.tag_id) + "BottomRight";
-           SmartDashboard.putNumberArray(BottomCorrnor, detect.corners[2])
+           #sends the tag data named the tag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
+           myStrPub =table.getStringTopic(detect.tag_id).publish()
+           myStrPub.set('{"Center": detect.center, "TopLft": detect.corners[0], "BotRht": detect.corners[2]}' )
            print("tag_id: %s, center: %s, corners: %s, corner.top_left: %s , corner.bottom-right: %s" % (detect.tag_id, detect.center, detect.corners[0:], detect.corners[0], detect.corners[2]))
            frame=plotPoint(frame, detect.center, (255,0,255)) #purpe center
            cornerIndex=0
@@ -122,7 +130,8 @@ while iteration < 1000:
    iteration = iteration + 1
 
 
-
+version =ntcore.ConnectionInfo.protocol_version
+print(" Remote ip: %s" % ntcore.ConnectionInfo.remote_ip)
 
 #Closes everything out
 vs.stop()
