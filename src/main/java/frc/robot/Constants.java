@@ -147,4 +147,19 @@ public final class Constants {
     public static final int kTotalAprilTags = 12;
 
   }
+
+  public static final class AxleConstants {
+    public static final int kMasterAxleMotorPort = 0;
+    public static final int kMinionAxleMotorPort = 1;
+  }
+
+  public static final class ShooterConstants {
+    public static final int kMasterShooterMotorPort = 2;
+    public static final int kMinionShooterMotorPort = 3;
+  }
+
+  public static final class IntakeConstants {
+    public static final int kMasterIntakeMotorPort = 4;
+    public static final int kMinionIntakeMotorPort = 5;
+  }
 }
