@@ -86,22 +86,21 @@ saved = False
 while iteration < 1000:
    frame = vs.read()
    grayimage = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-   cv2.imshow('frame', frame)
-   cv2.imwrite("fulmer2.jpg",frame)
+   #cv2.imshow('frame', frame)
+   #cv2.imwrite("fulmer2.jpg",frame)
 
    detections = detector.detect(grayimage)
-   if not detections:
+   if detections:
        #print("Nothing")
-       cv2.putText(frame, "Nothing Detected", (500,500), cv2.FONT_HERSHEY_SIMPLEX, 2.0, (0, 0, 255), 2)
-       cv2.imshow('frame', frame)
+       #cv2.putText(frame, "Nothing Detected", (500,500), cv2.FONT_HERSHEY_SIMPLEX, 2.0, (0, 0, 255), 2)
+       #cv2.imshow('frame', frame)
        #cv2.imwrite("fulmer.jpg",frame)
-       cv2.waitKey(1)
-   else:
+       #cv2.waitKey(1)
        #iterates over all tags detected
        for detect in detections:
            #sends the tag data named the tag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
-           myStrPub =table.getStringTopic(detect.tag_id).publish()
-           myStrPub.set('{"Center": detect.center, "TopLft": detect.corners[0], "BotRht": detect.corners[2]}' )
+           myStrPub =table.getStringTopic(str(detect.tag_id)).publish()
+           myStrPub.set('"Center": detect.center, "TopLft": detect.corners[0], "BotRht": detect.corners[2]}' )
            print("tag_id: %s, center: %s, corners: %s, corner.top_left: %s , corner.bottom-right: %s" % (detect.tag_id, detect.center, detect.corners[0:], detect.corners[0], detect.corners[2]))
            frame=plotPoint(frame, detect.center, (255,0,255)) #purpe center
            cornerIndex=0
@@ -122,11 +121,11 @@ while iteration < 1000:
                cornerIndex+=1
        if not saved:
            #find a apriltag save the image catches programmers looking weird
-           cv2.imwrite("fulmer.jpg",frame)
+           #cv2.imwrite("fulmer.jpg",frame)
            saved = True
            print("Saved!")
-   cv2.imshow('frame', frame)
-   cv2.waitKey(1)
+   #cv2.imshow('frame', frame)
+   #cv2.waitKey(1)
    iteration = iteration + 1
 
 
@@ -135,4 +134,4 @@ print(" Remote ip: %s" % ntcore.ConnectionInfo.remote_ip)
 
 #Closes everything out
 vs.stop()
-cv2.destroyAllWindows()
+#cv2.destroyAllWindows()
