@@ -147,4 +147,9 @@ public final class Constants {
     public static final int kTotalAprilTags = 12;
 
   }
+
+  public static final class AxleConstants {
+    public static final int kMasterAxleMotorPort = 0;
+    public static final int kMinionAxleMotorPort = 1;
+  }
 }
