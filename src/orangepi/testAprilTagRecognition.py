@@ -16,7 +16,7 @@ class myWebcamVideoStream:
     ntinst = ntcore.NetworkTableInstance.getDefault()
     table = ntinst.getTable("AprilTagsTable")
     ntinst.startClient4("pi1 vision client")
-    ntinst.setServer("127.0.0.1")
+    ntinst.setServer("10.56.7.2")
 
     # initialize the video camera stream and read the 
     # first frame from the stream
