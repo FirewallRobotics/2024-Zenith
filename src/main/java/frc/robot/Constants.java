@@ -152,4 +152,18 @@ public final class Constants {
     public static final int kMasterAxleMotorPort = 0;
     public static final int kMinionAxleMotorPort = 1;
   }
+
+  public static final class ShooterConstants {
+    public static final int kMasterShooterMotorPort = 2;
+    public static final int kMinionShooterMotorPort = 3;
+
+    public static final double kShooterMotorSpeed = 0.2;
+  }
+
+  public static final class IntakeConstants {
+    public static final int kMasterIntakeMotorPort = 4;
+    public static final int kMinionIntakeMotorPort = 5;
+
+    public static final double kIntakeMotorSpeed = 0.2;
+  }
 }
