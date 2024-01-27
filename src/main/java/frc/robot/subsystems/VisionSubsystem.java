@@ -1,30 +1,19 @@
 package frc.robot.subsystems;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Set;
-
-import javax.xml.crypto.dsig.keyinfo.KeyInfo;
-
-import edu.wpi.first.math.geometry.Pose3d;
-import edu.wpi.first.math.geometry.Rotation3d;
-import edu.wpi.first.math.geometry.Transform3d;
-import edu.wpi.first.networktables.IntegerArrayPublisher;
 import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableValue;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import java.util.Set;
 
 public class VisionSubsystem extends SubsystemBase {
 
-  private NetworkTableInstance inst = NetworkTableInstance.getDefault();  
+  private NetworkTableInstance inst = NetworkTableInstance.getDefault();
   private NetworkTable aprilTagsTable = inst.getTable("AprilTagsTable");
 
   private double decelerationDistance = Constants.VisionConstants.kDecelerationDistance;
 
-  private Set<String> tags; 
+  private Set<String> tags;
 
   public VisionSubsystem() {}
 
@@ -32,20 +21,19 @@ public class VisionSubsystem extends SubsystemBase {
   public void periodic() {
 
     tags = aprilTagsTable.getKeys();
-    
   }
 
-  private void printAllTags(){
+  private void printAllTags() {
     String tagStr = "";
 
-    for(String tag : tags){
+    for (String tag : tags) {
       tagStr += tag + ", ";
     }
 
     System.out.println(tagStr);
   }
 
-  private void testTag(String tagName){
+  private void testTag(String tagName) {
     System.out.println("We have " + tagName + ": " + tags.contains(tagName));
   }
 

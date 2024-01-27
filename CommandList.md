@@ -6,7 +6,7 @@
 * Intake Floor
 * Intake Source
 * Climb Left
-* Climb Middle 
+* Climb Middle
 * Climb Right
 * Aim Speaker
 * Aim Amp

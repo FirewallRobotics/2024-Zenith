@@ -15,15 +15,9 @@ public class ShooterSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void ShootAmp(){
+  public void ShootAmp() {}
 
-  }
+  public void ShootSpeaker() {}
 
-  public void ShootSpeaker(){
-
-  }
-
-  public void ShootTrap(){
-    
-  }
+  public void ShootTrap() {}
 }
