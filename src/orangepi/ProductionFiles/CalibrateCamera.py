@@ -71,9 +71,10 @@ imgpoints = [] # 2d points in image plane.
 ret = False
 while ret == False:
     img = vs.read()
-    cv.putText(img, "Show Me A ChessBoard!", (35,475), cv.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255), 2)
-    cv.imshow('img', img)
-    cv.waitKey(1)
+    print("Present your chessboard")
+    #cv.putText(img, "Show Me A ChessBoard!", (35,475), cv.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255), 2)
+    #cv.imshow('img', img)
+    #cv.waitKey(1)
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
     # Find the chess board corners
     ret, corners = cv.findChessboardCorners(gray, (7,6), None)
@@ -91,9 +92,10 @@ dst = cv.undistort(img, mtx, dist, None, newcameramtx)
 # crop the image
 x, y, w, h = roi
 dst = dst[y:y+h, x:x+w]
-cv.putText(img, "DONE!", (100,250), cv.FONT_HERSHEY_SIMPLEX, 5.0, (0, 0, 255), 2)
-cv.imshow('img', img)
-cv.waitKey(500)
-cv.destroyAllWindows()
+#cv.putText(img, "DONE!", (100,250), cv.FONT_HERSHEY_SIMPLEX, 5.0, (0, 0, 255), 2)
+#cv.imshow('img', img)
+#cv.waitKey(500)
+#cv.destroyAllWindows()
+print("Done with calibration!")
 vs.stop()
 exit()
