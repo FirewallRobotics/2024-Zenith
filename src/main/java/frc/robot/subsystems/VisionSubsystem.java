@@ -33,10 +33,11 @@ public class VisionSubsystem extends SubsystemBase {
 
     tags = aprilTagsTable.getKeys();
     
+    printAllTags();
   }
 
   private void printAllTags(){
-    String tagStr = "";
+    String tagStr = "Tags: ";
 
     for(String tag : tags){
       tagStr += tag + ", ";
