@@ -146,4 +146,9 @@ public final class Constants {
     public static final double kDecelerationDistance = 9;
 
   }
+
+  public static final class AxleConstants {
+    public static final int kMasterAxleMotorPort = 0;
+    public static final int kMinionAxleMotorPort = 1;
+  }
 }
