@@ -4,6 +4,7 @@ import cv2
 import numpy
 import apriltag
 from wpilib import SmartDashboard
+import json
 
 class myWebcamVideoStream:
   def __init__(self, src=0):
@@ -50,7 +51,21 @@ class myWebcamVideoStream:
       # signal thread to end
       self.stopped = True
       return
-      
+
+#reads the calibration data
+def read_from_json_file(filename):
+    try:
+        with open(filename, 'r') as json_file:
+            data = json.load(json_file)
+            var1 = data["mtx"]
+            var2 = data["dist"]
+            var3 = data["w"]
+            var4 = data["h"]
+            return var1, var2, var3, var4
+    except FileNotFoundError:
+        print(f"File '{filename}' not found.")
+        return None
+
 
 #I think this plots the locations on the screen?
 def plotPoint(image, center, color):
@@ -73,6 +88,11 @@ vs = myWebcamVideoStream(0).start()
 options = apriltag.DetectorOptions(families="tag36h11")
 detector = apriltag.Detector(options)
 
+FRCtagSize = float(0.17) #17cm
+cameraParams = read_from_json_file("cal.json")
+
+mtx, dist, w, h = read_from_json_file("cal.json")
+
 #makes sure there is a camera to stream
 if not vs:
    print("no image")
@@ -80,11 +100,13 @@ if not vs:
 iteration = 0
 saved = False
 
-
+#get camera Params
+newcameramtx, roi = cv2.getOptimalNewCameraMatrix(mtx, dist, (w,h), 1, (w,h))
 
 #Todo: Make not timed but not stupid
 while iteration < 1000:
-   frame = vs.read()
+   img = vs.read()
+   frame = cv2.undistort(img, mtx, dist, None, newcameramtx)
    grayimage = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
    #cv2.imshow('frame', frame)
    #cv2.imwrite("fulmer2.jpg",frame)
@@ -98,9 +120,10 @@ while iteration < 1000:
        #cv2.waitKey(1)
        #iterates over all tags detected
        for detect in detections:
+           pos, e1,f1=detector.detection_pose( detect, cameraParams, FRCtagSize, z_sign=1)
            #sends the tag data named the tag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
            myStrPub =table.getStringTopic(str(detect.tag_id)).publish()
-           myStrPub.set('"Center": detect.center, "TopLft": detect.corners[0], "BotRht": detect.corners[2]}' )
+           myStrPub.set('"Center": detect.center, "TopLft": detect.corners[0], "BotRht": detect.corners[2], "POS": pos, "e1": e1, "f1", f1}' )
            print("tag_id: %s, center: %s, corners: %s, corner.top_left: %s , corner.bottom-right: %s" % (detect.tag_id, detect.center, detect.corners[0:], detect.corners[0], detect.corners[2]))
            frame=plotPoint(frame, detect.center, (255,0,255)) #purpe center
            cornerIndex=0

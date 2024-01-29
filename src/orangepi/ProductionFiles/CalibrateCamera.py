@@ -2,6 +2,7 @@ import numpy as np
 import cv2 as cv
 import glob
 from threading import Thread
+import json
 
 
 class myWebcamVideoStream:
@@ -38,7 +39,19 @@ class myWebcamVideoStream:
       # signal thread to end
       self.stopped = True
       return
-      
+
+#function that writes calibration output to json file 
+def write_to_json_file(filename, var1, var2, var3, var4):
+    data = {
+        "mtx": var1,
+        "dist": var2,
+        "w": var3,
+        "h": var4
+    }
+
+    with open(filename, 'w') as json_file:
+        json.dump(data, json_file)
+
 
 #I think this plots the locations on the screen?
 def plotPoint(image, center, color):
@@ -87,15 +100,17 @@ cv.drawChessboardCorners(img, (7,6), corners2, ret)
 ret, mtx, dist, rvecs, tvecs = cv.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
 # undistort
 h,  w = img.shape[:2]
-newcameramtx, roi = cv.getOptimalNewCameraMatrix(mtx, dist, (w,h), 1, (w,h))
-dst = cv.undistort(img, mtx, dist, None, newcameramtx)
-# crop the image
-x, y, w, h = roi
-dst = dst[y:y+h, x:x+w]
+write_to_json_file("cal.json", mtx, dist, w, h)
 #cv.putText(img, "DONE!", (100,250), cv.FONT_HERSHEY_SIMPLEX, 5.0, (0, 0, 255), 2)
 #cv.imshow('img', img)
 #cv.waitKey(500)
 #cv.destroyAllWindows()
 print("Done with calibration!")
+mean_error = 0
+for i in range(len(objpoints)):
+    imgpoints2, _ = cv.projectPoints(objpoints[i], rvecs[i], tvecs[i], mtx, dist)
+    error = cv.norm(imgpoints[i], imgpoints2, cv.NORM_L2)/len(imgpoints2)
+    mean_error += error
+print( "total error: {}".format(mean_error/len(objpoints)) )
 vs.stop()
 exit()
