@@ -165,5 +165,10 @@ public final class Constants {
     public static final int kMinionIntakeMotorPort = 5;
 
     public static final double kIntakeMotorSpeed = 0.2;
+
+    public static final int kIntakeSensorPort = 0;
+    
+    // May need to swap this value after testing the sensor
+    public static final boolean kIntakeSensorNoteDetected = false;
   }
 }
