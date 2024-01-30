@@ -10,7 +10,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import frc.robot.Constants.IntakeConstants;
-
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
@@ -19,10 +19,13 @@ public class IntakeSubsystem extends SubsystemBase {
   public static CANSparkMax MasterIntakeMotor;
   public static CANSparkMax MinionIntakeMotor;
   public static AbsoluteEncoder ArmEncoder;
+  
+  public static DigitalInput intakeSensor;
 
   public IntakeSubsystem() {
     MasterIntakeMotor = new CANSparkMax(IntakeConstants.kMasterIntakeMotorPort, MotorType.kBrushless);
     MinionIntakeMotor = new CANSparkMax(IntakeConstants.kMinionIntakeMotorPort, MotorType.kBrushless);
+    intakeSensor = new DigitalInput(IntakeConstants.kIntakeSensorPort);
 
     MasterIntakeMotor.restoreFactoryDefaults();
     MinionIntakeMotor.restoreFactoryDefaults();
@@ -40,13 +43,28 @@ public class IntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    
   }
 
+  /**Starts motor intake but stops if a note is detected inside 
+   */
+  public void sensorStartIntake(){
+    if(intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected){
+      StartIntake();
+    }
+    else {
+      StopIntake();
+    }
+  }
+
+  /**Starts motor intake 
+   */
   public void StartIntake(){
     MasterIntakeMotor.set(IntakeConstants.kIntakeMotorSpeed);
   }
 
+  /**Stops motor intake
+   */
   public void StopIntake(){
     MasterIntakeMotor.set(0);
   }
