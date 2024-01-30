@@ -7,20 +7,21 @@ package frc.robot.subsystems;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
 
 public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new ShooterSubsystem. */
-
   public static CANSparkMax MasterShooterMotor;
+
   public static CANSparkMax MinionShooterMotor;
   public static AbsoluteEncoder ArmEncoder;
 
   public ShooterSubsystem() {
-    MasterShooterMotor = new CANSparkMax(ShooterConstants.kMasterShooterMotorPort, MotorType.kBrushless);
-    MinionShooterMotor = new CANSparkMax(ShooterConstants.kMinionShooterMotorPort, MotorType.kBrushless);
+    MasterShooterMotor =
+        new CANSparkMax(ShooterConstants.kMasterShooterMotorPort, MotorType.kBrushless);
+    MinionShooterMotor =
+        new CANSparkMax(ShooterConstants.kMinionShooterMotorPort, MotorType.kBrushless);
 
     MasterShooterMotor.restoreFactoryDefaults();
     MinionShooterMotor.restoreFactoryDefaults();
@@ -41,19 +42,19 @@ public class ShooterSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void ShootAmp(){
+  public void ShootAmp() {
     MasterShooterMotor.set(ShooterConstants.kShooterMotorSpeed);
   }
 
-  public void ShootSpeaker(){
+  public void ShootSpeaker() {
     MasterShooterMotor.set(ShooterConstants.kShooterMotorSpeed);
   }
 
-  public void ShootTrap(){
+  public void ShootTrap() {
     MasterShooterMotor.set(ShooterConstants.kShooterMotorSpeed);
   }
 
-  public void StopShoot(){
+  public void StopShoot() {
     MasterShooterMotor.set(0);
   }
 }
