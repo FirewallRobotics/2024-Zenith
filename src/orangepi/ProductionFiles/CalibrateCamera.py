@@ -112,6 +112,6 @@ for i in range(len(objpoints)):
     error = cv.norm(imgpoints[i], imgpoints2, cv.NORM_L2)/len(imgpoints2)
     mean_error += error
 print( "total error: {}".format(mean_error/len(objpoints)) )
-print("You NEED to edit the file cal.txt to make it useable. Arrays be weird")
+print("You NEED to edit the file cal2.txt to make it useable.")
 vs.stop()
 exit()
