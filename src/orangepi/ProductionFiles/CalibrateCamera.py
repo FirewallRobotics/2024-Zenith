@@ -41,16 +41,9 @@ class myWebcamVideoStream:
       return
 
 #function that writes calibration output to json file 
-def write_to_json_file(filename, var1, var2, var3, var4):
-    data = {
-        "mtx": var1,
-        "dist": var2,
-        "w": var3,
-        "h": var4
-    }
-
-    with open(filename, 'w') as json_file:
-        json.dump(data, json_file)
+def write_to_txt_file(filename, var1, var2, var3, var4):
+    with open(filename, 'w') as txt_file:
+        txt_file.write(f"{var1}\n{var2}\n{var3}\n{var4}\n")
 
 
 #I think this plots the locations on the screen?
@@ -98,9 +91,16 @@ imgpoints.append(corners2)
 # Draw and display the corners
 cv.drawChessboardCorners(img, (7,6), corners2, ret)
 ret, mtx, dist, rvecs, tvecs = cv.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
-# undistort
+
 h,  w = img.shape[:2]
-write_to_json_file("cal.json", mtx, dist, w, h)
+newcameramtx, roi = cv.getOptimalNewCameraMatrix(mtx, dist, (w,h), 1, (w,h))
+
+fx = mtx[0,0]
+fy = mtx[1,1]
+cx = mtx[0,2]
+cy = mtx[1,2]
+write_to_txt_file("cal.txt", fx, fy, cx, cy)
+write_to_txt_file("cal2.txt", newcameramtx, mtx, dist, 0)
 #cv.putText(img, "DONE!", (100,250), cv.FONT_HERSHEY_SIMPLEX, 5.0, (0, 0, 255), 2)
 #cv.imshow('img', img)
 #cv.waitKey(500)
@@ -112,5 +112,6 @@ for i in range(len(objpoints)):
     error = cv.norm(imgpoints[i], imgpoints2, cv.NORM_L2)/len(imgpoints2)
     mean_error += error
 print( "total error: {}".format(mean_error/len(objpoints)) )
+print("You NEED to edit the file cal.txt to make it useable. Arrays be weird")
 vs.stop()
 exit()

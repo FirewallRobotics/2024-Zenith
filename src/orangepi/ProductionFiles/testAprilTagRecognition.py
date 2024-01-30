@@ -3,7 +3,6 @@ import ntcore
 import cv2
 import numpy
 import apriltag
-from wpilib import SmartDashboard
 import json
 
 class myWebcamVideoStream:
@@ -53,15 +52,19 @@ class myWebcamVideoStream:
       return
 
 #reads the calibration data
-def read_from_json_file(filename):
+def read_from_txt_file(filename):
     try:
-        with open(filename, 'r') as json_file:
-            data = json.load(json_file)
-            var1 = data["mtx"]
-            var2 = data["dist"]
-            var3 = data["w"]
-            var4 = data["h"]
-            return var1, var2, var3, var4
+        with open(filename, 'r') as txt_file:
+            lines = txt_file.readlines()
+            if len(lines) >= 4:
+                var1 = lines[0].strip()
+                var2 = lines[1].strip()
+                var3 = lines[2].strip()
+                var4 = lines[3].strip()
+                return var1, var2, var3, var4
+            else:
+                print(f"File '{filename}' does not contain enough lines.")
+                return None
     except FileNotFoundError:
         print(f"File '{filename}' not found.")
         return None
@@ -89,9 +92,13 @@ options = apriltag.DetectorOptions(families="tag36h11")
 detector = apriltag.Detector(options)
 
 FRCtagSize = float(0.17) #17cm
-cameraParams = read_from_json_file("cal.json")
+fx, fy, cx, cy = read_from_txt_file("cal.txt")
+newcameramtxstr, mtxstr, diststr, useless = read_from_txt_file("cal2.txt")
+mtx = numpy.array(eval(mtxstr))
+dist = numpy.array(eval(diststr))
+newcameramtx = numpy.array(eval(newcameramtxstr))
 
-mtx, dist, w, h = read_from_json_file("cal.json")
+cameraParams = float(fx), float(fy), float(cx), float(cy)
 
 #makes sure there is a camera to stream
 if not vs:
@@ -99,14 +106,10 @@ if not vs:
 
 iteration = 0
 saved = False
-
-#get camera Params
-newcameramtx, roi = cv2.getOptimalNewCameraMatrix(mtx, dist, (w,h), 1, (w,h))
-
 #Todo: Make not timed but not stupid
-while iteration < 1000:
-   img = vs.read()
-   frame = cv2.undistort(img, mtx, dist, None, newcameramtx)
+while True:
+   frame = vs.read()
+   #frame = cv2.undistort(img, mtx, dist, None, newcameramtx)
    grayimage = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
    #cv2.imshow('frame', frame)
    #cv2.imwrite("fulmer2.jpg",frame)
@@ -121,6 +124,10 @@ while iteration < 1000:
        #iterates over all tags detected
        for detect in detections:
            pos, e1,f1=detector.detection_pose( detect, cameraParams, FRCtagSize, z_sign=1)
+           print("POSE DATA START")
+           print(pos, e1, f1)
+           print("POSE DATA END")
+
            #sends the tag data named the tag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
            myStrPub =table.getStringTopic(str(detect.tag_id)).publish()
            myStrPub.set('"Center": detect.center, "TopLft": detect.corners[0], "BotRht": detect.corners[2], "POS": pos, "e1": e1, "f1", f1}' )
