@@ -1,5 +1,3 @@
- 
-#from networktables import NetworkTables, NetworkTablesInstance
 import ntcore
 import wpilib
 import time
