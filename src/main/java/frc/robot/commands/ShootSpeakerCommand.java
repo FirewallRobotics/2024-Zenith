@@ -10,8 +10,8 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShootSpeakerCommand extends Command {
   /** Creates a new ShootSpeakerCommand. */
-  
   private final ShooterSubsystem m_Shooter;
+
   private final AxleSubsystem m_Axle;
 
   public ShootSpeakerCommand(ShooterSubsystem sh_Subsystem, AxleSubsystem ss_Subsystem) {

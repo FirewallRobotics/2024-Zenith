@@ -9,7 +9,6 @@ import frc.robot.subsystems.ClimbSubsystem;
 
 public class ClimbRightCommand extends Command {
   /** Creates a new ShootSpeakerCommand. */
-  
   private final ClimbSubsystem m_Climb;
 
   public ClimbRightCommand(ClimbSubsystem c_Subsystem) {
