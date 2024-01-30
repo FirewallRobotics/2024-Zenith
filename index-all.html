@@ -306,6 +306,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/commands/IntakeFloorCommand.html#%3Cinit%3E(frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.AxleSubsystem)" class="member-name-link">IntakeFloorCommand(IntakeSubsystem, AxleSubsystem)</a> - Constructor for class frc.robot.commands.<a href="frc/robot/commands/IntakeFloorCommand.html" title="class in frc.robot.commands">IntakeFloorCommand</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="frc/robot/subsystems/IntakeSubsystem.html#intakeSensor" class="member-name-link">intakeSensor</a> - Static variable in class frc.robot.subsystems.<a href="frc/robot/subsystems/IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="frc/robot/subsystems/AxleSubsystem.html#IntakeSourceAngle()" class="member-name-link">IntakeSourceAngle()</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/commands/IntakeSourceCommand.html" class="type-name-link" title="class in frc.robot.commands">IntakeSourceCommand</a> - Class in <a href="frc/robot/commands/package-summary.html">frc.robot.commands</a></dt>
@@ -404,6 +406,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="frc/robot/Constants.DriveConstants.html#kGyroReversed" class="member-name-link">kGyroReversed</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.DriveConstants.html" title="class in frc.robot">Constants.DriveConstants</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/Constants.IntakeConstants.html#kIntakeMotorSpeed" class="member-name-link">kIntakeMotorSpeed</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.IntakeConstants.html" title="class in frc.robot">Constants.IntakeConstants</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="frc/robot/Constants.IntakeConstants.html#kIntakeSensorNoteDetected" class="member-name-link">kIntakeSensorNoteDetected</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.IntakeConstants.html" title="class in frc.robot">Constants.IntakeConstants</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="frc/robot/Constants.IntakeConstants.html#kIntakeSensorPort" class="member-name-link">kIntakeSensorPort</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.IntakeConstants.html" title="class in frc.robot">Constants.IntakeConstants</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/Constants.DriveConstants.html#kMagnitudeSlewRate" class="member-name-link">kMagnitudeSlewRate</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.DriveConstants.html" title="class in frc.robot">Constants.DriveConstants</a></dt>
 <dd>&nbsp;</dd>
@@ -599,6 +605,10 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:S">S</h2>
 <dl class="index">
+<dt><a href="frc/robot/subsystems/IntakeSubsystem.html#sensorStartIntake()" class="member-name-link">sensorStartIntake()</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a></dt>
+<dd>
+<div class="block">Starts motor intake but stops if a note is detected inside</div>
+</dd>
 <dt><a href="frc/robot/subsystems/MAXSwerveModule.html#setDesiredState(edu.wpi.first.math.kinematics.SwerveModuleState)" class="member-name-link">setDesiredState(SwerveModuleState)</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/MAXSwerveModule.html" title="class in frc.robot.subsystems">MAXSwerveModule</a></dt>
 <dd>
 <div class="block">Sets the desired state for the module.</div>
@@ -636,7 +646,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="frc/robot/commands/ShootTrapCommand.html#%3Cinit%3E(frc.robot.subsystems.ShooterSubsystem,frc.robot.subsystems.AxleSubsystem)" class="member-name-link">ShootTrapCommand(ShooterSubsystem, AxleSubsystem)</a> - Constructor for class frc.robot.commands.<a href="frc/robot/commands/ShootTrapCommand.html" title="class in frc.robot.commands">ShootTrapCommand</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/subsystems/IntakeSubsystem.html#StartIntake()" class="member-name-link">StartIntake()</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Starts motor intake</div>
+</dd>
 <dt><a href="frc/utils/SwerveUtils.html#StepTowards(double,double,double)" class="member-name-link">StepTowards(double, double, double)</a> - Static method in class frc.utils.<a href="frc/utils/SwerveUtils.html" title="class in frc.utils">SwerveUtils</a></dt>
 <dd>
 <div class="block">Steps a value towards a target with a specified step size.</div>
@@ -646,7 +658,9 @@ loadScripts(document, 'script');</script>
 <div class="block">Steps a value (angle) towards a target (angle) taking the shortest path with a specified step size.</div>
 </dd>
 <dt><a href="frc/robot/subsystems/IntakeSubsystem.html#StopIntake()" class="member-name-link">StopIntake()</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Stops motor intake</div>
+</dd>
 <dt><a href="frc/robot/subsystems/ShooterSubsystem.html#StopShoot()" class="member-name-link">StopShoot()</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/utils/SwerveUtils.html" class="type-name-link" title="class in frc.utils">SwerveUtils</a> - Class in <a href="frc/utils/package-summary.html">frc.utils</a></dt>

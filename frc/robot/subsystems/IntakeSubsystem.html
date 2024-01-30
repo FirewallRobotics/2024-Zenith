@@ -98,14 +98,17 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>static com.revrobotics.AbsoluteEncoder</code></div>
 <div class="col-second even-row-color"><code><a href="#ArmEncoder" class="member-name-link">ArmEncoder</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>static com.revrobotics.CANSparkMax</code></div>
-<div class="col-second odd-row-color"><code><a href="#MasterIntakeMotor" class="member-name-link">MasterIntakeMotor</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first odd-row-color"><code>static edu.wpi.first.wpilibj.DigitalInput</code></div>
+<div class="col-second odd-row-color"><code><a href="#intakeSensor" class="member-name-link">intakeSensor</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>static com.revrobotics.CANSparkMax</code></div>
+<div class="col-second even-row-color"><code><a href="#MasterIntakeMotor" class="member-name-link">MasterIntakeMotor</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">Creates a new IntakeSubsystem.</div>
 </div>
-<div class="col-first even-row-color"><code>static com.revrobotics.CANSparkMax</code></div>
-<div class="col-second even-row-color"><code><a href="#MinionIntakeMotor" class="member-name-link">MinionIntakeMotor</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>static com.revrobotics.CANSparkMax</code></div>
+<div class="col-second odd-row-color"><code><a href="#MinionIntakeMotor" class="member-name-link">MinionIntakeMotor</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -137,11 +140,20 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#periodic()" class="member-name-link">periodic</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#StartIntake()" class="member-name-link">StartIntake</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#sensorStartIntake()" class="member-name-link">sensorStartIntake</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Starts motor intake but stops if a note is detected inside</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#StopIntake()" class="member-name-link">StopIntake</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#StartIntake()" class="member-name-link">StartIntake</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Starts motor intake</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#StopIntake()" class="member-name-link">StopIntake</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Stops motor intake</div>
+</div>
 </div>
 </div>
 </div>
@@ -184,6 +196,12 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">com.revrobotics.AbsoluteEncoder</span>&nbsp;<span class="element-name">ArmEncoder</span></div>
 </section>
 </li>
+<li>
+<section class="detail" id="intakeSensor">
+<h3>intakeSensor</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj.DigitalInput</span>&nbsp;<span class="element-name">intakeSensor</span></div>
+</section>
+</li>
 </ul>
 </section>
 </li>
@@ -213,15 +231,24 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="sensorStartIntake()">
+<h3>sensorStartIntake</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">sensorStartIntake</span>()</div>
+<div class="block">Starts motor intake but stops if a note is detected inside</div>
+</section>
+</li>
+<li>
 <section class="detail" id="StartIntake()">
 <h3>StartIntake</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">StartIntake</span>()</div>
+<div class="block">Starts motor intake</div>
 </section>
 </li>
 <li>
 <section class="detail" id="StopIntake()">
 <h3>StopIntake</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">StopIntake</span>()</div>
+<div class="block">Stops motor intake</div>
 </section>
 </li>
 </ul>
