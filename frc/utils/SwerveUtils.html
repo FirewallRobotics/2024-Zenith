@@ -122,7 +122,8 @@ loadScripts(document, 'script');</script>
  double&nbsp;_target,
  double&nbsp;_stepsize)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Steps a value (angle) towards a target (angle) taking the shortest path with a specified step size.</div>
+<div class="block">Steps a value (angle) towards a target (angle) taking the shortest path with a specified step
+ size.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static double</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#WrapAngle(double)" class="member-name-link">WrapAngle</a><wbr>(double&nbsp;_angle)</code></div>
@@ -169,11 +170,12 @@ loadScripts(document, 'script');</script>
 <div class="block">Steps a value towards a target with a specified step size.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>_current</code> - The current or starting value.  Can be positive or negative.</dd>
-<dd><code>_target</code> - The target value the algorithm will step towards.  Can be positive or negative.</dd>
+<dd><code>_current</code> - The current or starting value. Can be positive or negative.</dd>
+<dd><code>_target</code> - The target value the algorithm will step towards. Can be positive or negative.</dd>
 <dd><code>_stepsize</code> - The maximum step size that can be taken.</dd>
 <dt>Returns:</dt>
-<dd>The new value for <code>_current</code> after performing the specified step towards the specified target.</dd>
+<dd>The new value for <code>_current</code> after performing the specified step towards the
+     specified target.</dd>
 </dl>
 </section>
 </li>
@@ -183,15 +185,19 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">StepTowardsCircular</span><wbr><span class="parameters">(double&nbsp;_current,
  double&nbsp;_target,
  double&nbsp;_stepsize)</span></div>
-<div class="block">Steps a value (angle) towards a target (angle) taking the shortest path with a specified step size.</div>
+<div class="block">Steps a value (angle) towards a target (angle) taking the shortest path with a specified step
+ size.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>_current</code> - The current or starting angle (in radians).  Can lie outside the 0 to 2*PI range.</dd>
-<dd><code>_target</code> - The target angle (in radians) the algorithm will step towards.  Can lie outside the 0 to 2*PI range.</dd>
+<dd><code>_current</code> - The current or starting angle (in radians). Can lie outside the 0 to 2*PI
+     range.</dd>
+<dd><code>_target</code> - The target angle (in radians) the algorithm will step towards. Can lie outside
+     the 0 to 2*PI range.</dd>
 <dd><code>_stepsize</code> - The maximum step size that can be taken (in radians).</dd>
 <dt>Returns:</dt>
-<dd>The new angle (in radians) for <code>_current</code> after performing the specified step towards the specified target.
- This value will always lie in the range 0 to 2*PI (exclusive).</dd>
+<dd>The new angle (in radians) for <code>_current</code> after performing the specified step
+     towards the specified target. This value will always lie in the range 0 to 2*PI
+     (exclusive).</dd>
 </dl>
 </section>
 </li>
@@ -217,7 +223,8 @@ loadScripts(document, 'script');</script>
 <div class="block">Wraps an angle until it lies within the range from 0 to 2*PI (exclusive).</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>_angle</code> - The angle (in radians) to wrap.  Can be positive or negative and can lie multiple wraps outside the output range.</dd>
+<dd><code>_angle</code> - The angle (in radians) to wrap. Can be positive or negative and can lie multiple
+     wraps outside the output range.</dd>
 <dt>Returns:</dt>
 <dd>An angle (in radians) from 0 and 2*PI (exclusive).</dd>
 </dl>
