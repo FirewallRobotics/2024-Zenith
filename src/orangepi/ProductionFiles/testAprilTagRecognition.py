@@ -14,7 +14,7 @@ class myWebcamVideoStream:
 
     TEAM = 5607
     ntinst = ntcore.NetworkTableInstance.getDefault()
-    table = ntinst.getTable("AprilTagsTable")
+    table = ntinst.getTable("PiDetector")
     ntinst.startClient4("pi1 vision client")
     ntinst.setServer("10.56.7.2")
 
