@@ -1,7 +1,7 @@
 from threading import Thread
 import ntcore
 import cv2
-import numpy
+import numpy as np
 import apriltag
 import time
 
@@ -85,6 +85,38 @@ def plotPoint(image, center, color):
                      3)
     return image
 
+def average_position_of_pixels(mat, threshold=128):
+    # Threshold the image to get binary image
+    _, thresh = cv2.threshold(mat, threshold, 255, cv2.THRESH_BINARY)
+
+    # Find contours in the binary image
+    contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    # Initialize variables to store total x and y coordinates
+    total_x = 0
+    total_y = 0
+
+    # Iterate through each contour
+    for contour in contours:
+        # Calculate the centroid of the contour
+        M = cv2.moments(contour)
+        if M["m00"] != 0:
+            cx = int(M["m10"] / M["m00"])
+            cy = int(M["m01"] / M["m00"])
+
+            # Add the centroid coordinates to the total
+            total_x += cx
+            total_y += cy
+
+    # Calculate the average position
+    if len(contours) > 0:
+        avg_x = total_x / len(contours)
+        avg_y = total_y / len(contours)
+        return int(avg_x), int(avg_y)
+    else:
+        return 0, 0
+
+
 # main program
 #configs the detector
 vs = myWebcamVideoStream(0).start() 
@@ -94,11 +126,16 @@ detector = apriltag.Detector(options)
 FRCtagSize = float(0.17) #17cm
 fx, fy, cx, cy = read_from_txt_file("cal.txt")
 newcameramtxstr, mtxstr, diststr, useless = read_from_txt_file("cal2.txt")
-mtx = numpy.array(eval(mtxstr))
-dist = numpy.array(eval(diststr))
-newcameramtx = numpy.array(eval(newcameramtxstr))
+mtx = np.array(eval(mtxstr))
+dist = np.array(eval(diststr))
+newcameramtx = np.array(eval(newcameramtxstr))
 
 cameraParams = float(fx), float(fy), float(cx), float(cy)
+
+# define color the list of boundaries
+boundaries = [
+	([80,45,170], [100,145,255])
+]
 
 #makes sure there is a camera to stream
 if not vs:
@@ -109,6 +146,24 @@ saved = False
 #Todo: Make not timed but not stupid
 while True:
    frame = vs.read()
+
+   for (lower, upper) in boundaries:
+    # create NumPy arrays from the boundaries
+    lower = np.array(lower, dtype = "uint8")
+    upper = np.array(upper, dtype = "uint8")
+    # find the colors within the specified boundaries and apply
+    # the mask
+    mask = cv2.inRange(frame, lower, upper)
+    output = cv2.bitwise_and(frame, frame, mask = mask)
+    output = cv2.cvtColor(output, cv2.COLOR_BGR2GRAY)
+    # show the images
+    avX, avY = average_position_of_pixels(output, 120)
+    print(avX, avY)
+    myStrPub =table.getStringTopic("FoundRings").publish()
+    myStrPub.set('{"X": avX, "Y": avY}' )
+    #cv2.imshow("images", output)
+    #cv2.waitKey(5)
+
    #frame = cv2.undistort(img, mtx, dist, None, newcameramtx)
    grayimage = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
    #cv2.imshow('frame', frame)
@@ -128,9 +183,9 @@ while True:
            print(pos, e1, f1)
            print("POSE DATA END")
 
-           #sends the tag data named the tag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
+           #sends the tag data named the t(str(detect.tag_id)).publish()ag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
            myStrPub =table.getStringTopic(str(detect.tag_id)).publish()
-           myStrPub.set('"Center": detect.center, "TopLft": detect.corners[0], "BotRht": detect.corners[2], "POS": pos, "e1": e1, "f1", f1}' )
+           myStrPub.set('{"Center": detect.center, "TopLft": detect.corners[0], "BotRht": detect.corners[2], "POS": pos, "e1": e1, "f1", f1}' )
            print("tag_id: %s, center: %s, corners: %s, corner.top_left: %s , corner.bottom-right: %s" % (detect.tag_id, detect.center, detect.corners[0:], detect.corners[0], detect.corners[2]))
            frame=plotPoint(frame, detect.center, (255,0,255)) #purpe center
            cornerIndex=0
