@@ -3,6 +3,7 @@ import numpy as np
 import argparse
 import cv2
 from threading import Thread
+import time
 
 class myWebcamVideoStream:
   def __init__(self, src=0):
@@ -118,5 +119,6 @@ while True:
     # show the images
     avX, avY = average_position_of_pixels(output, 120)
     print(avX, avY)
-    cv2.imshow("images", output)
-    cv2.waitKey(5)
+    #cv2.imshow("images", output)
+    #cv2.waitKey(5)
+    time.sleep(0.1)

@@ -3,7 +3,7 @@ import ntcore
 import cv2
 import numpy
 import apriltag
-import json
+import time
 
 class myWebcamVideoStream:
   def __init__(self, src=0):
@@ -157,6 +157,7 @@ while True:
    #cv2.imshow('frame', frame)
    #cv2.waitKey(1)
    iteration = iteration + 1
+   time.sleep(0.1)
 
 
 version =ntcore.ConnectionInfo.protocol_version
