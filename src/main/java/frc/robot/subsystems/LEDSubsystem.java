@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
-import edu.wpi.first.wpilibj.RobotBase;
 // import edu.wpi.first.hal.AddressableLEDJNI;
 // import edu.wpi.first.hal.simulation.AddressableLEDDataJNI;
 // import edu.wpi.first.wpilibj.simulation.AddressableLEDSim;
@@ -32,17 +31,16 @@ public class LEDSubsystem extends SubsystemBase {
 
     // Writes the LED output continuously
     m_led.start();
-
   }
 
   private void SetLights(int rgb_red, int rgb_green, int rgb_blue) {
 
-        // Sets all LEDs to RGB values
-        for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-          m_ledBuffer.setRGB(i, rgb_red, rgb_green, rgb_blue);
-        }
-    
-        // Applies the m_ledbuffer data to the m_led object
-        m_led.setData(m_ledBuffer);
-      }
+    // Sets all LEDs to RGB values
+    for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+      m_ledBuffer.setRGB(i, rgb_red, rgb_green, rgb_blue);
+    }
+
+    // Applies the m_ledbuffer data to the m_led object
+    m_led.setData(m_ledBuffer);
+  }
 }

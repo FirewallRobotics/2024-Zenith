@@ -22,11 +22,11 @@ public class AxleSubsystem extends SubsystemBase {
   public static CANSparkMax MasterAxleMotor;
   public static CANSparkMax MinionAxleMotor;
   public static AbsoluteEncoder AxleEncoder;
+
   DigitalInput topLimitSwitch = new DigitalInput(0);
   DigitalInput bottomLimitSwitch = new DigitalInput(1);
    private SparkPIDController AxlePIDController;
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
-
 
   public AxleSubsystem() {
     
@@ -61,6 +61,7 @@ public class AxleSubsystem extends SubsystemBase {
     AxlePIDController.setOutputRange(kMinOutput, kMaxOutput);
   }
 
+
   public void GravityOffset(double kdefaultheight) {
   double kMeasuredPosHorizontal =
       .512; // position measured when arm is horizontal (with Pheonix Tuner)
@@ -69,6 +70,27 @@ public class AxleSubsystem extends SubsystemBase {
   double cosineScalar = java.lang.Math.cos(radians);
   AxlePIDController.setFF(kFF * cosineScalar);
   AxlePIDController.setReference(kdefaultheight, CANSparkMax.ControlType.kPosition);
+    masterAxleMotor =
+        new CANSparkMax(
+            AxleConstants.kMasterAxleMotorPort,
+            com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
+    minionAxleMotor =
+        new CANSparkMax(
+            AxleConstants.kMinionAxleMotorPort,
+            com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
+
+    masterAxleMotor.restoreFactoryDefaults();
+    minionAxleMotor.restoreFactoryDefaults();
+
+    masterAxleMotor.enableSoftLimit(SoftLimitDirection.kForward, true);
+    masterAxleMotor.enableSoftLimit(SoftLimitDirection.kReverse, true);
+    minionAxleMotor.enableSoftLimit(SoftLimitDirection.kForward, true);
+    minionAxleMotor.enableSoftLimit(SoftLimitDirection.kReverse, true);
+
+    minionAxleMotor.follow(masterAxleMotor);
+
+    axleEncoder = masterAxleMotor.getAbsoluteEncoder(Type.kDutyCycle);
+    axleEncoder.setInverted(false);
   }
 
   @Override
@@ -76,27 +98,15 @@ public class AxleSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void DefaultAngle(){
+  public void DefaultAngle() {}
 
-  }
+  public void AimAmpAngle() {}
 
-  public void AimAmpAngle(){
+  public void AimSpeakerAngle() {}
 
-  }
+  public void AimTrapAngle() {}
 
-  public void AimSpeakerAngle(){
+  public void IntakeFloorAngle() {}
 
-  }
-
-  public void AimTrapAngle(){
-
-  }
-
-  public void IntakeFloorAngle(){
-
-  }
-
-  public void IntakeSourceAngle(){
-    
-  }
+  public void IntakeSourceAngle() {}
 }
