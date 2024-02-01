@@ -7,12 +7,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.AxleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.AxleSubsystem;
 
 public class IntakeSourceCommand extends Command {
   /** Creates a new ShootSpeakerCommand. */
-  
   private final IntakeSubsystem m_Intake;
+
   private final AxleSubsystem m_Axle;
 
   public IntakeSourceCommand(IntakeSubsystem i_Subsystem, AxleSubsystem ss_Subsystem) {
