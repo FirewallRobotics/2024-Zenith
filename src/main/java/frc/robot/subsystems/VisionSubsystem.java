@@ -9,7 +9,7 @@ import java.util.Set;
 public class VisionSubsystem extends SubsystemBase {
 
   private NetworkTableInstance inst = NetworkTableInstance.getDefault();
-  private NetworkTable aprilTagsTable = inst.getTable("AprilTagsTable");
+  private NetworkTable aprilTagsTable = inst.getTable("PiDetector");
 
   private double decelerationDistance = Constants.VisionConstants.kDecelerationDistance;
 
