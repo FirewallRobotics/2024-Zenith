@@ -6,7 +6,7 @@ import sys
 timeout = 10
 
 # Your main script command
-main_script_command = ["python", "FinalPiProgram.py"]
+main_script_command = ["python", "src/orangepi/ProductionFiles/FinalPiProgram.py"]
 
 start_time = time.time()
 
