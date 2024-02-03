@@ -5,18 +5,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ClimbSubsystem;
+import frc.robot.subsystems.*;
 
-public class ClimbLeftCommand extends Command {
-  /** Creates a new ShootSpeakerCommand. */
-  private final ClimbSubsystem m_Climb;
+public class SetLEDPurple extends Command {
 
-  public ClimbLeftCommand(ClimbSubsystem c_Subsystem) {
-    // Use addRequirements() here to declare subsystem dependencies.
+  private LEDSubsystem m_LED;
 
-    m_Climb = c_Subsystem;
+  public SetLEDPurple(LEDSubsystem led_subsystem) {
+    m_LED = led_subsystem;
 
-    addRequirements(c_Subsystem);
+    addRequirements(led_subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -26,7 +24,7 @@ public class ClimbLeftCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Climb.ClimbLeft();
+    m_LED.SetPurple();
   }
 
   // Called once the command ends or is interrupted.

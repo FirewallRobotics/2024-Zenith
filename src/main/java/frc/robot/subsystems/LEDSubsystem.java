@@ -43,4 +43,10 @@ public class LEDSubsystem extends SubsystemBase {
     // Applies the m_ledbuffer data to the m_led object
     m_led.setData(m_ledBuffer);
   }
+
+  public void SetPurple() {
+
+    // Sets all LEDs to RGB values
+    SetLights(150, 26, 192);
+  }
 }
