@@ -8,7 +8,7 @@ import sys
 
 class myWebcamVideoStream:
   
-  global testmode, myStrPub, table
+  global testmode, myStrPub
   testmode = False
 
   if sys.argv != None:
@@ -16,6 +16,8 @@ class myWebcamVideoStream:
 
   def __init__(self, src=0):
     
+    global table
+
     #init network tables
     TEAM = 5607
     if testmode == False:
@@ -184,8 +186,9 @@ while True:
     output = denoise_image(output)
     avX, avY = average_position_of_pixels(output, 120)
     print(avX, avY)
-    myStrPub =table.getStringTopic("FoundRings").publish()
-    myStrPub.set('{"X": avX, "Y": avY}' )
+    if testmode == False:
+        myStrPub = table.getStringTopic("FoundRings").publish()
+        myStrPub.set('{"X": avX, "Y": avY}' )
     #cv2.imshow("images", output)
     #cv2.waitKey(5)
 
@@ -209,8 +212,9 @@ while True:
            print("POSE DATA END")
 
            #sends the tag data named the t(str(detect.tag_id)).publish()ag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
-           myStrPub =table.getStringTopic(str(detect.tag_id)).publish()
-           myStrPub.set('{"Center": detect.center, "TopLft": detect.corners[0], "BotRht": detect.corners[2], "POS": pos, "e1": e1, "f1", f1}' )
+           if testmode == False:
+            myStrPub =table.getStringTopic(str(detect.tag_id)).publish()
+            myStrPub.set('{"Center": detect.center, "TopLft": detect.corners[0], "BotRht": detect.corners[2], "POS": pos, "e1": e1, "f1", f1}' )
            print("tag_id: %s, center: %s, corners: %s, corner.top_left: %s , corner.bottom-right: %s" % (detect.tag_id, detect.center, detect.corners[0:], detect.corners[0], detect.corners[2]))
            frame=plotPoint(frame, detect.center, (255,0,255)) #purpe center
            cornerIndex=0
