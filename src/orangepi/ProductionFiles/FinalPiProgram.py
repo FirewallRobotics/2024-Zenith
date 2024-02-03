@@ -163,10 +163,6 @@ boundaries = [
 	([80,45,170], [100,145,255])
 ]
 
-#makes sure there is a camera to stream
-if not vs:
-   print("no image")
-
 iteration = 0
 saved = False
 #Todo: Make not timed but not stupid
