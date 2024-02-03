@@ -164,8 +164,13 @@ boundaries = [
 
 iteration = 0
 saved = False
+
+if testmode == True:
+   loop = 3
+else:
+   loop = True
 #Todo: Make not timed but not stupid
-while True:
+while loop:
    if testmode == False:
     frame = vs.read()
     frame2 = vb.read()
