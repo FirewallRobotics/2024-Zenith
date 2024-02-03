@@ -17,7 +17,7 @@ class myWebcamVideoStream:
     table = ntinst.getTable("PiDetector")
     ntinst.startClient4("pi1 vision client")
     ntinst.setServer("10.56.7.2")
-
+    
     # initialize the video camera stream and read the 
     # first frame from the stream
     self.stream = cv2.VideoCapture(src) 
@@ -134,7 +134,8 @@ def average_position_of_pixels(mat, threshold=128):
 
 # main program
 #configs the detector
-vs = myWebcamVideoStream(0).start() 
+vs = myWebcamVideoStream(0).start()
+vb = myWebcamVideoStream(1).start()
 options = apriltag.DetectorOptions(families="tag36h11")
 detector = apriltag.Detector(options)
 
@@ -161,6 +162,7 @@ saved = False
 #Todo: Make not timed but not stupid
 while True:
    frame = vs.read()
+   frame2 = vb.read()
 
    for (lower, upper) in boundaries:
     # create NumPy arrays from the boundaries
@@ -168,8 +170,8 @@ while True:
     upper = np.array(upper, dtype = "uint8")
     # find the colors within the specified boundaries and apply
     # the mask
-    mask = cv2.inRange(frame, lower, upper)
-    output = cv2.bitwise_and(frame, frame, mask = mask)
+    mask = cv2.inRange(frame2, lower, upper)
+    output = cv2.bitwise_and(frame2, frame2, mask = mask)
     output = cv2.cvtColor(output, cv2.COLOR_BGR2GRAY)
     # show the images
     output = denoise_image(output)

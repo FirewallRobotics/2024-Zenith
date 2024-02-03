@@ -22,7 +22,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.*;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.UltrasonicSensor;
 import frc.robot.subsystems.VisionSubsystem;
 import java.util.List;
@@ -38,6 +40,7 @@ public class RobotContainer {
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final VisionSubsystem m_vision = new VisionSubsystem();
   private final UltrasonicSensor m_UltrasonicSensor = new UltrasonicSensor();
+  private final LEDSubsystem m_LEDSubsystem = new LEDSubsystem();
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
@@ -63,6 +66,8 @@ public class RobotContainer {
                     true,
                     true),
             m_robotDrive));
+
+    m_LEDSubsystem.setDefaultCommand(new SetLEDPurple(m_LEDSubsystem));
   }
 
   /**
