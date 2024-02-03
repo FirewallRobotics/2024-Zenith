@@ -4,16 +4,24 @@ import cv2
 import numpy as np
 import apriltag
 import time
+import sys
 
 class myWebcamVideoStream:
   def __init__(self, src=0):
     
     #init network tables
 
+    global testmode
+    testmode = False
+
+    if sys.argv != None:
+        testmode = True
+
     global myStrPub, table
 
     TEAM = 5607
-    ntinst = ntcore.NetworkTableInstance.getDefault()
+    if testmode == False:
+        ntinst = ntcore.NetworkTableInstance.getDefault()
     table = ntinst.getTable("PiDetector")
     ntinst.startClient4("pi1 vision client")
     ntinst.setServer("10.56.7.2")
@@ -134,8 +142,9 @@ def average_position_of_pixels(mat, threshold=128):
 
 # main program
 #configs the detector
-vs = myWebcamVideoStream(0).start()
-vb = myWebcamVideoStream(1).start()
+if testmode == False:
+    vs = myWebcamVideoStream(0).start()
+    vb = myWebcamVideoStream(1).start()
 options = apriltag.DetectorOptions(families="tag36h11")
 detector = apriltag.Detector(options)
 
@@ -161,8 +170,12 @@ iteration = 0
 saved = False
 #Todo: Make not timed but not stupid
 while True:
-   frame = vs.read()
-   frame2 = vb.read()
+   if testmode == False:
+    frame = vs.read()
+    frame2 = vb.read()
+   else:
+      frame = cv2.imread('test.jpg')
+      frame2 = cv2.imread('test.jpg')
 
    for (lower, upper) in boundaries:
     # create NumPy arrays from the boundaries
