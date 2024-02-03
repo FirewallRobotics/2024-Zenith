@@ -96,16 +96,37 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>static com.revrobotics.AbsoluteEncoder</code></div>
-<div class="col-second even-row-color"><code><a href="#axleEncoder" class="member-name-link">axleEncoder</a></code></div>
+<div class="col-second even-row-color"><code><a href="#AxleEncoder" class="member-name-link">AxleEncoder</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>static com.revrobotics.CANSparkMax</code></div>
-<div class="col-second odd-row-color"><code><a href="#masterAxleMotor" class="member-name-link">masterAxleMotor</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first odd-row-color"><code>double</code></div>
+<div class="col-second odd-row-color"><code><a href="#kD" class="member-name-link">kD</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>double</code></div>
+<div class="col-second even-row-color"><code><a href="#kFF" class="member-name-link">kFF</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>double</code></div>
+<div class="col-second odd-row-color"><code><a href="#kI" class="member-name-link">kI</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>double</code></div>
+<div class="col-second even-row-color"><code><a href="#kIz" class="member-name-link">kIz</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>double</code></div>
+<div class="col-second odd-row-color"><code><a href="#kMaxOutput" class="member-name-link">kMaxOutput</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>double</code></div>
+<div class="col-second even-row-color"><code><a href="#kMinOutput" class="member-name-link">kMinOutput</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>double</code></div>
+<div class="col-second odd-row-color"><code><a href="#kP" class="member-name-link">kP</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>static com.revrobotics.CANSparkMax</code></div>
+<div class="col-second even-row-color"><code><a href="#MasterAxleMotor" class="member-name-link">MasterAxleMotor</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">Creates a new AxleSubsystem.</div>
 </div>
-<div class="col-first even-row-color"><code>static com.revrobotics.CANSparkMax</code></div>
-<div class="col-second even-row-color"><code><a href="#minionAxleMotor" class="member-name-link">minionAxleMotor</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>static com.revrobotics.CANSparkMax</code></div>
+<div class="col-second odd-row-color"><code><a href="#MinionAxleMotor" class="member-name-link">MinionAxleMotor</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -146,14 +167,17 @@ loadScripts(document, 'script');</script>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#DefaultAngle()" class="member-name-link">DefaultAngle</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#IntakeFloorAngle()" class="member-name-link">IntakeFloorAngle</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#GravityOffset(double)" class="member-name-link">GravityOffset</a><wbr>(double&nbsp;kdefaultheight)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#IntakeSourceAngle()" class="member-name-link">IntakeSourceAngle</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#IntakeFloorAngle()" class="member-name-link">IntakeFloorAngle</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#periodic()" class="member-name-link">periodic</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#IntakeSourceAngle()" class="member-name-link">IntakeSourceAngle</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#periodic()" class="member-name-link">periodic</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
 </div>
@@ -178,22 +202,64 @@ loadScripts(document, 'script');</script>
 <h2>Field Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="masterAxleMotor">
-<h3>masterAxleMotor</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">com.revrobotics.CANSparkMax</span>&nbsp;<span class="element-name">masterAxleMotor</span></div>
+<section class="detail" id="MasterAxleMotor">
+<h3>MasterAxleMotor</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">com.revrobotics.CANSparkMax</span>&nbsp;<span class="element-name">MasterAxleMotor</span></div>
 <div class="block">Creates a new AxleSubsystem.</div>
 </section>
 </li>
 <li>
-<section class="detail" id="minionAxleMotor">
-<h3>minionAxleMotor</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">com.revrobotics.CANSparkMax</span>&nbsp;<span class="element-name">minionAxleMotor</span></div>
+<section class="detail" id="MinionAxleMotor">
+<h3>MinionAxleMotor</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">com.revrobotics.CANSparkMax</span>&nbsp;<span class="element-name">MinionAxleMotor</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="axleEncoder">
-<h3>axleEncoder</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">com.revrobotics.AbsoluteEncoder</span>&nbsp;<span class="element-name">axleEncoder</span></div>
+<section class="detail" id="AxleEncoder">
+<h3>AxleEncoder</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">com.revrobotics.AbsoluteEncoder</span>&nbsp;<span class="element-name">AxleEncoder</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="kP">
+<h3>kP</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">kP</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="kI">
+<h3>kI</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">kI</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="kD">
+<h3>kD</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">kD</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="kIz">
+<h3>kIz</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">kIz</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="kFF">
+<h3>kFF</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">kFF</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="kMaxOutput">
+<h3>kMaxOutput</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">kMaxOutput</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="kMinOutput">
+<h3>kMinOutput</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">kMinOutput</span></div>
 </section>
 </li>
 </ul>
@@ -218,6 +284,12 @@ loadScripts(document, 'script');</script>
 <section class="method-details" id="method-detail">
 <h2>Method Details</h2>
 <ul class="member-list">
+<li>
+<section class="detail" id="GravityOffset(double)">
+<h3>GravityOffset</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">GravityOffset</span><wbr><span class="parameters">(double&nbsp;kdefaultheight)</span></div>
+</section>
+</li>
 <li>
 <section class="detail" id="periodic()">
 <h3>periodic</h3>
