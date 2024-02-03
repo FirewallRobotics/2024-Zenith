@@ -4,11 +4,29 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.climbConstants;
 
 public class ClimbSubsystem extends SubsystemBase {
+
+  public static CANSparkMax climbMotorRight;
+
+  public static CANSparkMax climbMotorLeft;
+
   /** Creates a new ClimbSubsystem. */
-  public ClimbSubsystem() {}
+  public ClimbSubsystem() {
+
+    climbMotorRight =
+        new CANSparkMax(
+            climbConstants.kRightClimbMotorPort,
+            com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
+
+    climbMotorLeft =
+        new CANSparkMax(
+            climbConstants.kLeftClimbMotorPort,
+            com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
+  }
 
   @Override
   public void periodic() {
