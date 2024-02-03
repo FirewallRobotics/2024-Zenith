@@ -7,15 +7,16 @@ import time
 import sys
 
 class myWebcamVideoStream:
+  
+  global testmode
+  testmode = False
+
+  if sys.argv != None:
+        testmode = True
+
   def __init__(self, src=0):
     
     #init network tables
-
-    global testmode
-    testmode = False
-
-    if sys.argv != None:
-        testmode = True
 
     global myStrPub, table
 
