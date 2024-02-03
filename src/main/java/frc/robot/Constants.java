@@ -149,20 +149,20 @@ public final class Constants {
   }
 
   public static final class AxleConstants {
-    public static final int kMasterAxleMotorPort = 0;
-    public static final int kMinionAxleMotorPort = 1;
+    public static final int kMasterAxleMotorPort = 9;
+    public static final int kMinionAxleMotorPort = 10;
   }
 
   public static final class ShooterConstants {
-    public static final int kMasterShooterMotorPort = 2;
-    public static final int kMinionShooterMotorPort = 3;
+    public static final int kMasterShooterMotorPort = 11;
+    public static final int kMinionShooterMotorPort = 12;
 
     public static final double kShooterMotorSpeed = 0.2;
   }
 
   public static final class IntakeConstants {
-    public static final int kMasterIntakeMotorPort = 4;
-    public static final int kMinionIntakeMotorPort = 5;
+    public static final int kMasterIntakeMotorPort = 13;
+    public static final int kMinionIntakeMotorPort = 14;
 
     public static final double kIntakeMotorSpeed = 0.2;
 
@@ -170,5 +170,10 @@ public final class Constants {
 
     // May need to swap this value after testing the sensor
     public static final boolean kIntakeSensorNoteDetected = false;
+  }
+
+  public static final class climbConstants {
+    public static final int kRightClimbMotorPort = 15;
+    public static final int kLeftClimbMotorPort = 16;
   }
 }
