@@ -61,6 +61,21 @@ def plotPoint(image, center, color):
                      3)
     return image
 
+#ChatGPTs code
+def denoise_image(image, kernel_size=(5, 5)):
+    """
+    Apply Gaussian blur to denoise the image.
+
+    Parameters:
+    - image: Input image (NumPy array).
+    - kernel_size: Size of the Gaussian kernel (default is (5, 5)).
+
+    Returns:
+    - Denoised image.
+    """
+    denoised_image = cv2.GaussianBlur(image, kernel_size, 0)
+    return denoised_image
+
 def average_position_of_pixels(mat, threshold=128):
     # Threshold the image to get binary image
     _, thresh = cv2.threshold(mat, threshold, 255, cv2.THRESH_BINARY)
@@ -117,8 +132,9 @@ while True:
     output = cv2.bitwise_and(image, image, mask = mask)
     output = cv2.cvtColor(output, cv2.COLOR_BGR2GRAY)
     # show the images
+    output = denoise_image(output)
     avX, avY = average_position_of_pixels(output, 120)
     print(avX, avY)
-    #cv2.imshow("images", output)
-    #cv2.waitKey(5)
+    cv2.imshow("images", output)
+    cv2.waitKey(5)
     time.sleep(0.1)
