@@ -166,7 +166,7 @@ iteration = 0
 saved = False
 
 if testmode == True:
-   loop = 3
+   loop = 'iteration < 3'
 else:
    loop = True
 #Todo: Make not timed but not stupid
