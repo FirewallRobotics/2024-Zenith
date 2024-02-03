@@ -8,7 +8,7 @@ import sys
 
 class myWebcamVideoStream:
   
-  global testmode
+  global testmode, myStrPub, table
   testmode = False
 
   if sys.argv != None:
@@ -17,9 +17,6 @@ class myWebcamVideoStream:
   def __init__(self, src=0):
     
     #init network tables
-
-    global myStrPub, table
-
     TEAM = 5607
     if testmode == False:
         ntinst = ntcore.NetworkTableInstance.getDefault()
