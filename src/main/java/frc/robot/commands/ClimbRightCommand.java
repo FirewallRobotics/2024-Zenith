@@ -25,7 +25,9 @@ public class ClimbRightCommand extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_Climb.ClimbRight();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
