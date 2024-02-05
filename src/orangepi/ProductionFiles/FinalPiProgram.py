@@ -165,12 +165,8 @@ boundaries = [
 iteration = 0
 saved = False
 
-if testmode == True:
-   loop = 'iteration < 3'
-else:
-   loop = True
 #Todo: Make not timed but not stupid
-while loop:
+while testmode == False | iteration < 3:
    if testmode == False:
     frame = vs.read()
     frame2 = vb.read()
@@ -253,5 +249,6 @@ version =ntcore.ConnectionInfo.protocol_version
 print(" Remote ip: %s" % ntcore.ConnectionInfo.remote_ip)
 
 #Closes everything out
-vs.stop()
+if testmode == False:
+    vs.stop()
 #cv2.destroyAllWindows()
