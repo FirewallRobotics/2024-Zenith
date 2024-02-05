@@ -10,9 +10,11 @@ class myWebcamVideoStream:
   
   global testmode, myStrPub
   testmode = False
-
-  if sys.argv != None:
+  
+  print(sys.argv[1:])
+  if sys.argv[1:] != []:
         testmode = True
+  print(testmode)
 
   def __init__(self, src=0):
     
@@ -166,10 +168,10 @@ iteration = 0
 saved = False
 
 #Todo: Make not timed but not stupid
-while testmode == False | iteration < 3:
+while testmode == False | (iteration < 3 & testmode == True):
    if testmode == False:
     frame = vs.read()
-    frame2 = vb.read()
+    frame2 = vs.read()
    else:
       frame = cv2.imread('test.jpg')
       frame2 = cv2.imread('test.jpg')
@@ -208,8 +210,14 @@ while testmode == False | iteration < 3:
        #iterates over all tags detected
        for detect in detections:
            pos, e1,f1=detector.detection_pose( detect, cameraParams, FRCtagSize, z_sign=1)
+           apriltag._draw_pose(frame,cameraParams,FRCtagSize,pos)
            print("POSE DATA START")
-           print(pos, e1, f1)
+           print("POS")
+           print(pos)
+           print("E1")
+           print(e1)
+           print("F1")
+           print(f1)
            print("POSE DATA END")
 
            #sends the tag data named the t(str(detect.tag_id)).publish()ag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
@@ -239,14 +247,14 @@ while testmode == False | iteration < 3:
            #cv2.imwrite("fulmer.jpg",frame)
            saved = True
            print("Saved!")
-   #cv2.imshow('frame', frame)
-   #cv2.waitKey(1)
+   cv2.imshow('frame', frame)
+   cv2.waitKey(1)
    iteration = iteration + 1
    time.sleep(0.1)
 
 
 version =ntcore.ConnectionInfo.protocol_version
-print(" Remote ip: %s" % ntcore.ConnectionInfo.remote_ip)
+print("Exitting Code 0_o")
 
 #Closes everything out
 if testmode == False:
