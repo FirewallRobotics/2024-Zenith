@@ -249,5 +249,6 @@ version =ntcore.ConnectionInfo.protocol_version
 print(" Remote ip: %s" % ntcore.ConnectionInfo.remote_ip)
 
 #Closes everything out
-vs.stop()
+if testmode == False:
+    vs.stop()
 #cv2.destroyAllWindows()
