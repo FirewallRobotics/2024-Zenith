@@ -4,16 +4,24 @@ import cv2
 import numpy as np
 import apriltag
 import time
+import sys
 
 class myWebcamVideoStream:
+  
+  global testmode, myStrPub
+  testmode = False
+
+  if sys.argv != None:
+        testmode = True
+
   def __init__(self, src=0):
     
+    global table
+
     #init network tables
-
-    global myStrPub, table
-
     TEAM = 5607
-    ntinst = ntcore.NetworkTableInstance.getDefault()
+    if testmode == False:
+        ntinst = ntcore.NetworkTableInstance.getDefault()
     table = ntinst.getTable("PiDetector")
     ntinst.startClient4("pi1 vision client")
     ntinst.setServer("10.56.7.2")
@@ -134,8 +142,9 @@ def average_position_of_pixels(mat, threshold=128):
 
 # main program
 #configs the detector
-vs = myWebcamVideoStream(0).start()
-vb = myWebcamVideoStream(1).start()
+if testmode == False:
+    vs = myWebcamVideoStream(0).start()
+    vb = myWebcamVideoStream(1).start()
 options = apriltag.DetectorOptions(families="tag36h11")
 detector = apriltag.Detector(options)
 
@@ -153,16 +162,17 @@ boundaries = [
 	([80,45,170], [100,145,255])
 ]
 
-#makes sure there is a camera to stream
-if not vs:
-   print("no image")
-
 iteration = 0
 saved = False
+
 #Todo: Make not timed but not stupid
-while True:
-   frame = vs.read()
-   frame2 = vb.read()
+while testmode == False | iteration < 3:
+   if testmode == False:
+    frame = vs.read()
+    frame2 = vb.read()
+   else:
+      frame = cv2.imread('test.jpg')
+      frame2 = cv2.imread('test.jpg')
 
    for (lower, upper) in boundaries:
     # create NumPy arrays from the boundaries
@@ -177,8 +187,9 @@ while True:
     output = denoise_image(output)
     avX, avY = average_position_of_pixels(output, 120)
     print(avX, avY)
-    myStrPub =table.getStringTopic("FoundRings").publish()
-    myStrPub.set('{"X": avX, "Y": avY}' )
+    if testmode == False:
+        myStrPub = table.getStringTopic("FoundRings").publish()
+        myStrPub.set('{"X": avX, "Y": avY}' )
     #cv2.imshow("images", output)
     #cv2.waitKey(5)
 
@@ -202,8 +213,9 @@ while True:
            print("POSE DATA END")
 
            #sends the tag data named the t(str(detect.tag_id)).publish()ag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
-           myStrPub =table.getStringTopic(str(detect.tag_id)).publish()
-           myStrPub.set('{"Center": detect.center, "TopLft": detect.corners[0], "BotRht": detect.corners[2], "POS": pos, "e1": e1, "f1", f1}' )
+           if testmode == False:
+            myStrPub =table.getStringTopic(str(detect.tag_id)).publish()
+            myStrPub.set('{"Center": detect.center, "TopLft": detect.corners[0], "BotRht": detect.corners[2], "POS": pos, "e1": e1, "f1", f1}' )
            print("tag_id: %s, center: %s, corners: %s, corner.top_left: %s , corner.bottom-right: %s" % (detect.tag_id, detect.center, detect.corners[0:], detect.corners[0], detect.corners[2]))
            frame=plotPoint(frame, detect.center, (255,0,255)) #purpe center
            cornerIndex=0
@@ -237,5 +249,6 @@ version =ntcore.ConnectionInfo.protocol_version
 print(" Remote ip: %s" % ntcore.ConnectionInfo.remote_ip)
 
 #Closes everything out
-vs.stop()
+if testmode == False:
+    vs.stop()
 #cv2.destroyAllWindows()
