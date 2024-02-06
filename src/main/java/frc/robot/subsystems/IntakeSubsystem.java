@@ -4,18 +4,13 @@
 
 package frc.robot.subsystems;
 
-import java.lang.reflect.Executable;
-
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
-import frc.robot.commands.SetLEDPurpleCommand;
-import frc.robot.subsystems.LEDSubsystem;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
@@ -34,9 +29,10 @@ public class IntakeSubsystem extends SubsystemBase {
     MinionIntakeMotor =
         new CANSparkMax(IntakeConstants.kMinionIntakeMotorPort, MotorType.kBrushless);
     intakeSensor = new DigitalInput(IntakeConstants.kIntakeSensorPort);
-    final LEDSubsystem m_LEDSubsystem = new LEDSubsystem(); {
-      
-    };
+    final LEDSubsystem m_LEDSubsystem = new LEDSubsystem();
+    {
+    }
+    ;
     MasterIntakeMotor.restoreFactoryDefaults();
     MinionIntakeMotor.restoreFactoryDefaults();
 

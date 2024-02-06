@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
-import edu.wpi.first.wpilibj.RobotBase;
 // import edu.wpi.first.hal.AddressableLEDJNI;
 // import edu.wpi.first.hal.simulation.AddressableLEDDataJNI;
 // import edu.wpi.first.wpilibj.simulation.AddressableLEDSim;
