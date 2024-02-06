@@ -67,7 +67,7 @@ public class RobotContainer {
                     true),
             m_robotDrive));
 
-    m_LEDSubsystem.setDefaultCommand(new SetLEDPurple(m_LEDSubsystem));
+    m_LEDSubsystem.setDefaultCommand(new LightScroll4LEDCommand(m_LEDSubsystem));
   }
 
   /**

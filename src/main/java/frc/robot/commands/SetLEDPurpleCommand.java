@@ -7,11 +7,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
 
-public class SetLEDPurple extends Command {
+public class SetLEDPurpleCommand extends Command {
 
   private LEDSubsystem m_LED;
 
-  public SetLEDPurple(LEDSubsystem led_subsystem) {
+  public SetLEDPurpleCommand(LEDSubsystem led_subsystem) {
     m_LED = led_subsystem;
 
     addRequirements(led_subsystem);
