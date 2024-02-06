@@ -22,10 +22,10 @@ public class LightScroll4LEDCommand extends Command {
   public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    m_LED.RunDefaultLED(0);
-  }
+  // @Override
+  // public void execute() {
+  //   m_LED.RunDefaultLED(0);
+  // }
 
   // Called once the command ends or is interrupted.
   @Override
