@@ -176,4 +176,27 @@ public final class Constants {
     public static final int kRightClimbMotorPort = 15;
     public static final int kLeftClimbMotorPort = 16;
   }
+
+  public static final class AutoAimConstants {
+    public static final double kLaunchStartingHeight =
+        0.35; // In meters; height of note launch point; ***SUBJECT TO CHANGE***
+    public static final double kLaunchToCameraDifference =
+        0.2; // In meters; distance to ADD to camera distance (positive if launcher is behind
+    // camera); ***SUBJECT TO CHANGE***
+    public static final double kTargetX =
+        0; // In meters; X value of speaker relative to origin (originX = speakerX)
+    public static final double kTargetY =
+        2.0; // In meters; height of speaker target; ***SUBJECT TO CHANGE***
+    public static final double kLaunchVelocity =
+        7.0; // In meters/second; velocity of note shooting out; ***SUBJECT TO CHANGE***
+    public static final double kgravitationalConstant =
+        9.80665; // In meters/second/second (acceleration); standard gravity constant
+
+    public static final int kMaxIterations =
+        100; // Number of iterations before giving up on angle solving
+    public static final double kRangeForAimAngle =
+        0.01; // Required accuracy for aim angle brute force calculation
+    public static final double kRangeForMax =
+        0.01; // Required accuracy for angle of max brute force calculation
+  }
 }
