@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
-import edu.wpi.first.wpilibj.RobotBase;
 // import edu.wpi.first.hal.AddressableLEDJNI;
 // import edu.wpi.first.hal.simulation.AddressableLEDDataJNI;
 // import edu.wpi.first.wpilibj.simulation.AddressableLEDSim;
@@ -13,8 +12,8 @@ public class LEDSubsystem extends SubsystemBase {
   // All the steps to initialization can be found in the WPILib Documentation on AddressableLEDs
 
   // Set up variables for LEDs
-  private AddressableLED m_led;
-  private AddressableLEDBuffer m_ledBuffer;
+  AddressableLED m_led;
+  AddressableLEDBuffer m_ledBuffer;
   private int timer;
   private int scroll_offset;
 
@@ -38,7 +37,7 @@ public class LEDSubsystem extends SubsystemBase {
     scroll_offset = 7;
   }
 
-  private void SetLights(int rgb_red, int rgb_green, int rgb_blue) {
+  void SetLights(int rgb_red, int rgb_green, int rgb_blue) {
 
     // Sets all LEDs to RGB values
     for (int i = 0; i < m_ledBuffer.getLength(); i++) {
@@ -54,7 +53,6 @@ public class LEDSubsystem extends SubsystemBase {
     // Sets all LEDs to RGB values
     SetLights(150, 26, 192);
   }
-
   public void SetOrange() {
     SetLights(255, 142, 1);
   }
@@ -119,4 +117,5 @@ public class LEDSubsystem extends SubsystemBase {
       LightScroll();
     }
   }
+
 }

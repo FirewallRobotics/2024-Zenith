@@ -65,8 +65,8 @@ saved = False
 while iteration < 500:
    frame = vs.read()
    grayimage = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-   cv2.imshow('frame', frame)
-   cv2.imwrite("fulmer.jpg",frame)
+   #cv2.imshow('frame', frame)
+   #cv2.imwrite("fulmer.jpg",frame)
 
    detections = detector.detect(grayimage)
    if not detections:
@@ -82,9 +82,9 @@ while iteration < 500:
            cv2.imwrite("fulmer.jpg",frame)
            saved = True
            print("Saved!")
-   cv2.imshow('frame', frame)
-   cv2.waitKey(1)
+   #cv2.imshow('frame', frame)
+   #cv2.waitKey(1)
    iteration = iteration + 1
 
 vs.stop()
-cv2.destroyAllWindows()
+#cv2.destroyAllWindows()

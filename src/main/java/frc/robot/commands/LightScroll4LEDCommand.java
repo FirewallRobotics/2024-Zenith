@@ -7,11 +7,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
 
-public class SetLEDPurple extends Command {
+public class LightScroll4LEDCommand extends Command {
 
   private LEDSubsystem m_LED;
 
-  public SetLEDPurple(LEDSubsystem led_subsystem) {
+  public LightScroll4LEDCommand(LEDSubsystem led_subsystem) {
     m_LED = led_subsystem;
 
     addRequirements(led_subsystem);
@@ -22,10 +22,10 @@ public class SetLEDPurple extends Command {
   public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    m_LED.SetPurple();
-  }
+  // @Override
+  // public void execute() {
+  //   m_LED.RunDefaultLED(0);
+  // }
 
   // Called once the command ends or is interrupted.
   @Override
