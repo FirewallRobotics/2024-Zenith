@@ -63,6 +63,26 @@ public class AxleSubsystem extends SubsystemBase {
     AxlePIDController.setOutputRange(kMinOutput, kMaxOutput);
   }
 
+  public void setMotorSpeed(double speed) {
+    if (speed > 0) {
+      if (topLimitSwitch.get()) {
+        // We are going up and top limit is tripped so stop
+        MasterAxleMotor.set(0);
+      } else {
+        // We are going up but top limit is not tripped so go at commanded speed
+        MasterAxleMotor.set(speed);
+      }
+    } else {
+      if (bottomLimitSwitch.get()) {
+        // We are going down and bottom limit is tripped so stop
+        MasterAxleMotor.set(0);
+      } else {
+        // We are going down but bottom limit is not tripped so go at commanded speed
+        MasterAxleMotor.set(speed);
+      }
+    }
+  }
+
   public void GravityOffset(double kdefaultheight) {
     double kMeasuredPosHorizontal =
         .512; // position measured when arm is horizontal (with Pheonix Tuner)
@@ -76,6 +96,8 @@ public class AxleSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    // setMotorSpeed(joystick.getRawAxis(2));
   }
 
   public void DefaultAngle() {}
