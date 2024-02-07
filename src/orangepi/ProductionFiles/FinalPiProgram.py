@@ -5,14 +5,17 @@ import numpy as np
 import apriltag
 import time
 import sys
+import imutils
 
 class myWebcamVideoStream:
   
   global testmode, myStrPub
   testmode = False
-
-  if sys.argv != None:
+  
+  print(sys.argv[1:])
+  if sys.argv[1:] != []:
         testmode = True
+  print(testmode)
 
   def __init__(self, src=0):
     
@@ -93,6 +96,23 @@ def plotPoint(image, center, color):
                      3)
     return image
 
+def distance_to_camera(knownWidth, focalLength, perWidth):
+	# compute and return the distance from the maker to the camera
+	return (float(knownWidth) * float(focalLength)) / float(perWidth)
+
+def find_marker(image):
+	# convert the image to grayscale, blur it, and detect edges
+	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+	gray = cv2.GaussianBlur(gray, (5, 5), 0)
+	edged = cv2.Canny(gray, 35, 125)
+	# find the contours in the edged image and keep the largest one;
+	# we'll assume that this is our piece of paper in the image
+	cnts = cv2.findContours(edged.copy(), cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+	cnts = imutils.grab_contours(cnts)
+	c = max(cnts, key = cv2.contourArea)
+	# compute the bounding box of the of the paper region and return it
+	return cv2.minAreaRect(c)
+
 #With love from ChatGPT
 def denoise_image(image, kernel_size=(5, 5)):
     """
@@ -150,10 +170,6 @@ detector = apriltag.Detector(options)
 
 FRCtagSize = float(0.17) #17cm
 fx, fy, cx, cy = read_from_txt_file("cal.txt")
-newcameramtxstr, mtxstr, diststr, useless = read_from_txt_file("cal2.txt")
-mtx = np.array(eval(mtxstr))
-dist = np.array(eval(diststr))
-newcameramtx = np.array(eval(newcameramtxstr))
 
 cameraParams = float(fx), float(fy), float(cx), float(cy)
 
@@ -166,10 +182,10 @@ iteration = 0
 saved = False
 
 #Todo: Make not timed but not stupid
-while testmode == False | iteration < 3:
+while testmode == False | (iteration < 3 & testmode == True):
    if testmode == False:
     frame = vs.read()
-    frame2 = vb.read()
+    frame2 = vs.read()
    else:
       frame = cv2.imread('test.jpg')
       frame2 = cv2.imread('test.jpg')
@@ -207,15 +223,20 @@ while testmode == False | iteration < 3:
        #cv2.waitKey(1)
        #iterates over all tags detected
        for detect in detections:
-           pos, e1,f1=detector.detection_pose( detect, cameraParams, FRCtagSize, z_sign=1)
+           #pos, e1,f1=detector.detection_pose( detect, cameraParams, FRCtagSize, z_sign=1)
+           marker = find_marker(frame)
+           print(marker)
+           distance = distance_to_camera(FRCtagSize,fx,marker[1][0])
+           #apriltag._draw_pose(frame,cameraParams,FRCtagSize,pos)
            print("POSE DATA START")
-           print(pos, e1, f1)
+           print("POS")
+           print(distance)
            print("POSE DATA END")
 
            #sends the tag data named the t(str(detect.tag_id)).publish()ag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
            if testmode == False:
             myStrPub =table.getStringTopic(str(detect.tag_id)).publish()
-            myStrPub.set('{"Center": detect.center, "TopLft": detect.corners[0], "BotRht": detect.corners[2], "POS": pos, "e1": e1, "f1", f1}' )
+            myStrPub.set('{"Center": detect.center, "TopLft": detect.corners[0], "BotRht": detect.corners[2], "Dist": distance}' )
            print("tag_id: %s, center: %s, corners: %s, corner.top_left: %s , corner.bottom-right: %s" % (detect.tag_id, detect.center, detect.corners[0:], detect.corners[0], detect.corners[2]))
            frame=plotPoint(frame, detect.center, (255,0,255)) #purpe center
            cornerIndex=0
@@ -246,7 +267,7 @@ while testmode == False | iteration < 3:
 
 
 version =ntcore.ConnectionInfo.protocol_version
-print(" Remote ip: %s" % ntcore.ConnectionInfo.remote_ip)
+print("Exitting Code 0_o")
 
 #Closes everything out
 if testmode == False:

@@ -4,6 +4,7 @@ import cv2
 import numpy
 import apriltag
 import time
+import imutils
 
 class myWebcamVideoStream:
   def __init__(self, src=0):
@@ -51,6 +52,24 @@ class myWebcamVideoStream:
       self.stopped = True
       return
 
+def distance_to_camera(knownWidth, focalLength, perWidth):
+	# compute and return the distance from the maker to the camera
+	return (float(knownWidth) * float(focalLength)) / float(perWidth)
+
+def find_marker(image):
+	# convert the image to grayscale, blur it, and detect edges
+	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+	gray = cv2.GaussianBlur(gray, (5, 5), 0)
+	edged = cv2.Canny(gray, 35, 125)
+	# find the contours in the edged image and keep the largest one;
+	# we'll assume that this is our piece of paper in the image
+	cnts = cv2.findContours(edged.copy(), cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+	cnts = imutils.grab_contours(cnts)
+	c = max(cnts, key = cv2.contourArea)
+	# compute the bounding box of the of the paper region and return it
+	return cv2.minAreaRect(c)
+
+
 #reads the calibration data
 def read_from_txt_file(filename):
     try:
@@ -93,10 +112,6 @@ detector = apriltag.Detector(options)
 
 FRCtagSize = float(0.17) #17cm
 fx, fy, cx, cy = read_from_txt_file("cal.txt")
-newcameramtxstr, mtxstr, diststr, useless = read_from_txt_file("cal2.txt")
-mtx = numpy.array(eval(mtxstr))
-dist = numpy.array(eval(diststr))
-newcameramtx = numpy.array(eval(newcameramtxstr))
 
 cameraParams = float(fx), float(fy), float(cx), float(cy)
 
@@ -122,15 +137,20 @@ while True:
        #cv2.imwrite("fulmer.jpg",frame)
        #cv2.waitKey(1)
        #iterates over all tags detected
-       for detect in detections:
-           pos, e1,f1=detector.detection_pose( detect, cameraParams, FRCtagSize, z_sign=1)
+        for detect in detections:
+           #pos, e1,f1=detector.detection_pose( detect, cameraParams, FRCtagSize, z_sign=1)
+           marker = find_marker(frame)
+           print(marker)
+           distance = distance_to_camera(FRCtagSize,fx,marker[1][0])
+           #apriltag._draw_pose(frame,cameraParams,FRCtagSize,pos)
            print("POSE DATA START")
-           print(pos, e1, f1)
+           print("POS")
+           print(distance)
            print("POSE DATA END")
 
-           #sends the tag data named the tag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
+           #sends the tag data named the t(str(detect.tag_id)).publish()ag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
            myStrPub =table.getStringTopic(str(detect.tag_id)).publish()
-           myStrPub.set('"Center": detect.center, "TopLft": detect.corners[0], "BotRht": detect.corners[2], "POS": pos, "e1": e1, "f1", f1}' )
+           myStrPub.set('{"Center": detect.center, "TopLft": detect.corners[0], "BotRht": detect.corners[2], "Dist": distance}' )
            print("tag_id: %s, center: %s, corners: %s, corner.top_left: %s , corner.bottom-right: %s" % (detect.tag_id, detect.center, detect.corners[0:], detect.corners[0], detect.corners[2]))
            frame=plotPoint(frame, detect.center, (255,0,255)) #purpe center
            cornerIndex=0
@@ -149,11 +169,6 @@ while True:
                else:
                 frame=plotPoint(frame, corner, (0,255,255)) #yellow corner
                cornerIndex+=1
-       if not saved:
-           #find a apriltag save the image catches programmers looking weird
-           #cv2.imwrite("fulmer.jpg",frame)
-           saved = True
-           print("Saved!")
    #cv2.imshow('frame', frame)
    #cv2.waitKey(1)
    iteration = iteration + 1
