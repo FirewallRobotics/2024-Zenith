@@ -8,6 +8,7 @@ import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
@@ -20,13 +21,18 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public static DigitalInput intakeSensor;
 
+  public static Subsystem ledSubsystem;
+
   public IntakeSubsystem() {
     MasterIntakeMotor =
         new CANSparkMax(IntakeConstants.kMasterIntakeMotorPort, MotorType.kBrushless);
     MinionIntakeMotor =
         new CANSparkMax(IntakeConstants.kMinionIntakeMotorPort, MotorType.kBrushless);
     intakeSensor = new DigitalInput(IntakeConstants.kIntakeSensorPort);
-
+    final LEDSubsystem m_LEDSubsystem = new LEDSubsystem();
+    {
+    }
+    ;
     MasterIntakeMotor.restoreFactoryDefaults();
     MinionIntakeMotor.restoreFactoryDefaults();
 
@@ -48,8 +54,10 @@ public class IntakeSubsystem extends SubsystemBase {
   public void sensorStartIntake() {
     if (intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected) {
       StartIntake();
+      ((LEDSubsystem) ledSubsystem).SetLights(150, 26, 192);
     } else {
       StopIntake();
+      ((LEDSubsystem) ledSubsystem).SetLights(240, 79, 5);
     }
   }
 
