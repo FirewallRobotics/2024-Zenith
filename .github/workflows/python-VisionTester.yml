@@ -17,6 +17,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    inputs:
+      my_arg: "--test"
+
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
@@ -28,4 +31,4 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest pyntcore numpy apriltag opencv-python imutils
     - name: Run Wrapper Script
-      run: python /src/orangepi/ProductionFiles/FinalPiProgram.py --test
+      run: python src/orangepi/ProductionFiles/FinalPiProgram.py ${{ inputs.my_arg }}
