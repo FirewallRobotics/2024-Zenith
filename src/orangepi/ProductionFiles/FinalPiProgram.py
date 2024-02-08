@@ -15,7 +15,7 @@ class myWebcamVideoStream:
   Livemode = True
 
   print(sys.argv[1:])
-  if sys.argv[1:] == ['--test']:
+  if sys.argv[1:] == ['ehB-test']:
         testmode = True
         Livemode = False
   elif (sys.argv[1:] == ['--not-pi']):
