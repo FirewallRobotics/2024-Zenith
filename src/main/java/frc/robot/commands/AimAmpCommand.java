@@ -14,19 +14,19 @@ public class AimAmpCommand extends Command {
   private final DriveSubsystem m_Drivetrain;
 
   private final VisionSubsystem m_Vision;
-  private final AxleSubsystem m_Seesaw;
+  private final AxleSubsystem m_Axle;
 
   public AimAmpCommand(
-      DriveSubsystem dt_Subsystem, VisionSubsystem v_Subsystem, AxleSubsystem ss_Subsystem) {
+      DriveSubsystem dt_Subsystem, VisionSubsystem v_Subsystem, AxleSubsystem a_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
 
     m_Drivetrain = dt_Subsystem;
     m_Vision = v_Subsystem;
-    m_Seesaw = ss_Subsystem;
+    m_Axle = a_Subsystem;
 
     addRequirements(dt_Subsystem);
     addRequirements(v_Subsystem);
-    addRequirements(ss_Subsystem);
+    addRequirements(a_Subsystem);
   }
 
   // Called when the command is initially scheduled.
