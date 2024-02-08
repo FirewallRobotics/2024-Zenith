@@ -30,15 +30,24 @@ public class IntakeSourceCommand extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_Axle.IntakeFloorAngle();
+    m_Intake.sensorStartIntake();
+    m_Intake.StartIntake();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    if (interrupted == true) {
+      m_Intake.StopIntake();
+    }
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    m_Intake.StopIntake();
     return false;
   }
 }
