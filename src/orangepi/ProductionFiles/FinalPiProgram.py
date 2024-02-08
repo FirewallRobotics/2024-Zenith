@@ -18,7 +18,7 @@ class myWebcamVideoStream:
   if sys.argv[1:] == ['--test']:
         testmode = True
         Livemode = False
-  if (sys.argv[1:] == ['--not-pi']):
+  elif (sys.argv[1:] == ['--not-pi']):
       Livemode = False
   else:
       try:
