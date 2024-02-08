@@ -25,6 +25,8 @@ public class AutoAimSubsystem extends SubsystemBase {
   private final double rangeForAimAngle = AutoAimConstants.kRangeForAimAngle;
   private final double rangeForMax = AutoAimConstants.kRangeForMax;
 
+  private final double tagToSpeakerDistance = AutoAimConstants.kTagToSpeakerDistance;
+
   private double cameraDistance;
   private double launchDistance;
 
@@ -52,6 +54,16 @@ public class AutoAimSubsystem extends SubsystemBase {
     this.launchDistance = cameraDistance + launchToCameraDifference;
   }
 
+  public double solveForDistanceToSpeaker(double distanceToTag, double angleOfTag){
+    return Math.sqrt(Math.pow(tagToSpeakerDistance, 2)
+                   + Math.pow(distanceToTag, 2)
+                   - (2 * tagToSpeakerDistance * distanceToTag * Math.cos(angleOfTag)));
+  }
+
+  public double solveForDriveAngle(double distanceToSpeaker, double angleOfTag){
+    return Math.asin(tagToSpeakerDistance * Math.sin(angleOfTag) / distanceToSpeaker);
+  }
+
   private double plugInTheta(double theta) {
     double distance = targetX + launchDistance;
 
@@ -75,7 +87,7 @@ public class AutoAimSubsystem extends SubsystemBase {
             / Math.pow(Math.cos(theta), 2));
   }
 
-  public double SolveForAngle(double launchDistance) {
+  public double SolveForAimAngle(double launchDistance) {
     double minAngle = getMinAngle();
     System.out.println("MinAngle" + minAngle);
 

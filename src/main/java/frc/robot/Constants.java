@@ -146,6 +146,8 @@ public final class Constants {
     public static final double kCameraCenterX = 285;
     public static final double kDecelerationDistance = 9;
     public static final int kTotalAprilTags = 12;
+
+    public static final double kCameraFOV = 68.5;
   }
 
   public static final class AxleConstants {
@@ -198,5 +200,7 @@ public final class Constants {
         0.01; // Required accuracy for aim angle brute force calculation
     public static final double kRangeForMax =
         0.01; // Required accuracy for angle of max brute force calculation
+
+    public static final double kTagToSpeakerDistance = 0.25; // in meters; ***SUBJECT TO CHANGE***
   }
 }
