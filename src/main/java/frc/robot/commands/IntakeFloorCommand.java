@@ -14,14 +14,14 @@ public class IntakeFloorCommand extends Command {
 
   private final AxleSubsystem m_Axle;
 
-  public IntakeFloorCommand(IntakeSubsystem i_Subsystem, AxleSubsystem ss_Subsystem) {
+  public IntakeFloorCommand(IntakeSubsystem i_Subsystem, AxleSubsystem a_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
 
     m_Intake = i_Subsystem;
-    m_Axle = ss_Subsystem;
+    m_Axle = a_Subsystem;
 
     addRequirements(i_Subsystem);
-    addRequirements(ss_Subsystem);
+    addRequirements(a_Subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -31,7 +31,7 @@ public class IntakeFloorCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Axle.IntakeFloorAngle();
+    m_Axle.SetIntakeHeight();
 
     // This is the LED sensor.
     m_Intake.sensorStartIntake();

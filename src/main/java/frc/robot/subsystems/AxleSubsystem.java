@@ -100,15 +100,28 @@ public class AxleSubsystem extends SubsystemBase {
     // setMotorSpeed(joystick.getRawAxis(2));
   }
 
-  public void DefaultAngle() {}
 
-  public void AimAmpAngle() {}
+  public void SetAimHeight(double angle) {
+    GravityOffset(angle);
+  }
 
-  public void AimSpeakerAngle() {}
+  public void SetDefaultHeight() {
+    GravityOffset(AxleConstants.kDefaultHeight);
+  }
 
-  public void AimTrapAngle() {}
+  public void SetIntakeHeight() {
+    GravityOffset(AxleConstants.kIntakeHeight);
+  }
 
-  public void IntakeFloorAngle() {}
+  // public void DefaultAngle() {}
 
-  public void IntakeSourceAngle() {}
+  // public void AimAmpAngle() {}
+
+  // public void AimSpeakerAngle() {}
+
+  // public void AimTrapAngle() {}
+
+  // public void IntakeFloorAngle() {}
+
+  // public void IntakeSourceAngle() {}
 }
