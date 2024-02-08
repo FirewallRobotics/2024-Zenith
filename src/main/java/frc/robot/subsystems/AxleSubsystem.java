@@ -100,7 +100,6 @@ public class AxleSubsystem extends SubsystemBase {
     // setMotorSpeed(joystick.getRawAxis(2));
   }
 
-
   public void SetAimHeight(double angle) {
     GravityOffset(angle);
   }
