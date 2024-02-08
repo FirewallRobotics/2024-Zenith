@@ -54,13 +54,14 @@ public class AutoAimSubsystem extends SubsystemBase {
     this.launchDistance = cameraDistance + launchToCameraDifference;
   }
 
-  public double solveForDistanceToSpeaker(double distanceToTag, double angleOfTag){
-    return Math.sqrt(Math.pow(tagToSpeakerDistance, 2)
-                   + Math.pow(distanceToTag, 2)
-                   - (2 * tagToSpeakerDistance * distanceToTag * Math.cos(angleOfTag)));
+  public double solveForDistanceToSpeaker(double distanceToTag, double angleOfTag) {
+    return Math.sqrt(
+        Math.pow(tagToSpeakerDistance, 2)
+            + Math.pow(distanceToTag, 2)
+            - (2 * tagToSpeakerDistance * distanceToTag * Math.cos(angleOfTag)));
   }
 
-  public double solveForDriveAngle(double distanceToSpeaker, double angleOfTag){
+  public double solveForDriveAngle(double distanceToSpeaker, double angleOfTag) {
     return Math.asin(tagToSpeakerDistance * Math.sin(angleOfTag) / distanceToSpeaker);
   }
 
