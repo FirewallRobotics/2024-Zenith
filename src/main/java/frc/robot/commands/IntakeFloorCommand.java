@@ -12,13 +12,13 @@ public class IntakeFloorCommand extends Command {
   /** Creates a new ShootSpeakerCommand. */
   private final IntakeSubsystem m_Intake;
 
-  private final AxleSubsystem m_Seesaw;
+  private final AxleSubsystem m_Axle;
 
   public IntakeFloorCommand(IntakeSubsystem i_Subsystem, AxleSubsystem ss_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
 
     m_Intake = i_Subsystem;
-    m_Seesaw = ss_Subsystem;
+    m_Axle = ss_Subsystem;
 
     addRequirements(i_Subsystem);
     addRequirements(ss_Subsystem);
@@ -31,7 +31,7 @@ public class IntakeFloorCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Seesaw.IntakeFloorAngle();
+    m_Axle.IntakeFloorAngle();
 
     // This is the LED sensor.
     m_Intake.sensorStartIntake();
