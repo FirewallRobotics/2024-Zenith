@@ -12,16 +12,16 @@ public class IntakeFloorCommand extends Command {
   /** Creates a new ShootSpeakerCommand. */
   private final IntakeSubsystem m_Intake;
 
-  private final AxleSubsystem m_Seesaw;
+  private final AxleSubsystem m_Axle;
 
-  public IntakeFloorCommand(IntakeSubsystem i_Subsystem, AxleSubsystem ss_Subsystem) {
+  public IntakeFloorCommand(IntakeSubsystem i_Subsystem, AxleSubsystem a_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
 
     m_Intake = i_Subsystem;
-    m_Seesaw = ss_Subsystem;
+    m_Axle = a_Subsystem;
 
     addRequirements(i_Subsystem);
-    addRequirements(ss_Subsystem);
+    addRequirements(a_Subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -30,15 +30,27 @@ public class IntakeFloorCommand extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_Axle.SetIntakeHeight();
+
+    // This is the LED sensor.
+    m_Intake.sensorStartIntake();
+
+    m_Intake.StartIntake();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    if (interrupted == true) {
+      m_Intake.StopIntake();
+    }
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    m_Intake.StopIntake();
     return false;
   }
 }

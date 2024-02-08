@@ -14,14 +14,14 @@ public class ShootTrapCommand extends Command {
 
   private final AxleSubsystem m_Axle;
 
-  public ShootTrapCommand(ShooterSubsystem sh_Subsystem, AxleSubsystem ss_Subsystem) {
+  public ShootTrapCommand(ShooterSubsystem sh_Subsystem, AxleSubsystem a_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
 
     m_Shooter = sh_Subsystem;
-    m_Axle = ss_Subsystem;
+    m_Axle = a_Subsystem;
 
     addRequirements(sh_Subsystem);
-    addRequirements(ss_Subsystem);
+    addRequirements(a_Subsystem);
   }
 
   // Called when the command is initially scheduled.
