@@ -7,13 +7,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ClimbSubsystem;
 
-public class ClimbMiddleCommand extends Command {
-  /** Creates a new ShootSpeakerCommand. */
+public class ClimbDefaultCommand extends Command {
   private final ClimbSubsystem m_Climb;
 
-  public ClimbMiddleCommand(ClimbSubsystem c_Subsystem) {
+  /** Creates a new ClimbDefaultCommand. */
+  public ClimbDefaultCommand(ClimbSubsystem c_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-
     m_Climb = c_Subsystem;
 
     addRequirements(c_Subsystem);
@@ -26,7 +25,7 @@ public class ClimbMiddleCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Climb.ClimbMiddle();
+    m_Climb.DefaultHeight();
   }
 
   // Called once the command ends or is interrupted.

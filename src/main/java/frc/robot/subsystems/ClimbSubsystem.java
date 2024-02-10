@@ -12,20 +12,19 @@ import frc.robot.Constants.climbConstants;
 
 public class ClimbSubsystem extends SubsystemBase {
 
-  public static CANSparkMax climbMotorRight;
-  public static CANSparkMax climbMotorLeft;
+  public static CANSparkMax climbMotorMaster;
+  // public static CANSparkMax climbMotorLeft;
 
   private SparkLimitSwitch m_climbLimit;
 
   /** Creates a new ClimbSubsystem. */
   public ClimbSubsystem() {
 
-    climbMotorRight =
+    climbMotorMaster =
         new CANSparkMax(
-            climbConstants.kRightClimbMotorPort,
-            com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
+            climbConstants.kClimbMotorPort, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
 
-    m_climbLimit = climbMotorRight.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
+    m_climbLimit = climbMotorMaster.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
 
     m_climbLimit.enableLimitSwitch(true);
 
@@ -48,13 +47,28 @@ public class ClimbSubsystem extends SubsystemBase {
      * have a switch connected. isPressed() will return false when the switch is released.
      */
     SmartDashboard.putBoolean("Right Limit Switch", m_climbLimit.isPressed());
+
+    if (m_climbLimit.isPressed()) {
+      stopClimb();
+    }
   }
 
   public void DefaultHeight() {}
 
-  public void ClimbLeft() {}
+  public void ClimbLeft() {
+    climbMotorMaster.set(climbConstants.kClimbMotorPortSpeed);
+  }
 
-  public void ClimbMiddle() {}
+  public void ClimbMiddle() {
+    climbMotorMaster.set(climbConstants.kClimbMotorPortSpeed);
+  }
 
-  public void ClimbRight() {}
+  // Stop climb
+  public void ClimbRight() {
+    climbMotorMaster.set(climbConstants.kClimbMotorPortSpeed);
+  }
+
+  public void stopClimb() {
+    climbMotorMaster.set(0);
+  }
 }
