@@ -143,11 +143,13 @@ public final class Constants {
 
   public static final class VisionConstants {
 
-    public static final double kCameraCenterX = 285;
+    public static final int kCameraCenterX = 285;
     public static final double kDecelerationDistance = 9;
     public static final int kTotalAprilTags = 12;
 
     public static final double kCameraFOV = 68.5;
+
+    public static final double kDriveAimErrorRange = 10; // In pixels
   }
 
   public static final class AxleConstants {
