@@ -178,8 +178,10 @@ public final class Constants {
   }
 
   public static final class climbConstants {
-    public static final int kRightClimbMotorPort = 15;
+    public static final int kClimbMotorPort = 15;
     public static final int kLeftClimbMotorPort = 16;
+
+    public static final double kClimbMotorPortSpeed = 0.2;
   }
 
   public static final class AutoAimConstants {

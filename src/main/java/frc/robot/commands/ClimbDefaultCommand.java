@@ -5,23 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.AxleSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
 
-public class ShootAmpCommand extends Command {
-  /** Creates a new ShootSpeakerCommand. */
-  private final ShooterSubsystem m_Shooter;
+public class ClimbDefaultCommand extends Command {
+  private final ClimbSubsystem m_Climb;
 
-  private final AxleSubsystem m_Axle;
-
-  public ShootAmpCommand(ShooterSubsystem sh_Subsystem, AxleSubsystem a_Subsystem) {
+  /** Creates a new ClimbDefaultCommand. */
+  public ClimbDefaultCommand(ClimbSubsystem c_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
+    m_Climb = c_Subsystem;
 
-    m_Shooter = sh_Subsystem;
-    m_Axle = a_Subsystem;
-
-    addRequirements(sh_Subsystem);
-    addRequirements(a_Subsystem);
+    addRequirements(c_Subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -31,22 +25,21 @@ public class ShootAmpCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // m_Axle.AimAmpAngle();
-    m_Shooter.ShootAmp();
+    m_Climb.DefaultHeight();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     if (interrupted == true) {
-      m_Shooter.StopShoot();
+      m_Climb.stopClimb();
     }
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    m_Shooter.StopShoot();
+    m_Climb.stopClimb();
     return false;
   }
 }
