@@ -26,12 +26,16 @@ public class AimSpeakerCommand extends Command {
   private double targetAimAngle;
 
   private double targetTagXPosition;
-  
+
   private boolean successfulAngleAim;
   private boolean successfulDriveAim;
 
   public AimSpeakerCommand(
-      DriveSubsystem dt_Subsystem, AutoAimSubsystem aa_Subsystem, VisionSubsystem v_Subsystem, AxleSubsystem a_Subsystem, LEDSubsystem led_Subsystem) {
+      DriveSubsystem dt_Subsystem,
+      AutoAimSubsystem aa_Subsystem,
+      VisionSubsystem v_Subsystem,
+      AxleSubsystem a_Subsystem,
+      LEDSubsystem led_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
 
     m_Drivetrain = dt_Subsystem;
@@ -60,45 +64,47 @@ public class AimSpeakerCommand extends Command {
   }
 
   // Called every time the scheduler runs while the command is scheduled.
-  
+
   @Override
   public void execute() {
-    if(m_Vision.checkForSpeakerTag()){
-      
+    if (m_Vision.checkForSpeakerTag()) {
+
       float centerX = m_Vision.getSpeakerTagCenterX();
       float rotationZ = m_Vision.getSpeakerTagRotationZ();
 
       float cameraDistanceToTag = m_Vision.getSpeakerTagDistanceToTag();
-      double cameraDistanceToSpeaker = m_AutoAim.solveForDistanceToSpeaker(cameraDistanceToTag, rotationZ); // NOTEWORTHY, may have to invert rotationZ to negative
+      double cameraDistanceToSpeaker =
+          m_AutoAim.solveForDistanceToSpeaker(
+              cameraDistanceToTag,
+              rotationZ); // NOTEWORTHY, may have to invert rotationZ to negative
 
-      if(!foundTargetAngle){
+      if (!foundTargetAngle) {
         findAimAngle(cameraDistanceToSpeaker);
       }
 
-      successfulDriveAim = (Math.abs(targetTagXPosition - centerX) > VisionConstants.kDriveAimErrorRange);
+      successfulDriveAim =
+          (Math.abs(targetTagXPosition - centerX) > VisionConstants.kDriveAimErrorRange);
 
-      if(!successfulDriveAim){
+      if (!successfulDriveAim) {
         // Turn robot so centerX approaches our targetTagXPosition
       }
-    }
-    else {
+    } else {
       System.out.println("Target not found");
       // Set LEDs for not found
     }
 
-    if(foundTargetAngle){
-        m_Axle.SetAimHeight(targetAimAngle);
+    if (foundTargetAngle) {
+      m_Axle.SetAimHeight(targetAimAngle);
 
-        System.out.println("Angle found - changing to angle");
-        // Set LEDs for in range
+      System.out.println("Angle found - changing to angle");
+      // Set LEDs for in range
 
-        // If at correct angle and at correct position, set LEDs for shoot 
+      // If at correct angle and at correct position, set LEDs for shoot
+    } else {
+      // Set LEDs for not in range
     }
-      else {
-        // Set LEDs for not in range
-    }
 
-    if(successfulAngleAim && successfulDriveAim){
+    if (successfulAngleAim && successfulDriveAim) {
       System.out.println("Successful Aim!");
       // Set LEDs for aimed successfully
     }
@@ -114,24 +120,26 @@ public class AimSpeakerCommand extends Command {
     return false;
   }
 
-  private void findAimAngle(double cameraDistanceToSpeaker){
-    m_AutoAim.setLaunchDistance(cameraDistanceToSpeaker); // Converts from cam distance to launch distance
-        targetAimAngle = m_AutoAim.SolveForAimAngle();
+  private void findAimAngle(double cameraDistanceToSpeaker) {
+    m_AutoAim.setLaunchDistance(
+        cameraDistanceToSpeaker); // Converts from cam distance to launch distance
+    targetAimAngle = m_AutoAim.SolveForAimAngle();
 
-        if(targetAimAngle == -1){
-          foundTargetAngle = true;
-        }
-        else {
-          foundTargetAngle = false;
-        }
+    if (targetAimAngle == -1) {
+      foundTargetAngle = true;
+    } else {
+      foundTargetAngle = false;
+    }
   }
 
-  private void findTagXPosition(double launchDistanceToSpeaker, double angleOfTag){
+  private void findTagXPosition(double launchDistanceToSpeaker, double angleOfTag) {
     double driveAngle = m_AutoAim.solveForDriveAngle(launchDistanceToSpeaker, angleOfTag);
     double driveAngleDegrees = driveAngle * Math.PI / 180;
 
-    double driveAnglePixels = driveAngleDegrees * VisionConstants.kCameraCenterX * 2 / VisionConstants.kCameraFOV;
+    double driveAnglePixels =
+        driveAngleDegrees * VisionConstants.kCameraCenterX * 2 / VisionConstants.kCameraFOV;
 
-    targetTagXPosition = VisionConstants.kCameraCenterX - driveAnglePixels; // May need to reverse - to a +
+    targetTagXPosition =
+        VisionConstants.kCameraCenterX - driveAnglePixels; // May need to reverse - to a +
   }
 }
