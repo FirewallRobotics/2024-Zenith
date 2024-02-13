@@ -19,12 +19,17 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
+import frc.robot.subsystems.AxleSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.UltrasonicSensor;
 import frc.robot.subsystems.VisionSubsystem;
 import java.util.List;
@@ -38,6 +43,10 @@ import java.util.List;
 public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  private final ShooterSubsystem m_shooter = new ShooterSubsystem();
+  private final IntakeSubsystem m_intake = new IntakeSubsystem();
+  private final ClimbSubsystem m_climb = new ClimbSubsystem();
+  private final AxleSubsystem m_axle = new AxleSubsystem();
   private final VisionSubsystem m_vision = new VisionSubsystem();
   private final UltrasonicSensor m_UltrasonicSensor = new UltrasonicSensor();
   private final LEDSubsystem m_LEDSubsystem = new LEDSubsystem();
@@ -77,8 +86,25 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
+    // new JoystickButton(m_driverController, Button.kR1.value)
+    //     .whileTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
+
     new JoystickButton(m_driverController, Button.kR1.value)
-        .whileTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
+        .whileTrue(new ShootSpeakerCommand(m_shooter, m_axle));
+
+    new JoystickButton(m_driverController, Button.kL1.value)
+        .whileTrue(new IntakeFloorCommand(m_intake, m_axle));
+
+    new JoystickButton(m_driverController, Button.kSquare.value)
+        .whileTrue(new AimSpeakerCommand(m_robotDrive, m_vision, m_axle));
+
+    new JoystickButton(m_driverController, Button.kTriangle.value)
+        .whileTrue(new AimAmpCommand(m_robotDrive, m_vision, m_axle));
+
+    new JoystickButton(m_driverController, Button.kL2.value)
+        .whileTrue(new ClimbMiddleCommand(m_climb));
+
+    new POVButton(m_driverController, 270).whileTrue(new ShootTrapCommand(m_shooter, m_axle));
   }
 
   /**
