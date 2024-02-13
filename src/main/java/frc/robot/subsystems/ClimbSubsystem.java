@@ -4,7 +4,9 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkLimitSwitch;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -15,7 +17,14 @@ public class ClimbSubsystem extends SubsystemBase {
   public static CANSparkMax climbMotorMaster;
   // public static CANSparkMax climbMotorLeft;
 
-  private SparkLimitSwitch m_climbLimit;
+  public static SparkLimitSwitch m_climbLimit;
+
+  public static AbsoluteEncoder climbEncoder;
+
+  // Variables for setting the climb to default
+
+  // public double hieghtDefault;
+  public double currentPos;
 
   /** Creates a new ClimbSubsystem. */
   public ClimbSubsystem() {
@@ -29,12 +38,28 @@ public class ClimbSubsystem extends SubsystemBase {
     m_climbLimit.enableLimitSwitch(true);
 
     SmartDashboard.putBoolean("Right Limit Enabled", m_climbLimit.isLimitSwitchEnabled());
+
+    climbMotorMaster.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
+    climbMotorMaster.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
+
+    climbMotorMaster.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 10);
+    climbMotorMaster.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);
+
+    climbEncoder = climbMotorMaster.getAbsoluteEncoder(Type.kDutyCycle);
   }
+
+  /*
+  public void initialize(){
+
+    hieghtDefault = climbEncoder.getPosition();
+  }
+  */
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
 
+    currentPos = climbEncoder.getPosition();
     // enable/disable limit switches based on value read from SmartDashboard
     m_climbLimit.enableLimitSwitch(SmartDashboard.getBoolean("Right Limit Enabled", false));
 
@@ -53,7 +78,9 @@ public class ClimbSubsystem extends SubsystemBase {
     }
   }
 
-  public void DefaultHeight() {}
+  public void DefaultHeight() {
+    climbMotorMaster.set(-1 * climbConstants.kClimbMotorPortSpeed);
+  }
 
   public void ClimbLeft() {
     climbMotorMaster.set(climbConstants.kClimbMotorPortSpeed);
@@ -63,11 +90,11 @@ public class ClimbSubsystem extends SubsystemBase {
     climbMotorMaster.set(climbConstants.kClimbMotorPortSpeed);
   }
 
-  // Stop climb
   public void ClimbRight() {
     climbMotorMaster.set(climbConstants.kClimbMotorPortSpeed);
   }
 
+  // Stop climb
   public void stopClimb() {
     climbMotorMaster.set(0);
   }
