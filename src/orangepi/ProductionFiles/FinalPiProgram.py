@@ -20,13 +20,7 @@ class myWebcamVideoStream:
         Livemode = False
   elif (sys.argv[1:] == ['--not-pi']):
       Livemode = False
-  else:
-      try:
-        import unicornhat
-      except RuntimeError:
-        print("whoops 0_o")
-        print("use --not-pi")
-        exit()
+  #else:
   print(testmode)
 
   def __init__(self, src=0):
@@ -86,10 +80,10 @@ def read_from_txt_file(filename):
                 var4 = lines[3].strip()
                 return var1, var2, var3, var4
             else:
-                print(f"File '{filename}' does not contain enough lines.")
+                #print(f"File '{filename}' does not contain enough lines.")
                 return None
     except FileNotFoundError:
-        print(f"File '{filename}' not found.")
+        #print(f"File '{filename}' not found.")
         return None
 
 
@@ -171,28 +165,6 @@ def average_position_of_pixels(mat, threshold=128):
     else:
         return 0, 0
 
-if Livemode:
-    def scroll_text(text, speed=0.1, brightness=0.5):
-        vs.unicornhat.brightness(brightness)
-
-        for char in text + '   ':
-            vs.unicornhat.clear()
-
-            for x in range(8):
-                for y in range(4):
-                    pixel = text_pixel(char, x, y)
-                    vs.unicornhat.set_pixel(x, y, *pixel)
-
-            vs.unicornhat.show()
-            time.sleep(speed)
-
-    def text_pixel(char, x, y):
-        try:
-            index = ord(char) - ord(' ')
-            return vs.unicornhat.get_pixel(x, y, index)
-        except IndexError:
-            return (0, 0, 0)
-
 # main program
 #configs the detector
 if testmode == False:
@@ -270,11 +242,9 @@ while testmode == False | (iteration < 3 & testmode == True):
            #print(distance)
            #print("POSE DATA END")
 
-           if Livemode:
-               vs.unicornhat.clear()
-               vs.unicornhat.set_pixel(0,0,255,255,255)
-               vs.unicornhat.set_pixel(0,1,distance_to_camera*10,distance_to_camera*10,distance_to_camera*10)
-               scroll_text("Firewall - - - - - - - - 5607 - - - - - - -")
+           #broken and I have lost my ability to care for this :-(
+           #if Livemode:
+           #    vs.BackgroundUnicorn.coolstuff(distance_to_camera)
 
            #sends the tag data named the t(str(detect.tag_id)).publish()ag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
            if testmode == False:
