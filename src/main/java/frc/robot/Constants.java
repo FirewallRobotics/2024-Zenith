@@ -209,5 +209,13 @@ public final class Constants {
         0.01; // Required accuracy for angle of max brute force calculation
 
     public static final double kTagToSpeakerDistance = 0.25; // in meters; ***SUBJECT TO CHANGE***
+
+    public static final double kDriveRotationPower = 0.1;
+
+    public static final double kMaxPhysicalAngleDegrees = 50; // in degrees (if that wasn't obvious)
+    public static final double kPhysicalShooterAngleOffsetDegrees =
+        20; // in degrees, ADDED to the axle angle for shooter
+
+    public static final double kShooterAimErrorRangeDegrees = 5; // In degrees
   }
 }

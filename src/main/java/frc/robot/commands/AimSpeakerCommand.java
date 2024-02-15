@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.AutoAimConstants;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.subsystems.AutoAimSubsystem;
 import frc.robot.subsystems.AxleSubsystem;
@@ -29,6 +30,8 @@ public class AimSpeakerCommand extends Command {
 
   private boolean successfulAngleAim;
   private boolean successfulDriveAim;
+
+  private boolean tooClose;
 
   public AimSpeakerCommand(
       DriveSubsystem dt_Subsystem,
@@ -61,6 +64,7 @@ public class AimSpeakerCommand extends Command {
 
     successfulAngleAim = false;
     successfulDriveAim = false;
+    tooClose = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -74,33 +78,54 @@ public class AimSpeakerCommand extends Command {
 
       float cameraDistanceToTag = m_Vision.getSpeakerTagDistanceToTag();
       double cameraDistanceToSpeaker =
-          m_AutoAim.solveForDistanceToSpeaker(
-              cameraDistanceToTag,
-              rotationZ); // NOTEWORTHY, may have to invert rotationZ to negative
+          m_AutoAim.solveForDistanceToSpeaker(cameraDistanceToTag, rotationZ);
+      // NOTEWORTHY, may have to invert rotationZ to negative
 
-      if (!foundTargetAngle) {
-        findAimAngle(cameraDistanceToSpeaker);
+      findAimAngle(cameraDistanceToSpeaker);
+
+      if (targetAimAngle > (AutoAimConstants.kMaxPhysicalAngleDegrees * Math.PI / 180)) {
+        tooClose = true;
+        System.out.println("Too close");
+        // Set LEDs for TOO CLOSE
+      } else {
+        tooClose = false;
       }
 
       successfulDriveAim =
-          (Math.abs(targetTagXPosition - centerX) > VisionConstants.kDriveAimErrorRange);
+          (Math.abs(targetTagXPosition - centerX) < VisionConstants.kDriveAimErrorRange);
 
-      if (!successfulDriveAim) {
+      if (successfulDriveAim) {
+        stopDrive();
+      } else {
         // Turn robot so centerX approaches our targetTagXPosition
+
+        if (centerX > targetTagXPosition) {
+          rotateRightDrive();
+        } else {
+          rotateLeftDrive();
+        }
       }
     } else {
       System.out.println("Target not found");
-      // Set LEDs for not found
+      // Set LEDs for NOT FOUND
     }
 
     if (foundTargetAngle) {
       m_Axle.SetAimHeight(targetAimAngle);
 
+      // successfulAngleAim =
+      //     (Math.abs(targetAimAngle - (m_Axle.getAngle() +
+      // (AutoAimConstants.kPhysicalShooterAngleOffsetDegrees * Math.PI / 180)))
+      //     < (AutoAimConstants.kShooterAimErrorRangeDegrees * Math.PI / 180));
+
       System.out.println("Angle found - changing to angle");
       // Set LEDs for in range
 
-      // If at correct angle and at correct position, set LEDs for shoot
+      if (successfulAngleAim) {
+        System.out.println("Successful angle aim");
+      }
     } else {
+      System.out.println("Not in range");
       // Set LEDs for not in range
     }
 
@@ -141,5 +166,17 @@ public class AimSpeakerCommand extends Command {
 
     targetTagXPosition =
         VisionConstants.kCameraCenterX - driveAnglePixels; // May need to reverse - to a +
+  }
+
+  private void rotateLeftDrive() {
+    m_Drivetrain.drive(0, 0, -AutoAimConstants.kDriveRotationPower, true, true);
+  }
+
+  private void rotateRightDrive() {
+    m_Drivetrain.drive(0, 0, AutoAimConstants.kDriveRotationPower, true, true);
+  }
+
+  private void stopDrive() {
+    m_Drivetrain.drive(0, 0, 0, true, true);
   }
 }
