@@ -156,6 +156,7 @@ public final class Constants {
     public final double kAimHeight = .01;
     public static final double kDefaultHeight = .01;
     public static final double kIntakeHeight = .01;
+    public static double kMeasuredPosHorizontal = .512;
   }
 
   public static final class ShooterConstants {
