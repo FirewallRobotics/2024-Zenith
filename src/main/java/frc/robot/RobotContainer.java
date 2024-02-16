@@ -24,6 +24,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
+import frc.robot.subsystems.AutoAimSubsystem;
 import frc.robot.subsystems.AxleSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -48,6 +49,7 @@ public class RobotContainer {
   private final ClimbSubsystem m_climb = new ClimbSubsystem();
   private final AxleSubsystem m_axle = new AxleSubsystem();
   private final VisionSubsystem m_vision = new VisionSubsystem();
+  private final AutoAimSubsystem m_autoAim = new AutoAimSubsystem();
   private final UltrasonicSensor m_UltrasonicSensor = new UltrasonicSensor();
   private final LEDSubsystem m_LEDSubsystem = new LEDSubsystem();
 
@@ -95,8 +97,9 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kL1.value)
         .whileTrue(new IntakeFloorCommand(m_intake, m_axle));
 
-    // new JoystickButton(m_driverController, Button.kSquare.value)
-    //     .whileTrue(new AimSpeakerCommand(m_robotDrive, m_vision, m_axle));
+    new JoystickButton(m_driverController, Button.kSquare.value)
+        .whileTrue(
+            new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LEDSubsystem));
 
     new JoystickButton(m_driverController, Button.kTriangle.value)
         .whileTrue(new AimAmpCommand(m_robotDrive, m_vision, m_axle));

@@ -31,8 +31,6 @@ public class AimSpeakerCommand extends Command {
   private boolean successfulAngleAim;
   private boolean successfulDriveAim;
 
-  private boolean tooClose;
-
   public AimSpeakerCommand(
       DriveSubsystem dt_Subsystem,
       AutoAimSubsystem aa_Subsystem,
@@ -64,7 +62,6 @@ public class AimSpeakerCommand extends Command {
 
     successfulAngleAim = false;
     successfulDriveAim = false;
-    tooClose = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -74,21 +71,19 @@ public class AimSpeakerCommand extends Command {
     if (m_Vision.checkForSpeakerTag()) {
 
       float centerX = m_Vision.getSpeakerTagCenterX();
-      float rotationZ = m_Vision.getSpeakerTagRotationZ();
+      float angleOfTag = m_Vision.getSpeakerTagRotationZ();
 
       float cameraDistanceToTag = m_Vision.getSpeakerTagDistanceToTag();
       double cameraDistanceToSpeaker =
-          m_AutoAim.solveForDistanceToSpeaker(cameraDistanceToTag, rotationZ);
+          m_AutoAim.solveForDistanceToSpeaker(cameraDistanceToTag, angleOfTag);
       // NOTEWORTHY, may have to invert rotationZ to negative
 
       findAimAngle(cameraDistanceToSpeaker);
+      findTagXPosition(cameraDistanceToSpeaker, angleOfTag);
 
       if (targetAimAngle > (AutoAimConstants.kMaxPhysicalAngleDegrees * Math.PI / 180)) {
-        tooClose = true;
         System.out.println("Too close");
         // Set LEDs for TOO CLOSE
-      } else {
-        tooClose = false;
       }
 
       successfulDriveAim =
@@ -111,12 +106,14 @@ public class AimSpeakerCommand extends Command {
     }
 
     if (foundTargetAngle) {
-      m_Axle.SetAimHeight(targetAimAngle);
+      m_Axle.SetAimHeight(targetAimAngle + AutoAimConstants.kPhysicalShooterAngleOffsetDegrees);
 
-      // successfulAngleAim =
-      //     (Math.abs(targetAimAngle - (m_Axle.getAngle() +
-      // (AutoAimConstants.kPhysicalShooterAngleOffsetDegrees * Math.PI / 180)))
-      //     < (AutoAimConstants.kShooterAimErrorRangeDegrees * Math.PI / 180));
+      successfulAngleAim =
+          (Math.abs(
+                  targetAimAngle
+                      - (m_Axle.getAngle()
+                          + (AutoAimConstants.kPhysicalShooterAngleOffsetDegrees * Math.PI / 180)))
+              < (AutoAimConstants.kShooterAimErrorRangeDegrees * Math.PI / 180));
 
       System.out.println("Angle found - changing to angle");
       // Set LEDs for in range
@@ -157,7 +154,10 @@ public class AimSpeakerCommand extends Command {
     }
   }
 
-  private void findTagXPosition(double launchDistanceToSpeaker, double angleOfTag) {
+  private void findTagXPosition(double cameraDistanceToSpeaker, double angleOfTag) {
+    double launchDistanceToSpeaker =
+        cameraDistanceToSpeaker + AutoAimConstants.kLaunchToCameraDifference;
+
     double driveAngle = m_AutoAim.solveForDriveAngle(launchDistanceToSpeaker, angleOfTag);
     double driveAngleDegrees = driveAngle * Math.PI / 180;
 
