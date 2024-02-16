@@ -62,7 +62,7 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/commands/AimSpeakerCommand.html" class="type-name-link" title="class in frc.robot.commands">AimSpeakerCommand</a> - Class in <a href="frc/robot/commands/package-summary.html">frc.robot.commands</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="frc/robot/commands/AimSpeakerCommand.html#%3Cinit%3E(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem)" class="member-name-link">AimSpeakerCommand(DriveSubsystem, VisionSubsystem, AxleSubsystem)</a> - Constructor for class frc.robot.commands.<a href="frc/robot/commands/AimSpeakerCommand.html" title="class in frc.robot.commands">AimSpeakerCommand</a></dt>
+<dt><a href="frc/robot/commands/AimSpeakerCommand.html#%3Cinit%3E(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.LEDSubsystem)" class="member-name-link">AimSpeakerCommand(DriveSubsystem, AutoAimSubsystem, VisionSubsystem, AxleSubsystem, LEDSubsystem)</a> - Constructor for class frc.robot.commands.<a href="frc/robot/commands/AimSpeakerCommand.html" title="class in frc.robot.commands">AimSpeakerCommand</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/utils/SwerveUtils.html#AngleDifference(double,double)" class="member-name-link">AngleDifference(double, double)</a> - Static method in class frc.utils.<a href="frc/utils/SwerveUtils.html" title="class in frc.utils">SwerveUtils</a></dt>
 <dd>
@@ -444,11 +444,15 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/Constants.DriveConstants.html#kDirectionSlewRate" class="member-name-link">kDirectionSlewRate</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.DriveConstants.html" title="class in frc.robot">Constants.DriveConstants</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="frc/robot/Constants.VisionConstants.html#kDriveAimErrorRange" class="member-name-link">kDriveAimErrorRange</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.VisionConstants.html" title="class in frc.robot">Constants.VisionConstants</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="frc/robot/Constants.OIConstants.html#kDriveDeadband" class="member-name-link">kDriveDeadband</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.OIConstants.html" title="class in frc.robot">Constants.OIConstants</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/Constants.DriveConstants.html#kDriveKinematics" class="member-name-link">kDriveKinematics</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.DriveConstants.html" title="class in frc.robot">Constants.DriveConstants</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/Constants.OIConstants.html#kDriverControllerPort" class="member-name-link">kDriverControllerPort</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.OIConstants.html" title="class in frc.robot">Constants.OIConstants</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="frc/robot/Constants.AutoAimConstants.html#kDriveRotationPower" class="member-name-link">kDriveRotationPower</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.AutoAimConstants.html" title="class in frc.robot">Constants.AutoAimConstants</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/Constants.ModuleConstants.html#kDriveWheelFreeSpeedRps" class="member-name-link">kDriveWheelFreeSpeedRps</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.ModuleConstants.html" title="class in frc.robot">Constants.ModuleConstants</a></dt>
 <dd>&nbsp;</dd>
@@ -538,6 +542,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/subsystems/AxleSubsystem.html#kMaxOutput" class="member-name-link">kMaxOutput</a> - Variable in class frc.robot.subsystems.<a href="frc/robot/subsystems/AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="frc/robot/Constants.AutoAimConstants.html#kMaxPhysicalAngleDegrees" class="member-name-link">kMaxPhysicalAngleDegrees</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.AutoAimConstants.html" title="class in frc.robot">Constants.AutoAimConstants</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="frc/robot/Constants.AutoConstants.html#kMaxSpeedMetersPerSecond" class="member-name-link">kMaxSpeedMetersPerSecond</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.AutoConstants.html" title="class in frc.robot">Constants.AutoConstants</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/Constants.DriveConstants.html#kMaxSpeedMetersPerSecond" class="member-name-link">kMaxSpeedMetersPerSecond</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.DriveConstants.html" title="class in frc.robot">Constants.DriveConstants</a></dt>
@@ -553,6 +559,8 @@ loadScripts(document, 'script');</script>
 <dt><a href="frc/robot/subsystems/AxleSubsystem.html#kMinOutput" class="member-name-link">kMinOutput</a> - Variable in class frc.robot.subsystems.<a href="frc/robot/subsystems/AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/subsystems/AxleSubsystem.html#kP" class="member-name-link">kP</a> - Variable in class frc.robot.subsystems.<a href="frc/robot/subsystems/AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="frc/robot/Constants.AutoAimConstants.html#kPhysicalShooterAngleOffsetDegrees" class="member-name-link">kPhysicalShooterAngleOffsetDegrees</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.AutoAimConstants.html" title="class in frc.robot">Constants.AutoAimConstants</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/Constants.AutoConstants.html#kPThetaController" class="member-name-link">kPThetaController</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.AutoConstants.html" title="class in frc.robot">Constants.AutoConstants</a></dt>
 <dd>&nbsp;</dd>
@@ -573,6 +581,8 @@ loadScripts(document, 'script');</script>
 <dt><a href="frc/robot/Constants.DriveConstants.html#kRearRightTurningCanId" class="member-name-link">kRearRightTurningCanId</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.DriveConstants.html" title="class in frc.robot">Constants.DriveConstants</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/Constants.DriveConstants.html#kRotationalSlewRate" class="member-name-link">kRotationalSlewRate</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.DriveConstants.html" title="class in frc.robot">Constants.DriveConstants</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="frc/robot/Constants.AutoAimConstants.html#kShooterAimErrorRangeDegrees" class="member-name-link">kShooterAimErrorRangeDegrees</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.AutoAimConstants.html" title="class in frc.robot">Constants.AutoAimConstants</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/Constants.ShooterConstants.html#kShooterMotorSpeed" class="member-name-link">kShooterMotorSpeed</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.ShooterConstants.html" title="class in frc.robot">Constants.ShooterConstants</a></dt>
 <dd>&nbsp;</dd>
@@ -796,7 +806,7 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/commands/ShootTrapCommand.html#%3Cinit%3E(frc.robot.subsystems.ShooterSubsystem,frc.robot.subsystems.AxleSubsystem)" class="member-name-link">ShootTrapCommand(ShooterSubsystem, AxleSubsystem)</a> - Constructor for class frc.robot.commands.<a href="frc/robot/commands/ShootTrapCommand.html" title="class in frc.robot.commands">ShootTrapCommand</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="frc/robot/subsystems/AutoAimSubsystem.html#SolveForAimAngle(double)" class="member-name-link">SolveForAimAngle(double)</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a></dt>
+<dt><a href="frc/robot/subsystems/AutoAimSubsystem.html#SolveForAimAngle()" class="member-name-link">SolveForAimAngle()</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/subsystems/AutoAimSubsystem.html#solveForDistanceToSpeaker(double,double)" class="member-name-link">solveForDistanceToSpeaker(double, double)</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a></dt>
 <dd>&nbsp;</dd>
