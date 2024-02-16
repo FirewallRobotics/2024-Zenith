@@ -95,8 +95,8 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kL1.value)
         .whileTrue(new IntakeFloorCommand(m_intake, m_axle));
 
-    new JoystickButton(m_driverController, Button.kSquare.value)
-        .whileTrue(new AimSpeakerCommand(m_robotDrive, m_vision, m_axle));
+    // new JoystickButton(m_driverController, Button.kSquare.value)
+    //     .whileTrue(new AimSpeakerCommand(m_robotDrive, m_vision, m_axle));
 
     new JoystickButton(m_driverController, Button.kTriangle.value)
         .whileTrue(new AimAmpCommand(m_robotDrive, m_vision, m_axle));
