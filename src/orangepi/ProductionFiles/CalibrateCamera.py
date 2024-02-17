@@ -9,7 +9,7 @@ class myWebcamVideoStream:
   def __init__(self, src=1):
     # initialize the video camera stream and read the 
     # first frame from the stream
-    self.stream = cv.VideoCapture(src, cv2.CAP_V4L)
+    self.stream = cv.VideoCapture(0) 
     (self.grabbed, self.frame) = self.stream.read()
 
     # flag to stop the thread

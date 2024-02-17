@@ -7,6 +7,7 @@ import time
 import sys
 import imutils
 from scipy.spatial.transform import Rotation
+import random
 
 class myWebcamVideoStream:
   
@@ -35,9 +36,10 @@ class myWebcamVideoStream:
     ntinst.startClient4("pi1 vision client")
     ntinst.setServer("10.56.7.2")
     
+    #Find the camera and
     # initialize the video camera stream and read the 
     # first frame from the stream
-    self.stream = cv2.VideoCapture(src) 
+    self.stream = cv2.VideoCapture(0) 
     (self.grabbed, self.frame) = self.stream.read()
 
     # flag to stop the thread
@@ -169,7 +171,6 @@ def average_position_of_pixels(mat, threshold=128):
 #configs the detector
 if testmode == False:
     vs = myWebcamVideoStream(0).start()
-    vb = myWebcamVideoStream(1).start()
 options = apriltag.DetectorOptions(families="tag36h11")
 detector = apriltag.Detector(options)
 
@@ -177,7 +178,9 @@ FRCtagSize = float(0.17) #17cm
 fx, fy, cx, cy = read_from_txt_file("cal.txt")
 
 cameraParams = float(fx), float(fy), float(cx), float(cy)
-
+#makes sure there is a camera to stream
+if not vs:
+   print("no image")
 # define color the list of boundaries
 boundaries = [
 	([80,45,170], [100,145,255])
@@ -190,19 +193,50 @@ saved = False
 while testmode == False | (iteration < 3 & testmode == True):
    if testmode == False:
     frame = vs.read()
-    frame2 = vs.read()
    else:
       frame = cv2.imread('test.jpg')
-      frame2 = cv2.imread('test.jpg')
 
+   funny_phrases = [
+    "404 Humor not found",
+    "Im not lazy im in energy-saving mode",
+    "The cake is a lie",
+    "ChatGPT is my best friend",
+    "Not antisocial just user unfriendly",
+    "hold on justa little while longer - hold on justa little while longer",
+    "it works why",
+    "flip the world",
+    "lttstore.com",
+    "the most used programming language is profanity",
+    "binary is as easy as 01 10 11",
+    "my attitude isnt bad its in beta",
+    "ctrl+c ctrl+v",
+    "i use arch btw",
+    "define object women",
+    "wpi bye",
+    "my life is pain",
+    "help i am blind",
+    "omg they killed kenny",
+    "a robot gets arrested - charged with battery",
+    "does r2d2 have any brothers - no only transitors",
+    "this robot sponsored by nord vpn",
+
+]
+
+   Numcol = random.randrange(0, len(funny_phrases))
+   color = funny_phrases[Numcol]
+
+   if Livemode:
+        cool = open("coolstuff.txt", "w")
+        cool.write(color)
+        cool.close()
    for (lower, upper) in boundaries:
     # create NumPy arrays from the boundaries
     lower = np.array(lower, dtype = "uint8")
     upper = np.array(upper, dtype = "uint8")
     # find the colors within the specified boundaries and apply
     # the mask
-    mask = cv2.inRange(frame2, lower, upper)
-    output = cv2.bitwise_and(frame2, frame2, mask = mask)
+    mask = cv2.inRange(frame, lower, upper)
+    output = cv2.bitwise_and(frame, frame, mask = mask)
     output = cv2.cvtColor(output, cv2.COLOR_BGR2GRAY)
     # show the images
     output = denoise_image(output)
@@ -241,10 +275,8 @@ while testmode == False | (iteration < 3 & testmode == True):
            #print("distace")
            #print(distance)
            #print("POSE DATA END")
+           
 
-           #broken and I have lost my ability to care for this :-(
-           #if Livemode:
-           #    vs.BackgroundUnicorn.coolstuff(distance_to_camera)
 
            #sends the tag data named the t(str(detect.tag_id)).publish()ag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
            if testmode == False:
