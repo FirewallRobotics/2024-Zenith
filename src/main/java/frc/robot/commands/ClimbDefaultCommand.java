@@ -28,10 +28,7 @@ public class ClimbDefaultCommand extends Command {
   public void execute() {
     m_Climb.DefaultHeight();
 
-    // Test if currentPos is equal to the default height
-    if (m_Climb.currentPos == climbConstants.kClimbDefaultHeight) {
-      isFinished();
-    }
+    
   }
 
   // Called once the command ends or is interrupted.
@@ -45,7 +42,10 @@ public class ClimbDefaultCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    m_Climb.stopClimb();
+    // Test if currentPos is equal to the default height
+    if (m_Climb.currentPos == climbConstants.kClimbDefaultHeight) {
+      return true;
+    }
     return false;
   }
 }

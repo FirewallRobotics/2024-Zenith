@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.AxleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -50,7 +51,9 @@ public class IntakeFloorCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    m_Intake.StopIntake();
+    if (IntakeSubsystem.intakeSensor.get() == true) {
+      return true;
+    }
     return false;
   }
 }
