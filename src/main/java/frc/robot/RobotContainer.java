@@ -107,7 +107,10 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kL2.value)
         .whileTrue(new ClimbMiddleCommand(m_climb));
 
-    new POVButton(m_driverController, 270).whileTrue(new ShootTrapCommand(m_shooter, m_axle));
+    new JoystickButton(m_driverController, Button.kR2.value)
+        .whileTrue(new ClimbDefaultCommand(m_climb));
+
+    // new POVButton(m_driverController, 270).whileTrue(new ShootTrapCommand(m_shooter, m_axle));
   }
 
   /**
