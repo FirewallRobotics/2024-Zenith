@@ -122,7 +122,7 @@ public class AxleSubsystem extends SubsystemBase {
   }
 
   public void AxleDown() {
-    MasterAxleMotor.set(- AxleConstants.kAxleTestSpeed);
+    MasterAxleMotor.set(-AxleConstants.kAxleTestSpeed);
   }
 
   // public void DefaultAngle() {}

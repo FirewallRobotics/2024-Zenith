@@ -104,11 +104,9 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kY.value)
         .whileTrue(new AimAmpCommand(m_robotDrive, m_vision, m_axle));
 
-    new JoystickButton(m_driverController, Button.kB.value)
-        .whileTrue(new AxleUpCommand (m_axle));
+    new JoystickButton(m_driverController, Button.kB.value).whileTrue(new AxleUpCommand(m_axle));
 
-    new JoystickButton(m_driverController, Button.kA.value)
-        .whileTrue(new AxleDownCommand (m_axle));
+    new JoystickButton(m_driverController, Button.kA.value).whileTrue(new AxleDownCommand(m_axle));
 
     // new JoystickButton(m_driverController, Button.kL2.value)
     //     .whileTrue(new ClimbMiddleCommand(m_climb));
