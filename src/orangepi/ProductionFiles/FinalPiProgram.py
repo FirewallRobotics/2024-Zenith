@@ -196,6 +196,7 @@ while testmode == False | (iteration < 3 & testmode == True):
    else:
       frame = cv2.imread('test.jpg')
 
+#To make this work ssh into the pi and execute "sudo python3.9 BackgroundUnicorn.py &"
    funny_phrases = [
     "404 Humor not found",
     "Im not lazy im in energy-saving mode",
@@ -218,8 +219,6 @@ while testmode == False | (iteration < 3 & testmode == True):
     "omg they killed kenny",
     "a robot gets arrested - charged with battery",
     "does r2d2 have any brothers - no only transitors",
-    "this robot sponsored by nord vpn",
-
 ]
 
    Numcol = random.randrange(0, len(funny_phrases))
