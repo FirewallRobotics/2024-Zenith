@@ -178,9 +178,6 @@ FRCtagSize = float(0.17) #17cm
 fx, fy, cx, cy = read_from_txt_file("cal.txt")
 
 cameraParams = float(fx), float(fy), float(cx), float(cy)
-#makes sure there is a camera to stream
-if not vs:
-   print("no image")
 # define color the list of boundaries
 boundaries = [
 	([80,45,170], [100,145,255])
