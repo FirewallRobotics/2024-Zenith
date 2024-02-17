@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.climbConstants;
 import frc.robot.subsystems.ClimbSubsystem;
 
 public class ClimbDefaultCommand extends Command {
@@ -26,6 +27,11 @@ public class ClimbDefaultCommand extends Command {
   @Override
   public void execute() {
     m_Climb.DefaultHeight();
+
+    // Test if currentPos is equal to the default height
+    if (m_Climb.currentPos == climbConstants.kClimbDefaultHeight) {
+      isFinished();
+    }
   }
 
   // Called once the command ends or is interrupted.

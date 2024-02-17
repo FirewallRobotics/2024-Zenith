@@ -88,7 +88,7 @@ public class AutoAimSubsystem extends SubsystemBase {
             / Math.pow(Math.cos(theta), 2));
   }
 
-  public double SolveForAimAngle(double launchDistance) {
+  public double SolveForAimAngle() {
     double minAngle = getMinAngle();
     System.out.println("MinAngle" + minAngle);
 

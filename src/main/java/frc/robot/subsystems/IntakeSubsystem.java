@@ -16,7 +16,6 @@ public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
   public static CANSparkMax MasterIntakeMotor;
 
-  public static CANSparkMax MinionIntakeMotor;
   public static AbsoluteEncoder ArmEncoder;
 
   public static DigitalInput intakeSensor;
@@ -26,15 +25,10 @@ public class IntakeSubsystem extends SubsystemBase {
   public IntakeSubsystem() {
     MasterIntakeMotor =
         new CANSparkMax(IntakeConstants.kMasterIntakeMotorPort, MotorType.kBrushless);
-    MinionIntakeMotor =
-        new CANSparkMax(IntakeConstants.kMinionIntakeMotorPort, MotorType.kBrushless);
+
     intakeSensor = new DigitalInput(IntakeConstants.kIntakeSensorPort);
     final LEDSubsystem m_LEDSubsystem = new LEDSubsystem();
-    {
-    }
-    ;
     MasterIntakeMotor.restoreFactoryDefaults();
-    MinionIntakeMotor.restoreFactoryDefaults();
 
     MasterIntakeMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
     MasterIntakeMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
@@ -43,8 +37,6 @@ public class IntakeSubsystem extends SubsystemBase {
     MasterIntakeMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);
 
     // MasterIntakeMotor.setIdleMode(IdleMode.kCoast);
-
-    MinionIntakeMotor.follow(MasterIntakeMotor, true);
   }
 
   @Override
@@ -53,10 +45,8 @@ public class IntakeSubsystem extends SubsystemBase {
   /** Starts motor intake but stops if a note is detected inside */
   public void sensorStartIntake() {
     if (intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected) {
-      StartIntake();
       ((LEDSubsystem) ledSubsystem).SetLights(150, 26, 192);
     } else {
-      StopIntake();
       ((LEDSubsystem) ledSubsystem).SetLights(240, 79, 5);
     }
   }
