@@ -93,7 +93,11 @@ public class RobotContainer {
     //     .whileTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
 
     new JoystickButton(m_driverController, Button.kRightBumper.value)
-        .whileTrue(new SequentialCommandGroup(new ShootSpeakerCommand(m_shooter, m_axle), new WaitCommand(1), new IndexCommand(m_intake)));
+        .whileTrue(
+            new SequentialCommandGroup(
+                new ShootSpeakerCommand(m_shooter, m_axle),
+                new WaitCommand(1),
+                new IndexCommand(m_intake)));
 
     new JoystickButton(m_driverController, Button.kLeftBumper.value)
         .whileTrue(new IntakeFloorCommand(m_intake, m_axle));
