@@ -7,8 +7,16 @@ package frc.robot.subsystems;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
+
+import edu.wpi.first.units.Velocity;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
+import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.ShooterConstants;
+import com.revrobotics.CANSparkBase;
+import frc.robot.subsystems.IntakeSubsystem;
 
 public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new ShooterSubsystem. */
@@ -44,6 +52,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void ShootAmp() {
     MasterShooterMotor.set(ShooterConstants.kShooterMotorSpeed);
+    IntakeSubsystem.MasterIntakeMotor.set(IntakeConstants.kIndexSpeed);
+    
   }
 
   public void ShootSpeaker() {
