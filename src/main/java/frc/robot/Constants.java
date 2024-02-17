@@ -148,6 +148,10 @@ public final class Constants {
     public static final int kTotalAprilTags = 12;
 
     public static final double kCameraFOV = 68.5;
+
+    public static final float kCameraMaxWidth = 650;
+    public static final float kCameraMaxHieght = 570;
+    public static final double kNeededPos[] = {kCameraMaxWidth / 2, kCameraMaxHieght / 2};
   }
 
   public static final class AxleConstants {
