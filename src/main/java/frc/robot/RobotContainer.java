@@ -14,6 +14,7 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Axis;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -108,10 +109,14 @@ public class RobotContainer {
 
     new JoystickButton(m_driverController, Button.kA.value).whileTrue(new AxleDownCommand(m_axle));
 
+    // new JoystickButton(m_driverController, Axis.kRightTrigger);
+
+  
+
     // new JoystickButton(m_driverController, Button.kL2.value)
     //     .whileTrue(new ClimbMiddleCommand(m_climb));
 
-    new POVButton(m_driverController, 270).whileTrue(new ShootTrapCommand(m_shooter, m_axle));
+    // new POVButton(m_driverController, 270).whileTrue(new ShootTrapCommand(m_shooter, m_axle));
   }
 
   /**
