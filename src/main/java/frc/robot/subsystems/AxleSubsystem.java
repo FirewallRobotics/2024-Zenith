@@ -117,6 +117,14 @@ public class AxleSubsystem extends SubsystemBase {
     GravityOffset(AxleConstants.kIntakeHeight);
   }
 
+  public void AxleUp() {
+    MasterAxleMotor.set(AxleConstants.kAxleTestSpeed);
+  }
+
+  public void AxleDown() {
+    MasterAxleMotor.set(- AxleConstants.kAxleTestSpeed);
+  }
+
   // public void DefaultAngle() {}
 
   // public void AimAmpAngle() {}

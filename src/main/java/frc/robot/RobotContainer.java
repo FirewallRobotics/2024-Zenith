@@ -13,8 +13,8 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
-import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -91,21 +91,27 @@ public class RobotContainer {
     // new JoystickButton(m_driverController, Button.kR1.value)
     //     .whileTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
 
-    new JoystickButton(m_driverController, Button.kR1.value)
+    new JoystickButton(m_driverController, Button.kRightBumper.value)
         .whileTrue(new ShootSpeakerCommand(m_shooter, m_axle));
 
-    new JoystickButton(m_driverController, Button.kL1.value)
+    new JoystickButton(m_driverController, Button.kLeftBumper.value)
         .whileTrue(new IntakeFloorCommand(m_intake, m_axle));
 
-    new JoystickButton(m_driverController, Button.kSquare.value)
+    new JoystickButton(m_driverController, Button.kX.value)
         .whileTrue(
             new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LEDSubsystem));
 
-    new JoystickButton(m_driverController, Button.kTriangle.value)
+    new JoystickButton(m_driverController, Button.kY.value)
         .whileTrue(new AimAmpCommand(m_robotDrive, m_vision, m_axle));
 
-    new JoystickButton(m_driverController, Button.kL2.value)
-        .whileTrue(new ClimbMiddleCommand(m_climb));
+    new JoystickButton(m_driverController, Button.kB.value)
+        .whileTrue(new AxleUpCommand (m_axle));
+
+    new JoystickButton(m_driverController, Button.kA.value)
+        .whileTrue(new AxleDownCommand (m_axle));
+
+    // new JoystickButton(m_driverController, Button.kL2.value)
+    //     .whileTrue(new ClimbMiddleCommand(m_climb));
 
     new POVButton(m_driverController, 270).whileTrue(new ShootTrapCommand(m_shooter, m_axle));
   }
