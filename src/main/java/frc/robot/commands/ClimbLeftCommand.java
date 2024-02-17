@@ -40,7 +40,9 @@ public class ClimbLeftCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    m_Climb.stopClimb();
+    if (ClimbSubsystem.m_climbLimit.isPressed()) {
+      return true;
+    }
     return false;
   }
 }

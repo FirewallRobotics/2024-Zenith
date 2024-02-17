@@ -13,7 +13,10 @@ public class VisionSubsystem extends SubsystemBase {
   private NetworkTableInstance inst = NetworkTableInstance.getDefault();
   private NetworkTable aprilTagsTable = inst.getTable("PiDetector");
 
+  private NetworkTable ringTable = inst.getTable("RingFinder");
+
   private double decelerationDistance = Constants.VisionConstants.kDecelerationDistance;
+  private double[] declareRingPosNeeded = Constants.VisionConstants.kNeededPos;
 
   private Set<String> tags;
 
@@ -21,6 +24,8 @@ public class VisionSubsystem extends SubsystemBase {
   private final String speakerDistanceToTagName = "Dist";
   private final String speakerCenterName = "Center";
   private final String speakerRotationName = "XYZ";
+
+  private final String ringKey = "FoundRing";
 
   public VisionSubsystem() {}
 
@@ -146,5 +151,37 @@ public class VisionSubsystem extends SubsystemBase {
     } else {
       return 1.0;
     }
+  }
+
+  public float getPixelX() {
+    Boolean orangeCheckBoolean = OrangeCheckInView();
+
+    if (orangeCheckBoolean) {
+      JSONObject jsonObj = new JSONObject(ringTable.getEntry(ringKey).getString("{\"X\": 0}"));
+
+      return jsonObj.getFloat("X");
+    }
+
+    return -1;
+  }
+
+  public float getPixelY() {
+    Boolean orangeCheckBoolean = OrangeCheckInView();
+
+    if (orangeCheckBoolean) {
+      JSONObject jsonObj = new JSONObject(ringTable.getEntry(ringKey).getString("{\"Y\": 0}"));
+
+      return jsonObj.getFloat("Y");
+    }
+
+    return -1;
+  }
+
+  private boolean OrangeCheckInView() {
+
+    if (ringTable.containsKey(ringKey)) {
+      return true;
+    }
+    return false;
   }
 }
