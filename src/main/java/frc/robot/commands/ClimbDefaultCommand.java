@@ -27,8 +27,6 @@ public class ClimbDefaultCommand extends Command {
   @Override
   public void execute() {
     m_Climb.DefaultHeight();
-
-    
   }
 
   // Called once the command ends or is interrupted.
