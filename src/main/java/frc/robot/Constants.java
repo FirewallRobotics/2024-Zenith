@@ -149,6 +149,9 @@ public final class Constants {
 
     public static final double kCameraFOV = 68.5;
 
+    public static final float kCameraMaxWidth = 650;
+    public static final float kCameraMaxHieght = 570;
+    public static final double kNeededPos[] = {kCameraMaxWidth / 2, kCameraMaxHieght / 2};
     public static final double kDriveAimErrorRange = 10; // In pixels
   }
 
@@ -159,6 +162,7 @@ public final class Constants {
     public static final double kDefaultHeight = .01;
     public static final double kIntakeHeight = .01;
     public static double kMeasuredPosHorizontal = .512;
+    public static double kAxleTestSpeed = .01;
   }
 
   public static final class ShooterConstants {
@@ -173,6 +177,7 @@ public final class Constants {
     public static final int kMinionIntakeMotorPort = 14;
 
     public static final double kIntakeMotorSpeed = 0.2;
+    public static final double kIndexSpeed = 0.2;
 
     public static final int kIntakeSensorPort = 0;
 

@@ -6,21 +6,16 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.AxleSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
 
-public class IntakeSourceCommand extends Command {
+public class AxleDownCommand extends Command {
   /** Creates a new ShootSpeakerCommand. */
-  private final IntakeSubsystem m_Intake;
-
   private final AxleSubsystem m_Axle;
 
-  public IntakeSourceCommand(IntakeSubsystem i_Subsystem, AxleSubsystem a_Subsystem) {
+  public AxleDownCommand(AxleSubsystem a_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
 
-    m_Intake = i_Subsystem;
     m_Axle = a_Subsystem;
 
-    addRequirements(i_Subsystem);
     addRequirements(a_Subsystem);
   }
 
@@ -31,26 +26,16 @@ public class IntakeSourceCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    // m_Axle.IntakeFloorAngle();
-    m_Intake.sensorStartIntake();
-    m_Intake.StartIntake();
+    m_Axle.AxleUp();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    if (interrupted == true) {
-      m_Intake.StopIntake();
-    }
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (IntakeSubsystem.intakeSensor.get() == true) {
-      return true;
-    }
     return false;
   }
 }
