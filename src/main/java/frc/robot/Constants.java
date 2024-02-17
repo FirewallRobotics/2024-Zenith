@@ -174,6 +174,7 @@ public final class Constants {
     public static final int kMinionIntakeMotorPort = 14;
 
     public static final double kIntakeMotorSpeed = 0.2;
+    public static final double kIndexSpeed = 0.2;
 
     public static final int kIntakeSensorPort = 0;
 

@@ -17,7 +17,9 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
@@ -91,7 +93,11 @@ public class RobotContainer {
     //     .whileTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
 
     new JoystickButton(m_driverController, Button.kRightBumper.value)
-        .whileTrue(new ShootSpeakerCommand(m_shooter, m_axle));
+        .whileTrue(
+            new SequentialCommandGroup(
+                new ShootSpeakerCommand(m_shooter, m_axle),
+                new WaitCommand(1),
+                new IndexCommand(m_intake)));
 
     new JoystickButton(m_driverController, Button.kLeftBumper.value)
         .whileTrue(new IntakeFloorCommand(m_intake, m_axle));
