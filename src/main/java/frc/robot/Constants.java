@@ -143,12 +143,11 @@ public final class Constants {
 
   public static final class VisionConstants {
 
-    public static final double kCameraCenterX = 285;
+    public static final int kCameraCenterX = 285;
     public static final double kDecelerationDistance = 9;
     public static final int kTotalAprilTags = 12;
 
-    public static final double kCameraFOV = 68.5;
-
+    public static final double kCameraFOV = 68.5
 
 
 
@@ -159,6 +158,7 @@ public final class Constants {
     public static final float kCameraMaxWidth = 650;
     public static final float kCameraMaxHieght = 570;
     public static final double kNeededPos[] = {kCameraMaxWidth / 2, kCameraMaxHieght / 2};
+    public static final double kDriveAimErrorRange = 10; // In pixels
   }
 
   public static final class AxleConstants {
@@ -167,6 +167,8 @@ public final class Constants {
     public final double kAimHeight = .01;
     public static final double kDefaultHeight = .01;
     public static final double kIntakeHeight = .01;
+    public static double kMeasuredPosHorizontal = .512;
+    public static double kAxleTestSpeed = .01;
   }
 
   public static final class ShooterConstants {
@@ -220,5 +222,13 @@ public final class Constants {
         0.01; // Required accuracy for angle of max brute force calculation
 
     public static final double kTagToSpeakerDistance = 0.25; // in meters; ***SUBJECT TO CHANGE***
+
+    public static final double kDriveRotationPower = 0.1;
+
+    public static final double kMaxPhysicalAngleDegrees = 50; // in degrees (if that wasn't obvious)
+    public static final double kPhysicalShooterAngleOffsetDegrees =
+        20; // in degrees, ADDED to the axle angle for shooter
+
+    public static final double kShooterAimErrorRangeDegrees = 5; // In degrees
   }
 }
