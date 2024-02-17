@@ -21,25 +21,25 @@ import frc.utils.SwerveUtils;
 
 public class DriveSubsystem extends SubsystemBase {
   // Create MAXSwerveModules
-  private final MAXSwerveModule m_frontLeft =
+  public final MAXSwerveModule m_frontLeft =
       new MAXSwerveModule(
           DriveConstants.kFrontLeftDrivingCanId,
           DriveConstants.kFrontLeftTurningCanId,
           DriveConstants.kFrontLeftChassisAngularOffset);
 
-  private final MAXSwerveModule m_frontRight =
+  public final MAXSwerveModule m_frontRight =
       new MAXSwerveModule(
           DriveConstants.kFrontRightDrivingCanId,
           DriveConstants.kFrontRightTurningCanId,
           DriveConstants.kFrontRightChassisAngularOffset);
 
-  private final MAXSwerveModule m_rearLeft =
+  public final MAXSwerveModule m_rearLeft =
       new MAXSwerveModule(
           DriveConstants.kRearLeftDrivingCanId,
           DriveConstants.kRearLeftTurningCanId,
           DriveConstants.kBackLeftChassisAngularOffset);
 
-  private final MAXSwerveModule m_rearRight =
+  public final MAXSwerveModule m_rearRight =
       new MAXSwerveModule(
           DriveConstants.kRearRightDrivingCanId,
           DriveConstants.kRearRightTurningCanId,
