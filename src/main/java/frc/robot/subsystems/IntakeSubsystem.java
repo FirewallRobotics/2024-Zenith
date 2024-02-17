@@ -45,10 +45,8 @@ public class IntakeSubsystem extends SubsystemBase {
   /** Starts motor intake but stops if a note is detected inside */
   public void sensorStartIntake() {
     if (intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected) {
-      StartIntake();
       ((LEDSubsystem) ledSubsystem).SetLights(150, 26, 192);
     } else {
-      StopIntake();
       ((LEDSubsystem) ledSubsystem).SetLights(240, 79, 5);
     }
   }
