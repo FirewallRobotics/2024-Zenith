@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
@@ -107,7 +106,10 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kL2.value)
         .whileTrue(new ClimbMiddleCommand(m_climb));
 
-    new POVButton(m_driverController, 270).whileTrue(new ShootTrapCommand(m_shooter, m_axle));
+    new JoystickButton(m_driverController, Button.kR2.value)
+        .whileTrue(new ClimbDefaultCommand(m_climb));
+
+    // new POVButton(m_driverController, 270).whileTrue(new ShootTrapCommand(m_shooter, m_axle));
   }
 
   /**
