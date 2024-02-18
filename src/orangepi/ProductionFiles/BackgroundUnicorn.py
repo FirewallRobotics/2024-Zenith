@@ -1,6 +1,7 @@
 import unicornhat as UH 
 from bitarray import bitarray
 import time
+import os
 
 '''This file contains all the letter designs as an 8x8 bitarray. 
 You can add your won by just folowing the same format. Don't forget to specify the character 
@@ -755,7 +756,11 @@ def scroll_letter(letter,colour,brightness,speed): # scrolls a single letter acr
 '''scrolling is achieved by redrawing the letter with a column of the bitarray shifted to the left and a new blank column
 added to the right'''
 def scroll_word(word,colour,brightness,speed): # scrolls a word across the UH
+	unmod = cool.read()
 	for s in range(len(word[0])):
+		if (unmod != cool.read()):
+			UH.clear()
+			return
 		show_letter(word,colour,brightness)
 		time.sleep(speed)
 		for i in range(8):
@@ -826,6 +831,8 @@ def randcolor():
     color = colors[Numcol]
     return color
 
+prevtxt = ""
+iter = 0
 
 while True:
     Nofile = True
@@ -839,8 +846,13 @@ while True:
             Nofile = True
     
     color = randcolor()
-    txt = cool.read()
-    dist = cool.read()
-    unicorn_scroll(txt,color,100,0.15)
-    time.sleep(0.1)
+    txttmp = cool.read()
+    if ((iter % 5) == 0):
+       txt = "5607 - Vision - ~heart - "
+       iter = 0
+    else:
+       txt = txttmp
+    unicorn_scroll(txt,color,100,0.11)
+    prevtxt = cool.read()
     cool.close()
+    iter += 1
