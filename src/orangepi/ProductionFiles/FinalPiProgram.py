@@ -193,7 +193,7 @@ while testmode == False | (iteration < 3 & testmode == True):
    else:
       frame = cv2.imread('test.jpg')
 
-#To make this work ssh into the pi and execute "sudo python3.9 BackgroundUnicorn.py &"
+
    funny_phrases = [
     "404 Humor not found",
     "Im not lazy im in energy-saving mode",
@@ -209,7 +209,6 @@ while testmode == False | (iteration < 3 & testmode == True):
     "my attitude isnt bad its in beta",
     "ctrl+c ctrl+v",
     "i use arch btw",
-    "define object women",
     "wpi bye",
     "my life is pain",
     "help i am blind",
@@ -221,10 +220,10 @@ while testmode == False | (iteration < 3 & testmode == True):
    Numcol = random.randrange(0, len(funny_phrases))
    color = funny_phrases[Numcol]
 
-   if Livemode:
-        cool = open("coolstuff.txt", "w")
-        cool.write(color)
-        cool.close()
+   #if Livemode:
+   #     cool = open("coolstuff.txt", "w")
+   #     cool.write(color)
+   #     cool.close()
    for (lower, upper) in boundaries:
     # create NumPy arrays from the boundaries
     lower = np.array(lower, dtype = "uint8")
@@ -272,7 +271,12 @@ while testmode == False | (iteration < 3 & testmode == True):
            #print(distance)
            #print("POSE DATA END")
            
-
+           if Livemode:
+               tagtext = "Tag " + str(detect.tag_id)
+               print("TransmitTag")
+               cool = open("coolstuff.txt", "w")
+               cool.write(tagtext)
+               cool.close()
 
            #sends the tag data named the t(str(detect.tag_id)).publish()ag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
            if testmode == False:
@@ -301,11 +305,12 @@ while testmode == False | (iteration < 3 & testmode == True):
            #cv2.imwrite("fulmer.jpg",frame)
            saved = True
            #print("Saved!")
+       
    #cv2.imshow('frame', frame)
    #cv2.waitKey(1)
    iteration = iteration + 1
-   time.sleep(0.1)
-
+   if iteration > 50:
+       iteration = 0
 
 version =ntcore.ConnectionInfo.protocol_version
 print("Exitting Code 0_o")
