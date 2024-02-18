@@ -4,9 +4,13 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -16,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
+  SendableChooser<Command> TacticChooser = new SendableChooser<>();
 
   private RobotContainer m_robotContainer;
 
@@ -27,7 +32,23 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+     NetworkTableInstance inst = NetworkTableInstance.getDefault();
+    inst.startServer();
+    NetworkTable fmsinfo = inst.getTable("FMSInfo");
+    NetworkTableEntry isRedAlliance = fmsinfo.getEntry("IsRedAlliance");
+    boolean red_alliance = isRedAlliance.getBoolean(false);
+
     m_robotContainer = new RobotContainer();
+
+    //TacticChooser.setDefaultOption("Start Left, Shoot 0,", m_robotContainer.getAutonomousSpeaker(red_alliance, 1));
+     
+    //in Yelena, it looks like it can tell what alliance its on by itself, will have to look into
+
+    TacticChooser.addOption("Start Middle, Shoot 0", m_autonomousCommand);
+    //last year I asked Mr. Phillips if there was a way to select each factor (starting position, # shot) independantly, but there wasn't
+    //that might be different this year, should check
+    
+    TacticChooser.addOption("Start Right, Shoot 0", m_autonomousCommand);
   }
 
   /**
