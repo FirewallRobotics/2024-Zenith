@@ -30,7 +30,6 @@ import frc.robot.subsystems.AxleSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.UltrasonicSensor;
 import frc.robot.subsystems.VisionSubsystem;
@@ -52,7 +51,23 @@ public class RobotContainer {
   private final VisionSubsystem m_vision = new VisionSubsystem();
   private final AutoAimSubsystem m_autoAim = new AutoAimSubsystem();
   private final UltrasonicSensor m_UltrasonicSensor = new UltrasonicSensor();
-  private final LEDSubsystem m_LEDSubsystem = new LEDSubsystem();
+  // private final LEDSubsystem m_LEDSubsystem = new LEDSubsystem();
+
+  /*ERROR ﻿﻿ 1 ﻿﻿ Unhandled exception: edu.wpi.first.hal.util.AllocationException: Code: -1029
+  PWM or DIO 1 previously allocated.
+  Location of the previous allocation:
+  	at frc.robot.subsystems.LEDSubsystem.<init>(LEDSubsystem.java:23)
+  	at frc.robot.subsystems.IntakeSubsystem.<init>(IntakeSubsystem.java:29)
+  	at frc.robot.RobotContainer.<init>(RobotContainer.java:48)
+  	at frc.robot.Robot.robotInit(Robot.java:30)
+  	at edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:107)
+  	at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:365)
+  	at edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:453)
+  	at frc.robot.Main.main(Main.java:23)
+
+  Location of the current allocation: ﻿﻿ frc.robot.subsystems.LEDSubsystem.<init>(LEDSubsystem.java:23) ﻿﻿﻿
+  ﻿﻿﻿﻿﻿﻿ Error at frc.robot.subsystems.LEDSubsystem.<init>(LEDSubsystem.java:23): Unhandled exception: edu.wpi.first.hal.util.AllocationException: Code: -1029 ﻿
+  ﻿﻿﻿﻿﻿﻿ PWM or DIO 1 previously allocated. */
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
@@ -79,7 +94,7 @@ public class RobotContainer {
                     true),
             m_robotDrive));
 
-    m_LEDSubsystem.setDefaultCommand(new LightScroll4LEDCommand(m_LEDSubsystem));
+    // m_LEDSubsystem.setDefaultCommand(new LightScroll4LEDCommand(m_LEDSubsystem));
   }
 
   /**
@@ -95,16 +110,15 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kRightBumper.value)
         .whileTrue(
             new SequentialCommandGroup(
-                new ShootSpeakerCommand(m_shooter, m_axle),
-                new WaitCommand(1),
-                new IndexCommand(m_intake)));
+                // new ShootSpeakerCommand(m_shooter, m_axle),
+                new WaitCommand(1), new IndexCommand(m_intake)));
 
     new JoystickButton(m_driverController, Button.kLeftBumper.value)
         .whileTrue(new IntakeFloorCommand(m_intake, m_axle));
 
-    new JoystickButton(m_driverController, Button.kX.value)
-        .whileTrue(
-            new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LEDSubsystem));
+    // new JoystickButton(m_driverController, Button.kX.value)
+    //     .whileTrue(
+    //         new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LEDSubsystem));
 
     new JoystickButton(m_driverController, Button.kY.value)
         .whileTrue(new AimAmpCommand(m_robotDrive, m_vision, m_axle));
@@ -138,7 +152,7 @@ public class RobotContainer {
     Trajectory myTrajectory;
     Trajectory bonusTrajectory = null;
 
-    String chooser = "Example";
+    String chooser = "ForwardDown";
 
     if (chooser.equals("Example")) {
       myTrajectory = getExampleTrajectory(config);
@@ -188,7 +202,7 @@ public class RobotContainer {
     if (bonusTrajectory != null) {
       bonusSwerveControllerCommand =
           new SwerveControllerCommand(
-              myTrajectory,
+              bonusTrajectory,
               m_robotDrive::getPose, // Functional interface to feed supplier
               DriveConstants.kDriveKinematics,
 

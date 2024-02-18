@@ -8,7 +8,6 @@ import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
@@ -20,14 +19,11 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public static DigitalInput intakeSensor;
 
-  public static Subsystem ledSubsystem;
-
   public IntakeSubsystem() {
     MasterIntakeMotor =
         new CANSparkMax(IntakeConstants.kMasterIntakeMotorPort, MotorType.kBrushless);
 
     intakeSensor = new DigitalInput(IntakeConstants.kIntakeSensorPort);
-    final LEDSubsystem m_LEDSubsystem = new LEDSubsystem();
     MasterIntakeMotor.restoreFactoryDefaults();
 
     MasterIntakeMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
@@ -44,11 +40,13 @@ public class IntakeSubsystem extends SubsystemBase {
 
   /** Starts motor intake but stops if a note is detected inside */
   public void sensorStartIntake() {
-    if (intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected) {
-      ((LEDSubsystem) ledSubsystem).SetLights(150, 26, 192);
-    } else {
-      ((LEDSubsystem) ledSubsystem).SetLights(240, 79, 5);
-    }
+
+    // HANDLE IN START INTAKE COMMAND --- OR --- PASS LED_SUBSYSTEM AS CONSTRUCTOR PARAM
+    // if (intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected) {
+    //   ((LEDSubsystem) ledSubsystem).SetLights(150, 26, 192);
+    // } else {
+    //   ((LEDSubsystem) ledSubsystem).SetLights(240, 79, 5);
+    // }
   }
 
   /** Starts motor intake */

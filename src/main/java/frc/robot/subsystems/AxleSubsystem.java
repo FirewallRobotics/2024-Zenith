@@ -9,7 +9,6 @@ import com.revrobotics.CANSparkBase.SoftLimitDirection;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkPIDController;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AxleConstants;
 
@@ -19,8 +18,8 @@ public class AxleSubsystem extends SubsystemBase {
 
   public static CANSparkMax MinionAxleMotor;
   public static AbsoluteEncoder AxleEncoder;
-  DigitalInput topLimitSwitch = new DigitalInput(0);
-  DigitalInput bottomLimitSwitch = new DigitalInput(1);
+  // DigitalInput topLimitSwitch = new DigitalInput(0); Needs port assignment w/oconflicts
+  // DigitalInput bottomLimitSwitch = new DigitalInput(1); Needs port assignment w/oconflicts
   private SparkPIDController AxlePIDController;
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
 
@@ -55,6 +54,8 @@ public class AxleSubsystem extends SubsystemBase {
     AxleEncoder = MasterAxleMotor.getAbsoluteEncoder(Type.kDutyCycle);
     AxleEncoder.setInverted(false);
 
+    AxlePIDController = MasterAxleMotor.getPIDController();
+
     AxlePIDController.setP(kP);
     AxlePIDController.setI(kI);
     AxlePIDController.setD(kD);
@@ -65,21 +66,21 @@ public class AxleSubsystem extends SubsystemBase {
 
   public void setMotorSpeed(double speed) {
     if (speed > 0) {
-      if (topLimitSwitch.get()) {
-        // We are going up and top limit is tripped so stop
-        MasterAxleMotor.set(0);
-      } else {
-        // We are going up but top limit is not tripped so go at commanded speed
-        MasterAxleMotor.set(speed);
-      }
-    } else {
-      if (bottomLimitSwitch.get()) {
-        // We are going down and bottom limit is tripped so stop
-        MasterAxleMotor.set(0);
-      } else {
-        // We are going down but bottom limit is not tripped so go at commanded speed
-        MasterAxleMotor.set(speed);
-      }
+      //   if (topLimitSwitch.get()) {
+      //     // We are going up and top limit is tripped so stop
+      //     MasterAxleMotor.set(0);
+      //   } else {
+      //     // We are going up but top limit is not tripped so go at commanded speed
+      //     MasterAxleMotor.set(speed);
+      //   }
+      // } else {
+      //   if (bottomLimitSwitch.get()) {
+      //     // We are going down and bottom limit is tripped so stop
+      //     MasterAxleMotor.set(0);
+      //   } else {
+      //     // We are going down but bottom limit is not tripped so go at commanded speed
+      //     MasterAxleMotor.set(speed);
+      //   }
     }
   }
 
