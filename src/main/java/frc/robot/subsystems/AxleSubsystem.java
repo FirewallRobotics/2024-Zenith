@@ -19,12 +19,15 @@ public class AxleSubsystem extends SubsystemBase {
 
   public static CANSparkMax MinionAxleMotor;
   public static AbsoluteEncoder AxleEncoder;
-  DigitalInput topLimitSwitch = new DigitalInput(0);
-  DigitalInput bottomLimitSwitch = new DigitalInput(1);
+  DigitalInput topLimitSwitch = new DigitalInput(AxleConstants.kTopLimitSwitchPort);
+  DigitalInput bottomLimitSwitch = new DigitalInput(AxleConstants.kBottomLimitSwitchPort);
   private SparkPIDController AxlePIDController;
+  
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
 
   public AxleSubsystem() {
+
+    AxlePIDController = MasterAxleMotor.getPIDController();
 
     kP = 0.1;
     kI = 1e-4;
