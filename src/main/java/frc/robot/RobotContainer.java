@@ -188,7 +188,7 @@ public class RobotContainer {
     if (bonusTrajectory != null) {
       bonusSwerveControllerCommand =
           new SwerveControllerCommand(
-              myTrajectory,
+              bonusTrajectory,
               m_robotDrive::getPose, // Functional interface to feed supplier
               DriveConstants.kDriveKinematics,
 

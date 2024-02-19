@@ -22,7 +22,7 @@ public class AxleSubsystem extends SubsystemBase {
   DigitalInput topLimitSwitch = new DigitalInput(AxleConstants.kTopLimitSwitchPort);
   DigitalInput bottomLimitSwitch = new DigitalInput(AxleConstants.kBottomLimitSwitchPort);
   private SparkPIDController AxlePIDController;
-  
+
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
 
   public AxleSubsystem() {
