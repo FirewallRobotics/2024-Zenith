@@ -10,7 +10,6 @@ import frc.robot.Constants.VisionConstants;
 import frc.robot.subsystems.AutoAimSubsystem;
 import frc.robot.subsystems.AxleSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
 public class AutoAimSpeakerCommand extends Command {
@@ -120,8 +119,6 @@ public class AutoAimSpeakerCommand extends Command {
       System.out.println("Not in range");
       // Set LEDs for not in range
     }
-
-    
   }
 
   // Called once the command ends or is interrupted.
