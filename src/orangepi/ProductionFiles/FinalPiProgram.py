@@ -26,13 +26,14 @@ class myWebcamVideoStream:
 
   def __init__(self, src=0):
     
-    global table
+    global table, tab2
 
     #init network tables
     TEAM = 5607
     if testmode == False:
         ntinst = ntcore.NetworkTableInstance.getDefault()
     table = ntinst.getTable("PiDetector")
+    tab2 = ntinst.getTable("UnicornHat")
     ntinst.startClient4("pi1 vision client")
     ntinst.setServer("10.56.7.2")
     
@@ -243,6 +244,12 @@ while testmode == False | (iteration < 3 & testmode == True):
     #cv2.imshow("images", output)
     #cv2.waitKey(5)
 
+    if Livemode:
+        Val = tab2.getString("status","False")
+        cool2 = open("Status.txt", "w")
+        cool2.write(Val)
+        cool2.close()
+
    #frame = cv2.undistort(img, mtx, dist, None, newcameramtx)
    grayimage = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
    #cv2.imshow('frame', frame)
@@ -277,6 +284,7 @@ while testmode == False | (iteration < 3 & testmode == True):
                cool = open("coolstuff.txt", "w")
                cool.write(tagtext)
                cool.close()
+
 
            #sends the tag data named the t(str(detect.tag_id)).publish()ag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
            if testmode == False:
