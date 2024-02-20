@@ -53,7 +53,7 @@ public class RingAdjustCommand extends Command {
           new SwerveModuleState(
               DriveConstants.kMaxSpeedMetersPerSecond, Rotation2d.fromDegrees(-90)));
 
-    } else if (xOfRingOnGrid < needPosForRing[0]) {
+    } else if (xOfRingOnGrid > needPosForRing[0]) {
       m_DriveSubsystem.m_frontLeft.setDesiredState(
           new SwerveModuleState(
               DriveConstants.kMaxSpeedMetersPerSecond, Rotation2d.fromDegrees(90)));
@@ -68,7 +68,7 @@ public class RingAdjustCommand extends Command {
               DriveConstants.kMaxSpeedMetersPerSecond, Rotation2d.fromDegrees(90)));
     }
 
-    if (yOfRingOnGrid < needPosForRing[1]) {
+    if (yOfRingOnGrid > needPosForRing[1]) {
 
       m_DriveSubsystem.m_frontLeft.setDesiredState(
           new SwerveModuleState(
