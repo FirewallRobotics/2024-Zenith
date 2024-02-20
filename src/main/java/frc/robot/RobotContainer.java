@@ -52,7 +52,7 @@ public class RobotContainer {
   private final VisionSubsystem m_vision = new VisionSubsystem();
   private final AutoAimSubsystem m_autoAim = new AutoAimSubsystem();
   private final UltrasonicSensor m_UltrasonicSensor = new UltrasonicSensor();
-  private final LEDSubsystem m_LEDSubsystem = new LEDSubsystem();
+  private final LEDSubsystem m_LED = new LEDSubsystem();
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
@@ -79,7 +79,7 @@ public class RobotContainer {
                     true),
             m_robotDrive));
 
-    m_LEDSubsystem.setDefaultCommand(new LightScroll4LEDCommand(m_LEDSubsystem));
+    m_LED.setDefaultCommand(new LightScroll4LEDCommand(m_LED));
   }
 
   /**
@@ -95,16 +95,15 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kRightBumper.value)
         .whileTrue(
             new SequentialCommandGroup(
-                new ShootSpeakerCommand(m_shooter, m_axle),
+                new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
                 new WaitCommand(1),
                 new IndexCommand(m_intake)));
 
     new JoystickButton(m_driverController, Button.kLeftBumper.value)
-        .whileTrue(new IntakeFloorCommand(m_intake, m_axle));
+        .whileTrue(new IntakeFloorCommand(m_intake, m_axle, m_LED));
 
     new JoystickButton(m_driverController, Button.kX.value)
-        .whileTrue(
-            new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LEDSubsystem));
+        .whileTrue(new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LED));
 
     new JoystickButton(m_driverController, Button.kY.value)
         .whileTrue(new AimAmpCommand(m_robotDrive, m_vision, m_axle));
