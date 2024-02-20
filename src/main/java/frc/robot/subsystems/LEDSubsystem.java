@@ -54,6 +54,10 @@ public class LEDSubsystem extends SubsystemBase {
     SetLights(150, 26, 192);
   }
 
+  public void SetOrange() {
+    SetLights(240, 79, 5);
+  }
+
   // public void LightScroll() {
 
   //   // Meant to have scrolling lights for asthetic; run as default command
