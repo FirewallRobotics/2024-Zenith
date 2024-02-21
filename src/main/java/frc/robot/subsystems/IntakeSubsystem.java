@@ -14,13 +14,13 @@ import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
-  public static CANSparkMax MasterIntakeMotor;
+  public CANSparkMax MasterIntakeMotor;
 
-  public static AbsoluteEncoder ArmEncoder;
+  public AbsoluteEncoder ArmEncoder;
 
-  public static DigitalInput intakeSensor;
+  public DigitalInput intakeSensor;
 
-  public static Subsystem ledSubsystem;
+  public Subsystem ledSubsystem;
 
   public IntakeSubsystem() {
     MasterIntakeMotor =
@@ -43,13 +43,6 @@ public class IntakeSubsystem extends SubsystemBase {
   public void periodic() {}
 
   /** Starts motor intake but stops if a note is detected inside */
-  public void sensorStartIntake() {
-    if (intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected) {
-      ((LEDSubsystem) ledSubsystem).SetLights(150, 26, 192);
-    } else {
-      ((LEDSubsystem) ledSubsystem).SetLights(240, 79, 5);
-    }
-  }
 
   /** Starts motor intake */
   public void StartIntake() {
