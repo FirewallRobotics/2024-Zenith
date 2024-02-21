@@ -16,16 +16,19 @@ public class VisionSubsystem extends SubsystemBase {
   private NetworkTable ringTable = inst.getTable("RingFinder");
 
   private double decelerationDistance = Constants.VisionConstants.kDecelerationDistance;
-  private double[] declareRingPosNeeded = Constants.VisionConstants.kNeededPos;
+  private double[] declareRingPosNeeded = Constants.VisionConstants.kCenterOfScreen;
 
   private Set<String> tags;
 
-  private final String[] speakerTags = {"4", "7"};
+  private final String[] speakerTags = {"6", "5"};
   private final String speakerDistanceToTagName = "Dist";
   private final String speakerCenterName = "Center";
   private final String speakerRotationName = "XYZ";
 
   private final String ringKey = "FoundRing";
+
+  private final String[] ampTags = {"9", "1"};
+  private final String ampCenterName = "Center";
 
   public VisionSubsystem() {}
 
@@ -183,5 +186,47 @@ public class VisionSubsystem extends SubsystemBase {
       return true;
     }
     return false;
+  }
+
+  public float getAmpTagCenterX() {
+    String tag = findAmpTagInView();
+
+    if (tag != null) {
+      JSONObject jsonObj =
+          new JSONObject(
+              aprilTagsTable.getEntry(tag).getString("{\"" + ampCenterName + "\": [0,0]}"));
+
+      JSONArray centerArray = jsonObj.getJSONArray(ampCenterName);
+
+      return centerArray.getFloat(0);
+    }
+
+    return 0;
+  }
+
+  public float getAmpTagCenterY() {
+    String tag = findAmpTagInView();
+
+    if (tag != null) {
+      JSONObject jsonObj =
+          new JSONObject(
+              aprilTagsTable.getEntry(tag).getString("{\"" + ampCenterName + "\": [0,0]}"));
+
+      JSONArray centerArray = jsonObj.getJSONArray(ampCenterName);
+
+      return centerArray.getFloat(1);
+    }
+
+    return 0;
+  }
+
+  private String findAmpTagInView() {
+    for (String tagNum : ampTags) {
+      if (aprilTagsTable.containsKey(tagNum)) {
+        return tagNum;
+      }
+    }
+
+    return null;
   }
 }

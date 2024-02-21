@@ -12,30 +12,22 @@ import frc.robot.Constants.VisionConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
-public class RingAdjustCommand extends Command {
+public class PositionAmpCommand extends Command {
 
   private final VisionSubsystem m_VisionSubsystem;
-  private final DriveSubsystem m_DriveSubsystem;
-  private float xOfRingOnGrid;
-  private float yOfRingOnGrid;
-  private double[] needPosForRing = VisionConstants.kCenterOfScreen;
-  private double[] posRangeForRingX;
-  private double[] posRangeForRingY;
+  private float ampTagCenterXStore;
+  private float ampTagCenterYStore;
 
-  /** Creates a new RingAdjustCommand. */
-  public RingAdjustCommand(VisionSubsystem v_Subsystem, DriveSubsystem dr_Subsystem) {
+  private final DriveSubsystem m_DriveSubsystem;
+
+  private double[] needPosForRing = VisionConstants.kCenterOfScreen;
+
+  /** Creates a new PositionAmpCommand. */
+  public PositionAmpCommand(VisionSubsystem v_Subsystem, DriveSubsystem dr_Subsystem) {
+    // Use addRequirements() here to declare subsystem dependencies.
+
     m_VisionSubsystem = v_Subsystem;
     m_DriveSubsystem = dr_Subsystem;
-
-    /**
-     * Sets ranges for the needed X and Y so that the ring can be recieved from the ground. Index 0
-     * is the minimum. Index 1 is the maxamum.
-     */
-    posRangeForRingX[0] = needPosForRing[0] - 100;
-    posRangeForRingX[1] = needPosForRing[0] + 100;
-
-    posRangeForRingY[0] = needPosForRing[1] - 100;
-    posRangeForRingY[1] = needPosForRing[1] + 100;
 
     addRequirements(v_Subsystem);
     addRequirements(dr_Subsystem);
@@ -48,10 +40,10 @@ public class RingAdjustCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    xOfRingOnGrid = m_VisionSubsystem.getPixelX();
-    yOfRingOnGrid = m_VisionSubsystem.getPixelY();
+    ampTagCenterXStore = m_VisionSubsystem.getAmpTagCenterX();
+    ampTagCenterYStore = m_VisionSubsystem.getAmpTagCenterY();
 
-    if (xOfRingOnGrid < posRangeForRingX[0]) {
+    if (ampTagCenterXStore < needPosForRing[0]) {
       m_DriveSubsystem.m_frontLeft.setDesiredState(
           new SwerveModuleState(
               DriveConstants.kMaxSpeedMetersPerSecond, Rotation2d.fromDegrees(-90)));
@@ -65,7 +57,7 @@ public class RingAdjustCommand extends Command {
           new SwerveModuleState(
               DriveConstants.kMaxSpeedMetersPerSecond, Rotation2d.fromDegrees(-90)));
 
-    } else if (xOfRingOnGrid > posRangeForRingX[1]) {
+    } else if (ampTagCenterXStore > needPosForRing[0]) {
       m_DriveSubsystem.m_frontLeft.setDesiredState(
           new SwerveModuleState(
               DriveConstants.kMaxSpeedMetersPerSecond, Rotation2d.fromDegrees(90)));
@@ -80,7 +72,7 @@ public class RingAdjustCommand extends Command {
               DriveConstants.kMaxSpeedMetersPerSecond, Rotation2d.fromDegrees(90)));
     }
 
-    if (yOfRingOnGrid > posRangeForRingY[1]) {
+    if (ampTagCenterYStore > needPosForRing[1]) {
 
       m_DriveSubsystem.m_frontLeft.setDesiredState(
           new SwerveModuleState(
@@ -95,7 +87,7 @@ public class RingAdjustCommand extends Command {
           new SwerveModuleState(
               DriveConstants.kMaxSpeedMetersPerSecond, Rotation2d.fromDegrees(0)));
 
-    } else if (yOfRingOnGrid < posRangeForRingY[0]) {
+    } else if (ampTagCenterYStore < needPosForRing[1]) {
       m_DriveSubsystem.m_frontLeft.setDesiredState(
           new SwerveModuleState(
               DriveConstants.kMaxSpeedMetersPerSecond, Rotation2d.fromDegrees(180)));
@@ -130,7 +122,7 @@ public class RingAdjustCommand extends Command {
   @Override
   public boolean isFinished() {
 
-    if (ringInXRange() && ringInYRange()) {
+    if (ampTagCenterXStore == needPosForRing[0] && ampTagCenterYStore == needPosForRing[1]) {
       m_DriveSubsystem.m_frontLeft.setDesiredState(
           new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
       m_DriveSubsystem.m_frontRight.setDesiredState(
@@ -142,20 +134,7 @@ public class RingAdjustCommand extends Command {
 
       return true;
     }
-    return false;
-  }
 
-  public boolean ringInXRange() {
-    if (xOfRingOnGrid <= posRangeForRingX[1] && xOfRingOnGrid >= posRangeForRingX[0]) {
-      return true;
-    }
-    return false;
-  }
-
-  public boolean ringInYRange() {
-    if (yOfRingOnGrid <= posRangeForRingY[1] && yOfRingOnGrid >= posRangeForRingY[0]) {
-      return true;
-    }
     return false;
   }
 }
