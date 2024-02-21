@@ -142,7 +142,7 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   //Communication For The Unicornhat
-  public void UnicornNotify(String status)
+  public static void UnicornNotify(String status)
   {
     aprilTagsTable.getStringTopic("UnicornHat").publishEx("status", "{'status': status}");
   }
