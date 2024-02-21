@@ -198,7 +198,7 @@ while testmode == False | (iteration < 3 & testmode == True):
    funny_phrases = [
     "404 Humor not found",
     "Im not lazy im in energy-saving mode",
-    "The cake is a lie",
+    "When testing is over. you will be baked and there will be cake.",
     "ChatGPT is my best friend",
     "Not antisocial just user unfriendly",
     "hold on justa little while longer - hold on justa little while longer",
@@ -279,7 +279,11 @@ while testmode == False | (iteration < 3 & testmode == True):
            #print("POSE DATA END")
            
            if Livemode:
-               tagtext = "Tag " + str(detect.tag_id)
+               randnum = random.randrange(0,5)
+               if randnum == 5:
+                   tagtext = color
+               else:
+                    tagtext = "Tag " + str(detect.tag_id)
                print("TransmitTag")
                cool = open("coolstuff.txt", "w")
                cool.write(tagtext)
