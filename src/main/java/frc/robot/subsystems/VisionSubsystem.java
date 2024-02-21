@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 public class VisionSubsystem extends SubsystemBase {
 
-  private NetworkTableInstance inst = NetworkTableInstance.getDefault();
+  private static NetworkTableInstance inst = NetworkTableInstance.getDefault();
   private static NetworkTable aprilTagsTable = inst.getTable("PiDetector");
 
   private NetworkTable ringTable = inst.getTable("RingFinder");
