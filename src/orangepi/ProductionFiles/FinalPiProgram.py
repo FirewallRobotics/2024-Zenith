@@ -21,7 +21,11 @@ class myWebcamVideoStream:
         Livemode = False
   elif (sys.argv[1:] == ['--not-pi']):
       Livemode = False
-  #else:
+  try:
+    with open('/sys/firmware/devicetree/base/model', 'r') as f:
+            Livemode = True
+  except FileNotFoundError:
+        Livemode = False
   print(testmode)
 
   def __init__(self, src=0):
@@ -195,65 +199,38 @@ while testmode == False | (iteration < 3 & testmode == True):
       frame = cv2.imread('test.jpg')
 
 
-   funny_phrases = [
-    "404 Humor not found",
-    "Im not lazy im in energy-saving mode",
-    "When testing is over. you will be baked and there will be cake.",
-    "ChatGPT is my best friend",
-    "Not antisocial just user unfriendly",
-    "hold on justa little while longer - hold on justa little while longer",
-    "it works why",
-    "flip the world",
-    "lttstore.com",
-    "the most used programming language is profanity",
-    "binary is as easy as 01 10 11",
-    "my attitude isnt bad its in beta",
-    "ctrl+c ctrl+v",
-    "i use arch btw",
-    "wpi bye",
-    "my life is pain",
-    "help i am blind",
-    "omg they killed kenny",
-    "a robot gets arrested - charged with battery",
-    "does r2d2 have any brothers - no only transitors",
-]
 
-   Numcol = random.randrange(0, len(funny_phrases))
-   color = funny_phrases[Numcol]
 
-   #if Livemode:
-   #     cool = open("coolstuff.txt", "w")
-   #     cool.write(color)
-   #     cool.close()
-   for (lower, upper) in boundaries:
-    # create NumPy arrays from the boundaries
-    lower = np.array(lower, dtype = "uint8")
-    upper = np.array(upper, dtype = "uint8")
-    # find the colors within the specified boundaries and apply
-    # the mask
-    mask = cv2.inRange(frame, lower, upper)
-    output = cv2.bitwise_and(frame, frame, mask = mask)
-    output = cv2.cvtColor(output, cv2.COLOR_BGR2GRAY)
-    # show the images
-    output = denoise_image(output)
-    avX, avY = average_position_of_pixels(output, 120)
-    #print(avX, avY)
-    if testmode == False:
+   if Livemode:
+    #     cool = open("coolstuff.txt", "w")
+    #     cool.write(color)
+    #     cool.close()
+    for (lower, upper) in boundaries:
+        # create NumPy arrays from the boundaries
+        lower = np.array(lower, dtype = "uint8")
+        upper = np.array(upper, dtype = "uint8")
+        # find the colors within the specified boundaries and apply
+        # the mask
+        mask = cv2.inRange(frame, lower, upper)
+        output = cv2.bitwise_and(frame, frame, mask = mask)
+        output = cv2.cvtColor(output, cv2.COLOR_BGR2GRAY)
+        # show the images
+        output = denoise_image(output)
+        avX, avY = average_position_of_pixels(output, 120)
+        #print(avX, avY)
         myStrPub = table.getStringTopic("FoundRings").publish()
         myStrPub.set('{"X": avX, "Y": avY}' )
-    #cv2.imshow("images", output)
-    #cv2.waitKey(5)
-
-    if Livemode:
+        #cv2.imshow("images", output)
+        #cv2.waitKey(5)
         Val = tab2.getString("status","False")
         cool2 = open("Status.txt", "w")
         cool2.write(Val)
         cool2.close()
 
-   #frame = cv2.undistort(img, mtx, dist, None, newcameramtx)
-   grayimage = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-   #cv2.imshow('frame', frame)
-   #cv2.imwrite("fulmer2.jpg",frame)
+        #frame = cv2.undistort(img, mtx, dist, None, newcameramtx)
+        grayimage = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        #cv2.imshow('frame', frame)
+        #cv2.imwrite("fulmer2.jpg",frame)
 
    detections = detector.detect(grayimage)
    if detections:
@@ -279,11 +256,7 @@ while testmode == False | (iteration < 3 & testmode == True):
            #print("POSE DATA END")
            
            if Livemode:
-               randnum = random.randrange(0,5)
-               if randnum == 5:
-                   tagtext = color
-               else:
-                    tagtext = "Tag " + str(detect.tag_id)
+               tagtext = "Tag " + str(detect.tag_id)
                print("TransmitTag")
                cool = open("coolstuff.txt", "w")
                cool.write(tagtext)

@@ -871,6 +871,31 @@ def randcolor():
     color = colors[Numcol]
     return color
 
+funny_phrases = [
+    "404 Humor not found",
+    "Im not lazy im in energy-saving mode",
+    "When testing is over. you will be baked and there will be cake.",
+    "ChatGPT is my best friend",
+    "Not antisocial just user unfriendly",
+    "hold on justa little while longer - hold on justa little while longer",
+    "it works why",
+    "flip the world",
+    "lttstore.com",
+    "the most used programming language is profanity",
+    "binary is as easy as 01 10 11",
+    "my attitude isnt bad its in beta",
+    "ctrl+c ctrl+v",
+    "i use arch btw",
+    "wpi bye",
+    "my life is pain",
+    "help i am blind",
+    "omg they killed kenny",
+    "a robot gets arrested - charged with battery",
+    "does r2d2 have any brothers - no only transitors",
+]
+
+
+
 prevtxt = ""
 iter = 0
 
@@ -903,6 +928,11 @@ while True:
             Nofile2 = True
     except FileNotFoundError:
         Nofile2 = True
+
+    randnum = random.randrange(0,5)
+    if randnum == 3:
+        Numcol = random.randrange(0, len(funny_phrases))
+        txt = funny_phrases[Numcol]
 
     if Nofile2:
         UH.clear()
