@@ -47,6 +47,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void ShootSpeaker() {
+    VisionSubsystem.UnicornNotify("True");
     MasterShooterMotor.set(ShooterConstants.kShooterMotorSpeed);
   }
 
@@ -55,6 +56,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void StopShoot() {
+    VisionSubsystem.UnicornNotify("False");
     MasterShooterMotor.set(0);
   }
 }

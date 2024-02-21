@@ -716,6 +716,46 @@ way round for easy reading'''
 flip = [7,6,5,4,3,2,1,0]
 
 
+x0= bitarray('00000000')
+x1= bitarray('00111100')
+x2= bitarray('01000010')
+x3= bitarray('01011010')
+x4= bitarray('01011010')
+x5= bitarray('01000010')
+x6= bitarray('00111100')
+x7= bitarray('00000000')
+
+letterred = [x0,x1,x2,x3,x4,x5,x6,x7]
+
+x0= bitarray('00000000')
+x1= bitarray('00000000')
+x2= bitarray('00111100')
+x3= bitarray('00100100')
+x4= bitarray('00100100')
+x5= bitarray('00111100')
+x6= bitarray('00000000')
+x7= bitarray('00000000')
+
+letterWhite = [x0,x1,x2,x3,x4,x5,x6,x7]
+
+
+
+def ShowBuls(brightness):
+	UH.rotation(270)		
+	for i in range(8):
+		for j in range(8):
+			if letterred[j][i]:
+				UH.set_pixel(j,flip[i],brightness,0,0)
+			else:
+				UH.set_pixel(j,flip[i],0,0,0)
+
+	for i in range(8):
+		for j in range(8):
+			if letterWhite[j][i]:
+				UH.set_pixel(j,flip[i],brightness,brightness,brightness)
+
+	UH.show()
+
 def show_letter(letter,colour,brightness): #displays a single letter on th UH
 	UH.rotation(270)		
 	for i in range(8):
@@ -852,7 +892,25 @@ while True:
        iter = 0
     else:
        txt = txttmp
-    unicorn_scroll(txt,color,100,0.11)
+	
+    Nofile2 = True
+    try:
+        cool2 = open("/home/pi/Status.txt", "r")
+        cooltxt = cool2.read()
+        if "True" in cooltxt:
+            Nofile2 = False
+        else:
+            Nofile2 = True
+    except FileNotFoundError:
+        Nofile2 = True
+
+    if Nofile2:
+        UH.clear()
+        unicorn_scroll(txt,color,100,0.11)
+    else:
+        UH.clear()
+        ShowBuls(100)
+    print(cool2.read())
     prevtxt = cool.read()
     cool.close()
     iter += 1

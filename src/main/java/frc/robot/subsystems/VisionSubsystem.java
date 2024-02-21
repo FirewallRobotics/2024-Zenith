@@ -10,8 +10,8 @@ import org.json.JSONObject;
 
 public class VisionSubsystem extends SubsystemBase {
 
-  private NetworkTableInstance inst = NetworkTableInstance.getDefault();
-  private NetworkTable aprilTagsTable = inst.getTable("PiDetector");
+  private static NetworkTableInstance inst = NetworkTableInstance.getDefault();
+  private static NetworkTable aprilTagsTable = inst.getTable("PiDetector");
 
   private NetworkTable ringTable = inst.getTable("RingFinder");
 
@@ -139,6 +139,11 @@ public class VisionSubsystem extends SubsystemBase {
     {
       return -1 * DecelerationSpeed(difference, targetRange);
     }
+  }
+
+  // Communication For The Unicornhat
+  public static void UnicornNotify(String status) {
+    aprilTagsTable.getStringTopic("UnicornHat").publishEx("status", "{'status': status}");
   }
 
   private double DecelerationSpeed(double positionDifference, double targetRange) {
