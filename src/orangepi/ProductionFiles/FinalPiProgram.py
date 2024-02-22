@@ -8,6 +8,7 @@ import sys
 import imutils
 from scipy.spatial.transform import Rotation
 import random
+import socket
 
 class myWebcamVideoStream:
   
@@ -47,7 +48,7 @@ class myWebcamVideoStream:
     #Find the camera and
     # initialize the video camera stream and read the 
     # first frame from the stream
-    self.stream = cv2.VideoCapture(0) 
+    self.stream = cv2.VideoCapture(src) 
     (self.grabbed, self.frame) = self.stream.read()
 
     # flag to stop the thread
@@ -191,6 +192,7 @@ fx, fy, cx, cy = read_from_txt_file("cal.txt")
 cameraParams = float(fx), float(fy), float(cx), float(cy)
 # define color the list of boundaries
 if Livemode:
+    socket.socket.connect(('10.56.7.12', 80))
     boundaries = [
         ([80,45,170], [100,145,255])
     ]
@@ -264,10 +266,7 @@ while testmode == False | (iteration < 3 & testmode == True):
            
            if Livemode:
                tagtext = "Tag " + str(detect.tag_id)
-               print("TransmitTag")
-               cool = open("coolstuff.txt", "w")
-               cool.write(tagtext)
-               cool.close()
+               socket.socket.send(tagtext.encode())
 
 
            #sends the tag data named the t(str(detect.tag_id)).publish()ag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
