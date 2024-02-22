@@ -234,10 +234,10 @@ while testmode == False | (iteration < 3 & testmode == True):
         cool2.write(Val)
         cool2.close()
 
-        #frame = cv2.undistort(img, mtx, dist, None, newcameramtx)
-        grayimage = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        #cv2.imshow('frame', frame)
-        #cv2.imwrite("fulmer2.jpg",frame)
+   #frame = cv2.undistort(img, mtx, dist, None, newcameramtx)
+   grayimage = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+   #cv2.imshow('frame', frame)
+   #cv2.imwrite("fulmer2.jpg",frame)
 
    detections = detector.detect(grayimage)
    if detections:
