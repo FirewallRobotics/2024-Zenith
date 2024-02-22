@@ -18,12 +18,21 @@ public class RingAdjustCommand extends Command {
   private final DriveSubsystem m_DriveSubsystem;
   private float xOfRingOnGrid;
   private float yOfRingOnGrid;
-  private double[] needPosForRing = VisionConstants.kNeededPos;
+  private double[] needPosForRing = VisionConstants.kCenterOfScreen;
+  private double[] rangeForXPosRing;
+  private double[] rangeForYPosRing;
 
   /** Creates a new RingAdjustCommand. */
   public RingAdjustCommand(VisionSubsystem v_Subsystem, DriveSubsystem dr_Subsystem) {
     m_VisionSubsystem = v_Subsystem;
     m_DriveSubsystem = dr_Subsystem;
+
+    /** Gets the range for X and Y. Index 0 is the minimum. Index 1 is the max. */
+    rangeForXPosRing[0] = needPosForRing[0] - 100;
+    rangeForXPosRing[1] = needPosForRing[0] + 100;
+
+    rangeForYPosRing[0] = needPosForRing[1] - 100;
+    rangeForYPosRing[1] = needPosForRing[1] + 100;
 
     addRequirements(v_Subsystem);
     addRequirements(dr_Subsystem);
@@ -39,7 +48,7 @@ public class RingAdjustCommand extends Command {
     xOfRingOnGrid = m_VisionSubsystem.getPixelX();
     yOfRingOnGrid = m_VisionSubsystem.getPixelY();
 
-    if (xOfRingOnGrid < needPosForRing[0]) {
+    if (xOfRingOnGrid > rangeForXPosRing[1]) {
       m_DriveSubsystem.m_frontLeft.setDesiredState(
           new SwerveModuleState(
               DriveConstants.kMaxSpeedMetersPerSecond, Rotation2d.fromDegrees(-90)));
@@ -53,7 +62,7 @@ public class RingAdjustCommand extends Command {
           new SwerveModuleState(
               DriveConstants.kMaxSpeedMetersPerSecond, Rotation2d.fromDegrees(-90)));
 
-    } else if (xOfRingOnGrid > needPosForRing[0]) {
+    } else if (xOfRingOnGrid < rangeForYPosRing[0]) {
       m_DriveSubsystem.m_frontLeft.setDesiredState(
           new SwerveModuleState(
               DriveConstants.kMaxSpeedMetersPerSecond, Rotation2d.fromDegrees(90)));
@@ -68,7 +77,7 @@ public class RingAdjustCommand extends Command {
               DriveConstants.kMaxSpeedMetersPerSecond, Rotation2d.fromDegrees(90)));
     }
 
-    if (yOfRingOnGrid > needPosForRing[1]) {
+    if (yOfRingOnGrid > rangeForYPosRing[1]) {
 
       m_DriveSubsystem.m_frontLeft.setDesiredState(
           new SwerveModuleState(
@@ -83,7 +92,7 @@ public class RingAdjustCommand extends Command {
           new SwerveModuleState(
               DriveConstants.kMaxSpeedMetersPerSecond, Rotation2d.fromDegrees(0)));
 
-    } else if (yOfRingOnGrid < needPosForRing[1]) {
+    } else if (yOfRingOnGrid < rangeForYPosRing[0]) {
       m_DriveSubsystem.m_frontLeft.setDesiredState(
           new SwerveModuleState(
               DriveConstants.kMaxSpeedMetersPerSecond, Rotation2d.fromDegrees(180)));
@@ -107,7 +116,7 @@ public class RingAdjustCommand extends Command {
   @Override
   public boolean isFinished() {
 
-    if (xOfRingOnGrid == needPosForRing[0] && yOfRingOnGrid == needPosForRing[1]) {
+    if (ringInXRange() && ringInYRange()) {
       m_DriveSubsystem.m_frontLeft.setDesiredState(
           new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
       m_DriveSubsystem.m_frontRight.setDesiredState(
@@ -117,6 +126,20 @@ public class RingAdjustCommand extends Command {
       m_DriveSubsystem.m_rearRight.setDesiredState(
           new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
 
+      return true;
+    }
+    return false;
+  }
+
+  private boolean ringInXRange() {
+    if (xOfRingOnGrid > rangeForXPosRing[0] && xOfRingOnGrid < rangeForXPosRing[1]) {
+      return true;
+    }
+    return false;
+  }
+
+  private boolean ringInYRange() {
+    if (yOfRingOnGrid > rangeForYPosRing[0] && yOfRingOnGrid < rangeForYPosRing[1]) {
       return true;
     }
     return false;

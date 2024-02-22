@@ -151,7 +151,7 @@ public final class Constants {
 
     public static final float kCameraMaxWidth = 650;
     public static final float kCameraMaxHieght = 570;
-    public static final double kNeededPos[] = {kCameraMaxWidth / 2, kCameraMaxHieght / 2};
+    public static final double kCenterOfScreen[] = {kCameraMaxWidth / 2, kCameraMaxHieght / 2};
     public static final double kDriveAimErrorRange = 10; // In pixels
   }
 
