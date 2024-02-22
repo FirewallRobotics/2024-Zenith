@@ -27,6 +27,9 @@ public class VisionSubsystem extends SubsystemBase {
 
   private final String ringKey = "FoundRing";
 
+  private final String[] ampTags = {"9", "1"};
+  private final String ampCenterName = "Center";
+
   public VisionSubsystem() {}
 
   @Override
@@ -188,5 +191,47 @@ public class VisionSubsystem extends SubsystemBase {
       return true;
     }
     return false;
+  }
+
+  public float getAmpTagCenterX() {
+    String tag = findAmpTagInView();
+
+    if (tag != null) {
+      JSONObject jsonObj =
+          new JSONObject(
+              aprilTagsTable.getEntry(tag).getString("{\"" + ampCenterName + "\": [0,0]}"));
+
+      JSONArray centerArray = jsonObj.getJSONArray(ampCenterName);
+
+      return centerArray.getFloat(0);
+    }
+
+    return 0;
+  }
+
+  public float getAmpTagCenterY() {
+    String tag = findAmpTagInView();
+
+    if (tag != null) {
+      JSONObject jsonObj =
+          new JSONObject(
+              aprilTagsTable.getEntry(tag).getString("{\"" + ampCenterName + "\": [0,0]}"));
+
+      JSONArray centerArray = jsonObj.getJSONArray(ampCenterName);
+
+      return centerArray.getFloat(1);
+    }
+
+    return 0;
+  }
+
+  private String findAmpTagInView() {
+    for (String tagNum : ampTags) {
+      if (aprilTagsTable.containsKey(tagNum)) {
+        return tagNum;
+      }
+    }
+
+    return null;
   }
 }
