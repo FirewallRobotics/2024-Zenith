@@ -7,6 +7,7 @@ import time
 import sys
 import imutils
 from scipy.spatial.transform import Rotation
+import random
 
 class myWebcamVideoStream:
   
@@ -25,19 +26,21 @@ class myWebcamVideoStream:
 
   def __init__(self, src=0):
     
-    global table
+    global table, tab2
 
     #init network tables
     TEAM = 5607
     if testmode == False:
         ntinst = ntcore.NetworkTableInstance.getDefault()
     table = ntinst.getTable("PiDetector")
+    tab2 = ntinst.getTable("UnicornHat")
     ntinst.startClient4("pi1 vision client")
     ntinst.setServer("10.56.7.2")
     
+    #Find the camera and
     # initialize the video camera stream and read the 
     # first frame from the stream
-    self.stream = cv2.VideoCapture(src) 
+    self.stream = cv2.VideoCapture(0) 
     (self.grabbed, self.frame) = self.stream.read()
 
     # flag to stop the thread
@@ -169,7 +172,6 @@ def average_position_of_pixels(mat, threshold=128):
 #configs the detector
 if testmode == False:
     vs = myWebcamVideoStream(0).start()
-    vb = myWebcamVideoStream(1).start()
 options = apriltag.DetectorOptions(families="tag36h11")
 detector = apriltag.Detector(options)
 
@@ -177,7 +179,6 @@ FRCtagSize = float(0.17) #17cm
 fx, fy, cx, cy = read_from_txt_file("cal.txt")
 
 cameraParams = float(fx), float(fy), float(cx), float(cy)
-
 # define color the list of boundaries
 boundaries = [
 	([80,45,170], [100,145,255])
@@ -190,19 +191,48 @@ saved = False
 while testmode == False | (iteration < 3 & testmode == True):
    if testmode == False:
     frame = vs.read()
-    frame2 = vs.read()
    else:
       frame = cv2.imread('test.jpg')
-      frame2 = cv2.imread('test.jpg')
 
+
+   funny_phrases = [
+    "404 Humor not found",
+    "Im not lazy im in energy-saving mode",
+    "When testing is over. you will be baked and there will be cake.",
+    "ChatGPT is my best friend",
+    "Not antisocial just user unfriendly",
+    "hold on justa little while longer - hold on justa little while longer",
+    "it works why",
+    "flip the world",
+    "lttstore.com",
+    "the most used programming language is profanity",
+    "binary is as easy as 01 10 11",
+    "my attitude isnt bad its in beta",
+    "ctrl+c ctrl+v",
+    "i use arch btw",
+    "wpi bye",
+    "my life is pain",
+    "help i am blind",
+    "omg they killed kenny",
+    "a robot gets arrested - charged with battery",
+    "does r2d2 have any brothers - no only transitors",
+]
+
+   Numcol = random.randrange(0, len(funny_phrases))
+   color = funny_phrases[Numcol]
+
+   #if Livemode:
+   #     cool = open("coolstuff.txt", "w")
+   #     cool.write(color)
+   #     cool.close()
    for (lower, upper) in boundaries:
     # create NumPy arrays from the boundaries
     lower = np.array(lower, dtype = "uint8")
     upper = np.array(upper, dtype = "uint8")
     # find the colors within the specified boundaries and apply
     # the mask
-    mask = cv2.inRange(frame2, lower, upper)
-    output = cv2.bitwise_and(frame2, frame2, mask = mask)
+    mask = cv2.inRange(frame, lower, upper)
+    output = cv2.bitwise_and(frame, frame, mask = mask)
     output = cv2.cvtColor(output, cv2.COLOR_BGR2GRAY)
     # show the images
     output = denoise_image(output)
@@ -213,6 +243,12 @@ while testmode == False | (iteration < 3 & testmode == True):
         myStrPub.set('{"X": avX, "Y": avY}' )
     #cv2.imshow("images", output)
     #cv2.waitKey(5)
+
+    if Livemode:
+        Val = tab2.getString("status","False")
+        cool2 = open("Status.txt", "w")
+        cool2.write(Val)
+        cool2.close()
 
    #frame = cv2.undistort(img, mtx, dist, None, newcameramtx)
    grayimage = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -241,10 +277,18 @@ while testmode == False | (iteration < 3 & testmode == True):
            #print("distace")
            #print(distance)
            #print("POSE DATA END")
+           
+           if Livemode:
+               randnum = random.randrange(0,5)
+               if randnum == 5:
+                   tagtext = color
+               else:
+                    tagtext = "Tag " + str(detect.tag_id)
+               print("TransmitTag")
+               cool = open("coolstuff.txt", "w")
+               cool.write(tagtext)
+               cool.close()
 
-           #broken and I have lost my ability to care for this :-(
-           #if Livemode:
-           #    vs.BackgroundUnicorn.coolstuff(distance_to_camera)
 
            #sends the tag data named the t(str(detect.tag_id)).publish()ag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
            if testmode == False:
@@ -273,11 +317,12 @@ while testmode == False | (iteration < 3 & testmode == True):
            #cv2.imwrite("fulmer.jpg",frame)
            saved = True
            #print("Saved!")
+       
    #cv2.imshow('frame', frame)
    #cv2.waitKey(1)
    iteration = iteration + 1
-   time.sleep(0.1)
-
+   if iteration > 50:
+       iteration = 0
 
 version =ntcore.ConnectionInfo.protocol_version
 print("Exitting Code 0_o")

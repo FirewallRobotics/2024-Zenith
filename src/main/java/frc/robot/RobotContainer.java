@@ -15,6 +15,8 @@ import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -52,14 +54,91 @@ public class RobotContainer {
   private final VisionSubsystem m_vision = new VisionSubsystem();
   private final AutoAimSubsystem m_autoAim = new AutoAimSubsystem();
   private final UltrasonicSensor m_UltrasonicSensor = new UltrasonicSensor();
-  private final LEDSubsystem m_LEDSubsystem = new LEDSubsystem();
+  private final LEDSubsystem m_LED = new LEDSubsystem();
+
+  private final Command m_DefaultAuto = new DefaultAutoCommand(m_robotDrive);
+
+  private final Command m_Red2SpeakerNote1 =
+      new SequentialCommandGroup(
+          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+          new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
+          /// new GoToRedNote1Command (or something like that),
+          new IntakeFloorCommand(m_intake, m_axle, m_LED),
+          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+          new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
+
+  private final Command m_Blue2SpeakerNote1 =
+      new SequentialCommandGroup(
+          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+          new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
+          /// new GoToBlueNote1Command (or something like that),
+          new IntakeFloorCommand(m_intake, m_axle, m_LED),
+          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+          new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
+
+  private final Command m_Red2SpeakerNote2 =
+      new SequentialCommandGroup(
+          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+          new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
+          /// new GoToRedNote2Command (or something like that),
+          new IntakeFloorCommand(m_intake, m_axle, m_LED),
+          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+          new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
+
+  private final Command m_Blue2SpeakerNote2 =
+      new SequentialCommandGroup(
+          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+          new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
+          /// new GoToBlueNote2Command (or something like that),
+          new IntakeFloorCommand(m_intake, m_axle, m_LED),
+          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+          new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
+
+  private final Command m_Red3SpeakerNotes12 =
+      new SequentialCommandGroup(
+          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+          new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
+          /// new GoToRedNote1Command (or something like that),
+          new IntakeFloorCommand(m_intake, m_axle, m_LED),
+          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+          new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
+          /// new GoToRedNote2Command
+          new IntakeFloorCommand(m_intake, m_axle, m_LED),
+          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+          new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
+
+  private final Command m_Blue3SpeakerNotes12 =
+      new SequentialCommandGroup(
+          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+          new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
+          /// new GoToBlueNote1Command (or something like that),
+          new IntakeFloorCommand(m_intake, m_axle, m_LED),
+          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+          new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
+          /// new GoToBlueNote2Command
+          new IntakeFloorCommand(m_intake, m_axle, m_LED),
+          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+          new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
 
+  SendableChooser<Command> m_chooser = new SendableChooser<>();
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
+
+    m_chooser.setDefaultOption("Default Auto", m_DefaultAuto);
+    m_chooser.addOption("Red: Score 2 in Speaker, Pick Up Note 1", m_Red2SpeakerNote1);
+    m_chooser.addOption("Blue: Score 2 in Speaker, Pick Up Note 1", m_Blue2SpeakerNote1);
+    m_chooser.addOption("Red: Score 2 in Speaker, Pick Up Note 2", m_Red2SpeakerNote2);
+    m_chooser.addOption("Blue: Score 2 in Speaker, Pick Up Note 2", m_Blue2SpeakerNote2);
+    m_chooser.addOption("Red: Score 3 in Speaker, Pick Up Notes 1 & 2", m_Red3SpeakerNotes12);
+    m_chooser.addOption("Blue: Score 3 in Speaker, Pick Up Notes 1 & 2", m_Blue3SpeakerNotes12);
+
+    SmartDashboard.putData(m_chooser);
+
     configureButtonBindings();
 
     // Configure default commands
@@ -79,7 +158,7 @@ public class RobotContainer {
                     true),
             m_robotDrive));
 
-    m_LEDSubsystem.setDefaultCommand(new LightScroll4LEDCommand(m_LEDSubsystem));
+    m_LED.setDefaultCommand(new LightScroll4LEDCommand(m_LED));
   }
 
   /**
@@ -95,16 +174,15 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kRightBumper.value)
         .whileTrue(
             new SequentialCommandGroup(
-                new ShootSpeakerCommand(m_shooter, m_axle),
+                new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
                 new WaitCommand(1),
                 new IndexCommand(m_intake)));
 
     new JoystickButton(m_driverController, Button.kLeftBumper.value)
-        .whileTrue(new IntakeFloorCommand(m_intake, m_axle));
+        .whileTrue(new IntakeFloorCommand(m_intake, m_axle, m_LED));
 
     new JoystickButton(m_driverController, Button.kX.value)
-        .whileTrue(
-            new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LEDSubsystem));
+        .whileTrue(new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LED));
 
     new JoystickButton(m_driverController, Button.kY.value)
         .whileTrue(new AimAmpCommand(m_robotDrive, m_vision, m_axle));
@@ -188,7 +266,7 @@ public class RobotContainer {
     if (bonusTrajectory != null) {
       bonusSwerveControllerCommand =
           new SwerveControllerCommand(
-              myTrajectory,
+              bonusTrajectory,
               m_robotDrive::getPose, // Functional interface to feed supplier
               DriveConstants.kDriveKinematics,
 

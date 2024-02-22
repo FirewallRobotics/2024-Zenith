@@ -15,11 +15,15 @@ public class ShootAmpCommand extends Command {
 
   private final AxleSubsystem m_Axle;
 
-  public ShootAmpCommand(ShooterSubsystem sh_Subsystem, AxleSubsystem a_Subsystem) {
+  private final IntakeSubsystem m_Intake;
+
+  public ShootAmpCommand(
+      ShooterSubsystem sh_Subsystem, AxleSubsystem a_Subsystem, IntakeSubsystem i_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
 
     m_Shooter = sh_Subsystem;
     m_Axle = a_Subsystem;
+    m_Intake = i_Subsystem;
 
     addRequirements(sh_Subsystem);
     addRequirements(a_Subsystem);
@@ -47,7 +51,7 @@ public class ShootAmpCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (IntakeSubsystem.intakeSensor.get() == false) {
+    if (m_Intake.intakeSensor.get() == false) {
       return true;
     }
     return false;
