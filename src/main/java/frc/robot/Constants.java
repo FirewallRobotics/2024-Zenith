@@ -151,6 +151,7 @@ public final class Constants {
 
     public static final float kCameraMaxWidth = 650;
     public static final float kCameraMaxHieght = 570;
+    public static final double kNeededPos[] = {kCameraMaxWidth / 2, kCameraMaxHieght / 2};
     public static final double kCenterOfScreen[] = {kCameraMaxWidth / 2, kCameraMaxHieght / 2};
     public static final double kDriveAimErrorRange = 10; // In pixels
   }
@@ -177,7 +178,6 @@ public final class Constants {
 
   public static final class IntakeConstants {
     public static final int kMasterIntakeMotorPort = 13;
-    public static final int kMinionIntakeMotorPort = 14;
 
     public static final double kIntakeMotorSpeed = 0.2;
     public static final double kIndexSpeed = 0.2;
