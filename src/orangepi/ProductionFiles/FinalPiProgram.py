@@ -26,7 +26,7 @@ class myWebcamVideoStream:
             Livemode = True
   except FileNotFoundError:
         Livemode = False
-  print(testmode)
+  print(testmode + Livemode)
 
   def __init__(self, src=0):
     
@@ -175,7 +175,10 @@ def average_position_of_pixels(mat, threshold=128):
 # main program
 #configs the detector
 if testmode == False:
-    vs = myWebcamVideoStream(0).start()
+    if Livemode == True:
+        vs = myWebcamVideoStream(0).start()
+    else:
+        vs = myWebcamVideoStream(1).start()
 options = apriltag.DetectorOptions(families="tag36h11")
 detector = apriltag.Detector(options)
 
@@ -184,9 +187,10 @@ fx, fy, cx, cy = read_from_txt_file("cal.txt")
 
 cameraParams = float(fx), float(fy), float(cx), float(cy)
 # define color the list of boundaries
-boundaries = [
-	([80,45,170], [100,145,255])
-]
+if Livemode:
+    boundaries = [
+        ([80,45,170], [100,145,255])
+    ]
 
 iteration = 0
 saved = False
