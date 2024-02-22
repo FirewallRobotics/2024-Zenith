@@ -58,7 +58,7 @@ public class RobotContainer {
 
   private final Command m_DefaultAuto = new DefaultAutoCommand(m_robotDrive);
 
-  private final Command m_Red2SpeakerNote1 =
+  private final Command m_2SpeakerNote1 =
       new SequentialCommandGroup(
           new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
           new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
@@ -67,16 +67,7 @@ public class RobotContainer {
           new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
           new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
 
-  private final Command m_Blue2SpeakerNote1 =
-      new SequentialCommandGroup(
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
-          /// new GoToBlueNote1Command (or something like that),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
-
-  private final Command m_Red2SpeakerNote2 =
+  private final Command m_2SpeakerNote2 =
       new SequentialCommandGroup(
           new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
           new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
@@ -85,16 +76,7 @@ public class RobotContainer {
           new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
           new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
 
-  private final Command m_Blue2SpeakerNote2 =
-      new SequentialCommandGroup(
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
-          /// new GoToBlueNote2Command (or something like that),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
-
-  private final Command m_Red3SpeakerNotes12 =
+  private final Command m_3SpeakerNotes12 =
       new SequentialCommandGroup(
           new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
           new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
@@ -103,19 +85,6 @@ public class RobotContainer {
           new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
           new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
           /// new GoToRedNote2Command
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
-
-  private final Command m_Blue3SpeakerNotes12 =
-      new SequentialCommandGroup(
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
-          /// new GoToBlueNote1Command (or something like that),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
-          /// new GoToBlueNote2Command
           new IntakeFloorCommand(m_intake, m_axle, m_LED),
           new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
           new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
@@ -130,12 +99,9 @@ public class RobotContainer {
     // Configure the button bindings
 
     m_chooser.setDefaultOption("Default Auto", m_DefaultAuto);
-    m_chooser.addOption("Red: Score 2 in Speaker, Pick Up Note 1", m_Red2SpeakerNote1);
-    m_chooser.addOption("Blue: Score 2 in Speaker, Pick Up Note 1", m_Blue2SpeakerNote1);
-    m_chooser.addOption("Red: Score 2 in Speaker, Pick Up Note 2", m_Red2SpeakerNote2);
-    m_chooser.addOption("Blue: Score 2 in Speaker, Pick Up Note 2", m_Blue2SpeakerNote2);
-    m_chooser.addOption("Red: Score 3 in Speaker, Pick Up Notes 1 & 2", m_Red3SpeakerNotes12);
-    m_chooser.addOption("Blue: Score 3 in Speaker, Pick Up Notes 1 & 2", m_Blue3SpeakerNotes12);
+    m_chooser.addOption("Red: Score 2 in Speaker, Pick Up Note 1", m_2SpeakerNote1);
+    m_chooser.addOption("Red: Score 2 in Speaker, Pick Up Note 2", m_2SpeakerNote2);
+    m_chooser.addOption("Red: Score 3 in Speaker, Pick Up Notes 1 & 2", m_3SpeakerNotes12);
 
     SmartDashboard.putData(m_chooser);
 
