@@ -8,8 +8,8 @@ import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkBase.SoftLimitDirection;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
+import com.revrobotics.SparkLimitSwitch;
 import com.revrobotics.SparkPIDController;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AxleConstants;
 
@@ -19,8 +19,8 @@ public class AxleSubsystem extends SubsystemBase {
 
   public static CANSparkMax MinionAxleMotor;
   public static AbsoluteEncoder AxleEncoder;
-  DigitalInput topLimitSwitch = new DigitalInput(AxleConstants.kTopLimitSwitchPort);
-  DigitalInput bottomLimitSwitch = new DigitalInput(AxleConstants.kBottomLimitSwitchPort);
+  SparkLimitSwitch topLimitSwitch;
+  SparkLimitSwitch bottomLimitSwitch;
   private SparkPIDController AxlePIDController;
 
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
@@ -64,11 +64,14 @@ public class AxleSubsystem extends SubsystemBase {
     AxlePIDController.setIZone(kIz);
     AxlePIDController.setFF(kFF);
     AxlePIDController.setOutputRange(kMinOutput, kMaxOutput);
+
+    topLimitSwitch.enableLimitSwitch(true);
+    bottomLimitSwitch.enableLimitSwitch(true);
   }
 
   public void setMotorSpeed(double speed) {
     if (speed > 0) {
-      if (topLimitSwitch.get()) {
+      if (topLimitSwitch.isPressed()) {
         // We are going up and top limit is tripped so stop
         MasterAxleMotor.set(0);
       } else {
@@ -76,7 +79,7 @@ public class AxleSubsystem extends SubsystemBase {
         MasterAxleMotor.set(speed);
       }
     } else {
-      if (bottomLimitSwitch.get()) {
+      if (bottomLimitSwitch.isPressed()) {
         // We are going down and bottom limit is tripped so stop
         MasterAxleMotor.set(0);
       } else {
@@ -121,11 +124,19 @@ public class AxleSubsystem extends SubsystemBase {
   }
 
   public void AxleUp() {
-    MasterAxleMotor.set(AxleConstants.kAxleTestSpeed);
+    if (topLimitSwitch.isPressed()) {
+      MasterAxleMotor.set(0);
+    } else {
+      MasterAxleMotor.set(AxleConstants.kAxleTestSpeed);
+    }
   }
 
   public void AxleDown() {
-    MasterAxleMotor.set(-AxleConstants.kAxleTestSpeed);
+    if (topLimitSwitch.isPressed()) {
+      MasterAxleMotor.set(0);
+    } else {
+      MasterAxleMotor.set(-AxleConstants.kAxleTestSpeed);
+    }
   }
 
   // public void DefaultAngle() {}
