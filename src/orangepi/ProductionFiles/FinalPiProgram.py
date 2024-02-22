@@ -23,7 +23,10 @@ class myWebcamVideoStream:
       Livemode = False
   try:
     with open('/sys/firmware/devicetree/base/model', 'r') as f:
-            Livemode = True
+            if "Raspberry" in f.read():
+                Livemode = True
+            else:
+                Livemode = False
   except FileNotFoundError:
         Livemode = False
   print(testmode + Livemode)
