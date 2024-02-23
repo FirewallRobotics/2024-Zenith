@@ -22,18 +22,18 @@ import frc.robot.commands.AutoAimSpeakerCommand;
 import frc.robot.commands.AutoShootSpeakerCommand;
 import frc.robot.commands.IntakeAxleHeightCommand;
 import frc.robot.commands.IntakeFloorCommand;
-
 import java.util.List;
 
 public class AutonomousTrajectories extends SubsystemBase {
   /** Creates a new AutonomousTrajectories. */
   public AutonomousTrajectories() {
-    trajectoryConfig = new TrajectoryConfig(
-            AutoConstants.kMaxSpeedMetersPerSecond,
-            AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-        // Add kinematics to ensure max speed is actually obeyed
-        .setKinematics(DriveConstants.kDriveKinematics);
-    
+    trajectoryConfig =
+        new TrajectoryConfig(
+                AutoConstants.kMaxSpeedMetersPerSecond,
+                AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(DriveConstants.kDriveKinematics);
+
     thetaController =
         new ProfiledPIDController(
             AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
@@ -320,7 +320,7 @@ public class AutonomousTrajectories extends SubsystemBase {
     return parkTrajectory;
   }
 
-  public Trajectory getRedParkAfterMiddleNoteLeftPathTrajectory(TrajectoryConfig config){
+  public Trajectory getRedParkAfterMiddleNoteLeftPathTrajectory(TrajectoryConfig config) {
     Trajectory parkTrajectory =
         TrajectoryGenerator.generateTrajectory(
             // Start at origin, facing 30 degrees left
@@ -335,7 +335,7 @@ public class AutonomousTrajectories extends SubsystemBase {
     return parkTrajectory;
   }
 
-  public Trajectory getRedParkAfterRightNoteLeftPathTrajectory(TrajectoryConfig config){
+  public Trajectory getRedParkAfterRightNoteLeftPathTrajectory(TrajectoryConfig config) {
     Trajectory parkTrajectory =
         TrajectoryGenerator.generateTrajectory(
             // Start at origin, facing 30 degrees left
@@ -364,7 +364,7 @@ public class AutonomousTrajectories extends SubsystemBase {
 
     return parkTrajectory;
   }
-  
+
   public Trajectory getRedParkAfterMiddleNoteRightPathTrajectory(TrajectoryConfig config) {
     Trajectory parkTrajectory =
         TrajectoryGenerator.generateTrajectory(
@@ -380,7 +380,7 @@ public class AutonomousTrajectories extends SubsystemBase {
     return parkTrajectory;
   }
 
-  public Trajectory getRedParkAfterRightNoteRightPathTrajectory(TrajectoryConfig config){
+  public Trajectory getRedParkAfterRightNoteRightPathTrajectory(TrajectoryConfig config) {
     Trajectory parkTrajectory =
         TrajectoryGenerator.generateTrajectory(
             // Start at origin, facing 30 degrees left
@@ -410,7 +410,7 @@ public class AutonomousTrajectories extends SubsystemBase {
     return parkTrajectory;
   }
 
-  public Trajectory getBlueParkAfterMiddleNoteRightPathTrajectory(TrajectoryConfig config){
+  public Trajectory getBlueParkAfterMiddleNoteRightPathTrajectory(TrajectoryConfig config) {
     Trajectory parkTrajectory =
         TrajectoryGenerator.generateTrajectory(
             // Start at origin, facing 30 degrees left
@@ -425,7 +425,7 @@ public class AutonomousTrajectories extends SubsystemBase {
     return parkTrajectory;
   }
 
-  public Trajectory getBlueParkAfterLeftNoteRightPathTrajectory(TrajectoryConfig config){
+  public Trajectory getBlueParkAfterLeftNoteRightPathTrajectory(TrajectoryConfig config) {
     Trajectory parkTrajectory =
         TrajectoryGenerator.generateTrajectory(
             // Start at origin, facing 30 degrees left
@@ -454,7 +454,7 @@ public class AutonomousTrajectories extends SubsystemBase {
 
     return parkTrajectory;
   }
-  
+
   public Trajectory getBlueParkAfterMiddleNoteLeftPathTrajectory(TrajectoryConfig config) {
     Trajectory parkTrajectory =
         TrajectoryGenerator.generateTrajectory(
@@ -470,7 +470,7 @@ public class AutonomousTrajectories extends SubsystemBase {
     return parkTrajectory;
   }
 
-  public Trajectory getBlueParkAfterLeftNoteLeftPathTrajectory(TrajectoryConfig config){
+  public Trajectory getBlueParkAfterLeftNoteLeftPathTrajectory(TrajectoryConfig config) {
     Trajectory parkTrajectory =
         TrajectoryGenerator.generateTrajectory(
             // Start at origin, facing 30 degrees left
@@ -484,7 +484,6 @@ public class AutonomousTrajectories extends SubsystemBase {
 
     return parkTrajectory;
   }
-  
 
   public SwerveControllerCommand getTrajectoryCommand(
       Trajectory myTrajectory, DriveSubsystem m_robotDrive, ProfiledPIDController thetaController) {
@@ -505,235 +504,368 @@ public class AutonomousTrajectories extends SubsystemBase {
     return swerveControllerCommand;
   }
 
-  private Command getRedRightGrab1Note(DriveSubsystem m_robotDrive, AutoAimSubsystem m_autoAim, VisionSubsystem m_vision, AxleSubsystem m_axle, IntakeSubsystem m_intake, LEDSubsystem m_LED){
+  private Command getRedRightGrab1Note(
+      DriveSubsystem m_robotDrive,
+      AutoAimSubsystem m_autoAim,
+      VisionSubsystem m_vision,
+      AxleSubsystem m_axle,
+      IntakeSubsystem m_intake,
+      LEDSubsystem m_LED) {
     return new SequentialCommandGroup(
-          getTrajectoryCommand(getRedRightMostTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          /// new GoToRedNote1Command (or something like that),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getRedParkAfterRightNoteRightPathTrajectory(trajectoryConfig), m_robotDrive, thetaController));
-
+        getTrajectoryCommand(
+            getRedRightMostTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        /// new GoToRedNote1Command (or something like that),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getRedParkAfterRightNoteRightPathTrajectory(trajectoryConfig),
+            m_robotDrive,
+            thetaController));
   }
-      
-    private Command m_RedRightGrab2Note(DriveSubsystem m_robotDrive, AutoAimSubsystem m_autoAim, VisionSubsystem m_vision, AxleSubsystem m_axle, IntakeSubsystem m_intake, LEDSubsystem m_LED){
-      return new SequentialCommandGroup(
-          getTrajectoryCommand(getRedRightMostTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          /// new GoToRedNote1Command (or something like that),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getRedRightMostTrajectory2FieldRelative(trajectoryConfig), m_robotDrive, thetaController),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getRedParkAfterMiddleNoteRightPathTrajectory(trajectoryConfig), m_robotDrive, thetaController));
-    }
-      
 
-    private Command m_RedRightGrab3Note(DriveSubsystem m_robotDrive, AutoAimSubsystem m_autoAim, VisionSubsystem m_vision, AxleSubsystem m_axle, IntakeSubsystem m_intake, LEDSubsystem m_LED){
-      return new SequentialCommandGroup(
-          getTrajectoryCommand(getRedRightMostTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          /// new GoToRedNote1Command (or something like that),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getRedRightMostTrajectory2FieldRelative(trajectoryConfig), m_robotDrive, thetaController),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getRedRightMostTrajectory3FieldRelative(trajectoryConfig), m_robotDrive, thetaController),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getRedParkAfterLeftNoteRightPathTrajectory(trajectoryConfig), m_robotDrive, thetaController));
-    }
-      
+  private Command m_RedRightGrab2Note(
+      DriveSubsystem m_robotDrive,
+      AutoAimSubsystem m_autoAim,
+      VisionSubsystem m_vision,
+      AxleSubsystem m_axle,
+      IntakeSubsystem m_intake,
+      LEDSubsystem m_LED) {
+    return new SequentialCommandGroup(
+        getTrajectoryCommand(
+            getRedRightMostTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        /// new GoToRedNote1Command (or something like that),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getRedRightMostTrajectory2FieldRelative(trajectoryConfig),
+            m_robotDrive,
+            thetaController),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getRedParkAfterMiddleNoteRightPathTrajectory(trajectoryConfig),
+            m_robotDrive,
+            thetaController));
+  }
 
-    private Command m_RedMiddleGrab1Note(DriveSubsystem m_robotDrive, AutoAimSubsystem m_autoAim, VisionSubsystem m_vision, AxleSubsystem m_axle, IntakeSubsystem m_intake, LEDSubsystem m_LED){
-      return new SequentialCommandGroup(
-          getTrajectoryCommand(getRedMiddleTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          /// new GoToRedNote1Command (or something like that),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getRedParkAfterLeftNoteLeftPathTrajectory(trajectoryConfig), m_robotDrive, thetaController));
-    }
-      
+  private Command m_RedRightGrab3Note(
+      DriveSubsystem m_robotDrive,
+      AutoAimSubsystem m_autoAim,
+      VisionSubsystem m_vision,
+      AxleSubsystem m_axle,
+      IntakeSubsystem m_intake,
+      LEDSubsystem m_LED) {
+    return new SequentialCommandGroup(
+        getTrajectoryCommand(
+            getRedRightMostTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        /// new GoToRedNote1Command (or something like that),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getRedRightMostTrajectory2FieldRelative(trajectoryConfig),
+            m_robotDrive,
+            thetaController),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getRedRightMostTrajectory3FieldRelative(trajectoryConfig),
+            m_robotDrive,
+            thetaController),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getRedParkAfterLeftNoteRightPathTrajectory(trajectoryConfig),
+            m_robotDrive,
+            thetaController));
+  }
 
-    private Command m_RedMiddleGrab2Note(DriveSubsystem m_robotDrive, AutoAimSubsystem m_autoAim, VisionSubsystem m_vision, AxleSubsystem m_axle, IntakeSubsystem m_intake, LEDSubsystem m_LED){
-      return new SequentialCommandGroup(
-          getTrajectoryCommand(getRedMiddleTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          /// new GoToRedNote1Command (or something like that),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getRedMiddleTrajectory2FieldRelative(trajectoryConfig), m_robotDrive, thetaController),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getRedParkAfterMiddleNoteLeftPathTrajectory(trajectoryConfig), m_robotDrive, thetaController));
-    }
-      
+  private Command m_RedMiddleGrab1Note(
+      DriveSubsystem m_robotDrive,
+      AutoAimSubsystem m_autoAim,
+      VisionSubsystem m_vision,
+      AxleSubsystem m_axle,
+      IntakeSubsystem m_intake,
+      LEDSubsystem m_LED) {
+    return new SequentialCommandGroup(
+        getTrajectoryCommand(
+            getRedMiddleTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        /// new GoToRedNote1Command (or something like that),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getRedParkAfterLeftNoteLeftPathTrajectory(trajectoryConfig),
+            m_robotDrive,
+            thetaController));
+  }
 
-    private Command m_RedMiddleGrab3Note(DriveSubsystem m_robotDrive, AutoAimSubsystem m_autoAim, VisionSubsystem m_vision, AxleSubsystem m_axle, IntakeSubsystem m_intake, LEDSubsystem m_LED){
-      return new SequentialCommandGroup(
-          getTrajectoryCommand(getRedMiddleTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          /// new GoToRedNote1Command (or something like that),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getRedMiddleTrajectory2FieldRelative(trajectoryConfig), m_robotDrive, thetaController),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getRedMiddleTrajectory3FieldRelative(trajectoryConfig), m_robotDrive, thetaController),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getRedParkAfterRightNoteLeftPathTrajectory(trajectoryConfig), m_robotDrive, thetaController));
-    }
-      
+  private Command m_RedMiddleGrab2Note(
+      DriveSubsystem m_robotDrive,
+      AutoAimSubsystem m_autoAim,
+      VisionSubsystem m_vision,
+      AxleSubsystem m_axle,
+      IntakeSubsystem m_intake,
+      LEDSubsystem m_LED) {
+    return new SequentialCommandGroup(
+        getTrajectoryCommand(
+            getRedMiddleTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        /// new GoToRedNote1Command (or something like that),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getRedMiddleTrajectory2FieldRelative(trajectoryConfig), m_robotDrive, thetaController),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getRedParkAfterMiddleNoteLeftPathTrajectory(trajectoryConfig),
+            m_robotDrive,
+            thetaController));
+  }
 
-    private Command m_BlueLeftGrab1Note(DriveSubsystem m_robotDrive, AutoAimSubsystem m_autoAim, VisionSubsystem m_vision, AxleSubsystem m_axle, IntakeSubsystem m_intake, LEDSubsystem m_LED){
-      return new SequentialCommandGroup(
-          getTrajectoryCommand(getBlueLeftMostTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          /// new GoToRedNote1Command (or something like that),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getBlueParkAfterLeftNoteLeftPathTrajectory(trajectoryConfig), m_robotDrive, thetaController));
-    }
-      
+  private Command m_RedMiddleGrab3Note(
+      DriveSubsystem m_robotDrive,
+      AutoAimSubsystem m_autoAim,
+      VisionSubsystem m_vision,
+      AxleSubsystem m_axle,
+      IntakeSubsystem m_intake,
+      LEDSubsystem m_LED) {
+    return new SequentialCommandGroup(
+        getTrajectoryCommand(
+            getRedMiddleTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        /// new GoToRedNote1Command (or something like that),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getRedMiddleTrajectory2FieldRelative(trajectoryConfig), m_robotDrive, thetaController),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getRedMiddleTrajectory3FieldRelative(trajectoryConfig), m_robotDrive, thetaController),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getRedParkAfterRightNoteLeftPathTrajectory(trajectoryConfig),
+            m_robotDrive,
+            thetaController));
+  }
 
-    private Command m_BlueLeftGrab2Note(DriveSubsystem m_robotDrive, AutoAimSubsystem m_autoAim, VisionSubsystem m_vision, AxleSubsystem m_axle, IntakeSubsystem m_intake, LEDSubsystem m_LED){
-      return new SequentialCommandGroup(
-          getTrajectoryCommand(getBlueLeftMostTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          /// new GoToRedNote1Command (or something like that),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getBlueLeftMostTrajectory2FieldRelative(trajectoryConfig), m_robotDrive, thetaController),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getBlueParkAfterMiddleNoteLeftPathTrajectory(trajectoryConfig), m_robotDrive, thetaController));
-    }
-      
+  private Command m_BlueLeftGrab1Note(
+      DriveSubsystem m_robotDrive,
+      AutoAimSubsystem m_autoAim,
+      VisionSubsystem m_vision,
+      AxleSubsystem m_axle,
+      IntakeSubsystem m_intake,
+      LEDSubsystem m_LED) {
+    return new SequentialCommandGroup(
+        getTrajectoryCommand(
+            getBlueLeftMostTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        /// new GoToRedNote1Command (or something like that),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getBlueParkAfterLeftNoteLeftPathTrajectory(trajectoryConfig),
+            m_robotDrive,
+            thetaController));
+  }
 
-    private Command m_BlueLeftGrab3Note(DriveSubsystem m_robotDrive, AutoAimSubsystem m_autoAim, VisionSubsystem m_vision, AxleSubsystem m_axle, IntakeSubsystem m_intake, LEDSubsystem m_LED){
-      return new SequentialCommandGroup(
-          getTrajectoryCommand(getBlueLeftMostTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          /// new GoToRedNote1Command (or something like that),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getBlueLeftMostTrajectory2FieldRelative(trajectoryConfig), m_robotDrive, thetaController),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getBlueLeftMostTrajectory3FieldRelative(trajectoryConfig), m_robotDrive, thetaController),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getBlueParkAfterRightNoteLeftPathTrajectory(trajectoryConfig), m_robotDrive, thetaController));
-    }
-      
+  private Command m_BlueLeftGrab2Note(
+      DriveSubsystem m_robotDrive,
+      AutoAimSubsystem m_autoAim,
+      VisionSubsystem m_vision,
+      AxleSubsystem m_axle,
+      IntakeSubsystem m_intake,
+      LEDSubsystem m_LED) {
+    return new SequentialCommandGroup(
+        getTrajectoryCommand(
+            getBlueLeftMostTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        /// new GoToRedNote1Command (or something like that),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getBlueLeftMostTrajectory2FieldRelative(trajectoryConfig),
+            m_robotDrive,
+            thetaController),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getBlueParkAfterMiddleNoteLeftPathTrajectory(trajectoryConfig),
+            m_robotDrive,
+            thetaController));
+  }
 
-    private Command m_BlueMiddleGrab1Note(DriveSubsystem m_robotDrive, AutoAimSubsystem m_autoAim, VisionSubsystem m_vision, AxleSubsystem m_axle, IntakeSubsystem m_intake, LEDSubsystem m_LED){
-      return new SequentialCommandGroup(
-          getTrajectoryCommand(getBlueMiddleTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          /// new GoToRedNote1Command (or something like that),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getBlueParkAfterRightNoteRightPathTrajectory(trajectoryConfig), m_robotDrive, thetaController));
-    }
-      
+  private Command m_BlueLeftGrab3Note(
+      DriveSubsystem m_robotDrive,
+      AutoAimSubsystem m_autoAim,
+      VisionSubsystem m_vision,
+      AxleSubsystem m_axle,
+      IntakeSubsystem m_intake,
+      LEDSubsystem m_LED) {
+    return new SequentialCommandGroup(
+        getTrajectoryCommand(
+            getBlueLeftMostTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        /// new GoToRedNote1Command (or something like that),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getBlueLeftMostTrajectory2FieldRelative(trajectoryConfig),
+            m_robotDrive,
+            thetaController),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getBlueLeftMostTrajectory3FieldRelative(trajectoryConfig),
+            m_robotDrive,
+            thetaController),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getBlueParkAfterRightNoteLeftPathTrajectory(trajectoryConfig),
+            m_robotDrive,
+            thetaController));
+  }
 
-    private Command m_BlueMiddleGrab2Note(DriveSubsystem m_robotDrive, AutoAimSubsystem m_autoAim, VisionSubsystem m_vision, AxleSubsystem m_axle, IntakeSubsystem m_intake, LEDSubsystem m_LED){
-      return new SequentialCommandGroup(
-          getTrajectoryCommand(getBlueMiddleTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          /// new GoToRedNote1Command (or something like that),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getBlueMiddleTrajectory2FieldRelative(trajectoryConfig), m_robotDrive, thetaController),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getBlueParkAfterMiddleNoteRightPathTrajectory(trajectoryConfig), m_robotDrive, thetaController));
+  private Command m_BlueMiddleGrab1Note(
+      DriveSubsystem m_robotDrive,
+      AutoAimSubsystem m_autoAim,
+      VisionSubsystem m_vision,
+      AxleSubsystem m_axle,
+      IntakeSubsystem m_intake,
+      LEDSubsystem m_LED) {
+    return new SequentialCommandGroup(
+        getTrajectoryCommand(
+            getBlueMiddleTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        /// new GoToRedNote1Command (or something like that),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getBlueParkAfterRightNoteRightPathTrajectory(trajectoryConfig),
+            m_robotDrive,
+            thetaController));
+  }
 
-    }
-      
-    private Command m_BlueMiddleGrab3Note(DriveSubsystem m_robotDrive, AutoAimSubsystem m_autoAim, VisionSubsystem m_vision, AxleSubsystem m_axle, IntakeSubsystem m_intake, LEDSubsystem m_LED){
-      return new SequentialCommandGroup(
-          getTrajectoryCommand(getBlueMiddleTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          /// new GoToRedNote1Command (or something like that),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getBlueMiddleTrajectory2FieldRelative(trajectoryConfig), m_robotDrive, thetaController),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getBlueMiddleTrajectory3FieldRelative(trajectoryConfig), m_robotDrive, thetaController),
-          new IntakeAxleHeightCommand(),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new AutoShootSpeakerCommand(),
-          getTrajectoryCommand(getBlueParkAfterLeftNoteRightPathTrajectory(trajectoryConfig), m_robotDrive, thetaController));
-    }
-      
+  private Command m_BlueMiddleGrab2Note(
+      DriveSubsystem m_robotDrive,
+      AutoAimSubsystem m_autoAim,
+      VisionSubsystem m_vision,
+      AxleSubsystem m_axle,
+      IntakeSubsystem m_intake,
+      LEDSubsystem m_LED) {
+    return new SequentialCommandGroup(
+        getTrajectoryCommand(
+            getBlueMiddleTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        /// new GoToRedNote1Command (or something like that),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getBlueMiddleTrajectory2FieldRelative(trajectoryConfig), m_robotDrive, thetaController),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getBlueParkAfterMiddleNoteRightPathTrajectory(trajectoryConfig),
+            m_robotDrive,
+            thetaController));
+  }
 
-    private Command m_driveStraight(DriveSubsystem m_robotDrive){
-      return getTrajectoryCommand(getForwardTrajectory(trajectoryConfig), m_robotDrive, thetaController);
-    } 
+  private Command m_BlueMiddleGrab3Note(
+      DriveSubsystem m_robotDrive,
+      AutoAimSubsystem m_autoAim,
+      VisionSubsystem m_vision,
+      AxleSubsystem m_axle,
+      IntakeSubsystem m_intake,
+      LEDSubsystem m_LED) {
+    return new SequentialCommandGroup(
+        getTrajectoryCommand(
+            getBlueMiddleTrajectory1(trajectoryConfig), m_robotDrive, thetaController),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        /// new GoToRedNote1Command (or something like that),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getBlueMiddleTrajectory2FieldRelative(trajectoryConfig), m_robotDrive, thetaController),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getBlueMiddleTrajectory3FieldRelative(trajectoryConfig), m_robotDrive, thetaController),
+        new IntakeAxleHeightCommand(),
+        new IntakeFloorCommand(m_intake, m_axle, m_LED),
+        new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
+        new AutoShootSpeakerCommand(),
+        getTrajectoryCommand(
+            getBlueParkAfterLeftNoteRightPathTrajectory(trajectoryConfig),
+            m_robotDrive,
+            thetaController));
+  }
+
+  private Command m_driveStraight(DriveSubsystem m_robotDrive) {
+    return getTrajectoryCommand(
+        getForwardTrajectory(trajectoryConfig), m_robotDrive, thetaController);
+  }
 }
