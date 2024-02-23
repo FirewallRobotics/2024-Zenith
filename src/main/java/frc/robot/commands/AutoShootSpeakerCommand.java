@@ -11,8 +11,8 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 public class AutoShootSpeakerCommand extends Command {
   /** Creates a new ShootSpeakerCommand. */
-  
   private final ShooterSubsystem m_shooter;
+
   private final IntakeSubsystem m_intake;
 
   final Timer timer = new Timer();
@@ -38,7 +38,7 @@ public class AutoShootSpeakerCommand extends Command {
   public void execute() {
     m_shooter.ShootSpeaker();
 
-    if(timer.hasElapsed(0.5)){
+    if (timer.hasElapsed(0.5)) {
       m_intake.StartIntake();
     }
   }

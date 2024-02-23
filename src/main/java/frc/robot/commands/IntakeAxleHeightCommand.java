@@ -10,8 +10,8 @@ import frc.robot.subsystems.ClimbSubsystem;
 
 public class IntakeAxleHeightCommand extends Command {
   /** Creates a new IntakeAxleHeightCommand. */
-  
   private final AxleSubsystem m_axle;
+
   private final ClimbSubsystem m_climb;
 
   public IntakeAxleHeightCommand(AxleSubsystem a_Subsystem, ClimbSubsystem c_Subsystem) {
@@ -31,7 +31,7 @@ public class IntakeAxleHeightCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(m_climb.bottomLimitSwitch.isPressed()){
+    if (m_climb.bottomLimitSwitch.isPressed()) {
       m_axle.SetIntakeHeight();
     }
   }
