@@ -20,14 +20,11 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public DigitalInput intakeSensor;
 
-  public Subsystem ledSubsystem;
-
   public IntakeSubsystem() {
     MasterIntakeMotor =
         new CANSparkMax(IntakeConstants.kMasterIntakeMotorPort, MotorType.kBrushless);
 
     intakeSensor = new DigitalInput(IntakeConstants.kIntakeSensorPort);
-    final LEDSubsystem m_LEDSubsystem = new LEDSubsystem();
     MasterIntakeMotor.restoreFactoryDefaults();
 
     MasterIntakeMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
