@@ -167,6 +167,8 @@ public final class Constants {
     public static final double kIntakeHeight = .01;
     public static double kMeasuredPosHorizontal = .512;
     public static double kAxleTestSpeed = .01;
+
+    public static double kTestRadiansNeeded = Math.PI / 2;
   }
 
   public static final class ShooterConstants {
