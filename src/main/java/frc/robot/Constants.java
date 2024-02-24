@@ -206,7 +206,7 @@ public final class Constants {
     public static final double kTargetX =
         0; // In meters; X value of speaker relative to origin (originX = speakerX)
     public static final double kTargetY =
-        2.0; // In meters; height of speaker target; ***SUBJECT TO CHANGE***
+        2.045; // In meters; height of speaker target; ***SUBJECT TO CHANGE***
     public static final double kLaunchVelocity =
         7.0; // In meters/second; velocity of note shooting out; ***SUBJECT TO CHANGE***
     public static final double kgravitationalConstant =
@@ -219,14 +219,14 @@ public final class Constants {
     public static final double kRangeForMax =
         0.01; // Required accuracy for angle of max brute force calculation
 
-    public static final double kTagToSpeakerDistance = 0.25; // in meters; ***SUBJECT TO CHANGE***
+    public static final double kTagToSpeakerDistance = 0.23; // in meters; ***SUBJECT TO CHANGE***
 
     public static final double kDriveRotationPower = 0.1;
 
-    public static final double kMaxPhysicalAngleDegrees = 50; // in degrees (if that wasn't obvious)
+    public static final double kMaxPhysicalAngleDegrees = 57; // in degrees (if that wasn't obvious)
     public static final double kPhysicalShooterAngleOffsetDegrees =
-        20; // in degrees, ADDED to the axle angle for shooter
+        130; // in degrees, ADDED to the axle angle for shooter
 
-    public static final double kShooterAimErrorRangeDegrees = 5; // In degrees
+    public static final double kShooterAimErrorRangeDegrees = 3; // In degrees
   }
 }
