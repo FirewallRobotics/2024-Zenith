@@ -8,6 +8,7 @@ import sys
 import imutils
 from scipy.spatial.transform import Rotation
 import random
+import socket
 
 class myWebcamVideoStream:
   
@@ -21,8 +22,15 @@ class myWebcamVideoStream:
         Livemode = False
   elif (sys.argv[1:] == ['--not-pi']):
       Livemode = False
-  #else:
-  print(testmode)
+  try:
+    with open('/sys/firmware/devicetree/base/model', 'r') as f:
+            if "Raspberry" in f.read():
+                Livemode = True
+            else:
+                Livemode = False
+  except FileNotFoundError:
+        Livemode = False
+  print(testmode + Livemode)
 
   def __init__(self, src=0):
     
@@ -40,7 +48,7 @@ class myWebcamVideoStream:
     #Find the camera and
     # initialize the video camera stream and read the 
     # first frame from the stream
-    self.stream = cv2.VideoCapture(0) 
+    self.stream = cv2.VideoCapture(src) 
     (self.grabbed, self.frame) = self.stream.read()
 
     # flag to stop the thread
@@ -171,7 +179,10 @@ def average_position_of_pixels(mat, threshold=128):
 # main program
 #configs the detector
 if testmode == False:
-    vs = myWebcamVideoStream(0).start()
+    if Livemode == True:
+        vs = myWebcamVideoStream(0).start()
+    else:
+        vs = myWebcamVideoStream(1).start()
 options = apriltag.DetectorOptions(families="tag36h11")
 detector = apriltag.Detector(options)
 
@@ -180,9 +191,11 @@ fx, fy, cx, cy = read_from_txt_file("cal.txt")
 
 cameraParams = float(fx), float(fy), float(cx), float(cy)
 # define color the list of boundaries
-boundaries = [
-	([80,45,170], [100,145,255])
-]
+if Livemode:
+    socket.socket.connect(('10.56.7.12', 80))
+    boundaries = [
+        ([80,45,170], [100,145,255])
+    ]
 
 iteration = 0
 saved = False
@@ -195,56 +208,29 @@ while testmode == False | (iteration < 3 & testmode == True):
       frame = cv2.imread('test.jpg')
 
 
-   funny_phrases = [
-    "404 Humor not found",
-    "Im not lazy im in energy-saving mode",
-    "When testing is over. you will be baked and there will be cake.",
-    "ChatGPT is my best friend",
-    "Not antisocial just user unfriendly",
-    "hold on justa little while longer - hold on justa little while longer",
-    "it works why",
-    "flip the world",
-    "lttstore.com",
-    "the most used programming language is profanity",
-    "binary is as easy as 01 10 11",
-    "my attitude isnt bad its in beta",
-    "ctrl+c ctrl+v",
-    "i use arch btw",
-    "wpi bye",
-    "my life is pain",
-    "help i am blind",
-    "omg they killed kenny",
-    "a robot gets arrested - charged with battery",
-    "does r2d2 have any brothers - no only transitors",
-]
 
-   Numcol = random.randrange(0, len(funny_phrases))
-   color = funny_phrases[Numcol]
 
-   #if Livemode:
-   #     cool = open("coolstuff.txt", "w")
-   #     cool.write(color)
-   #     cool.close()
-   for (lower, upper) in boundaries:
-    # create NumPy arrays from the boundaries
-    lower = np.array(lower, dtype = "uint8")
-    upper = np.array(upper, dtype = "uint8")
-    # find the colors within the specified boundaries and apply
-    # the mask
-    mask = cv2.inRange(frame, lower, upper)
-    output = cv2.bitwise_and(frame, frame, mask = mask)
-    output = cv2.cvtColor(output, cv2.COLOR_BGR2GRAY)
-    # show the images
-    output = denoise_image(output)
-    avX, avY = average_position_of_pixels(output, 120)
-    #print(avX, avY)
-    if testmode == False:
+   if Livemode:
+    #     cool = open("coolstuff.txt", "w")
+    #     cool.write(color)
+    #     cool.close()
+    for (lower, upper) in boundaries:
+        # create NumPy arrays from the boundaries
+        lower = np.array(lower, dtype = "uint8")
+        upper = np.array(upper, dtype = "uint8")
+        # find the colors within the specified boundaries and apply
+        # the mask
+        mask = cv2.inRange(frame, lower, upper)
+        output = cv2.bitwise_and(frame, frame, mask = mask)
+        output = cv2.cvtColor(output, cv2.COLOR_BGR2GRAY)
+        # show the images
+        output = denoise_image(output)
+        avX, avY = average_position_of_pixels(output, 120)
+        #print(avX, avY)
         myStrPub = table.getStringTopic("FoundRings").publish()
         myStrPub.set('{"X": avX, "Y": avY}' )
-    #cv2.imshow("images", output)
-    #cv2.waitKey(5)
-
-    if Livemode:
+        #cv2.imshow("images", output)
+        #cv2.waitKey(5)
         Val = tab2.getString("status","False")
         cool2 = open("Status.txt", "w")
         cool2.write(Val)
@@ -279,15 +265,8 @@ while testmode == False | (iteration < 3 & testmode == True):
            #print("POSE DATA END")
            
            if Livemode:
-               randnum = random.randrange(0,5)
-               if randnum == 5:
-                   tagtext = color
-               else:
-                    tagtext = "Tag " + str(detect.tag_id)
-               print("TransmitTag")
-               cool = open("coolstuff.txt", "w")
-               cool.write(tagtext)
-               cool.close()
+               tagtext = "Tag " + str(detect.tag_id)
+               socket.socket.send(tagtext.encode())
 
 
            #sends the tag data named the t(str(detect.tag_id)).publish()ag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations

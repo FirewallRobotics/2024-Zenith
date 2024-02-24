@@ -2,6 +2,7 @@ import unicornhat as UH
 from bitarray import bitarray
 import time
 import os
+import socket
 
 '''This file contains all the letter designs as an 8x8 bitarray. 
 You can add your won by just folowing the same format. Don't forget to specify the character 
@@ -796,9 +797,9 @@ def scroll_letter(letter,colour,brightness,speed): # scrolls a single letter acr
 '''scrolling is achieved by redrawing the letter with a column of the bitarray shifted to the left and a new blank column
 added to the right'''
 def scroll_word(word,colour,brightness,speed): # scrolls a word across the UH
-	unmod = cool.read()
+	unmod = txt
 	for s in range(len(word[0])):
-		if (unmod != cool.read()):
+		if (unmod != txt):
 			UH.clear()
 			return
 		show_letter(word,colour,brightness)
@@ -871,22 +872,47 @@ def randcolor():
     color = colors[Numcol]
     return color
 
+funny_phrases = [
+    "404 Humor not found",
+    "Im not lazy im in energy-saving mode",
+    "When testing is over. you will be baked and there will be cake.",
+    "ChatGPT is my best friend",
+    "Not antisocial just user unfriendly",
+    "hold on justa little while longer - hold on justa little while longer",
+    "it works why",
+    "flip the world",
+    "lttstore.com",
+    "binary is as easy as 01 10 11",
+    "my attitude isnt bad its in beta",
+    "ctrl+c ctrl+v",
+    "i use arch btw",
+    "wpi bye",
+    "help i am blind",
+    "omg they killed kenny",
+    "a robot gets arrested - charged with battery",
+    "does r2d2 have any brothers - no only transitors",
+    "Before we start. however. keep in mind that while fun and learning are the primary goals of all enrichment center activitys. serious injuries may occur.",
+    "For your own safety and the safety of others please refrain from touching (bzzzzzt)",
+    "Lets be honest. neither one of us knows what that thing does. just put it in the corner. and Ill deal with it later.",
+    "call me GLADOS"
+]
+
+s = socket.socket()
+s.bind(('10.56.7.12', 80))
+s.listen(5)
+
 prevtxt = ""
 iter = 0
 
 while True:
-    Nofile = True
-    while Nofile == True:
-        try:
-            cool = open("/home/pi/coolstuff.txt", "r")
-            Nofile = False
-            if cool.read == None:
-                Nofile == True
-        except FileNotFoundError:
-            Nofile = True
-    
     color = randcolor()
-    txttmp = cool.read()
+    Nofile = True
+    while addr == None:
+        c, addr = s.accept()
+        UH.clear()
+        unicorn_scroll("Waiting for connection", color, )
+    txttmp = s.recv(1024).decode()
+
     if ((iter % 5) == 0):
        txt = "5607 - Vision - ~heart - "
        iter = 0
@@ -904,6 +930,11 @@ while True:
     except FileNotFoundError:
         Nofile2 = True
 
+    randnum = random.randrange(0,5)
+    if randnum == 3:
+        Numcol = random.randrange(0, len(funny_phrases))
+        txt = funny_phrases[Numcol]
+
     if Nofile2:
         UH.clear()
         unicorn_scroll(txt,color,100,0.11)
@@ -911,6 +942,5 @@ while True:
         UH.clear()
         ShowBuls(100)
     print(cool2.read())
-    prevtxt = cool.read()
-    cool.close()
+    prevtxt = txt
     iter += 1
