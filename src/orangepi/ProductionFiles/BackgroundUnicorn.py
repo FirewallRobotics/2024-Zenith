@@ -887,7 +887,6 @@ funny_phrases = [
     "ctrl+c ctrl+v",
     "i use arch btw",
     "wpi bye",
-    "my life is pain",
     "help i am blind",
     "omg they killed kenny",
     "a robot gets arrested - charged with battery",
@@ -895,7 +894,6 @@ funny_phrases = [
     "Before we start. however. keep in mind that while fun and learning are the primary goals of all enrichment center activitys. serious injuries may occur.",
     "For your own safety and the safety of others please refrain from touching (bzzzzzt)",
     "Lets be honest. neither one of us knows what that thing does. just put it in the corner. and Ill deal with it later.",
-    "I know you dont believe this. but everything that has happened so far was for your benefit",
     "call me GLADOS"
 ]
 
