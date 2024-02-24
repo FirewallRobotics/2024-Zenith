@@ -5,18 +5,22 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.climbConstants;
+import frc.robot.Constants.AxleConstants;
+import frc.robot.subsystems.AxleSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 
 public class ClimbDefaultCommand extends Command {
   private final ClimbSubsystem m_Climb;
+  private final AxleSubsystem m_Axle;
 
   /** Creates a new ClimbDefaultCommand. */
-  public ClimbDefaultCommand(ClimbSubsystem c_Subsystem) {
+  public ClimbDefaultCommand(ClimbSubsystem c_Subsystem, AxleSubsystem a_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_Climb = c_Subsystem;
+    m_Axle = a_Subsystem;
 
     addRequirements(c_Subsystem);
+    addRequirements(a_Subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -26,7 +30,12 @@ public class ClimbDefaultCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Climb.DefaultHeight();
+    if (Math.abs(m_Axle.getAngle() - AxleConstants.kDefaultHeight) < 10) {
+      m_Climb.DefaultHeight();
+    } else {
+      m_Climb.stopClimb();
+      ;
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -41,7 +50,7 @@ public class ClimbDefaultCommand extends Command {
   @Override
   public boolean isFinished() {
     // Test if currentPos is equal to the default height
-    if (m_Climb.currentPos == climbConstants.kClimbDefaultHeight) {
+    if (m_Climb.topLimitSwitch.isPressed() || (Math.abs(m_Axle.getAngle() - Math.PI / 2) < 10)) {
       return true;
     }
     return false;
