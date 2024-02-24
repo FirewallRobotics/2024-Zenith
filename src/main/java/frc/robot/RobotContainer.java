@@ -115,11 +115,14 @@ public class RobotContainer {
             () ->
                 m_robotDrive.drive(
                     -MathUtil.applyDeadband(
-                        m_driverController.getLeftY(), OIConstants.kDriveDeadband),
+                            m_driverController.getLeftY(), OIConstants.kDriveDeadband)
+                        - (OIConstants.kDriveDeadband * changeSpeed()),
                     -MathUtil.applyDeadband(
-                        m_driverController.getLeftX(), OIConstants.kDriveDeadband),
+                            m_driverController.getLeftX(), OIConstants.kDriveDeadband)
+                        * changeSpeed(),
                     -MathUtil.applyDeadband(
-                        m_driverController.getRightX(), OIConstants.kDriveDeadband),
+                            m_driverController.getRightX(), OIConstants.kDriveDeadband)
+                        * changeSpeed(),
                     true,
                     true),
             m_robotDrive));
@@ -423,5 +426,14 @@ public class RobotContainer {
             config);
 
     return nullTrajectory;
+  }
+
+  private double changeSpeed() {
+    // As of this moment, no one knows if up is - or +, this might need to change.
+    if (m_UltrasonicSensor.inRange30() && m_driverController.getLeftY() > 0) {
+      return m_UltrasonicSensor.speedNeeded();
+    } else {
+      return 0;
+    }
   }
 }
