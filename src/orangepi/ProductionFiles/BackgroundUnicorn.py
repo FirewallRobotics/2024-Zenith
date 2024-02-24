@@ -899,7 +899,10 @@ funny_phrases = [
 	"this is your fault. it didnt have to be like this.",
 	"Lets be honest. neither one of us knows what that thing does. just put it in the corner. and Ill deal with it later.",
 	"I know you dont believe this. but everything that has happened so far was for your benefit",
-	"call me GLADOS"
+	"call me GLADOS",
+	"How Are You Holding Up? Because Im A Potato.",
+	"This Was A Triumph.",
+	"Look At You, Sailing Through The Air Majestically, Like An Eagle…Piloting A Blimp.",
 ]
 
 s = socket.socket()
