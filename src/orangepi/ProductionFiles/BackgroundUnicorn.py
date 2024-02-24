@@ -882,7 +882,6 @@ funny_phrases = [
     "it works why",
     "flip the world",
     "lttstore.com",
-    "the most used programming language is profanity",
     "binary is as easy as 01 10 11",
     "my attitude isnt bad its in beta",
     "ctrl+c ctrl+v",
@@ -893,13 +892,11 @@ funny_phrases = [
     "omg they killed kenny",
     "a robot gets arrested - charged with battery",
     "does r2d2 have any brothers - no only transitors",
-	"I feel sorry for you. really. because youre not even in the right place.",
-	"Before we start. however. keep in mind that while fun and learning are the primary goals of all enrichment center activitys. serious injuries may occur.",
-	"For your own safety and the safety of others please refrain from touching (bzzzzzt)",
-	"this is your fault. it didnt have to be like this.",
-	"Lets be honest. neither one of us knows what that thing does. just put it in the corner. and Ill deal with it later.",
-	"I know you dont believe this. but everything that has happened so far was for your benefit",
-	"call me GLADOS"
+    "Before we start. however. keep in mind that while fun and learning are the primary goals of all enrichment center activitys. serious injuries may occur.",
+    "For your own safety and the safety of others please refrain from touching (bzzzzzt)",
+    "Lets be honest. neither one of us knows what that thing does. just put it in the corner. and Ill deal with it later.",
+    "I know you dont believe this. but everything that has happened so far was for your benefit",
+    "call me GLADOS"
 ]
 
 s = socket.socket()
