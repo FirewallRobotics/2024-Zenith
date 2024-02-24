@@ -5,23 +5,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.AxleConstants;
 import frc.robot.subsystems.AxleSubsystem;
-import frc.robot.subsystems.ClimbSubsystem;
 
-public class ClimbLeftCommand extends Command {
-  /** Creates a new ShootSpeakerCommand. */
-  private final ClimbSubsystem m_Climb;
+public class AngleForAmpCommand extends Command {
 
-  private final AxleSubsystem m_Axle;
+  private final AxleSubsystem m_AxleSubsystem;
+  private double neededRadians = AxleConstants.kTestRadiansNeeded;
 
-  /** Creates a new ClimbDefaultCommand. */
-  public ClimbLeftCommand(ClimbSubsystem c_Subsystem, AxleSubsystem a_Subsystem) {
+  /** Creates a new AngleForAmpCommand. */
+  public AngleForAmpCommand(AxleSubsystem a_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_Climb = c_Subsystem;
-    m_Axle = a_Subsystem;
-
-    addRequirements(c_Subsystem);
-    addRequirements(a_Subsystem);
+    m_AxleSubsystem = a_Subsystem;
   }
 
   // Called when the command is initially scheduled.
@@ -31,21 +26,21 @@ public class ClimbLeftCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Climb.ClimbLeft();
+    if (m_AxleSubsystem.getAngle() > neededRadians) {
+      m_AxleSubsystem.AxleDown();
+    } else if (m_AxleSubsystem.getAngle() < neededRadians) {
+      m_AxleSubsystem.AxleUp();
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    if (interrupted == true) {
-      m_Climb.stopClimb();
-    }
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (m_Climb.bottomLimitSwitch.isPressed()) {
+    if (m_AxleSubsystem.getAngle() == neededRadians) {
       return true;
     }
     return false;
