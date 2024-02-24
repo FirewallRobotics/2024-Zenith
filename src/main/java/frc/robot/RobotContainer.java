@@ -28,6 +28,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
 import frc.robot.subsystems.AutoAimSubsystem;
+import frc.robot.subsystems.AutonomousTrajectories;
 import frc.robot.subsystems.AxleSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -56,38 +57,7 @@ public class RobotContainer {
   private final UltrasonicSensor m_UltrasonicSensor = new UltrasonicSensor();
   private final LEDSubsystem m_LED = new LEDSubsystem();
 
-  private final Command m_DefaultAuto = new DefaultAutoCommand(m_robotDrive);
-
-  private final Command m_2SpeakerNote1 =
-      new SequentialCommandGroup(
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
-          /// new GoToRedNote1Command (or something like that),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
-
-  private final Command m_2SpeakerNote2 =
-      new SequentialCommandGroup(
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
-          /// new GoToRedNote2Command (or something like that),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
-
-  private final Command m_3SpeakerNotes12 =
-      new SequentialCommandGroup(
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
-          /// new GoToRedNote1Command (or something like that),
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
-          /// new GoToRedNote2Command
-          new IntakeFloorCommand(m_intake, m_axle, m_LED),
-          new AutoAimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle),
-          new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
+  private final AutonomousTrajectories m_trajectories = new AutonomousTrajectories();
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
@@ -98,10 +68,56 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
 
-    m_chooser.setDefaultOption("Default Auto", m_DefaultAuto);
-    m_chooser.addOption("Red: Score 2 in Speaker, Pick Up Note 1", m_2SpeakerNote1);
-    m_chooser.addOption("Red: Score 2 in Speaker, Pick Up Note 2", m_2SpeakerNote2);
-    m_chooser.addOption("Red: Score 3 in Speaker, Pick Up Notes 1 & 2", m_3SpeakerNotes12);
+    m_chooser.setDefaultOption(
+        "Default Auto - Drive Straight 2 Meters", m_trajectories.getDriveStraight(m_robotDrive));
+    m_chooser.addOption(
+        "Red: Start Right, Score 2 Speaker, Pick Up Right Note, Park Far Right",
+        m_trajectories.getRedRightGrab1Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+    m_chooser.addOption(
+        "Red: Start Right, Score 3 Speaker, Pick Up Right + Middle Notes, Park Right of Stage",
+        m_trajectories.getRedRightGrab2Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+    m_chooser.addOption(
+        "Red: Start Right, Score 4 Speaker, Pick Up All Notes, Park Right of Stage",
+        m_trajectories.getRedRightGrab3Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+    m_chooser.addOption(
+        "Red: Start Left, Score 2 Speaker, Pick Up Left Note, Park Left of Stage",
+        m_trajectories.getRedMiddleGrab1Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+    m_chooser.addOption(
+        "Red: Start Left, Score 3 Speaker, Pick Up Left + Middle Notes, Park Right of Stage",
+        m_trajectories.getRedMiddleGrab2Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+    m_chooser.addOption(
+        "Red: Start Left, Score 4 Speaker, Pick Up All Notes, Park Far Right",
+        m_trajectories.getRedMiddleGrab3Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+    m_chooser.addOption(
+        "Blue: Start Left, Score 2 Speaker, Pick Up Left Note, Park Far Left",
+        m_trajectories.getBlueLeftGrab1Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+    m_chooser.addOption(
+        "Blue: Start Left, Score 3 Speaker, Pick Up Left + Middle Notes, Park Left of Stage",
+        m_trajectories.getBlueLeftGrab2Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+    m_chooser.addOption(
+        "Blue: Start Left, Score 4 Speaker, Pick Up All Notes, Park Left of Stage",
+        m_trajectories.getBlueLeftGrab3Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+    m_chooser.addOption(
+        "Blue: Start Right, Score 2 Speaker, Pick Up Right Note, Park Right of Stage",
+        m_trajectories.getBlueMiddleGrab1Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+    m_chooser.addOption(
+        "Blue: Start Right, Score 3 Speaker, Pick Up Right + Middle Notes, Park Left of Stage",
+        m_trajectories.getBlueMiddleGrab2Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+    m_chooser.addOption(
+        "Blue: Start Right, Score 4 Speaker, Pick Up All Notes, Park Far Left",
+        m_trajectories.getBlueMiddleGrab3Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
 
     SmartDashboard.putData(m_chooser);
 
@@ -173,6 +189,15 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // Create config for trajectory
+
+    // If true, you will perform one of the sequentual command groups rather than example
+    // trajectories
+    boolean doScoringAuto = true;
+
+    if (doScoringAuto) {
+      return m_chooser.getSelected();
+    }
+
     TrajectoryConfig config =
         new TrajectoryConfig(
                 AutoConstants.kMaxSpeedMetersPerSecond,

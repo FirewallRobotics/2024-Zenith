@@ -504,7 +504,7 @@ public class AutonomousTrajectories extends SubsystemBase {
     return swerveControllerCommand;
   }
 
-  private Command getRedRightGrab1Note(
+  public Command getRedRightGrab1Note(
       DriveSubsystem m_robotDrive,
       AutoAimSubsystem m_autoAim,
       VisionSubsystem m_vision,
@@ -529,7 +529,7 @@ public class AutonomousTrajectories extends SubsystemBase {
             thetaController));
   }
 
-  private Command m_RedRightGrab2Note(
+  public Command getRedRightGrab2Note(
       DriveSubsystem m_robotDrive,
       AutoAimSubsystem m_autoAim,
       VisionSubsystem m_vision,
@@ -562,7 +562,7 @@ public class AutonomousTrajectories extends SubsystemBase {
             thetaController));
   }
 
-  private Command m_RedRightGrab3Note(
+  public Command getRedRightGrab3Note(
       DriveSubsystem m_robotDrive,
       AutoAimSubsystem m_autoAim,
       VisionSubsystem m_vision,
@@ -603,7 +603,7 @@ public class AutonomousTrajectories extends SubsystemBase {
             thetaController));
   }
 
-  private Command m_RedMiddleGrab1Note(
+  public Command getRedMiddleGrab1Note(
       DriveSubsystem m_robotDrive,
       AutoAimSubsystem m_autoAim,
       VisionSubsystem m_vision,
@@ -628,7 +628,7 @@ public class AutonomousTrajectories extends SubsystemBase {
             thetaController));
   }
 
-  private Command m_RedMiddleGrab2Note(
+  public Command getRedMiddleGrab2Note(
       DriveSubsystem m_robotDrive,
       AutoAimSubsystem m_autoAim,
       VisionSubsystem m_vision,
@@ -659,7 +659,7 @@ public class AutonomousTrajectories extends SubsystemBase {
             thetaController));
   }
 
-  private Command m_RedMiddleGrab3Note(
+  public Command getRedMiddleGrab3Note(
       DriveSubsystem m_robotDrive,
       AutoAimSubsystem m_autoAim,
       VisionSubsystem m_vision,
@@ -696,7 +696,7 @@ public class AutonomousTrajectories extends SubsystemBase {
             thetaController));
   }
 
-  private Command m_BlueLeftGrab1Note(
+  public Command getBlueLeftGrab1Note(
       DriveSubsystem m_robotDrive,
       AutoAimSubsystem m_autoAim,
       VisionSubsystem m_vision,
@@ -721,7 +721,7 @@ public class AutonomousTrajectories extends SubsystemBase {
             thetaController));
   }
 
-  private Command m_BlueLeftGrab2Note(
+  public Command getBlueLeftGrab2Note(
       DriveSubsystem m_robotDrive,
       AutoAimSubsystem m_autoAim,
       VisionSubsystem m_vision,
@@ -754,7 +754,7 @@ public class AutonomousTrajectories extends SubsystemBase {
             thetaController));
   }
 
-  private Command m_BlueLeftGrab3Note(
+  public Command getBlueLeftGrab3Note(
       DriveSubsystem m_robotDrive,
       AutoAimSubsystem m_autoAim,
       VisionSubsystem m_vision,
@@ -795,7 +795,7 @@ public class AutonomousTrajectories extends SubsystemBase {
             thetaController));
   }
 
-  private Command m_BlueMiddleGrab1Note(
+  public Command getBlueMiddleGrab1Note(
       DriveSubsystem m_robotDrive,
       AutoAimSubsystem m_autoAim,
       VisionSubsystem m_vision,
@@ -820,7 +820,7 @@ public class AutonomousTrajectories extends SubsystemBase {
             thetaController));
   }
 
-  private Command m_BlueMiddleGrab2Note(
+  public Command getBlueMiddleGrab2Note(
       DriveSubsystem m_robotDrive,
       AutoAimSubsystem m_autoAim,
       VisionSubsystem m_vision,
@@ -851,7 +851,7 @@ public class AutonomousTrajectories extends SubsystemBase {
             thetaController));
   }
 
-  private Command m_BlueMiddleGrab3Note(
+  public Command getBlueMiddleGrab3Note(
       DriveSubsystem m_robotDrive,
       AutoAimSubsystem m_autoAim,
       VisionSubsystem m_vision,
@@ -888,7 +888,7 @@ public class AutonomousTrajectories extends SubsystemBase {
             thetaController));
   }
 
-  private Command m_driveStraight(DriveSubsystem m_robotDrive) {
+  public Command getDriveStraight(DriveSubsystem m_robotDrive) {
     return getTrajectoryCommand(
         getForwardTrajectory(trajectoryConfig), m_robotDrive, thetaController);
   }
