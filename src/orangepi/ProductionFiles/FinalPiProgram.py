@@ -245,12 +245,12 @@ while testmode == False | (iteration < 3 & testmode == True):
         if testmode == False:
             myStrPub = table.getStringTopic("FoundRings").publish()
             myStrPub.set('{"X": avX, "Y": avY}' )
-        #cv2.imshow("images", output)
-        #cv2.waitKey(5)
-        Val = tab2.getString("status","False")
-        cool2 = open("Status.txt", "w")
-        cool2.write(Val)
-        cool2.close()
+            #cv2.imshow("images", output)
+            #cv2.waitKey(5)
+            Val = tab2.getString("status","False")
+            cool2 = open("Status.txt", "w")
+            cool2.write(Val)
+            cool2.close()
    
    if Aprilmode:
     #frame = cv2.undistort(img, mtx, dist, None, newcameramtx)
