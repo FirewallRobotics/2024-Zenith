@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.DriveConstants;
 
 public class UltrasonicSensor extends SubsystemBase {
 
@@ -35,6 +36,8 @@ public class UltrasonicSensor extends SubsystemBase {
   // Calculate into inches
   double currentDistanceInches = ultrasonicSensor.getValue() * voltage_scale_factor * 0.0492;
 
+  private boolean rangeOf30 = false;
+
   /** Creates a new UltrasonicSensor. */
   public UltrasonicSensor() {}
 
@@ -43,5 +46,39 @@ public class UltrasonicSensor extends SubsystemBase {
     currentDistanceCentimeters = ultrasonicSensor.getValue() * voltage_scale_factor * 0.125;
 
     SmartDashboard.putNumber("Sensor Range", currentDistanceCentimeters);
+
+    if (currentDistanceCentimeters <= 30) {
+      rangeOf30 = true;
+    } else {
+      rangeOf30 = false;
+    }
+  }
+
+  public double speedNeeded() {
+    double precentOfSpeed;
+    if (rangeOf30 == true) {
+      precentOfSpeed = percentFormual(currentDistanceCentimeters, 30);
+      return precentOfSpeed;
+    } else {
+      return DriveConstants.kMaxSpeedMetersPerSecond;
+    }
+  }
+
+  public boolean inRange30() {
+    if (rangeOf30) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  private double percentFormual(double part, double whole) {
+    double percent;
+    if (whole != 0 && part != 0) {
+      percent = (part / whole);
+      return percent;
+    } else {
+      return 0;
+    }
   }
 }
