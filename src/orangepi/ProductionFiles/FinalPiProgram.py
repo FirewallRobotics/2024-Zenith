@@ -12,9 +12,10 @@ import socket
 
 class myWebcamVideoStream:
   
-  global testmode, myStrPub, Livemode
+  global testmode, myStrPub, Livemode, RingMode, Aprilmode
   testmode = False
   Livemode = True
+  RingMode = True
 
   print(sys.argv[1:])
   if sys.argv[1:] == ['ehB-test']:
@@ -24,10 +25,17 @@ class myWebcamVideoStream:
       Livemode = False
   try:
     with open('/sys/firmware/devicetree/base/model', 'r') as f:
-            if "Raspberry" in f.read():
+            if "Pi 4" in f.read():
                 Livemode = True
+                Aprilmode = True
+                RingMode = False
+            elif( "Pi 5" in f.read()):
+                RingMode = True
+                Livemode = True
+                Aprilmode = False
             else:
                 Livemode = False
+
   except FileNotFoundError:
         Livemode = False
   print(testmode + Livemode)
@@ -210,7 +218,7 @@ while testmode == False | (iteration < 3 & testmode == True):
 
 
 
-   if Livemode:
+   if Livemode & RingMode:
     #     cool = open("coolstuff.txt", "w")
     #     cool.write(color)
     #     cool.close()
@@ -235,67 +243,68 @@ while testmode == False | (iteration < 3 & testmode == True):
         cool2 = open("Status.txt", "w")
         cool2.write(Val)
         cool2.close()
+   
+   if Livemode & Aprilmode:
+    #frame = cv2.undistort(img, mtx, dist, None, newcameramtx)
+    grayimage = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    #cv2.imshow('frame', frame)
+    #cv2.imwrite("fulmer2.jpg",frame)
 
-   #frame = cv2.undistort(img, mtx, dist, None, newcameramtx)
-   grayimage = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-   #cv2.imshow('frame', frame)
-   #cv2.imwrite("fulmer2.jpg",frame)
-
-   detections = detector.detect(grayimage)
-   if detections:
-       #print("Nothing")
-       #cv2.putText(frame, "Nothing Detected", (500,500), cv2.FONT_HERSHEY_SIMPLEX, 2.0, (0, 0, 255), 2)
-       #cv2.imshow('frame', frame)
-       #cv2.imwrite("fulmer.jpg",frame)
-       #cv2.waitKey(1)
-       #iterates over all tags detected
-       for detect in detections:
-           pos, e1,f1=detector.detection_pose( detect, cameraParams, FRCtagSize, z_sign=1)
-           pos = pos[:3, :3]
-           rotation = Rotation.from_matrix(pos)
-           euler_angles = rotation.as_euler('xyz')
-           pos = np.degrees(euler_angles)
-           marker = find_marker(frame)
-           distance = distance_to_camera(FRCtagSize,fx,marker[1][0])
-           #apriltag._draw_pose(frame,cameraParams,FRCtagSize,pos)
-           #print("POSE DATA START")
-           print(pos)
-           #print("distace")
-           #print(distance)
-           #print("POSE DATA END")
-           
-           if Livemode:
-               tagtext = "Tag " + str(detect.tag_id)
-               socket.socket.send(tagtext.encode())
+    detections = detector.detect(grayimage)
+    if detections:
+        #print("Nothing")
+        #cv2.putText(frame, "Nothing Detected", (500,500), cv2.FONT_HERSHEY_SIMPLEX, 2.0, (0, 0, 255), 2)
+        #cv2.imshow('frame', frame)
+        #cv2.imwrite("fulmer.jpg",frame)
+        #cv2.waitKey(1)
+        #iterates over all tags detected
+        for detect in detections:
+            pos, e1,f1=detector.detection_pose( detect, cameraParams, FRCtagSize, z_sign=1)
+            pos = pos[:3, :3]
+            rotation = Rotation.from_matrix(pos)
+            euler_angles = rotation.as_euler('xyz')
+            pos = np.degrees(euler_angles)
+            marker = find_marker(frame)
+            distance = distance_to_camera(FRCtagSize,fx,marker[1][0])
+            #apriltag._draw_pose(frame,cameraParams,FRCtagSize,pos)
+            #print("POSE DATA START")
+            print(pos)
+            #print("distace")
+            #print(distance)
+            #print("POSE DATA END")
+            
+            if Livemode:
+                tagtext = "Tag " + str(detect.tag_id)
+                socket.socket.send(tagtext.encode())
 
 
-           #sends the tag data named the t(str(detect.tag_id)).publish()ag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
-           if testmode == False:
-            myStrPub =table.getStringTopic(str(detect.tag_id)).publish()
-            myStrPub.set('{"Center": detect.center, "TopLft": detect.corners[0], "BotRht": detect.corners[2], "Dist": distance, "XYZ": pos}' )
-           #print("tag_id: %s, center: %s, corners: %s, corner.top_left: %s , corner.bottom-right: %s" % (detect.tag_id, detect.center, detect.corners[0:], detect.corners[0], detect.corners[2]))
-           frame=plotPoint(frame, detect.center, (255,0,255)) #purpe center
-           cornerIndex=0
-           for corner in detect.corners:
-               if cornerIndex== 0:
-                #print("top left corner %s" %(corner[0]))
-                frame=plotPoint(frame, corner, (0,0,255)) #red for top left corner
-                #xord=int(corner[0])
-                #yord=int(corner[1])
-                org=(int(corner[0]),int(corner[1]))
-                tagId=("AprilTagId %s" % (str(detect.tag_id)))
-                cv2.putText(frame, tagId, org, cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-               elif cornerIndex == 2:
-                #print("bottom right corner %s" %(corner[0]))
-                frame=plotPoint(frame, corner, (0,255,0)) #green for bottom right corner
-               else:
-                frame=plotPoint(frame, corner, (0,255,255)) #yellow corner
-               cornerIndex+=1
-       if not saved:
-           #find a apriltag save the image catches programmers looking weird
-           #cv2.imwrite("fulmer.jpg",frame)
-           saved = True
-           #print("Saved!")
+            #sends the tag data named the t(str(detect.tag_id)).publish()ag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
+            if testmode == False:
+                myStrPub =table.getStringTopic(str(detect.tag_id)).publish()
+                myStrPub.set('{"Center": detect.center, "TopLft": detect.corners[0], "BotRht": detect.corners[2], "Dist": distance, "XYZ": pos}' )
+            #print("tag_id: %s, center: %s, corners: %s, corner.top_left: %s , corner.bottom-right: %s" % (detect.tag_id, detect.center, detect.corners[0:], detect.corners[0], detect.corners[2]))
+            frame=plotPoint(frame, detect.center, (255,0,255)) #purpe center
+            cornerIndex=0
+            for corner in detect.corners:
+                if cornerIndex== 0:
+                    #print("top left corner %s" %(corner[0]))
+                    frame=plotPoint(frame, corner, (0,0,255)) #red for top left corner
+                    #xord=int(corner[0])
+                    #yord=int(corner[1])
+                    org=(int(corner[0]),int(corner[1]))
+                    tagId=("AprilTagId %s" % (str(detect.tag_id)))
+                    cv2.putText(frame, tagId, org, cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                elif cornerIndex == 2:
+                    #print("bottom right corner %s" %(corner[0]))
+                    frame=plotPoint(frame, corner, (0,255,0)) #green for bottom right corner
+                else:
+                    frame=plotPoint(frame, corner, (0,255,255)) #yellow corner
+                cornerIndex+=1
+        if not saved:
+            #find a apriltag save the image catches programmers looking weird
+            #cv2.imwrite("fulmer.jpg",frame)
+            saved = True
+            #print("Saved!")
        
    #cv2.imshow('frame', frame)
    #cv2.waitKey(1)
