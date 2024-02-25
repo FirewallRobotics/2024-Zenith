@@ -33,9 +33,8 @@ public class IndexCommand extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    if (interrupted == true) {
-      m_Intake.StopIntake();
-    }
+    if (interrupted == true) {}
+    m_Intake.StopIntake();
   }
 
   // Returns true when the command should end.

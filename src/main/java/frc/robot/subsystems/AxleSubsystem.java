@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.AbsoluteEncoder;
-import com.revrobotics.CANSparkBase.SoftLimitDirection;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkLimitSwitch;
@@ -48,45 +47,45 @@ public class AxleSubsystem extends SubsystemBase {
     MasterAxleMotor.restoreFactoryDefaults();
     MinionAxleMotor.restoreFactoryDefaults();
 
-    MasterAxleMotor.enableSoftLimit(SoftLimitDirection.kForward, true);
-    MasterAxleMotor.enableSoftLimit(SoftLimitDirection.kReverse, true);
-    MinionAxleMotor.enableSoftLimit(SoftLimitDirection.kForward, true);
-    MinionAxleMotor.enableSoftLimit(SoftLimitDirection.kReverse, true);
+    // MasterAxleMotor.enableSoftLimit(SoftLimitDirection.kForward, true);
+    // MasterAxleMotor.enableSoftLimit(SoftLimitDirection.kReverse, true);
+    // MinionAxleMotor.enableSoftLimit(SoftLimitDirection.kForward, true);
+    // MinionAxleMotor.enableSoftLimit(SoftLimitDirection.kReverse, true);
 
-    MinionAxleMotor.follow(MasterAxleMotor);
+    // MinionAxleMotor.setInverted(true);
+    MinionAxleMotor.follow(MasterAxleMotor, true);
 
     AxleEncoder = MasterAxleMotor.getAbsoluteEncoder(Type.kDutyCycle);
-    AxleEncoder.setInverted(false);
 
-    AxlePIDController.setP(kP);
-    AxlePIDController.setI(kI);
-    AxlePIDController.setD(kD);
-    AxlePIDController.setIZone(kIz);
-    AxlePIDController.setFF(kFF);
-    AxlePIDController.setOutputRange(kMinOutput, kMaxOutput);
+    // AxlePIDController.setP(kP);
+    // AxlePIDController.setI(kI);
+    // AxlePIDController.setD(kD);
+    // AxlePIDController.setIZone(kIz);
+    // AxlePIDController.setFF(kFF);
+    // AxlePIDController.setOutputRange(kMinOutput, kMaxOutput);
 
     // topLimitSwitch.enableLimitSwitch(true);
     // bottomLimitSwitch.enableLimitSwitch(true);
   }
 
   public void setMotorSpeed(double speed) {
-    if (speed > 0) {
-      if (topLimitSwitch.isPressed()) {
-        // We are going up and top limit is tripped so stop
-        MasterAxleMotor.set(0);
-      } else {
-        // We are going up but top limit is not tripped so go at commanded speed
-        MasterAxleMotor.set(speed);
-      }
-    } else {
-      if (bottomLimitSwitch.isPressed()) {
-        // We are going down and bottom limit is tripped so stop
-        MasterAxleMotor.set(0);
-      } else {
-        // We are going down but bottom limit is not tripped so go at commanded speed
-        MasterAxleMotor.set(speed);
-      }
-    }
+    //   if (speed > 0) {
+    //     if (topLimitSwitch.isPressed()) {
+    //       // We are going up and top limit is tripped so stop
+    //       MasterAxleMotor.set(0);
+    //     } else {
+    //       // We are going up but top limit is not tripped so go at commanded speed
+    //       MasterAxleMotor.set(speed);
+    //     }
+    //   } else {
+    //     if (bottomLimitSwitch.isPressed()) {
+    //       // We are going down and bottom limit is tripped so stop
+    //       MasterAxleMotor.set(0);
+    //     } else {
+    //       // We are going down but bottom limit is not tripped so go at commanded speed
+    //       MasterAxleMotor.set(speed);
+    //     }
+    //   }
   }
 
   public void GravityOffset(double kdefaultheight) {

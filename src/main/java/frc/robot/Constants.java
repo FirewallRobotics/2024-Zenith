@@ -166,7 +166,7 @@ public final class Constants {
     public static final double kDefaultHeight = .01;
     public static final double kIntakeHeight = .01;
     public static double kMeasuredPosHorizontal = .512;
-    public static double kAxleTestSpeed = .3;
+    public static double kAxleTestSpeed = .1;
 
     public static double kTestRadiansNeeded = Math.PI / 2;
   }
@@ -190,7 +190,7 @@ public final class Constants {
   public static final class IntakeConstants {
     public static final int kMasterIntakeMotorPort = 13;
 
-    public static final double kIntakeMotorSpeed = 0.2;
+    public static final double kIntakeMotorSpeed = -0.2;
     public static final double kIndexSpeed = 0.2;
 
     public static final int kIntakeSensorPort = 0;

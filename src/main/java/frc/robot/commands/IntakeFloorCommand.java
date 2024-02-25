@@ -45,7 +45,7 @@ public class IntakeFloorCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Axle.SetIntakeHeight();
+    // m_Axle.SetIntakeHeight();
 
     // This is the LED sensor.
     sensorStartIntake();
@@ -64,9 +64,11 @@ public class IntakeFloorCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    /*
     if (m_Intake.intakeSensor.get() == true) {
       return true;
     }
+    */
     return false;
   }
 }
