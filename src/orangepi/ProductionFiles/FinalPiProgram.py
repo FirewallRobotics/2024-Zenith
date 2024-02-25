@@ -32,13 +32,13 @@ class myWebcamVideoStream:
                 RingMode = False
             elif( "Pi 5" in f.read()):
                 RingMode = True
-                Livemode = True
+                Livemode = False
                 Aprilmode = False
             elif("Orange" in f.read()):
                 Orangepi = True
                 Aprilmode = True
                 RingMode = False
-                Livemode = True
+                Livemode = False
             else:
                 Livemode = False
 
@@ -224,7 +224,7 @@ while testmode == False | (iteration < 3 & testmode == True):
 
 
 
-   if Livemode & RingMode:
+   if RingMode:
     #     cool = open("coolstuff.txt", "w")
     #     cool.write(color)
     #     cool.close()
@@ -250,7 +250,7 @@ while testmode == False | (iteration < 3 & testmode == True):
         cool2.write(Val)
         cool2.close()
    
-   if Livemode & Aprilmode:
+   if Aprilmode:
     #frame = cv2.undistort(img, mtx, dist, None, newcameramtx)
     grayimage = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     #cv2.imshow('frame', frame)

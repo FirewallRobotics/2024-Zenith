@@ -912,6 +912,7 @@ s.listen(5)
 
 prevtxt = ""
 iter = 0
+Brightmulti = 1
 
 while True:
     color = randcolor()
@@ -947,9 +948,11 @@ while True:
     if Nofile2:
         UH.clear()
         unicorn_scroll(txt,color,100,0.11)
+        Brightmulti = 1
     else:
         UH.clear()
-        ShowBuls(100)
+        ShowBuls(100 * Brightmulti)
+        Brightmulti += 0.35
     print(cool2.read())
     prevtxt = txt
     iter += 1
