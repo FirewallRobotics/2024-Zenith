@@ -42,8 +42,8 @@ public class VisionSubsystem extends SubsystemBase {
       System.out.println("CenterX -> " + getSpeakerTagCenterX());
       System.out.println("RotationZ -> " + getSpeakerTagRotationZ());
     } else {
-      System.out.print("No Speaker Tag - Current Tags: ");
-      printAllTags();
+      // System.out.print("No Speaker Tag - Current Tags: ");
+      // printAllTags();
     }
   }
 

@@ -27,8 +27,6 @@ public class AxleSubsystem extends SubsystemBase {
 
   public AxleSubsystem() {
 
-    AxlePIDController = MasterAxleMotor.getPIDController();
-
     kP = 0.1;
     kI = 1e-4;
     kD = 1;
@@ -44,6 +42,8 @@ public class AxleSubsystem extends SubsystemBase {
         new CANSparkMax(
             AxleConstants.kMinionAxleMotorPort,
             com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
+
+    AxlePIDController = MasterAxleMotor.getPIDController();
 
     MasterAxleMotor.restoreFactoryDefaults();
     MinionAxleMotor.restoreFactoryDefaults();
@@ -65,8 +65,8 @@ public class AxleSubsystem extends SubsystemBase {
     AxlePIDController.setFF(kFF);
     AxlePIDController.setOutputRange(kMinOutput, kMaxOutput);
 
-    topLimitSwitch.enableLimitSwitch(true);
-    bottomLimitSwitch.enableLimitSwitch(true);
+    // topLimitSwitch.enableLimitSwitch(true);
+    // bottomLimitSwitch.enableLimitSwitch(true);
   }
 
   public void setMotorSpeed(double speed) {
@@ -124,19 +124,21 @@ public class AxleSubsystem extends SubsystemBase {
   }
 
   public void AxleUp() {
-    if (topLimitSwitch.isPressed()) {
-      MasterAxleMotor.set(0);
-    } else {
-      MasterAxleMotor.set(AxleConstants.kAxleTestSpeed);
-    }
+    // if (topLimitSwitch.isPressed()) {
+    //   MasterAxleMotor.set(0);
+    // } else {
+    //   MasterAxleMotor.set(AxleConstants.kAxleTestSpeed);
+    // }
+    MasterAxleMotor.set(AxleConstants.kAxleTestSpeed);
   }
 
   public void AxleDown() {
-    if (topLimitSwitch.isPressed()) {
-      MasterAxleMotor.set(0);
-    } else {
-      MasterAxleMotor.set(-AxleConstants.kAxleTestSpeed);
-    }
+    // if (topLimitSwitch.isPressed()) {
+    //   MasterAxleMotor.set(0);
+    // } else {
+    //   MasterAxleMotor.set(-AxleConstants.kAxleTestSpeed);
+    // }
+    MasterAxleMotor.set(-AxleConstants.kAxleTestSpeed);
   }
 
   // public void DefaultAngle() {}
