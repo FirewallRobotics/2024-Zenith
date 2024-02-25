@@ -34,7 +34,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     // MasterIntakeMotor.setIdleMode(IdleMode.kCoast);
 
-    MinionShooterMotor.follow(MasterShooterMotor, true);
+    MinionShooterMotor.follow(MasterShooterMotor, false);
   }
 
   @Override
