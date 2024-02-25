@@ -40,8 +40,6 @@ class myWebcamVideoStream:
                 RingMode = False
                 Livemode = False
             else:
-                Aprilmode = True
-                RingMode = False
                 Livemode = False
 
   except FileNotFoundError:
@@ -244,8 +242,9 @@ while testmode == False | (iteration < 3 & testmode == True):
         output = denoise_image(output)
         avX, avY = average_position_of_pixels(output, 120)
         #print(avX, avY)
-        myStrPub = table.getStringTopic("FoundRings").publish()
-        myStrPub.set('{"X": avX, "Y": avY}' )
+        if testmode == False:
+            myStrPub = table.getStringTopic("FoundRings").publish()
+            myStrPub.set('{"X": avX, "Y": avY}' )
         #cv2.imshow("images", output)
         #cv2.waitKey(5)
         Val = tab2.getString("status","False")
