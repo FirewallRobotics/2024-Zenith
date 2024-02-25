@@ -207,6 +207,7 @@ cameraParams = float(fx), float(fy), float(cx), float(cy)
 # define color the list of boundaries
 if Livemode:
     socket.socket.connect(('10.56.7.12', 80))
+if RingMode:
     boundaries = [
         ([80,45,170], [100,145,255])
     ]
