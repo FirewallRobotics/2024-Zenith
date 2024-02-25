@@ -12,7 +12,7 @@ import socket
 
 class myWebcamVideoStream:
   
-  global testmode, myStrPub, Livemode, RingMode, Aprilmode
+  global testmode, myStrPub, Livemode, RingMode, Aprilmode, Orangepi
   testmode = False
   Livemode = True
   RingMode = True
@@ -33,6 +33,11 @@ class myWebcamVideoStream:
                 RingMode = True
                 Livemode = True
                 Aprilmode = False
+            elif("Orange" in f.read()):
+                Orangepi = True
+                Aprilmode = True
+                RingMode = False
+                Livemode = True
             else:
                 Livemode = False
 
@@ -187,7 +192,7 @@ def average_position_of_pixels(mat, threshold=128):
 # main program
 #configs the detector
 if testmode == False:
-    if Livemode == True:
+    if Orangepi == True:
         vs = myWebcamVideoStream(0).start()
     else:
         vs = myWebcamVideoStream(1).start()
