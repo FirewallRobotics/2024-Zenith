@@ -40,6 +40,8 @@ class myWebcamVideoStream:
                 RingMode = False
                 Livemode = False
             else:
+                Aprilmode = True
+                RingMode = False
                 Livemode = False
 
   except FileNotFoundError:
