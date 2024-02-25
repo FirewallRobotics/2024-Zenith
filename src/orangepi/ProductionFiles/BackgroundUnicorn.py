@@ -896,7 +896,6 @@ funny_phrases = [
 	"For your own safety and the safety of others please refrain from touching (bzzzzzt)",
 	"this is your fault. it didnt have to be like this.",
 	"Lets be honest. neither one of us knows what that thing does. just put it in the corner. and Ill deal with it later.",
-	"I know you dont believe this. but everything that has happened so far was for your benefit",
 	"call me GLADOS",
 	"How Are You Holding Up? Because Im A Potato.",
 	"This Was A Triumph.",
