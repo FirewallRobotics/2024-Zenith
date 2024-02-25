@@ -16,6 +16,7 @@ class myWebcamVideoStream:
   testmode = False
   Livemode = True
   RingMode = True
+  Aprilmode = True
 
   print(sys.argv[1:])
   if sys.argv[1:] == ['ehB-test']:
