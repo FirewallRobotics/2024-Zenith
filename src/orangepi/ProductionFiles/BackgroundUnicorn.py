@@ -951,8 +951,10 @@ while True:
         Brightmulti = 1
     else:
         UH.clear()
-        ShowBuls(100 * Brightmulti)
+        ShowBuls(50 * Brightmulti)
         Brightmulti += 0.35
+        if Brightmulti > 3.9:
+            Brightmulti = 1
     print(cool2.read())
     prevtxt = txt
     iter += 1
