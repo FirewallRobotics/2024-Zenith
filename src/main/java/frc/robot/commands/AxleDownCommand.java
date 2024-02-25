@@ -31,9 +31,10 @@ public class AxleDownCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_Climb.bottomLimitSwitch.isPressed()) {
-      m_Axle.AxleUp();
-    }
+    // if (m_Climb.bottomLimitSwitch.isPressed()) {
+    //   m_Axle.AxleDown();
+    // }
+    m_Axle.AxleDown();
   }
 
   // Called once the command ends or is interrupted.

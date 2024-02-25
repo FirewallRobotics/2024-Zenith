@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 // import edu.wpi.first.hal.simulation.AddressableLEDDataJNI;
 // import edu.wpi.first.wpilibj.simulation.AddressableLEDSim;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.LEDConstants;
 
 public class LEDSubsystem extends SubsystemBase {
 
@@ -20,7 +21,7 @@ public class LEDSubsystem extends SubsystemBase {
   public LEDSubsystem() {
 
     // Assign PWM port from RoboRIO, previous code used port 1
-    m_led = new AddressableLED(1);
+    m_led = new AddressableLED(LEDConstants.kLEDPort);
 
     // Assign length (number of LEDs being changed)
     m_ledBuffer = new AddressableLEDBuffer(27);

@@ -166,7 +166,7 @@ public final class Constants {
     public static final double kDefaultHeight = .01;
     public static final double kIntakeHeight = .01;
     public static double kMeasuredPosHorizontal = .512;
-    public static double kAxleTestSpeed = .01;
+    public static double kAxleTestSpeed = .3;
 
     public static double kTestRadiansNeeded = Math.PI / 2;
   }
@@ -176,6 +176,15 @@ public final class Constants {
     public static final int kMinionShooterMotorPort = 12;
 
     public static final double kShooterMotorSpeed = 0.2;
+  }
+
+  public static final class UltrasonicConstants {
+    public static final int kUltrasonicTriggerPort = 2;
+    public static final int kUltrasonicSensorPort = 3;
+  }
+
+  public static final class LEDConstants {
+    public static final int kLEDPort = 4;
   }
 
   public static final class IntakeConstants {

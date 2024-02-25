@@ -131,14 +131,15 @@ public class RobotContainer {
             () ->
                 m_robotDrive.drive(
                     -MathUtil.applyDeadband(
-                            m_driverController.getLeftY(), OIConstants.kDriveDeadband)
-                        - (OIConstants.kDriveDeadband * changeSpeed()),
+                        m_driverController.getLeftY(), OIConstants.kDriveDeadband)
+                    /*- (OIConstants.kDriveDeadband  * changeSpeed())*/ ,
                     -MathUtil.applyDeadband(
-                            m_driverController.getLeftX(), OIConstants.kDriveDeadband)
-                        * changeSpeed(),
+                        m_driverController.getLeftX(), OIConstants.kDriveDeadband)
+                    /*  * changeSpeed() */ ,
                     -MathUtil.applyDeadband(
-                            m_driverController.getRightX(), OIConstants.kDriveDeadband)
-                        * changeSpeed(),
+                        m_driverController.getRightX(), OIConstants.kDriveDeadband)
+                    /** changeSpeed() */
+                    ,
                     true,
                     true),
             m_robotDrive));
