@@ -26,11 +26,11 @@ public class ShooterSubsystem extends SubsystemBase {
     MasterShooterMotor.restoreFactoryDefaults();
     MinionShooterMotor.restoreFactoryDefaults();
 
-    MasterShooterMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
-    MasterShooterMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
+    // MasterShooterMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
+    // MasterShooterMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
 
-    MasterShooterMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 10);
-    MasterShooterMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);
+    // MasterShooterMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 10);
+    // MasterShooterMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);
 
     // MasterIntakeMotor.setIdleMode(IdleMode.kCoast);
 

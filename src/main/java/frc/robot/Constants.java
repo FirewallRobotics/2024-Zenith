@@ -30,9 +30,9 @@ public final class Constants {
     public static final double kRotationalSlewRate = 2.0; // percent per second (1 = 100%)
 
     // Chassis configuration
-    public static final double kTrackWidth = Units.inchesToMeters(26.5);
+    public static final double kTrackWidth = Units.inchesToMeters(23.5);
     // Distance between centers of right and left wheels on robot
-    public static final double kWheelBase = Units.inchesToMeters(26.5);
+    public static final double kWheelBase = Units.inchesToMeters(23.5);
     // Distance between front and back wheels on robot
     public static final SwerveDriveKinematics kDriveKinematics =
         new SwerveDriveKinematics(
@@ -175,7 +175,7 @@ public final class Constants {
     public static final int kMasterShooterMotorPort = 11;
     public static final int kMinionShooterMotorPort = 12;
 
-    public static final double kShooterMotorSpeed = 0.2;
+    public static final double kShooterMotorSpeed = 0.6;
   }
 
   public static final class UltrasonicConstants {
@@ -190,7 +190,7 @@ public final class Constants {
   public static final class IntakeConstants {
     public static final int kMasterIntakeMotorPort = 13;
 
-    public static final double kIntakeMotorSpeed = -0.2;
+    public static final double kIntakeMotorSpeed = -0.6;
     public static final double kIndexSpeed = 0.2;
 
     public static final int kIntakeSensorPort = 0;

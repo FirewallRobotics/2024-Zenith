@@ -26,11 +26,11 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeSensor = new DigitalInput(IntakeConstants.kIntakeSensorPort);
     MasterIntakeMotor.restoreFactoryDefaults();
 
-    MasterIntakeMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
-    MasterIntakeMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
+    // MasterIntakeMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
+    // MasterIntakeMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
 
-    MasterIntakeMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 10);
-    MasterIntakeMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);
+    // MasterIntakeMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 10);
+    // MasterIntakeMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);
 
     // MasterIntakeMotor.setIdleMode(IdleMode.kCoast);
   }
