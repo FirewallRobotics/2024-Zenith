@@ -161,8 +161,12 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kRightBumper.value)
         .whileTrue(
             new ParallelCommandGroup(
-                new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
-                new SequentialCommandGroup(new WaitCommand(0.5), new IndexCommand(m_intake))));
+                new SequentialCommandGroup(
+                    new WaitCommand(0.25), new ShootSpeakerCommand(m_shooter, m_axle, m_intake)),
+                new SequentialCommandGroup(
+                    new ReverseIndexCommand(m_intake).withTimeout(0.25),
+                    new WaitCommand(0.5),
+                    new IndexCommand(m_intake))));
 
     // new JoystickButton(m_driverController, Button.kRightBumper.value)
     //     .whileTrue(new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
