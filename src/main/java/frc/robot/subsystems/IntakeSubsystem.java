@@ -45,6 +45,14 @@ public class IntakeSubsystem extends SubsystemBase {
     MasterIntakeMotor.set(IntakeConstants.kIntakeMotorSpeed);
   }
 
+  public void StartIndex() {
+    MasterIntakeMotor.set(IntakeConstants.kIndexSpeed);
+  }
+
+  public void StartReverseIndex() {
+    MasterIntakeMotor.set(-IntakeConstants.kIndexSpeed);
+  }
+
   /** Stops motor intake */
   public void StopIntake() {
     MasterIntakeMotor.set(0);
