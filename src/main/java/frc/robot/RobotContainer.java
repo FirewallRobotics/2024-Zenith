@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -159,10 +160,12 @@ public class RobotContainer {
 
     new JoystickButton(m_driverController, Button.kRightBumper.value)
         .whileTrue(
-            new SequentialCommandGroup(
+            new ParallelCommandGroup(
                 new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
-                new WaitCommand(1),
-                new IndexCommand(m_intake)));
+                new SequentialCommandGroup(new WaitCommand(0.5), new IndexCommand(m_intake))));
+
+    // new JoystickButton(m_driverController, Button.kRightBumper.value)
+    //     .whileTrue(new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
 
     new JoystickButton(m_driverController, Button.kLeftBumper.value)
         .whileTrue(new IntakeFloorCommand(m_intake, m_axle, m_LED));
