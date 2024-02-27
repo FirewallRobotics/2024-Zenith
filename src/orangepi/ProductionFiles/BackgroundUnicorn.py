@@ -891,6 +891,11 @@ funny_phrases = [
     "omg they killed kenny",
     "a robot gets arrested - charged with battery",
     "does r2d2 have any brothers - no only transitors",
+	"Before we start. however. keep in mind that while fun and learning are the primary goals of all enrichment center activitys. serious injuries may occur.",
+	"For your own safety and the safety of others please refrain from touching (bzzzzzt)",
+	"Lets be honest. neither one of us knows what that thing does. just put it in the corner. and Ill deal with it later.",
+	"How Are You Holding Up? Because Im A Potato.",
+	"Aperture Science",
     "Before we start. however. keep in mind that while fun and learning are the primary goals of all enrichment center activitys. serious injuries may occur.",
     "For your own safety and the safety of others please refrain from touching (bzzzzzt)",
     "Lets be honest. neither one of us knows what that thing does. just put it in the corner. and Ill deal with it later.",
@@ -903,6 +908,7 @@ s.listen(5)
 
 prevtxt = ""
 iter = 0
+Brightmulti = 1
 
 while True:
     color = randcolor()
@@ -938,9 +944,13 @@ while True:
     if Nofile2:
         UH.clear()
         unicorn_scroll(txt,color,100,0.11)
+        Brightmulti = 1
     else:
         UH.clear()
-        ShowBuls(100)
+        ShowBuls(50 * Brightmulti)
+        Brightmulti += 0.35
+        if Brightmulti > 3.9:
+            Brightmulti = 1
     print(cool2.read())
     prevtxt = txt
     iter += 1
