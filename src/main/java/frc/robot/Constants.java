@@ -192,7 +192,7 @@ public final class Constants {
     public static final int kMasterIntakeMotorPort = 13;
 
     public static final double kIntakeMotorSpeed = -0.6;
-    public static final double kIndexSpeed = 0.2;
+    public static final double kIndexSpeed = -0.1;
 
     public static final int kIntakeSensorPort = 0;
 
