@@ -122,6 +122,10 @@ public class AxleSubsystem extends SubsystemBase {
     GravityOffset(AxleConstants.kIntakeHeight);
   }
 
+  public void SetBasicSpeakerAimHeight() {
+    GravityOffset(AxleConstants.kBasicSpeakerAimHeight);
+  }
+
   public void AxleUp() {
     // if (topLimitSwitch.isPressed()) {
     //   MasterAxleMotor.set(0);

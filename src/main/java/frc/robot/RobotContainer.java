@@ -72,6 +72,10 @@ public class RobotContainer {
     m_chooser.setDefaultOption(
         "Default Auto - Drive Straight 2 Meters", m_trajectories.getDriveStraight(m_robotDrive));
     m_chooser.addOption(
+        "Basic Auto: Start in front of Subwoofer, Score 2, Pick up middlfe note",
+        m_trajectories.getScore2InFrontOfSubwooferCommand(
+            m_robotDrive, m_axle, m_intake, m_shooter, m_climb, m_LED));
+    m_chooser.addOption(
         "Red: Start Right, Score 2 Speaker, Pick Up Right Note, Park Far Right",
         m_trajectories.getRedRightGrab1Note(
             m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
