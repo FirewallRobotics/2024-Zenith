@@ -742,7 +742,7 @@ letterWhite = [x0,x1,x2,x3,x4,x5,x6,x7]
 
 
 def ShowBuls(brightness):
-	UH.rotation(270)		
+	UH.rotation(90)		
 	for i in range(8):
 		for j in range(8):
 			if letterred[j][i]:
