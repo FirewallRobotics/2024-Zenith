@@ -13,6 +13,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -183,6 +184,9 @@ public class RobotContainer {
 
     new JoystickButton(m_driverController, Button.kY.value)
         .whileTrue(new AimAmpCommand(m_robotDrive, m_vision, m_axle));
+
+    new JoystickButton(m_driverController, Button.kA.value)
+        .whileTrue(new AxleEncoderTestCommand(m_axle));
 
     // new JoystickButton(m_driverController, Button.kB.value).whileTrue(new AxleUpCommand(m_axle));
 
