@@ -144,6 +144,10 @@ public class AxleSubsystem extends SubsystemBase {
     MasterAxleMotor.set(-AxleConstants.kAxleTestSpeed);
   }
 
+  public void setAxleMotorSpeed(double speed) {
+    MasterAxleMotor.set(speed);
+  }
+
   // public void DefaultAngle() {}
 
   // public void AimAmpAngle() {}
