@@ -144,7 +144,7 @@ public class AxleSubsystem extends SubsystemBase {
     MasterAxleMotor.set(-AxleConstants.kAxleTestSpeed);
   }
 
-  public void setAxleMotorSpeed(double speed){
+  public void setAxleMotorSpeed(double speed) {
     MasterAxleMotor.set(speed);
   }
 

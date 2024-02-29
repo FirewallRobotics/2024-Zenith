@@ -21,7 +21,7 @@ public class AxleEncoderTestCommand extends Command {
   }
 
   Timer timer = new Timer();
-  double axleSpeed = 0.0; 
+  double axleSpeed = 0.0;
 
   // Called when the command is initially scheduled.
   @Override
@@ -32,8 +32,8 @@ public class AxleEncoderTestCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(timer.get() > 2){
-      timer.reset(); 
+    if (timer.get() > 2) {
+      timer.reset();
 
       axleSpeed += 0.1;
 
