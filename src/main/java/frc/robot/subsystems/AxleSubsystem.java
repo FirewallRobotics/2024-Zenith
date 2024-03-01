@@ -7,7 +7,6 @@ package frc.robot.subsystems;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
-import com.revrobotics.SparkLimitSwitch;
 import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AxleConstants;
@@ -18,8 +17,8 @@ public class AxleSubsystem extends SubsystemBase {
 
   public static CANSparkMax MinionAxleMotor;
   public static AbsoluteEncoder AxleEncoder;
-  SparkLimitSwitch topLimitSwitch;
-  SparkLimitSwitch bottomLimitSwitch;
+  // SparkLimitSwitch topLimitSwitch;
+  // SparkLimitSwitch bottomLimitSwitch;
   private SparkPIDController AxlePIDController;
 
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
@@ -52,14 +51,13 @@ public class AxleSubsystem extends SubsystemBase {
     // MinionAxleMotor.enableSoftLimit(SoftLimitDirection.kForward, true);
     // MinionAxleMotor.enableSoftLimit(SoftLimitDirection.kReverse, true);
 
-    // MinionAxleMotor.setInverted(true);
     MinionAxleMotor.follow(MasterAxleMotor, true);
 
     AxleEncoder = MasterAxleMotor.getAbsoluteEncoder(Type.kDutyCycle);
 
     // AxlePIDController.setP(kP);
     // AxlePIDController.setI(kI);
-    // AxlePIDController.setD(kD);
+    // AxlePIDController.setD(kD);00000
     // AxlePIDController.setIZone(kIz);
     // AxlePIDController.setFF(kFF);
     // AxlePIDController.setOutputRange(kMinOutput, kMaxOutput);
@@ -108,10 +106,16 @@ public class AxleSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
 
     // setMotorSpeed(joystick.getRawAxis(2));
+
+    System.out.println("Current Speed: " + MasterAxleMotor.get());
   }
 
   public void SetAimHeight(double angle) {
     GravityOffset(angle);
+  }
+
+  public void SetAmpHeight() {
+    GravityOffset(AxleConstants.kAmpHeight);
   }
 
   public void SetDefaultHeight() {
@@ -133,6 +137,7 @@ public class AxleSubsystem extends SubsystemBase {
     //   MasterAxleMotor.set(AxleConstants.kAxleTestSpeed);
     // }
     MasterAxleMotor.set(AxleConstants.kAxleTestSpeed);
+    System.out.println("Moving axle up...");
   }
 
   public void AxleDown() {

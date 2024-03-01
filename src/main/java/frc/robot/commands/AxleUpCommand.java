@@ -27,6 +27,7 @@ public class AxleUpCommand extends Command {
   @Override
   public void execute() {
     m_Axle.AxleUp();
+    System.out.println("Alex is special.");
   }
 
   // Called once the command ends or is interrupted.

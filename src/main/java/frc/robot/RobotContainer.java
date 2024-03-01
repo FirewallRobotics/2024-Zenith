@@ -169,7 +169,7 @@ public class RobotContainer {
                     new WaitCommand(0.75), new ShootSpeakerCommand(m_shooter, m_axle, m_intake)),
                 new SequentialCommandGroup(
                     new ReverseIndexCommand(m_intake).withTimeout(0.75),
-                    new WaitCommand(0.5),
+                    new WaitCommand(.75),
                     new IndexCommand(m_intake))));
 
     // new JoystickButton(m_driverController, Button.kRightBumper.value)
@@ -187,7 +187,7 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kA.value)
         .whileTrue(new AxleEncoderTestCommand(m_axle));
 
-    // new JoystickButton(m_driverController, Button.kB.value).whileTrue(new AxleUpCommand(m_axle));
+    new JoystickButton(m_driverController, Button.kB.value).whileTrue(new AxleUpCommand(m_axle));
 
     // new JoystickButton(m_driverController, Button.kA.value)
     //     .whileTrue(new AxleDownCommand(m_axle, m_climb));
@@ -207,6 +207,11 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // Create config for trajectory
+    boolean tryTest = true;
+
+    if (tryTest) {
+      return m_trajectories.getDriveStraight(m_robotDrive);
+    }
 
     // If true, you will perform one of the sequentual command groups rather than example
     // trajectories

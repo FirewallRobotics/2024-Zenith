@@ -21,12 +21,13 @@ public class AxleEncoderTestCommand extends Command {
   }
 
   Timer timer = new Timer();
-  double axleSpeed = 0.0;
+  double axleSpeed;
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    timer.reset();
+    timer.start();
+    axleSpeed = 0.06;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -35,10 +36,12 @@ public class AxleEncoderTestCommand extends Command {
     if (timer.get() > 2) {
       timer.reset();
 
-      axleSpeed += 0.1;
+      axleSpeed += 0.001;
 
       System.out.println("Current Axle Speed: " + axleSpeed);
     }
+
+    System.out.println("Time: " + timer.get());
 
     m_axle.setAxleMotorSpeed(axleSpeed);
   }
