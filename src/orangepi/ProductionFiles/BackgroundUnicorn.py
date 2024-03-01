@@ -797,16 +797,19 @@ def scroll_letter(letter,colour,brightness,speed): # scrolls a single letter acr
 '''scrolling is achieved by redrawing the letter with a column of the bitarray shifted to the left and a new blank column
 added to the right'''
 def scroll_word(word,colour,brightness,speed): # scrolls a word across the UH
-	unmod = txt
-	for s in range(len(word[0])):
-		if (unmod != txt):
-			UH.clear()
-			return
-		show_letter(word,colour,brightness)
-		time.sleep(speed)
-		for i in range(8):
-			word[i].pop(0)
-			word[i].append(0)
+    try:
+        unmod = txt
+    except:
+        print("broken")
+    for s in range(len(word[0])):
+        if (unmod != txt):
+            UH.clear()
+            return
+        show_letter(word,colour,brightness)
+        time.sleep(speed)
+        for i in range(8):
+            word[i].pop(0)
+            word[i].append(0)
 
 def make_word(words): # takes a list of chars and concats into a word by making one big bitarray
 	bigword = [bitarray(''),bitarray(''), bitarray(''),bitarray(''), bitarray(''),bitarray(''), bitarray(''),bitarray('')]
@@ -903,7 +906,7 @@ funny_phrases = [
 ]
 
 s = socket.socket()
-s.bind(('10.56.7.12', 80))
+s.bind(('10.56.7.15', 86))
 s.listen(5)
 
 prevtxt = ""
@@ -913,10 +916,10 @@ Brightmulti = 1
 while True:
     color = randcolor()
     Nofile = True
-    while addr == None:
+    addr = ""
+    while addr == "":
         c, addr = s.accept()
-        UH.clear()
-        unicorn_scroll("Waiting for connection", color, )
+        #unicorn_scroll("Waiting for connection", color, 100, 0.11)
     txttmp = s.recv(1024).decode()
 
     if ((iter % 5) == 0):

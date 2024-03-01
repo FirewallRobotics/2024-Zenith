@@ -17,6 +17,7 @@ class myWebcamVideoStream:
   Livemode = True
   RingMode = True
   Aprilmode = True
+  Orangepi = False
 
   print(sys.argv[1:])
   if sys.argv[1:] == ['ehB-test']:
@@ -206,7 +207,14 @@ fx, fy, cx, cy = read_from_txt_file("cal.txt")
 cameraParams = float(fx), float(fy), float(cx), float(cy)
 # define color the list of boundaries
 if Livemode:
-    socket.socket.connect(('10.56.7.12', 80))
+    s = socket.socket()
+    socketCnt = 0
+    while socketCnt <= 100:
+        try:
+            s.connect(('10.56.7.15', 86))
+            socketCnt = 101
+        except:
+            socketCnt += 1
 if RingMode:
     boundaries = [
         ([80,45,170], [100,145,255])
