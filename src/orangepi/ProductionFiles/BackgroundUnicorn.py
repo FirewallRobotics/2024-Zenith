@@ -905,9 +905,9 @@ funny_phrases = [
     "call me GLADOS"
 ]
 
-s = socket.socket()
-s.bind(('10.56.7.15', 86))
-s.listen(5)
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind(("localhost", 86))
+s.listen(1)
 
 prevtxt = ""
 iter = 0

@@ -207,14 +207,17 @@ fx, fy, cx, cy = read_from_txt_file("cal.txt")
 cameraParams = float(fx), float(fy), float(cx), float(cy)
 # define color the list of boundaries
 if Livemode:
-    s = socket.socket()
-    socketCnt = 0
-    while socketCnt <= 100:
-        try:
-            s.connect(('10.56.7.15', 86))
-            socketCnt = 101
-        except:
-            socketCnt += 1
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    #socketCnt = 0
+    #while socketCnt <= 100:
+    #    try:
+    #        print(str("Attempt:", socketCnt, "of connecting"))
+    s.connect(("localhost", 86))
+    #        socketCnt = 101
+    #        print("Success!")
+    #    except:
+    #        print("Failed")
+    #        socketCnt += 1
 if RingMode:
     boundaries = [
         ([80,45,170], [100,145,255])
@@ -330,6 +333,7 @@ while testmode == False | (iteration < 3 & testmode == True):
 
 version =ntcore.ConnectionInfo.protocol_version
 print("Exitting Code 0_o")
+socket.close()
 
 #Closes everything out
 if testmode == False:
