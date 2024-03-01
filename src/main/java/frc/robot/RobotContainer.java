@@ -61,7 +61,7 @@ public class RobotContainer {
   private final AutonomousTrajectories m_trajectories = new AutonomousTrajectories();
 
   // The driver's controller
-  XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
+  public XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -169,7 +169,7 @@ public class RobotContainer {
                     new WaitCommand(0.75), new ShootSpeakerCommand(m_shooter, m_axle, m_intake)),
                 new SequentialCommandGroup(
                     new ReverseIndexCommand(m_intake).withTimeout(0.75),
-                    new WaitCommand(.75),
+                    new WaitCommand(5),
                     new IndexCommand(m_intake))));
 
     // new JoystickButton(m_driverController, Button.kRightBumper.value)
@@ -182,15 +182,16 @@ public class RobotContainer {
         .whileTrue(new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LED));
 
     new JoystickButton(m_driverController, Button.kY.value)
-        .whileTrue(new AimAmpCommand(m_robotDrive, m_vision, m_axle));
+        .whileTrue(new AimAmpCommand(m_axle));
+    new JoystickButton(m_driverController, Button.kY.value)
+        .whileFalse(new DefaultAxleHeightCommand(m_axle));
 
-    new JoystickButton(m_driverController, Button.kA.value)
-        .whileTrue(new AxleEncoderTestCommand(m_axle));
+    // new JoystickButton(m_driverController, Button.kA.value)
+    //     .whileTrue(new AxleEncoderTestCommand(m_axle));
 
     new JoystickButton(m_driverController, Button.kB.value).whileTrue(new AxleUpCommand(m_axle));
 
-    // new JoystickButton(m_driverController, Button.kA.value)
-    //     .whileTrue(new AxleDownCommand(m_axle, m_climb));
+    new JoystickButton(m_driverController, Button.kA.value).whileTrue(new AxleDownCommand(m_axle));
 
     // new JoystickButton(m_driverController, Axis.kRightTrigger);
 

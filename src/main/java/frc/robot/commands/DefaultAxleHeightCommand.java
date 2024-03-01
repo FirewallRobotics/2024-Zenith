@@ -12,16 +12,12 @@ public class DefaultAxleHeightCommand extends Command {
   /** Creates a new ShootSpeakerCommand. */
   private final AxleSubsystem m_Axle;
 
-  private final ClimbSubsystem m_Climb;
-
-  public DefaultAxleHeightCommand(AxleSubsystem a_Subsystem, ClimbSubsystem c_Subsystem) {
+  public DefaultAxleHeightCommand(AxleSubsystem a_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
 
     m_Axle = a_Subsystem;
-    m_Climb = c_Subsystem;
 
     addRequirements(a_Subsystem);
-    addRequirements(c_Subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -30,10 +26,8 @@ public class DefaultAxleHeightCommand extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    if (m_Climb.bottomLimitSwitch.isPressed()) {
+  public void execute() { 
       m_Axle.SetDefaultHeight();
-    }
   }
 
   // Called once the command ends or is interrupted.

@@ -31,6 +31,7 @@ public class IntakeFloorCommand extends Command {
 
   public void sensorStartIntake() {
     if (m_Intake.intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected) {
+      System.out.println("Note aquired!");
       m_Intake.StopIntake();
     } else {
       m_Intake.StartIntake();

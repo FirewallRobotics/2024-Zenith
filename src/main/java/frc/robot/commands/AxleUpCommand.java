@@ -33,7 +33,7 @@ public class AxleUpCommand extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_Axle.MasterAxleMotor.set(0);
+    AxleSubsystem.MasterAxleMotor.set(0);
   }
 
   // Returns true when the command should end.
