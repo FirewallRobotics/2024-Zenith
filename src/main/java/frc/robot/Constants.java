@@ -164,10 +164,11 @@ public final class Constants {
 
     public final double kAimHeight = .01;
     public static final double kDefaultHeight = .01;
-    public static final double kIntakeHeight = .01;
+    public static final double kAmpHeight = .334;
+    public static final double kIntakeHeight = .092;
     public static final double kBasicSpeakerAimHeight = .01;
-    public static double kMeasuredPosHorizontal = .512;
-    public static double kAxleTestSpeed = .1;
+    public static double kMeasuredPosHorizontal = .106;
+    public static double kAxleTestSpeed = .2;
 
     public static double kTestRadiansNeeded = Math.PI / 2;
   }
@@ -191,7 +192,7 @@ public final class Constants {
   public static final class IntakeConstants {
     public static final int kMasterIntakeMotorPort = 13;
 
-    public static final double kIntakeMotorSpeed = -0.4;
+    public static final double kIntakeMotorSpeed = -1.0;
     public static final double kIndexSpeed = -1.0;
     public static final double kIndexReverseSpeed = -0.2;
 
