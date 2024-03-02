@@ -24,6 +24,6 @@ public final class Main {
   }
 }
 
-// ERROR ﻿﻿ 1 ﻿﻿ The startCompetition() method (or methods called by it)
+// ERROR  1 The startCompetition() method (or methods called by it)
 // should have handled the exception above.
-// ﻿﻿ edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:386) ﻿﻿﻿
+//  edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:386)
