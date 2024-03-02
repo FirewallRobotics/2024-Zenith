@@ -176,7 +176,7 @@ public class RobotContainer {
 
     new Trigger(RobotContainer::RightInthershold).whileTrue(new ClimbLeftCommand(m_climb, m_axle));
 
-    new Trigger(RobotContainer::LeftInThershold)
+    new Trigger(RobotContainer::LeftTriggerInThershold)
         .whileTrue(new ClimbDefaultCommand(m_climb, m_axle));
 
     // new JoystickButton(m_driverController, Button.kB.value).whileTrue(new AxleUpCommand(m_axle));
@@ -472,17 +472,17 @@ public class RobotContainer {
   static boolean RightInthershold() {
     double rightTriggerValue = m_driverController.getRightTriggerAxis();
 
-    if (rightTriggerValue <= 0.5) {
+    if (rightTriggerValue >= 0.5) {
       return true;
     }
 
     return false;
   }
 
-  static boolean LeftInThershold() {
+  static boolean LeftTriggerInThershold() {
     double leftTriggerValue = m_driverController.getLeftTriggerAxis();
 
-    if (leftTriggerValue <= 0.5) {
+    if (leftTriggerValue >= 0.5) {
       return true;
     }
     return false;
