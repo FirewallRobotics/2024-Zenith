@@ -18,6 +18,10 @@ public class ClimbSubsystem extends SubsystemBase {
   public SparkLimitSwitch topLimitSwitch;
   public SparkLimitSwitch bottomLimitSwitch;
 
+  // By default, we want to keep the climb down
+  // If you want the motor to go all the way up, then you need a button to change this to false.
+  public boolean keepDown = true;
+
   // Variables for setting the climb to default
 
   // public double hieghtDefault;
@@ -40,11 +44,11 @@ public class ClimbSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("Top Limit Enabled", topLimitSwitch.isLimitSwitchEnabled());
     SmartDashboard.putBoolean("Bottom Limit Enabled", bottomLimitSwitch.isLimitSwitchEnabled());
 
-    climbMotorMaster.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
-    climbMotorMaster.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
+    // climbMotorMaster.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
+    // climbMotorMaster.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
 
-    climbMotorMaster.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 10);
-    climbMotorMaster.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);
+    // climbMotorMaster.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 10);
+    // climbMotorMaster.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);
   }
 
   /*
@@ -74,9 +78,20 @@ public class ClimbSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("Bottom Limit Switch", topLimitSwitch.isPressed());
 
     //
-    if (topLimitSwitch.isPressed() || bottomLimitSwitch.isPressed()) {
+    if ((keepDown == true) && (bottomLimitSwitch.isPressed() == false)) {
+      climbMotorMaster.set(climbConstants.kClimbMotorPortSpeed);
+    } else if ((keepDown == true) && (bottomLimitSwitch.isPressed())) {
       stopClimb();
     }
+
+    if ((keepDown == false) && (topLimitSwitch.isPressed() == false)) {
+      climbMotorMaster.set(0.05);
+    }
+
+    /*if (topLimitSwitch.isPressed() || bottomLimitSwitch.isPressed()) {
+      stopClimb();
+    }*/
+
   }
 
   public void DefaultHeight() {

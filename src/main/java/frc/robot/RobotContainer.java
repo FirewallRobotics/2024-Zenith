@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
@@ -60,7 +61,7 @@ public class RobotContainer {
   private final AutonomousTrajectories m_trajectories = new AutonomousTrajectories();
 
   // The driver's controller
-  XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
+  static XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -172,6 +173,11 @@ public class RobotContainer {
 
     new JoystickButton(m_driverController, Button.kY.value)
         .whileTrue(new AimAmpCommand(m_robotDrive, m_vision, m_axle));
+
+    new Trigger(RobotContainer::RightInthershold).whileTrue(new ClimbLeftCommand(m_climb, m_axle));
+
+    new Trigger(RobotContainer::LeftInThershold)
+        .whileTrue(new ClimbDefaultCommand(m_climb, m_axle));
 
     // new JoystickButton(m_driverController, Button.kB.value).whileTrue(new AxleUpCommand(m_axle));
 
@@ -461,5 +467,24 @@ public class RobotContainer {
     } else {
       return 0;
     }
+  }
+
+  static boolean RightInthershold() {
+    double rightTriggerValue = m_driverController.getRightTriggerAxis();
+
+    if (rightTriggerValue <= 0.5) {
+      return true;
+    }
+
+    return false;
+  }
+
+  static boolean LeftInThershold() {
+    double leftTriggerValue = m_driverController.getLeftTriggerAxis();
+
+    if (leftTriggerValue <= 0.5) {
+      return true;
+    }
+    return false;
   }
 }
