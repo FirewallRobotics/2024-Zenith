@@ -169,7 +169,7 @@ public class RobotContainer {
                     new WaitCommand(0.75), new ShootSpeakerCommand(m_shooter, m_axle, m_intake)),
                 new SequentialCommandGroup(
                     new ReverseIndexCommand(m_intake).withTimeout(0.75),
-                    new WaitCommand(5),
+                    new WaitCommand(3),
                     new IndexCommand(m_intake))));
 
     // new JoystickButton(m_driverController, Button.kRightBumper.value)

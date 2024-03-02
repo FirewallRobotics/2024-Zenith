@@ -59,13 +59,13 @@ public class AxleSubsystem extends SubsystemBase {
     AxlePIDController.setOutputRange(kMinOutput, kMaxOutput);
   }
 
-  public void GravityOffset(double kdefaultheight) {
+  public void GravityOffset(double targetAngle) {
     // position measured when arm is horizontal (with Pheonix Tuner)
     double currentPos = AxleEncoder.getPosition();
-    double radians = currentPos - AxleConstants.kMeasuredPosHorizontal;
+    double radians = (currentPos - AxleConstants.kMeasuredPosHorizontal) * 6;
     double cosineScalar = java.lang.Math.cos(radians);
     AxlePIDController.setFF(kFF * cosineScalar);
-    AxlePIDController.setReference(kdefaultheight, CANSparkMax.ControlType.kPosition);
+    AxlePIDController.setReference(targetAngle, CANSparkMax.ControlType.kPosition);
   }
 
   public double getAngle() {
