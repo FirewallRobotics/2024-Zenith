@@ -13,15 +13,21 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.AutoAimSpeakerCommand;
+import frc.robot.commands.AutoBasicAimSpeakerCommand;
 import frc.robot.commands.AutoShootSpeakerCommand;
+import frc.robot.commands.IndexCommand;
 import frc.robot.commands.IntakeAxleHeightCommand;
 import frc.robot.commands.IntakeFloorCommand;
+import frc.robot.commands.ReverseIndexCommand;
+import frc.robot.commands.ShootSpeakerCommand;
 import java.util.List;
 
 public class AutonomousTrajectories extends SubsystemBase {
@@ -288,6 +294,20 @@ public class AutonomousTrajectories extends SubsystemBase {
             config);
 
     return middleAlternateTrajectory;
+  }
+
+  public Trajectory getBasicAutoTrajectory(TrajectoryConfig config) {
+    Trajectory forwardTrajectory =
+        TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(0, 0, new Rotation2d(0)),
+            // No additional interior waypoints
+            List.of(),
+            // End 2 meters straight ahead of where we started, facing forward
+            new Pose2d(1, 0, new Rotation2d(0)),
+            config);
+
+    return forwardTrajectory;
   }
 
   /** Goes straight forward 2 meters for a standard mobility bonus and nothing else */
@@ -886,6 +906,38 @@ public class AutonomousTrajectories extends SubsystemBase {
             getBlueParkAfterLeftNoteRightPathTrajectory(trajectoryConfig),
             m_robotDrive,
             thetaController));
+  }
+
+  public Command getScore2InFrontOfSubwooferCommand(
+      DriveSubsystem m_robotDrive,
+      AxleSubsystem m_axle,
+      IntakeSubsystem m_intake,
+      ShooterSubsystem m_shooter,
+      ClimbSubsystem m_climb,
+      LEDSubsystem m_led) {
+    return new SequentialCommandGroup(
+        getTrajectoryCommand(
+            getBasicAutoTrajectory(trajectoryConfig), m_robotDrive, thetaController),
+        new AutoBasicAimSpeakerCommand(m_axle, m_climb).withTimeout(0.5),
+        new ParallelCommandGroup(
+                new SequentialCommandGroup(
+                    new WaitCommand(0.25), new ShootSpeakerCommand(m_shooter, m_axle, m_intake)),
+                new SequentialCommandGroup(
+                    new ReverseIndexCommand(m_intake).withTimeout(0.25),
+                    new WaitCommand(0.5),
+                    new IndexCommand(m_intake)))
+            .withTimeout(1.25),
+        new IntakeAxleHeightCommand(m_axle, m_climb).withTimeout(0.5),
+        new IntakeFloorCommand(m_intake, m_axle, m_led).withTimeout(0.5),
+        new AutoBasicAimSpeakerCommand(m_axle, m_climb).withTimeout(0.5),
+        new ParallelCommandGroup(
+                new SequentialCommandGroup(
+                    new WaitCommand(0.25), new ShootSpeakerCommand(m_shooter, m_axle, m_intake)),
+                new SequentialCommandGroup(
+                    new ReverseIndexCommand(m_intake).withTimeout(0.25),
+                    new WaitCommand(0.5),
+                    new IndexCommand(m_intake)))
+            .withTimeout(1.25));
   }
 
   public Command getDriveStraight(DriveSubsystem m_robotDrive) {
