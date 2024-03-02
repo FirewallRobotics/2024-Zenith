@@ -27,7 +27,7 @@ public class IndexCommand extends Command {
   @Override
   public void execute() {
 
-    m_Intake.StartIntake();
+    m_Intake.StartIndex();
   }
 
   // Called once the command ends or is interrupted.

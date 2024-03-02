@@ -27,12 +27,13 @@ public class AxleUpCommand extends Command {
   @Override
   public void execute() {
     m_Axle.AxleUp();
+    System.out.println("Alex is special.");
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_Axle.MasterAxleMotor.set(0);
+    AxleSubsystem.MasterAxleMotor.set(0);
   }
 
   // Returns true when the command should end.

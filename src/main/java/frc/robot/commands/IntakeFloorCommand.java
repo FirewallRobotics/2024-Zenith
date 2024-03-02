@@ -31,10 +31,11 @@ public class IntakeFloorCommand extends Command {
 
   public void sensorStartIntake() {
     if (m_Intake.intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected) {
-      m_Intake.StartIntake();
-    } else {
+      System.out.println("Note aquired!");
       m_Intake.StopIntake();
-      m_LED.SetOrange();
+    } else {
+      m_Intake.StartIntake();
+      // m_LED.SetOrange();
     }
   }
 
@@ -50,25 +51,24 @@ public class IntakeFloorCommand extends Command {
     // This is the LED sensor.
     sensorStartIntake();
 
-    m_Intake.StartIntake();
+    // m_Intake.StartIntake();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    if (interrupted == true) {
-      m_Intake.StopIntake();
-    }
+    if (interrupted == true) {}
+
+    m_Intake.StopIntake();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    /*
-    if (m_Intake.intakeSensor.get() == true) {
+    if (m_Intake.intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected) {
       return true;
     }
-    */
+
     return false;
   }
 }

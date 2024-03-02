@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.AxleConstants;
 import frc.robot.subsystems.AxleSubsystem;
 
 public class AimHeightCommand extends Command {
@@ -36,6 +37,8 @@ public class AimHeightCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    AxleSubsystem.AxleEncoder.getPosition();
+    if (AxleSubsystem.AxleEncoder.getPosition() == AxleConstants.kAmpHeight) return true;
+    else return false;
   }
 }
