@@ -66,7 +66,6 @@ public class RobotContainer {
   // Static for trigger
   static XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
 
-  public XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
