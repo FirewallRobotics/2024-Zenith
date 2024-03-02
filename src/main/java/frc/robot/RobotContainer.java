@@ -65,9 +65,8 @@ public class RobotContainer {
 
   // Static for trigger
   static XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
-  
-  public XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
 
+  public XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -188,8 +187,7 @@ public class RobotContainer {
         .whileTrue(new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LED));
 
     new JoystickButton(m_driverController, Button.kY.value).whileTrue(new AimAmpCommand(m_axle));
-    new JoystickButton(m_driverController, Button.kY.value)
-        .whileTrue(new AimAmpCommand(m_robotDrive, m_vision, m_axle));
+    new JoystickButton(m_driverController, Button.kY.value).whileTrue(new AimAmpCommand(m_axle));
 
     new Trigger(RobotContainer::RightInthershold).whileTrue(new ClimbLeftCommand(m_climb, m_axle));
 
@@ -197,7 +195,7 @@ public class RobotContainer {
         .whileTrue(new ClimbDefaultCommand(m_climb, m_axle));
 
     // new JoystickButton(m_driverController, Button.kB.value).whileTrue(new AxleUpCommand(m_axle));
-        .whileFalse(new DefaultAxleHeightCommand(m_axle));
+    // .whileFalse(new DefaultAxleHeightCommand(m_axle));
 
     // new JoystickButton(m_driverController, Button.kA.value)
     //     .whileTrue(new AxleEncoderTestCommand(m_axle));
