@@ -6,7 +6,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.AxleSubsystem;
-import frc.robot.subsystems.ClimbSubsystem;
 
 public class DefaultAxleHeightCommand extends Command {
   /** Creates a new ShootSpeakerCommand. */
@@ -26,8 +25,8 @@ public class DefaultAxleHeightCommand extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() { 
-      m_Axle.SetDefaultHeight();
+  public void execute() {
+    m_Axle.SetDefaultHeight();
   }
 
   // Called once the command ends or is interrupted.

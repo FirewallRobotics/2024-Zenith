@@ -11,8 +11,7 @@ public class AimAmpCommand extends Command {
   /** Creates a new ShootSpeakerCommand. */
   private final AxleSubsystem m_Axle;
 
-  public AimAmpCommand(
-      AxleSubsystem a_Subsystem) {
+  public AimAmpCommand(AxleSubsystem a_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
 
     m_Axle = a_Subsystem;
