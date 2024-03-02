@@ -54,7 +54,7 @@ loadScripts(document, 'script');</script>
 <dl class="index">
 <dt><a href="frc/robot/commands/AimAmpCommand.html" class="type-name-link" title="class in frc.robot.commands">AimAmpCommand</a> - Class in <a href="frc/robot/commands/package-summary.html">frc.robot.commands</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="frc/robot/commands/AimAmpCommand.html#%3Cinit%3E(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem)" class="member-name-link">AimAmpCommand(DriveSubsystem, VisionSubsystem, AxleSubsystem)</a> - Constructor for class frc.robot.commands.<a href="frc/robot/commands/AimAmpCommand.html" title="class in frc.robot.commands">AimAmpCommand</a></dt>
+<dt><a href="frc/robot/commands/AimAmpCommand.html#%3Cinit%3E(frc.robot.subsystems.AxleSubsystem)" class="member-name-link">AimAmpCommand(AxleSubsystem)</a> - Constructor for class frc.robot.commands.<a href="frc/robot/commands/AimAmpCommand.html" title="class in frc.robot.commands">AimAmpCommand</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/commands/AimHeightCommand.html" class="type-name-link" title="class in frc.robot.commands">AimHeightCommand</a> - Class in <a href="frc/robot/commands/package-summary.html">frc.robot.commands</a></dt>
 <dd>&nbsp;</dd>
@@ -130,7 +130,7 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/commands/AxleDownCommand.html" class="type-name-link" title="class in frc.robot.commands">AxleDownCommand</a> - Class in <a href="frc/robot/commands/package-summary.html">frc.robot.commands</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="frc/robot/commands/AxleDownCommand.html#%3Cinit%3E(frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.ClimbSubsystem)" class="member-name-link">AxleDownCommand(AxleSubsystem, ClimbSubsystem)</a> - Constructor for class frc.robot.commands.<a href="frc/robot/commands/AxleDownCommand.html" title="class in frc.robot.commands">AxleDownCommand</a></dt>
+<dt><a href="frc/robot/commands/AxleDownCommand.html#%3Cinit%3E(frc.robot.subsystems.AxleSubsystem)" class="member-name-link">AxleDownCommand(AxleSubsystem)</a> - Constructor for class frc.robot.commands.<a href="frc/robot/commands/AxleDownCommand.html" title="class in frc.robot.commands">AxleDownCommand</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/subsystems/AxleSubsystem.html#AxleEncoder" class="member-name-link">AxleEncoder</a> - Static variable in class frc.robot.subsystems.<a href="frc/robot/subsystems/AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a></dt>
 <dd>&nbsp;</dd>
@@ -242,7 +242,7 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/commands/DefaultAxleHeightCommand.html" class="type-name-link" title="class in frc.robot.commands">DefaultAxleHeightCommand</a> - Class in <a href="frc/robot/commands/package-summary.html">frc.robot.commands</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="frc/robot/commands/DefaultAxleHeightCommand.html#%3Cinit%3E(frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.ClimbSubsystem)" class="member-name-link">DefaultAxleHeightCommand(AxleSubsystem, ClimbSubsystem)</a> - Constructor for class frc.robot.commands.<a href="frc/robot/commands/DefaultAxleHeightCommand.html" title="class in frc.robot.commands">DefaultAxleHeightCommand</a></dt>
+<dt><a href="frc/robot/commands/DefaultAxleHeightCommand.html#%3Cinit%3E(frc.robot.subsystems.AxleSubsystem)" class="member-name-link">DefaultAxleHeightCommand(AxleSubsystem)</a> - Constructor for class frc.robot.commands.<a href="frc/robot/commands/DefaultAxleHeightCommand.html" title="class in frc.robot.commands">DefaultAxleHeightCommand</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/subsystems/ClimbSubsystem.html#DefaultHeight()" class="member-name-link">DefaultHeight()</a> - Method in class frc.robot.subsystems.<a href="frc/robot/subsystems/ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a></dt>
 <dd>&nbsp;</dd>
@@ -813,8 +813,6 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/Constants.LEDConstants.html#kLEDPort" class="member-name-link">kLEDPort</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.LEDConstants.html" title="class in frc.robot">Constants.LEDConstants</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="frc/robot/Constants.climbConstants.html#kLeftClimbMotorPort" class="member-name-link">kLeftClimbMotorPort</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.climbConstants.html" title="class in frc.robot">Constants.climbConstants</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="frc/robot/Constants.DriveConstants.html#kMagnitudeSlewRate" class="member-name-link">kMagnitudeSlewRate</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.DriveConstants.html" title="class in frc.robot">Constants.DriveConstants</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/Constants.AxleConstants.html#kMasterAxleMotorPort" class="member-name-link">kMasterAxleMotorPort</a> - Static variable in class frc.robot.<a href="frc/robot/Constants.AxleConstants.html" title="class in frc.robot">Constants.AxleConstants</a></dt>
@@ -947,6 +945,8 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:M">M</h2>
 <dl class="index">
+<dt><a href="frc/robot/RobotContainer.html#m_driverController" class="member-name-link">m_driverController</a> - Variable in class frc.robot.<a href="frc/robot/RobotContainer.html" title="class in frc.robot">RobotContainer</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="frc/robot/subsystems/DriveSubsystem.html#m_frontLeft" class="member-name-link">m_frontLeft</a> - Variable in class frc.robot.subsystems.<a href="frc/robot/subsystems/DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="frc/robot/subsystems/DriveSubsystem.html#m_frontRight" class="member-name-link">m_frontRight</a> - Variable in class frc.robot.subsystems.<a href="frc/robot/subsystems/DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a></dt>
