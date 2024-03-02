@@ -205,7 +205,7 @@ public final class Constants {
   public static final class climbConstants {
     public static final int kClimbMotorPort = 14;
 
-    public static final double kClimbMotorPortSpeed = 0.2;
+    public static final double kClimbMotorPortSpeed = 0.1;
 
     public static final double kClimbDefaultHeight = 0;
   }
