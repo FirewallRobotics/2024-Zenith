@@ -8,14 +8,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.AxleSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 
-public class ClimbLeftCommand extends Command {
+public class ClimberUpCommand extends Command {
   /** Creates a new ShootSpeakerCommand. */
   private final ClimbSubsystem m_Climb;
 
   private final AxleSubsystem m_Axle;
 
   /** Creates a new ClimbDefaultCommand. */
-  public ClimbLeftCommand(ClimbSubsystem c_Subsystem, AxleSubsystem a_Subsystem) {
+  public ClimberUpCommand(ClimbSubsystem c_Subsystem, AxleSubsystem a_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_Climb = c_Subsystem;
     m_Axle = a_Subsystem;
@@ -31,7 +31,7 @@ public class ClimbLeftCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Climb.ClimbLeft();
+    m_Climb.ClimberUp();
   }
 
   // Called once the command ends or is interrupted.
