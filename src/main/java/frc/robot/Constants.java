@@ -22,7 +22,7 @@ public final class Constants {
   public static final class DriveConstants {
     // Driving Parameters - Note that these are not the maximum capable speeds of
     // the robot, rather the allowed maximum speeds
-    public static final double kMaxSpeedMetersPerSecond = 4.8;
+    public static final double kMaxSpeedMetersPerSecond = 4; // 4.8
     public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second
 
     public static final double kDirectionSlewRate = 1.2; // radians per second
@@ -177,7 +177,8 @@ public final class Constants {
     public static final int kMasterShooterMotorPort = 11;
     public static final int kMinionShooterMotorPort = 12;
 
-    public static final double kShooterMotorSpeed = 1;
+    public static final double kShootSpeakerSpeed = 1;
+    public static final double kShootAmpSpeed = .2;
   }
 
   public static final class UltrasonicConstants {
@@ -193,13 +194,14 @@ public final class Constants {
     public static final int kMasterIntakeMotorPort = 13;
 
     public static final double kIntakeMotorSpeed = -0.5;
-    public static final double kIndexSpeed = -1;
-    public static final double kIndexReverseSpeed = -0.2;
+    public static final double kIndexSpeed = -.5;
+    public static final double kIndexReverseSpeed = -.2;
 
     public static final int kIntakeSensorPort = 0;
+    public static final int kIntakeOutputPort = 1;
 
     // May need to swap this value after testing the sensor
-    public static final boolean kIntakeSensorNoteDetected = false;
+    public static final boolean kIntakeSensorNoteDetected = true;
   }
 
   public static final class climbConstants {

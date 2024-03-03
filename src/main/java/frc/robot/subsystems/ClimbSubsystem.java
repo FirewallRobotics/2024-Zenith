@@ -107,6 +107,7 @@ public class ClimbSubsystem extends SubsystemBase {
       stopClimb();
     } else {
       climbMotorMaster.set(climbConstants.kClimbMotorPortSpeed);
+      System.out.println("Climbing...");
     }
   }
 
@@ -116,6 +117,7 @@ public class ClimbSubsystem extends SubsystemBase {
     } else {
       climbMotorMaster.set(climbConstants.kClimbMotorPortSpeed);
     }
+    System.out.println("Climbing...");
   }
 
   public void ClimbRight() {
@@ -124,10 +126,12 @@ public class ClimbSubsystem extends SubsystemBase {
     } else {
       climbMotorMaster.set(climbConstants.kClimbMotorPortSpeed);
     }
+    System.out.println("Climbing...");
   }
 
   // Stop climb
   public void stopClimb() {
     climbMotorMaster.set(0);
+    // System.out.println("Stopping the climber...");
   }
 }

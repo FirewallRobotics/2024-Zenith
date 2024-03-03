@@ -51,9 +51,9 @@ public class ShootAmpCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (m_Intake.intakeSensor.get() == false) {
-      return true;
-    }
+    // if (m_Intake.intakeSensor.get() == false) {
+    //   return true;
+    // }
     return false;
   }
 }
