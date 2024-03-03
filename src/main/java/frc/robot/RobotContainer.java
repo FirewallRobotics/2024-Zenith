@@ -73,7 +73,7 @@ public class RobotContainer {
     // Configure the button bindings
 
     m_chooser.setDefaultOption(
-        "Default Auto - Drive Straight 2 Meters", m_trajectories.getDriveStraight(m_robotDrive)); 
+        "Default Auto - Drive Straight 2 Meters", m_trajectories.getDriveStraight(m_robotDrive));
     // m_chooser.addOption(
     //     "Basic Auto: Start in front of Subwoofer, Score 2, Pick up middlfe note",
     //     m_trajectories.getScore2InFrontOfSubwooferCommand(
