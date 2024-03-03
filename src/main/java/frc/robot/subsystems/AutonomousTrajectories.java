@@ -23,6 +23,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.AutoAimSpeakerCommand;
 import frc.robot.commands.AutoBasicAimSpeakerCommand;
 import frc.robot.commands.AutoShootSpeakerCommand;
+import frc.robot.commands.AxleDownCommand;
 import frc.robot.commands.IndexCommand;
 import frc.robot.commands.IntakeAxleHeightCommand;
 import frc.robot.commands.IntakeFloorCommand;
@@ -938,6 +939,27 @@ public class AutonomousTrajectories extends SubsystemBase {
                     new WaitCommand(0.5),
                     new IndexCommand(m_intake)))
             .withTimeout(1.25));
+  }
+
+  public Command getScore1InFrontOfSubwooferCommand(
+      DriveSubsystem m_robotDrive,
+      AxleSubsystem m_axle,
+      IntakeSubsystem m_intake,
+      ShooterSubsystem m_shooter,
+      ClimbSubsystem m_climb,
+      LEDSubsystem m_led) {
+    return new SequentialCommandGroup(
+        new AxleDownCommand(m_axle).withTimeout(0.75),
+        new ParallelCommandGroup(
+                new SequentialCommandGroup(
+                    new WaitCommand(0.25), new ShootSpeakerCommand(m_shooter, m_axle, m_intake)),
+                new SequentialCommandGroup(
+                    new ReverseIndexCommand(m_intake).withTimeout(0.25),
+                    new WaitCommand(2.0),
+                    new IndexCommand(m_intake)))
+            .withTimeout(2.0),
+        getTrajectoryCommand(
+            getBasicAutoTrajectory(trajectoryConfig), m_robotDrive, thetaController));
   }
 
   public Command getDriveStraight(DriveSubsystem m_robotDrive) {

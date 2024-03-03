@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
@@ -74,9 +75,13 @@ public class RobotContainer {
 
     m_chooser.setDefaultOption(
         "Default Auto - Drive Straight 2 Meters", m_trajectories.getDriveStraight(m_robotDrive));
+    // m_chooser.addOption(
+    //     "Basic Auto: Start in front of Subwoofer, Score 2, Pick up middlfe note",
+    //     m_trajectories.getScore2InFrontOfSubwooferCommand(
+    //         m_robotDrive, m_axle, m_intake, m_shooter, m_climb, m_LED));
     m_chooser.addOption(
-        "Basic Auto: Start in front of Subwoofer, Score 2, Pick up middlfe note",
-        m_trajectories.getScore2InFrontOfSubwooferCommand(
+        "Basic Auto: Start in front of Subwoofer, Score 1, Pick up middlfe note",
+        m_trajectories.getScore1InFrontOfSubwooferCommand(
             m_robotDrive, m_axle, m_intake, m_shooter, m_climb, m_LED));
     m_chooser.addOption(
         "Red: Start Right, Score 2 Speaker, Pick Up Right Note, Park Far Right",
@@ -172,7 +177,7 @@ public class RobotContainer {
                     new WaitCommand(0.75), new ShootSpeakerCommand(m_shooter, m_axle, m_intake)),
                 new SequentialCommandGroup(
                     new ReverseIndexCommand(m_intake).withTimeout(0.75),
-                    new WaitCommand(3),
+                    new WaitCommand(2),
                     new IndexCommand(m_intake))));
 
     // new JoystickButton(m_driverController, Button.kRightBumper.value)
@@ -200,6 +205,16 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kB.value).whileTrue(new AxleUpCommand(m_axle));
 
     new JoystickButton(m_driverController, Button.kA.value).whileTrue(new AxleDownCommand(m_axle));
+
+    new POVButton(m_driverController, 270) // left D-pad
+        .onTrue(new GyroSetZeroCommand(m_robotDrive));
+
+    new POVButton(m_driverController, 90) // right D-pad
+        .whileTrue(
+            new ParallelCommandGroup(
+                new SequentialCommandGroup(new ShootAmpCommand(m_shooter, m_axle, m_intake)),
+                new SequentialCommandGroup(new WaitCommand(.75), new IndexCommand(m_intake))));
+    // right D-pad for AMP shoot
 
     // new JoystickButton(m_driverController, Axis.kRightTrigger);
 

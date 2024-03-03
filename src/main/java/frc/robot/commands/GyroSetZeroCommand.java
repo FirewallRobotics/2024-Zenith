@@ -5,18 +5,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.AxleSubsystem;
+import frc.robot.subsystems.*;
 
-public class AxleUpCommand extends Command {
-  /** Creates a new ShootSpeakerCommand. */
-  private final AxleSubsystem m_Axle;
+public class GyroSetZeroCommand extends Command {
+  /** Creates a new AutoBalanceZeroGyro. */
+  private DriveSubsystem m_drivetrain;
 
-  public AxleUpCommand(AxleSubsystem a_Subsystem) {
+  private boolean isFinished = false;
+
+  public GyroSetZeroCommand(DriveSubsystem dt_subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
 
-    m_Axle = a_Subsystem;
-
-    addRequirements(a_Subsystem);
+    m_drivetrain = dt_subsystem;
+    addRequirements(dt_subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -26,18 +27,18 @@ public class AxleUpCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Axle.AxleUp();
+    System.out.println("Resetting gyro, zero heading");
+    m_drivetrain.zeroHeading();
+    isFinished = true;
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    AxleSubsystem.MasterAxleMotor.set(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return isFinished;
   }
 }

@@ -42,12 +42,12 @@ public class AxleSubsystem extends SubsystemBase {
             AxleConstants.kMinionAxleMotorPort,
             com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
 
-    AxlePIDController = MasterAxleMotor.getPIDController();
-
     MasterAxleMotor.restoreFactoryDefaults();
     MinionAxleMotor.restoreFactoryDefaults();
 
     MinionAxleMotor.follow(MasterAxleMotor, true);
+
+    AxlePIDController = MasterAxleMotor.getPIDController();
 
     AxleEncoder = MasterAxleMotor.getAbsoluteEncoder(Type.kDutyCycle);
 
@@ -62,10 +62,13 @@ public class AxleSubsystem extends SubsystemBase {
   public void GravityOffset(double targetAngle) {
     // position measured when arm is horizontal (with Pheonix Tuner)
     double currentPos = AxleEncoder.getPosition();
-    double radians = (currentPos - AxleConstants.kMeasuredPosHorizontal) * 6;
+    System.out.println("Target Angle" + targetAngle);
+    System.out.println("Starting Position" + AxleEncoder.getPosition());
+    double radians = (currentPos - AxleConstants.kMeasuredPosHorizontal);
     double cosineScalar = java.lang.Math.cos(radians);
     AxlePIDController.setFF(kFF * cosineScalar);
     AxlePIDController.setReference(targetAngle, CANSparkMax.ControlType.kPosition);
+    System.out.println("Axle Motor Speed" + MasterAxleMotor.get());
   }
 
   public double getAngle() {
@@ -78,8 +81,8 @@ public class AxleSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
 
-    setMotorSpeed(AxleEncoder.getVelocity());
-    System.out.println("Current Speed: " + MasterAxleMotor.get());
+    // setMotorSpeed(AxleEncoder.getVelocity());
+    // System.out.println("Current Speed: " + MasterAxleMotor.get());
   }
 
   public void setMotorSpeed(double speed) {
