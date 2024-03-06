@@ -47,18 +47,22 @@ public class IntakeSubsystem extends SubsystemBase {
   /** Starts motor intake */
   public void StartIntake() {
     MasterIntakeMotor.set(IntakeConstants.kIntakeMotorSpeed);
+    System.out.println("Intaking...");
   }
 
   public void StartIndex() {
     MasterIntakeMotor.set(IntakeConstants.kIndexSpeed);
+    System.out.println("Indexing...");
   }
 
   public void StartReverseIndex() {
     MasterIntakeMotor.set(-IntakeConstants.kIndexReverseSpeed);
+    System.out.println("Reverse indexing...");
   }
 
   /** Stops motor intake */
   public void StopIntake() {
     MasterIntakeMotor.set(0);
+    System.out.println("Intake stopped!");
   }
 }
