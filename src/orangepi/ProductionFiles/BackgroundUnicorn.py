@@ -915,27 +915,25 @@ except:
 prevtxt = ""
 iter = 0
 Brightmulti = 1
-jokemode = True
+jokemode = False
 
 while True:
     color = randcolor()
     Nofile = True
     addr = ""
-    #try:
-        #while addr == "":
-            #c, addr = s.accept()
-        #txttmp = c.recv(1024).decode()
-    #except:
-    #    print("no connection")
+    try:
+        while addr == "":
+            c, addr = s.accept()
+        txttmp = c.recv(1024).decode()
+    except:
+        print("no connection")
 
     if ((iter % 5) == 0):
        txt = "5607 - Vision - ~heart - "
        iter = 0
     else:
-        try:
-            txt = txttmp
-        except:
-            print("No Tag text found")
+        UH.clear()
+
 	
     Nofile2 = True
     try:
@@ -949,11 +947,11 @@ while True:
         Nofile2 = True
 
     randnum = random.randrange(0,5)
-    if randnum == 3 | jokemode:
-        Numcol = random.randrange(0, len(funny_phrases))
-        txt = funny_phrases[Numcol]
+    #if randnum == 3 | jokemode:
+        #Numcol = random.randrange(0, len(funny_phrases))
+        #txt = funny_phrases[Numcol]
 
-    if Nofile2:
+    if txttmp == "":
         UH.clear()
         unicorn_scroll(txt,color,100,0.11)
         Brightmulti = 1
