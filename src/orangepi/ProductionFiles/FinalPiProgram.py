@@ -338,7 +338,10 @@ while testmode == False | (iteration < 3 & testmode == True):
 
 version =ntcore.ConnectionInfo.protocol_version
 print("Exitting Code 0_o")
-socket.close(s)
+try:
+    socket.close(s)
+except:
+    print("Closing Failed")
 
 #Closes everything out
 if testmode == False:
