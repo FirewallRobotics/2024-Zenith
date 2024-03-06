@@ -42,17 +42,17 @@ public class ShootSpeakerCommand extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    if (interrupted == true) {
-      m_Shooter.StopShoot();
-    }
+    if (interrupted == true) {}
+
+    m_Shooter.StopShoot();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (m_Intake.intakeSensor.get() == false) {
-      return true;
-    }
+    // if (m_Intake.intakeSensor.get() == false) {
+    //   return true;
+    // }
     return false;
   }
 }

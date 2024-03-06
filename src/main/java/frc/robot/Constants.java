@@ -22,7 +22,7 @@ public final class Constants {
   public static final class DriveConstants {
     // Driving Parameters - Note that these are not the maximum capable speeds of
     // the robot, rather the allowed maximum speeds
-    public static final double kMaxSpeedMetersPerSecond = 4.8;
+    public static final double kMaxSpeedMetersPerSecond = 4; // 4.8
     public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second
 
     public static final double kDirectionSlewRate = 1.2; // radians per second
@@ -30,9 +30,9 @@ public final class Constants {
     public static final double kRotationalSlewRate = 2.0; // percent per second (1 = 100%)
 
     // Chassis configuration
-    public static final double kTrackWidth = Units.inchesToMeters(26.5);
+    public static final double kTrackWidth = Units.inchesToMeters(23.5);
     // Distance between centers of right and left wheels on robot
-    public static final double kWheelBase = Units.inchesToMeters(26.5);
+    public static final double kWheelBase = Units.inchesToMeters(23.5);
     // Distance between front and back wheels on robot
     public static final SwerveDriveKinematics kDriveKinematics =
         new SwerveDriveKinematics(
@@ -159,14 +159,16 @@ public final class Constants {
   public static final class AxleConstants {
     public static final int kMasterAxleMotorPort = 9;
     public static final int kMinionAxleMotorPort = 10;
-    public static final int kTopLimitSwitchPort = 17;
-    public static final int kBottomLimitSwitchPort = 18;
+    public static final int kTopLimitSwitchPort = 5;
+    public static final int kBottomLimitSwitchPort = 6;
 
     public final double kAimHeight = .01;
     public static final double kDefaultHeight = .01;
-    public static final double kIntakeHeight = .01;
-    public static double kMeasuredPosHorizontal = .512;
-    public static double kAxleTestSpeed = .01;
+    public static final double kAmpHeight = .334;
+    public static final double kIntakeHeight = .092;
+    public static final double kBasicSpeakerAimHeight = .01;
+    public static double kMeasuredPosHorizontal = .106;
+    public static double kAxleTestSpeed = .2;
 
     public static double kTestRadiansNeeded = Math.PI / 2;
   }
@@ -175,26 +177,37 @@ public final class Constants {
     public static final int kMasterShooterMotorPort = 11;
     public static final int kMinionShooterMotorPort = 12;
 
-    public static final double kShooterMotorSpeed = 0.2;
+    public static final double kShootSpeakerSpeed = 1;
+    public static final double kShootAmpSpeed = .2;
+  }
+
+  public static final class UltrasonicConstants {
+    public static final int kUltrasonicTriggerPort = 2;
+    public static final int kUltrasonicSensorPort = 3;
+  }
+
+  public static final class LEDConstants {
+    public static final int kLEDPort = 4;
   }
 
   public static final class IntakeConstants {
     public static final int kMasterIntakeMotorPort = 13;
 
-    public static final double kIntakeMotorSpeed = 0.2;
-    public static final double kIndexSpeed = 0.2;
+    public static final double kIntakeMotorSpeed = -0.5;
+    public static final double kIndexSpeed = -.5;
+    public static final double kIndexReverseSpeed = -.2;
 
     public static final int kIntakeSensorPort = 0;
+    public static final int kIntakeOutputPort = 1;
 
     // May need to swap this value after testing the sensor
-    public static final boolean kIntakeSensorNoteDetected = false;
+    public static final boolean kIntakeSensorNoteDetected = true;
   }
 
   public static final class climbConstants {
-    public static final int kClimbMotorPort = 15;
-    public static final int kLeftClimbMotorPort = 16;
+    public static final int kClimbMotorPort = 14;
 
-    public static final double kClimbMotorPortSpeed = 0.2;
+    public static final double kClimbMotorPortSpeed = 0.1;
 
     public static final double kClimbDefaultHeight = 0;
   }

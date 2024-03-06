@@ -42,8 +42,8 @@ public class VisionSubsystem extends SubsystemBase {
       System.out.println("CenterX -> " + getSpeakerTagCenterX());
       System.out.println("RotationZ -> " + getSpeakerTagRotationZ());
     } else {
-      System.out.print("No Speaker Tag - Current Tags: ");
-      printAllTags();
+      // System.out.print("No Speaker Tag - Current Tags: ");
+      // printAllTags();
     }
   }
 
@@ -146,7 +146,7 @@ public class VisionSubsystem extends SubsystemBase {
 
   // Communication For The Unicornhat
   public static void UnicornNotify(String status) {
-    aprilTagsTable.getStringTopic("UnicornHat").publishEx("status", "{'status': status}");
+    //   aprilTagsTable.getStringTopic("UnicornHat").publishEx("status", "{'status': status}");
   }
 
   private double DecelerationSpeed(double positionDifference, double targetRange) {

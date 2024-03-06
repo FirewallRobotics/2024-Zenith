@@ -26,15 +26,15 @@ public class ShooterSubsystem extends SubsystemBase {
     MasterShooterMotor.restoreFactoryDefaults();
     MinionShooterMotor.restoreFactoryDefaults();
 
-    MasterShooterMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
-    MasterShooterMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
+    // MasterShooterMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
+    // MasterShooterMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
 
-    MasterShooterMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 10);
-    MasterShooterMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);
+    // MasterShooterMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 10);
+    // MasterShooterMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);
 
     // MasterIntakeMotor.setIdleMode(IdleMode.kCoast);
 
-    MinionShooterMotor.follow(MasterShooterMotor, true);
+    MinionShooterMotor.follow(MasterShooterMotor, false);
   }
 
   @Override
@@ -43,16 +43,18 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void ShootAmp() {
-    MasterShooterMotor.set(ShooterConstants.kShooterMotorSpeed);
+    MasterShooterMotor.set(ShooterConstants.kShootAmpSpeed);
+    System.out.println("Shooting at the Amp...");
   }
 
   public void ShootSpeaker() {
     VisionSubsystem.UnicornNotify("True");
-    MasterShooterMotor.set(ShooterConstants.kShooterMotorSpeed);
+    MasterShooterMotor.set(ShooterConstants.kShootSpeakerSpeed);
+    System.out.println("Shooting at the Speaker...");
   }
 
   public void ShootTrap() {
-    MasterShooterMotor.set(ShooterConstants.kShooterMotorSpeed);
+    MasterShooterMotor.set(ShooterConstants.kShootAmpSpeed);
   }
 
   public void StopShoot() {

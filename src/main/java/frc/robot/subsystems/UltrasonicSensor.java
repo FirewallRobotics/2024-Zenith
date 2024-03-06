@@ -9,14 +9,16 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.UltrasonicConstants;
 
 public class UltrasonicSensor extends SubsystemBase {
 
   // Gets the output of the sensor. High output when object is detected in range
-  public DigitalOutput ultrasonicTrigger = new DigitalOutput(0);
+  public DigitalOutput ultrasonicTrigger =
+      new DigitalOutput(UltrasonicConstants.kUltrasonicTriggerPort);
 
   // Create an instance of the AnalogInput class so we can read from it later
-  public AnalogInput ultrasonicSensor = new AnalogInput(0);
+  public AnalogInput ultrasonicSensor = new AnalogInput(UltrasonicConstants.kUltrasonicSensorPort);
 
   // Ultrasonic range. How far an object was from the sensor. The closer the object, the higher the
   // mm.
