@@ -225,6 +225,7 @@ if RingMode:
 
 iteration = 0
 saved = False
+TagNum = ""
 
 #Todo: Make not timed but not stupid
 while testmode == False | (iteration < 3 & testmode == True):
@@ -233,7 +234,13 @@ while testmode == False | (iteration < 3 & testmode == True):
    else:
       frame = cv2.imread('test.jpg')
 
-
+   if Livemode:
+        if TagNum != "":
+            tagtext = "Tag " + TagNum
+        else:
+            tagtext = "No Tags"
+        encodedStr = socket.socket.encode(tagtext)
+        socket.socket.send(encodedStr)
 
 
    if RingMode:
@@ -292,9 +299,7 @@ while testmode == False | (iteration < 3 & testmode == True):
             #print(distance)
             #print("POSE DATA END")
             
-            if Livemode:
-                tagtext = "Tag " + str(detect.tag_id)
-                socket.socket.send(tagtext.encode())
+            TagNum = str(detect.tag_id)
 
 
             #sends the tag data named the t(str(detect.tag_id)).publish()ag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations

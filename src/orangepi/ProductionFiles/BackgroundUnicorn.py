@@ -739,8 +739,6 @@ x7= bitarray('00000000')
 
 letterWhite = [x0,x1,x2,x3,x4,x5,x6,x7]
 
-
-
 def ShowBuls(brightness):
 	UH.rotation(90)		
 	for i in range(8):
@@ -758,7 +756,7 @@ def ShowBuls(brightness):
 	UH.show()
 
 def show_letter(letter,colour,brightness): #displays a single letter on th UH
-	UH.rotation(270)		
+	UH.rotation(90)		
 	for i in range(8):
 		for j in range(8):
 			if letter[j][i]:
@@ -902,31 +900,42 @@ funny_phrases = [
     "Before we start. however. keep in mind that while fun and learning are the primary goals of all enrichment center activitys. serious injuries may occur.",
     "For your own safety and the safety of others please refrain from touching (bzzzzzt)",
     "Lets be honest. neither one of us knows what that thing does. just put it in the corner. and Ill deal with it later.",
-    "call me GLADOS"
+    "call me GLADOS",
+	"tiss buta scratch",
 ]
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind(("localhost", 86))
-s.listen(1)
+
+try:
+	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	s.bind(("localhost", 86))
+	s.listen(1)
+except:
+	print("starting in no connection mode")
 
 prevtxt = ""
 iter = 0
 Brightmulti = 1
+jokemode = True
 
 while True:
     color = randcolor()
     Nofile = True
     addr = ""
-    while addr == "":
-        c, addr = s.accept()
-        #unicorn_scroll("Waiting for connection", color, 100, 0.11)
-    txttmp = s.recv(1024).decode()
+    #try:
+        #while addr == "":
+            #c, addr = s.accept()
+        #txttmp = c.recv(1024).decode()
+    #except:
+    #    print("no connection")
 
     if ((iter % 5) == 0):
        txt = "5607 - Vision - ~heart - "
        iter = 0
     else:
-       txt = txttmp
+        try:
+            txt = txttmp
+        except:
+            print("No Tag text found")
 	
     Nofile2 = True
     try:
@@ -940,7 +949,7 @@ while True:
         Nofile2 = True
 
     randnum = random.randrange(0,5)
-    if randnum == 3:
+    if randnum == 3 | jokemode:
         Numcol = random.randrange(0, len(funny_phrases))
         txt = funny_phrases[Numcol]
 
