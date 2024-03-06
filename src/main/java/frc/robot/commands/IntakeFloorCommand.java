@@ -30,12 +30,13 @@ public class IntakeFloorCommand extends Command {
   }
 
   public void sensorStartIntake() {
-    if (m_Intake.intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected) {
-      m_Intake.StartIntake();
-    } else {
-      m_Intake.StopIntake();
-      m_LED.SetOrange();
-    }
+    // if (m_Intake.intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected) {
+    //   System.out.println("Note aquired!");
+    //   m_Intake.StopIntake();
+    // } else {
+    m_Intake.StartIntake();
+    // m_LED.SetOrange();
+    // }
   }
 
   // Called when the command is initially scheduled.
@@ -45,28 +46,29 @@ public class IntakeFloorCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Axle.SetIntakeHeight();
+    // m_Axle.SetIntakeHeight();
 
     // This is the LED sensor.
     sensorStartIntake();
 
-    m_Intake.StartIntake();
+    // m_Intake.StartIntake();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    if (interrupted == true) {
-      m_Intake.StopIntake();
-    }
+    if (interrupted == true) {}
+
+    m_Intake.StopIntake();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (m_Intake.intakeSensor.get() == true) {
+    if (m_Intake.intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected) {
       return true;
     }
+
     return false;
   }
 }

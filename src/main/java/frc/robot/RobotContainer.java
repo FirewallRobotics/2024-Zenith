@@ -18,11 +18,14 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
@@ -60,7 +63,9 @@ public class RobotContainer {
   private final AutonomousTrajectories m_trajectories = new AutonomousTrajectories();
 
   // The driver's controller
-  XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
+
+  // Static for trigger
+  static XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -70,6 +75,14 @@ public class RobotContainer {
 
     m_chooser.setDefaultOption(
         "Default Auto - Drive Straight 2 Meters", m_trajectories.getDriveStraight(m_robotDrive));
+    // m_chooser.addOption(
+    //     "Basic Auto: Start in front of Subwoofer, Score 2, Pick up middlfe note",
+    //     m_trajectories.getScore2InFrontOfSubwooferCommand(
+    //         m_robotDrive, m_axle, m_intake, m_shooter, m_climb, m_LED));
+    m_chooser.addOption(
+        "Basic Auto: Start in front of Subwoofer, Score 1, Pick up middlfe note",
+        m_trajectories.getScore1InFrontOfSubwooferCommand(
+            m_robotDrive, m_axle, m_intake, m_shooter, m_climb, m_LED));
     m_chooser.addOption(
         "Red: Start Right, Score 2 Speaker, Pick Up Right Note, Park Far Right",
         m_trajectories.getRedRightGrab1Note(
@@ -131,14 +144,15 @@ public class RobotContainer {
             () ->
                 m_robotDrive.drive(
                     -MathUtil.applyDeadband(
-                            m_driverController.getLeftY(), OIConstants.kDriveDeadband)
-                        - (OIConstants.kDriveDeadband * changeSpeed()),
+                        m_driverController.getLeftY(), OIConstants.kDriveDeadband)
+                    /*- (OIConstants.kDriveDeadband  * changeSpeed())*/ ,
                     -MathUtil.applyDeadband(
-                            m_driverController.getLeftX(), OIConstants.kDriveDeadband)
-                        * changeSpeed(),
+                        m_driverController.getLeftX(), OIConstants.kDriveDeadband)
+                    /*  * changeSpeed() */ ,
                     -MathUtil.applyDeadband(
-                            m_driverController.getRightX(), OIConstants.kDriveDeadband)
-                        * changeSpeed(),
+                        m_driverController.getRightX(), OIConstants.kDriveDeadband)
+                    /** changeSpeed() */
+                    ,
                     true,
                     true),
             m_robotDrive));
@@ -158,10 +172,16 @@ public class RobotContainer {
 
     new JoystickButton(m_driverController, Button.kRightBumper.value)
         .whileTrue(
-            new SequentialCommandGroup(
-                new ShootSpeakerCommand(m_shooter, m_axle, m_intake),
-                new WaitCommand(1),
-                new IndexCommand(m_intake)));
+            new ParallelCommandGroup(
+                new SequentialCommandGroup(
+                    new WaitCommand(0.75), new ShootSpeakerCommand(m_shooter, m_axle, m_intake)),
+                new SequentialCommandGroup(
+                    new ReverseIndexCommand(m_intake).withTimeout(0.75),
+                    new WaitCommand(2),
+                    new IndexCommand(m_intake))));
+
+    // new JoystickButton(m_driverController, Button.kRightBumper.value)
+    //     .whileTrue(new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
 
     new JoystickButton(m_driverController, Button.kLeftBumper.value)
         .whileTrue(new IntakeFloorCommand(m_intake, m_axle, m_LED));
@@ -169,13 +189,32 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kX.value)
         .whileTrue(new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LED));
 
-    new JoystickButton(m_driverController, Button.kY.value)
-        .whileTrue(new AimAmpCommand(m_robotDrive, m_vision, m_axle));
+    new JoystickButton(m_driverController, Button.kY.value).whileTrue(new AimAmpCommand(m_axle));
+    new JoystickButton(m_driverController, Button.kY.value).whileTrue(new AimAmpCommand(m_axle));
+
+    new Trigger(RobotContainer::RightInthershold).whileTrue(new ClimbLeftCommand(m_climb, m_axle));
+
+    new Trigger(RobotContainer::LeftTriggerInThershold)
+        .whileTrue(new ClimbDefaultCommand(m_climb, m_axle));
+
+    // new JoystickButton(m_driverController, Button.kB.value).whileTrue(new AxleUpCommand(m_axle));
+    // .whileFalse(new DefaultAxleHeightCommand(m_axle));
+    // new JoystickButton(m_driverController, Button.kA.value)
+    //     .whileTrue(new AxleEncoderTestCommand(m_axle));
 
     new JoystickButton(m_driverController, Button.kB.value).whileTrue(new AxleUpCommand(m_axle));
 
-    new JoystickButton(m_driverController, Button.kA.value)
-        .whileTrue(new AxleDownCommand(m_axle, m_climb));
+    new JoystickButton(m_driverController, Button.kA.value).whileTrue(new AxleDownCommand(m_axle));
+
+    new POVButton(m_driverController, 270) // left D-pad
+        .onTrue(new GyroSetZeroCommand(m_robotDrive));
+
+    new POVButton(m_driverController, 90) // right D-pad
+        .whileTrue(
+            new ParallelCommandGroup(
+                new SequentialCommandGroup(new ShootAmpCommand(m_shooter, m_axle, m_intake)),
+                new SequentialCommandGroup(new WaitCommand(.75), new IndexCommand(m_intake))));
+    // right D-pad for AMP shoot
 
     // new JoystickButton(m_driverController, Axis.kRightTrigger);
 
@@ -192,6 +231,11 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // Create config for trajectory
+    boolean tryTest = true;
+
+    if (tryTest) {
+      return m_trajectories.getDriveStraight(m_robotDrive);
+    }
 
     // If true, you will perform one of the sequentual command groups rather than example
     // trajectories
@@ -460,5 +504,24 @@ public class RobotContainer {
     } else {
       return 0;
     }
+  }
+
+  static boolean RightInthershold() {
+    double rightTriggerValue = m_driverController.getRightTriggerAxis();
+
+    if (rightTriggerValue >= 0.5) {
+      return true;
+    }
+
+    return false;
+  }
+
+  static boolean LeftTriggerInThershold() {
+    double leftTriggerValue = m_driverController.getLeftTriggerAxis();
+
+    if (leftTriggerValue >= 0.5) {
+      return true;
+    }
+    return false;
   }
 }
