@@ -17,6 +17,7 @@ class myWebcamVideoStream:
   Livemode = True
   RingMode = True
   Aprilmode = True
+  Orangepi = False
 
   print(sys.argv[1:])
   if sys.argv[1:] == ['ehB-test']:
@@ -206,7 +207,17 @@ fx, fy, cx, cy = read_from_txt_file("cal.txt")
 cameraParams = float(fx), float(fy), float(cx), float(cy)
 # define color the list of boundaries
 if Livemode:
-    socket.socket.connect(('10.56.7.12', 80))
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    #socketCnt = 0
+    #while socketCnt <= 100:
+    #    try:
+    #        print(str("Attempt:", socketCnt, "of connecting"))
+    s.connect(("localhost", 86))
+    #        socketCnt = 101
+    #        print("Success!")
+    #    except:
+    #        print("Failed")
+    #        socketCnt += 1
 if RingMode:
     boundaries = [
         ([80,45,170], [100,145,255])
@@ -214,6 +225,7 @@ if RingMode:
 
 iteration = 0
 saved = False
+TagNum = ""
 
 #Todo: Make not timed but not stupid
 while testmode == False | (iteration < 3 & testmode == True):
@@ -222,7 +234,13 @@ while testmode == False | (iteration < 3 & testmode == True):
    else:
       frame = cv2.imread('test.jpg')
 
-
+   if Livemode:
+        if TagNum != "":
+            tagtext = "Tag " + TagNum
+        else:
+            tagtext = "No Tags"
+        encodedStr = socket.socket.encode(tagtext)
+        socket.socket.send(encodedStr)
 
 
    if RingMode:
@@ -281,9 +299,7 @@ while testmode == False | (iteration < 3 & testmode == True):
             #print(distance)
             #print("POSE DATA END")
             
-            if Livemode:
-                tagtext = "Tag " + str(detect.tag_id)
-                socket.socket.send(tagtext.encode())
+            TagNum = str(detect.tag_id)
 
 
             #sends the tag data named the t(str(detect.tag_id)).publish()ag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
@@ -322,6 +338,10 @@ while testmode == False | (iteration < 3 & testmode == True):
 
 version =ntcore.ConnectionInfo.protocol_version
 print("Exitting Code 0_o")
+try:
+    socket.close(s)
+except:
+    print("Closing Failed")
 
 #Closes everything out
 if testmode == False:
