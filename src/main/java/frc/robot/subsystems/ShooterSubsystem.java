@@ -7,7 +7,11 @@ package frc.robot.subsystems;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
+
+import edu.wpi.first.hal.simulation.ConstBufferCallback;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.ShooterConstants;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -16,6 +20,9 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public static CANSparkMax MinionShooterMotor;
   public static AbsoluteEncoder ArmEncoder;
+
+  private double shootSpeakerSpeed = Constants.ShooterConstants.kShootSpeakerSpeed;
+  private double shootAmpSpeed = Constants.ShooterConstants.kShootAmpSpeed;
 
   public ShooterSubsystem() {
     MasterShooterMotor =
@@ -40,21 +47,24 @@ public class ShooterSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    shootSpeakerSpeed = SmartDashboard.getNumber("Shoot Speaker Speed", shootSpeakerSpeed);
+    shootAmpSpeed = SmartDashboard.getNumber("Shoot Amp Speed", shootAmpSpeed);
   }
 
   public void ShootAmp() {
-    MasterShooterMotor.set(ShooterConstants.kShootAmpSpeed);
+    MasterShooterMotor.set(shootAmpSpeed);
     System.out.println("Shooting at the Amp...");
   }
 
   public void ShootSpeaker() {
     VisionSubsystem.UnicornNotify("True");
-    MasterShooterMotor.set(ShooterConstants.kShootSpeakerSpeed);
+    MasterShooterMotor.set(shootSpeakerSpeed);
     System.out.println("Shooting at the Speaker...");
   }
 
   public void ShootTrap() {
-    MasterShooterMotor.set(ShooterConstants.kShootAmpSpeed);
+    MasterShooterMotor.set(shootAmpSpeed);
   }
 
   public void StopShoot() {

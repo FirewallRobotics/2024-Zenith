@@ -170,6 +170,8 @@ public final class Constants {
     public static double kMeasuredPosHorizontal = .106;
     public static double kAxleTestSpeed = .2;
 
+    public static final double kTestHeight = 0.0;
+
     public static double kTestRadiansNeeded = Math.PI / 2;
   }
 

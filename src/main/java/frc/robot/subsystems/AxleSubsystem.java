@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AxleConstants;
 
@@ -23,6 +24,9 @@ public class AxleSubsystem extends SubsystemBase {
   private SparkPIDController AxlePIDController;
 
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
+
+  private double axleSpeed = AxleConstants.kAxleTestSpeed;
+  private double testHeight = AxleConstants.kTestHeight;
 
   public AxleSubsystem() {
 
@@ -83,6 +87,9 @@ public class AxleSubsystem extends SubsystemBase {
 
     // setMotorSpeed(AxleEncoder.getVelocity());
     // System.out.println("Current Speed: " + MasterAxleMotor.get());
+
+    axleSpeed = SmartDashboard.getNumber("Arm Speed", axleSpeed);
+    testHeight = SmartDashboard.getNumber("Arm Test Height", testHeight);
   }
 
   public void setMotorSpeed(double speed) {
@@ -104,6 +111,10 @@ public class AxleSubsystem extends SubsystemBase {
         MasterAxleMotor.set(speed);
       }
     }
+  }
+
+  public void setTestHeight(){
+    GravityOffset(testHeight);
   }
 
   public void SetAimHeight(double angle) {
@@ -133,7 +144,7 @@ public class AxleSubsystem extends SubsystemBase {
     // } else {
     //   MasterAxleMotor.set(AxleConstants.kAxleTestSpeed);
     // }
-    MasterAxleMotor.set(AxleConstants.kAxleTestSpeed);
+    MasterAxleMotor.set(axleSpeed);
     System.out.println("Moving axle up...");
   }
 
@@ -143,7 +154,7 @@ public class AxleSubsystem extends SubsystemBase {
     // } else {
     //   MasterAxleMotor.set(-AxleConstants.kAxleTestSpeed);
     // }
-    MasterAxleMotor.set(-AxleConstants.kAxleTestSpeed);
+    MasterAxleMotor.set(-axleSpeed);
     System.out.println("Moving axle up...");
   }
 
