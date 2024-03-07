@@ -72,6 +72,14 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
 
+    SmartDashboard.putNumber("Shoot Speaker Speed", Constants.ShooterConstants.kShootSpeakerSpeed);
+    SmartDashboard.putNumber("Shoot Amp Speed", Constants.ShooterConstants.kShootAmpSpeed);
+    SmartDashboard.putNumber("Index Speed", Constants.IntakeConstants.kIndexSpeed);
+    SmartDashboard.putNumber("Reverse Index Speed", Constants.IntakeConstants.kIndexReverseSpeed);
+    SmartDashboard.putNumber("Intake Speed", Constants.IntakeConstants.kIntakeMotorSpeed);
+    SmartDashboard.putNumber("Arm Speed", Constants.AxleConstants.kAxleTestSpeed);
+    SmartDashboard.putNumber("Arm Test Angle", Constants.AxleConstants.kTestHeight);
+
     m_chooser.setDefaultOption(
         "Default Auto - Drive Straight 2 Meters", m_trajectories.getDriveStraight(m_robotDrive));
     // m_chooser.addOption(
