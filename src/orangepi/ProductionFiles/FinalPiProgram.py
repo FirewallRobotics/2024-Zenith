@@ -226,6 +226,7 @@ if RingMode:
 iteration = 0
 saved = False
 TagNum = ""
+s = socket.socket
 
 #Todo: Make not timed but not stupid
 while testmode == False | (iteration < 3 & testmode == True):
@@ -235,11 +236,12 @@ while testmode == False | (iteration < 3 & testmode == True):
       frame = cv2.imread('test.jpg')
 
    if Livemode:
-        if TagNum != "":
-            tagtext = "Tag " + TagNum
-        else:
-            tagtext = "No Tags"
-        encodedStr = socket.socket.encode(tagtext)
+        myStrPub = table.getStringTopic("FoundRings").publish()
+        myStrPub.set('{"X": avX, "Y": avY}' )
+        #cv2.imshow("images", output)
+        #cv2.waitKey(5)
+        Shoot = tab2.getString("status","False")
+        encodedStr = s.encode(Shoot)
         socket.socket.send(encodedStr)
 
 
@@ -260,15 +262,6 @@ while testmode == False | (iteration < 3 & testmode == True):
         output = denoise_image(output)
         avX, avY = average_position_of_pixels(output, 120)
         #print(avX, avY)
-        if testmode == False:
-            myStrPub = table.getStringTopic("FoundRings").publish()
-            myStrPub.set('{"X": avX, "Y": avY}' )
-            #cv2.imshow("images", output)
-            #cv2.waitKey(5)
-            Val = tab2.getString("status","False")
-            cool2 = open("Status.txt", "w")
-            cool2.write(Val)
-            cool2.close()
    
    if Aprilmode:
     #frame = cv2.undistort(img, mtx, dist, None, newcameramtx)

@@ -739,6 +739,50 @@ x7= bitarray('00000000')
 
 letterWhite = [x0,x1,x2,x3,x4,x5,x6,x7]
 
+x0= bitarray('00000000')
+x1= bitarray('01000010')
+x2= bitarray('01000010')
+x3= bitarray('00000000')
+x4= bitarray('01000010')
+x5= bitarray('00111100')
+x6= bitarray('00000000')
+x7= bitarray('00000000')
+
+Smile0 = [x0,x1,x2,x3,x4,x5,x6,x7]
+
+x0= bitarray('11100111')
+x1= bitarray('01000010')
+x2= bitarray('01000010')
+x3= bitarray('00000000')
+x4= bitarray('01000010')
+x5= bitarray('00111100')
+x6= bitarray('00000000')
+x7= bitarray('00000000')
+
+Smile1 = [x0,x1,x2,x3,x4,x5,x6,x7]
+
+x0= bitarray('00000000')
+x1= bitarray('11100111')
+x2= bitarray('01000010')
+x3= bitarray('00000000')
+x4= bitarray('01000010')
+x5= bitarray('00111100')
+x6= bitarray('00000000')
+x7= bitarray('00000000')
+
+Smile2 = [x0,x1,x2,x3,x4,x5,x6,x7]
+
+x0= bitarray('00000000')
+x1= bitarray('00000000')
+x2= bitarray('11100111')
+x3= bitarray('00000000')
+x4= bitarray('01000010')
+x5= bitarray('00111100')
+x6= bitarray('00000000')
+x7= bitarray('00000000')
+
+Smile3 = [x0,x1,x2,x3,x4,x5,x6,x7]
+
 def ShowBuls(brightness):
 	UH.rotation(90)		
 	for i in range(8):
@@ -754,6 +798,71 @@ def ShowBuls(brightness):
 				UH.set_pixel(j,flip[i],brightness,brightness,brightness)
 
 	UH.show()
+
+Smilestage = 0
+def ShowSmile(brightness):
+	if Smilestage == 0:
+		UH.clear()
+		for i in range(8):
+			for j in range(8):
+				if Smile0[j][i]:
+					UH.set_pixel(j,flip[i],brightness,0,0)
+				else:
+					UH.set_pixel(j,flip[i],0,0,0)
+	if Smilestage == 1:
+		UH.clear()
+		for i in range(8):
+			for j in range(8):
+				if Smile1[j][i]:
+					UH.set_pixel(j,flip[i],brightness,0,0)
+				else:
+					UH.set_pixel(j,flip[i],0,0,0)
+	if Smilestage == 2:
+		UH.clear()
+		for i in range(8):
+			for j in range(8):
+				if Smile2[j][i]:
+					UH.set_pixel(j,flip[i],brightness,0,0)
+				else:
+					UH.set_pixel(j,flip[i],0,0,0)
+	if Smilestage == 3:
+		UH.clear()
+		for i in range(8):
+			for j in range(8):
+				if Smile3[j][i]:
+					UH.set_pixel(j,flip[i],brightness,0,0)
+				else:
+					UH.set_pixel(j,flip[i],0,0,0)
+	if Smilestage == 4:
+		UH.clear()
+		for i in range(8):
+			for j in range(8):
+				if Smile2[j][i]:
+					UH.set_pixel(j,flip[i],brightness,0,0)
+				else:
+					UH.set_pixel(j,flip[i],0,0,0)
+	if Smilestage == 5:
+		UH.clear()
+		for i in range(8):
+			for j in range(8):
+				if Smile1[j][i]:
+					UH.set_pixel(j,flip[i],brightness,0,0)
+				else:
+					UH.set_pixel(j,flip[i],0,0,0)
+	if Smilestage == 6:
+		UH.clear()
+		for i in range(8):
+			for j in range(8):
+				if Smile0[j][i]:
+					UH.set_pixel(j,flip[i],brightness,0,0)
+				else:
+					UH.set_pixel(j,flip[i],0,0,0)
+	Smilestage += 1
+	if Smilestage > 6:
+		Smilestage = 0
+
+		
+
 
 def show_letter(letter,colour,brightness): #displays a single letter on th UH
 	UH.rotation(90)		
@@ -912,10 +1021,8 @@ try:
 except:
 	print("starting in no connection mode")
 
-prevtxt = ""
 iter = 0
 Brightmulti = 1
-jokemode = False
 
 while True:
     color = randcolor()
@@ -928,39 +1035,16 @@ while True:
     except:
         print("no connection")
 
-    if ((iter % 5) == 0):
-       txt = "5607 - Vision - ~heart - "
-       iter = 0
-    else:
+    if (iter % 5) == 0:
         UH.clear()
-
-	
-    Nofile2 = True
-    try:
-        cool2 = open("/home/pi/Status.txt", "r")
-        cooltxt = cool2.read()
-        if "True" in cooltxt:
-            Nofile2 = False
-        else:
-            Nofile2 = True
-    except FileNotFoundError:
-        Nofile2 = True
-
-    randnum = random.randrange(0,5)
-    #if randnum == 3 | jokemode:
-        #Numcol = random.randrange(0, len(funny_phrases))
-        #txt = funny_phrases[Numcol]
-
-    if txttmp == "":
-        UH.clear()
-        unicorn_scroll(txt,color,100,0.11)
         Brightmulti = 1
-    else:
+    elif(txttmp == "Shooting"):
         UH.clear()
         ShowBuls(50 * Brightmulti)
         Brightmulti += 0.35
         if Brightmulti > 3.9:
             Brightmulti = 1
-    print(cool2.read())
-    prevtxt = txt
+    else:
+        Brightmulti = 1
+        ShowSmile(100)
     iter += 1
