@@ -113,7 +113,7 @@ public class AxleSubsystem extends SubsystemBase {
     }
   }
 
-  public void setTestHeight(){
+  public void setTestHeight() {
     GravityOffset(testHeight);
   }
 
