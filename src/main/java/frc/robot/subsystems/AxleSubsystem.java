@@ -97,6 +97,7 @@ public class AxleSubsystem extends SubsystemBase {
       if (topLimitSwitch.get()) {
         // We are going up and top limit is tripped so stop
         MasterAxleMotor.set(0);
+        System.out.println("Upper limit reached!");
       } else {
         // We are going up but top limit is not tripped so go at commanded speed
         MasterAxleMotor.set(speed);
@@ -106,6 +107,7 @@ public class AxleSubsystem extends SubsystemBase {
       if (bottomLimitSwitch.get()) {
         // We are going down and bottom limit is tripped so stop
         MasterAxleMotor.set(0);
+        System.out.println("Lower limit reached!");
       } else {
         // We are going down but bottom limit is not tripped so go at commanded speed
         MasterAxleMotor.set(speed);

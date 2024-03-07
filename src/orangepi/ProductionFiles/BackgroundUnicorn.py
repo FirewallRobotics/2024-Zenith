@@ -739,10 +739,8 @@ x7= bitarray('00000000')
 
 letterWhite = [x0,x1,x2,x3,x4,x5,x6,x7]
 
-
-
 def ShowBuls(brightness):
-	UH.rotation(270)		
+	UH.rotation(90)		
 	for i in range(8):
 		for j in range(8):
 			if letterred[j][i]:
@@ -758,7 +756,7 @@ def ShowBuls(brightness):
 	UH.show()
 
 def show_letter(letter,colour,brightness): #displays a single letter on th UH
-	UH.rotation(270)		
+	UH.rotation(90)		
 	for i in range(8):
 		for j in range(8):
 			if letter[j][i]:
@@ -797,16 +795,19 @@ def scroll_letter(letter,colour,brightness,speed): # scrolls a single letter acr
 '''scrolling is achieved by redrawing the letter with a column of the bitarray shifted to the left and a new blank column
 added to the right'''
 def scroll_word(word,colour,brightness,speed): # scrolls a word across the UH
-	unmod = txt
-	for s in range(len(word[0])):
-		if (unmod != txt):
-			UH.clear()
-			return
-		show_letter(word,colour,brightness)
-		time.sleep(speed)
-		for i in range(8):
-			word[i].pop(0)
-			word[i].append(0)
+    try:
+        unmod = txt
+    except:
+        print("broken")
+    for s in range(len(word[0])):
+        if (unmod != txt):
+            UH.clear()
+            return
+        show_letter(word,colour,brightness)
+        time.sleep(speed)
+        for i in range(8):
+            word[i].pop(0)
+            word[i].append(0)
 
 def make_word(words): # takes a list of chars and concats into a word by making one big bitarray
 	bigword = [bitarray(''),bitarray(''), bitarray(''),bitarray(''), bitarray(''),bitarray(''), bitarray(''),bitarray('')]
@@ -872,58 +873,67 @@ def randcolor():
     color = colors[Numcol]
     return color
 
-funny_phrases = [
-    "404 Humor not found",
-    "Im not lazy im in energy-saving mode",
-    "When testing is over. you will be baked and there will be cake.",
-    "ChatGPT is my best friend",
-    "Not antisocial just user unfriendly",
-    "hold on justa little while longer - hold on justa little while longer",
-    "it works why",
-    "flip the world",
-    "lttstore.com",
-    "binary is as easy as 01 10 11",
-    "my attitude isnt bad its in beta",
-    "ctrl+c ctrl+v",
-    "i use arch btw",
-    "wpi bye",
-    "help i am blind",
-    "omg they killed kenny",
-    "a robot gets arrested - charged with battery",
-    "does r2d2 have any brothers - no only transitors",
-	"Before we start. however. keep in mind that while fun and learning are the primary goals of all enrichment center activitys. serious injuries may occur.",
-	"For your own safety and the safety of others please refrain from touching (bzzzzzt)",
-	"Lets be honest. neither one of us knows what that thing does. just put it in the corner. and Ill deal with it later.",
-	"How Are You Holding Up? Because Im A Potato.",
-	"Aperture Science",
-    "Before we start. however. keep in mind that while fun and learning are the primary goals of all enrichment center activitys. serious injuries may occur.",
-    "For your own safety and the safety of others please refrain from touching (bzzzzzt)",
-    "Lets be honest. neither one of us knows what that thing does. just put it in the corner. and Ill deal with it later.",
-    "call me GLADOS"
-]
+#funny_phrases = [
+#    "404 Humor not found",
+#    "Im not lazy im in energy-saving mode",
+#    "When testing is over. you will be baked and there will be cake.",
+#    "ChatGPT is my best friend",
+#    "Not antisocial just user unfriendly",
+#    "hold on justa little while longer - hold on justa little while longer",
+#    "it works why",
+#    "flip the world",
+#    "lttstore.com",
+#    "binary is as easy as 01 10 11",
+#    "my attitude isnt bad its in beta",
+#    "ctrl+c ctrl+v",
+#    "i use arch btw",
+#    "wpi bye",
+#    "help i am blind",
+#    "omg they killed kenny",
+#    "a robot gets arrested - charged with battery",
+#    "does r2d2 have any brothers - no only transitors",
+#	"Before we start. however. keep in mind that while fun and learning are the primary goals of all enrichment center activitys. serious injuries may occur.",
+#	"For your own safety and the safety of others please refrain from touching (bzzzzzt)",
+#	"Lets be honest. neither one of us knows what that thing does. just put it in the corner. and Ill deal with it later.",
+#	"How Are You Holding Up? Because Im A Potato.",
+#	"Aperture Science",
+#    "Before we start. however. keep in mind that while fun and learning are the primary goals of all enrichment center activitys. serious injuries may occur.",
+#    "For your own safety and the safety of others please refrain from touching (bzzzzzt)",
+#    "Lets be honest. neither one of us knows what that thing does. just put it in the corner. and Ill deal with it later.",
+#    "call me GLADOS",
+#	"tiss buta scratch",
+#]
 
-s = socket.socket()
-s.bind(('10.56.7.12', 80))
-s.listen(5)
+
+try:
+	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	s.bind(("localhost", 86))
+	s.listen(1)
+except:
+	print("starting in no connection mode")
 
 prevtxt = ""
 iter = 0
 Brightmulti = 1
+jokemode = False
 
 while True:
     color = randcolor()
     Nofile = True
-    while addr == None:
-        c, addr = s.accept()
-        UH.clear()
-        unicorn_scroll("Waiting for connection", color, )
-    txttmp = s.recv(1024).decode()
+    addr = ""
+    try:
+        while addr == "":
+            c, addr = s.accept()
+        txttmp = c.recv(1024).decode()
+    except:
+        print("no connection")
 
     if ((iter % 5) == 0):
        txt = "5607 - Vision - ~heart - "
        iter = 0
     else:
-       txt = txttmp
+        UH.clear()
+
 	
     Nofile2 = True
     try:
@@ -937,11 +947,11 @@ while True:
         Nofile2 = True
 
     randnum = random.randrange(0,5)
-    if randnum == 3:
-        Numcol = random.randrange(0, len(funny_phrases))
-        txt = funny_phrases[Numcol]
+    #if randnum == 3 | jokemode:
+        #Numcol = random.randrange(0, len(funny_phrases))
+        #txt = funny_phrases[Numcol]
 
-    if Nofile2:
+    if txttmp == "":
         UH.clear()
         unicorn_scroll(txt,color,100,0.11)
         Brightmulti = 1
