@@ -102,25 +102,7 @@ public class ClimbSubsystem extends SubsystemBase {
     }
   }
 
-  public void ClimbLeft() {
-    if (bottomLimitSwitch.isPressed()) {
-      stopClimb();
-    } else {
-      climbMotorMaster.set(climbConstants.kClimbMotorPortSpeed);
-      System.out.println("Climbing...");
-    }
-  }
-
-  public void ClimbMiddle() {
-    if (bottomLimitSwitch.isPressed()) {
-      stopClimb();
-    } else {
-      climbMotorMaster.set(climbConstants.kClimbMotorPortSpeed);
-    }
-    System.out.println("Climbing...");
-  }
-
-  public void ClimbRight() {
+  public void ClimberUp() {
     if (bottomLimitSwitch.isPressed()) {
       stopClimb();
     } else {
@@ -132,6 +114,6 @@ public class ClimbSubsystem extends SubsystemBase {
   // Stop climb
   public void stopClimb() {
     climbMotorMaster.set(0);
-    // System.out.println("Stopping the climber...");
+    System.out.println("Climber stopped!");
   }
 }
