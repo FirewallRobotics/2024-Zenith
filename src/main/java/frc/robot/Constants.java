@@ -202,7 +202,7 @@ public final class Constants {
     public static final int kIntakeOutputPort = 1;
 
     // May need to swap this value after testing the sensor
-    public static final boolean kIntakeSensorNoteDetected = false;
+    public static final boolean kIntakeSensorNoteDetected = true;
   }
 
   public static final class climbConstants {
