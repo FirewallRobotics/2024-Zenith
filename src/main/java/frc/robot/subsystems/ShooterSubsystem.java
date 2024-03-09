@@ -7,7 +7,6 @@ package frc.robot.subsystems;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
-
 import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.util.datalog.StringLogEntry;
 import edu.wpi.first.wpilibj.DataLogManager;
@@ -22,19 +21,21 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public static CANSparkMax MinionShooterMotor;
   public static AbsoluteEncoder ArmEncoder;
-  StringLogEntry myStringLogEntry;
+  StringLogEntry shooterActive;
 
   private double shootSpeakerSpeed = Constants.ShooterConstants.kShootSpeakerSpeed;
   private double shootAmpSpeed = Constants.ShooterConstants.kShootAmpSpeed;
 
   public ShooterSubsystem() {
-    MasterShooterMotor = new CANSparkMax(ShooterConstants.kMasterShooterMotorPort, MotorType.kBrushless);
-    MinionShooterMotor = new CANSparkMax(ShooterConstants.kMinionShooterMotorPort, MotorType.kBrushless);
+    MasterShooterMotor =
+        new CANSparkMax(ShooterConstants.kMasterShooterMotorPort, MotorType.kBrushless);
+    MinionShooterMotor =
+        new CANSparkMax(ShooterConstants.kMinionShooterMotorPort, MotorType.kBrushless);
 
     MasterShooterMotor.restoreFactoryDefaults();
     MinionShooterMotor.restoreFactoryDefaults();
     DataLog log = DataLogManager.getLog();
-    StringLogEntry shooterActive = new StringLogEntry(log, "Shooters Shoot");
+    shooterActive = new StringLogEntry(log, "Shooters Shoot");
 
     // MasterShooterMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward,
     // true);
