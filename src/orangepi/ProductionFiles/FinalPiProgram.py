@@ -199,7 +199,7 @@ def average_position_of_pixels(mat, threshold=128):
     else:
         return 0, 0
 
-if CamBroadcast:
+if CamBroadcast == True & testmode == False:
     configFile = "/boot/frc.json"
 
     class CameraConfig: pass
@@ -393,7 +393,7 @@ if RingMode:
 iteration = 0
 saved = False
 TagNum = ""
-if CamBroadcast:
+if CamBroadcast == True & testmode == False:
     if __name__ == "__main__":
         if len(sys.argv) >= 2:
             configFile = sys.argv[1]
