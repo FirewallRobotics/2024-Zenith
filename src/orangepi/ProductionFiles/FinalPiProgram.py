@@ -12,13 +12,6 @@ import socket
 import json
 import time
 import sys
-from wpilib import DataLogManager, TimedRobot
-from wpiutil.log import (
-    DataLog,
-    BooleanLogEntry,
-    DoubleLogEntry,
-    StringLogEntry,
-)
 
 from cscore import CameraServer, VideoSource, UsbCamera, MjpegServer
 from ntcore import NetworkTableInstance, EventFlags
@@ -206,24 +199,6 @@ def average_position_of_pixels(mat, threshold=128):
     else:
         return 0, 0
 
-class MyRobot(TimedRobot):
-    def robotInit(self):
-        # Starts recording to data log
-        DataLogManager.start()
-
-        # Set up custom log entries
-        log = DataLogManager.getLog()
-        #self.myBooleanLog = BooleanLogEntry(log, "/my/boolean")
-        #self.myDoubleLog = DoubleLogEntry(log, "/my/double")
-        #self.myStringLog = StringLogEntry(log, "/my/string")
-        self.TagLog = StringLogEntry(log, "TagHistory")
-        self.ErrorLog = StringLogEntry(log, "ErrorHistory")
-
-        # Only log when necessary
-        #self.myBooleanLog.append(True)
-        #self.myDoubleLog.append(3.5)
-        #self.myStringLog.append("wow!")
-
 if CamBroadcast == True & testmode == False:
     configFile = "/boot/frc.json"
 
@@ -237,7 +212,6 @@ if CamBroadcast == True & testmode == False:
 
     def parseError(str):
         """Report parse error."""
-        MyRobot.ErrorLog.append("config error in '" + configFile + "': " + str, file=sys.stderr)
         print("config error in '" + configFile + "': " + str, file=sys.stderr)
 
     def readCameraConfig(config):
@@ -553,7 +527,6 @@ try:
     socket.close(s)
 except:
     print("Closing Failed")
-    MyRobot.ErrorLog.append("Closing Failure")
 
 #Closes everything out
 if testmode == False:
