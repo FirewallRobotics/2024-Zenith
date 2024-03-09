@@ -4,18 +4,6 @@ import time
 import os
 import socket
 
-'''This file contains all the letter designs as an 8x8 bitarray. 
-You can add your won by just folowing the same format. Don't forget to specify the character 
-to which it relates to in the mapping dictionary. 
-
-Currently only uppercase letter are defined. Any message enetered with lowercase chars will
-automatically be rendered in uppercase
-
-If you try to create a scrolling message using another undefined character it will be displayed as an
-underscore (_)
-
-'''
-
 # Letter space
 x0= bitarray('00000000')
 x1= bitarray('00000000')
@@ -739,6 +727,50 @@ x7= bitarray('00000000')
 
 letterWhite = [x0,x1,x2,x3,x4,x5,x6,x7]
 
+x0= bitarray('00000000')
+x1= bitarray('00100100')
+x2= bitarray('00100100')
+x3= bitarray('00000000')
+x4= bitarray('01000010')
+x5= bitarray('00111100')
+x6= bitarray('00000000')
+x7= bitarray('00000000')
+
+Smile0 = [x0,x1,x2,x3,x4,x5,x6,x7]
+
+x0= bitarray('11100111')
+x1= bitarray('00100100')
+x2= bitarray('00100100')
+x3= bitarray('00000000')
+x4= bitarray('01000010')
+x5= bitarray('00111100')
+x6= bitarray('00000000')
+x7= bitarray('00000000')
+
+Smile1 = [x0,x1,x2,x3,x4,x5,x6,x7]
+
+x0= bitarray('00000000')
+x1= bitarray('11100111')
+x2= bitarray('00100100')
+x3= bitarray('00000000')
+x4= bitarray('01000010')
+x5= bitarray('00111100')
+x6= bitarray('00000000')
+x7= bitarray('00000000')
+
+Smile2 = [x0,x1,x2,x3,x4,x5,x6,x7]
+
+x0= bitarray('00000000')
+x1= bitarray('00000000')
+x2= bitarray('11100111')
+x3= bitarray('00000000')
+x4= bitarray('01000010')
+x5= bitarray('00111100')
+x6= bitarray('00000000')
+x7= bitarray('00000000')
+
+Smile3 = [x0,x1,x2,x3,x4,x5,x6,x7]
+
 def ShowBuls(brightness):
 	UH.rotation(90)		
 	for i in range(8):
@@ -754,6 +786,71 @@ def ShowBuls(brightness):
 				UH.set_pixel(j,flip[i],brightness,brightness,brightness)
 
 	UH.show()
+
+def ShowSmile(brightness, Smilestage):
+	UH.rotation(90)		
+	if Smilestage < 61:
+		print("1")
+		UH.clear()
+		for i in range(8):
+			for j in range(8):
+				if Smile0[j][i]:
+					UH.set_pixel(j,flip[i],brightness,0,0)
+				else:
+					UH.set_pixel(j,flip[i],0,0,0)
+	elif Smilestage == 61:
+		UH.clear()
+		for i in range(8):
+			for j in range(8):
+				if Smile1[j][i]:
+					UH.set_pixel(j,flip[i],brightness,0,0)
+				else:
+					UH.set_pixel(j,flip[i],0,0,0)
+	elif Smilestage == 62:
+		UH.clear()
+		for i in range(8):
+			for j in range(8):
+				if Smile2[j][i]:
+					UH.set_pixel(j,flip[i],brightness,0,0)
+				else:
+					UH.set_pixel(j,flip[i],0,0,0)
+	elif Smilestage == 63:
+		UH.clear()
+		for i in range(8):
+			for j in range(8):
+				if Smile3[j][i]:
+					UH.set_pixel(j,flip[i],brightness,0,0)
+				else:
+					UH.set_pixel(j,flip[i],0,0,0)
+	elif Smilestage == 64:
+		UH.clear()
+		for i in range(8):
+			for j in range(8):
+				if Smile2[j][i]:
+					UH.set_pixel(j,flip[i],brightness,0,0)
+				else:
+					UH.set_pixel(j,flip[i],0,0,0)
+	elif Smilestage == 65:
+		UH.clear()
+		for i in range(8):
+			for j in range(8):
+				if Smile1[j][i]:
+					UH.set_pixel(j,flip[i],brightness,0,0)
+				else:
+					UH.set_pixel(j,flip[i],0,0,0)
+	elif Smilestage == 66:
+		UH.clear()
+		for i in range(8):
+			for j in range(8):
+				if Smile0[j][i]:
+					UH.set_pixel(j,flip[i],brightness,0,0)
+				else:
+					UH.set_pixel(j,flip[i],0,0,0)
+	UH.show()
+
+
+		
+
 
 def show_letter(letter,colour,brightness): #displays a single letter on th UH
 	UH.rotation(90)		
@@ -912,55 +1009,28 @@ try:
 except:
 	print("starting in no connection mode")
 
-prevtxt = ""
-iter = 0
+Nofile = True
+addr = ""
+try:
+    while addr == "":
+        c, addr = s.accept()
+    txttmp = c.recv(1024).decode()
+except:
+    txttmp = "RIP"
+
+
 Brightmulti = 1
-jokemode = False
+Smilestage = 0
 
 while True:
-    color = randcolor()
-    Nofile = True
-    addr = ""
-    try:
-        while addr == "":
-            c, addr = s.accept()
-        txttmp = c.recv(1024).decode()
-    except:
-        print("no connection")
-
-    if ((iter % 5) == 0):
-       txt = "5607 - Vision - ~heart - "
-       iter = 0
-    else:
-        UH.clear()
-
-	
-    Nofile2 = True
-    try:
-        cool2 = open("/home/pi/Status.txt", "r")
-        cooltxt = cool2.read()
-        if "True" in cooltxt:
-            Nofile2 = False
-        else:
-            Nofile2 = True
-    except FileNotFoundError:
-        Nofile2 = True
-
-    randnum = random.randrange(0,5)
-    #if randnum == 3 | jokemode:
-        #Numcol = random.randrange(0, len(funny_phrases))
-        #txt = funny_phrases[Numcol]
-
-    if txttmp == "":
-        UH.clear()
-        unicorn_scroll(txt,color,100,0.11)
-        Brightmulti = 1
-    else:
+    ShowSmile(100, Smilestage)
+    time.sleep(0.2)
+    Smilestage += 1
+    if Smilestage > 66:
+        Smilestage = 0
+    if(txttmp == "Shooting"):
         UH.clear()
         ShowBuls(50 * Brightmulti)
         Brightmulti += 0.35
         if Brightmulti > 3.9:
             Brightmulti = 1
-    print(cool2.read())
-    prevtxt = txt
-    iter += 1
