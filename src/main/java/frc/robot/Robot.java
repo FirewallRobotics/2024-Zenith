@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -15,7 +16,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
 
@@ -27,7 +27,16 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+
     m_robotContainer = new RobotContainer();
+
+    DataLogManager.start();
+
+    // TacticChooser.setDefaultOption("Start Left, Shoot 0,",
+    // m_robotContainer.getAutonomousSpeaker(red_alliance, 1));
+
+    // in Yelena, it looks like it can tell what alliance its on by itself, will have to look into
+
   }
 
   /**
@@ -53,21 +62,16 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {}
 
+  private Command m_autonomousCommand;
+
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
-    /*
-     * String autoSelected = SmartDashboard.getString("Auto Selector",
-     * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-     * = new MyAutoCommand(); break; case "Default Auto": default:
-     * autonomousCommand = new ExampleCommand(); break; }
-     */
-
-    // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
+      System.out.println("Scheduled");
     }
   }
 
@@ -83,6 +87,7 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
+      System.out.println("Cancel");
     }
   }
 

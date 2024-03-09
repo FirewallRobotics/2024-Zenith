@@ -6,29 +6,61 @@ import apriltag
 import time
 import sys
 import imutils
+from scipy.spatial.transform import Rotation
+import random
+import socket
 
 class myWebcamVideoStream:
   
-  global testmode, myStrPub
+  global testmode, myStrPub, Livemode, RingMode, Aprilmode, Orangepi
   testmode = False
-  
+  Livemode = True
+  RingMode = True
+  Aprilmode = True
+  Orangepi = False
+
   print(sys.argv[1:])
-  if sys.argv[1:] != []:
+  if sys.argv[1:] == ['ehB-test']:
         testmode = True
-  print(testmode)
+        Livemode = False
+  elif (sys.argv[1:] == ['--not-pi']):
+      Livemode = False
+  try:
+    with open('/sys/firmware/devicetree/base/model', 'r') as f:
+            if "Pi 4" in f.read():
+                Livemode = True
+                Aprilmode = True
+                RingMode = False
+            elif( "Pi 5" in f.read()):
+                RingMode = True
+                Livemode = False
+                Aprilmode = False
+            elif("Orange" in f.read()):
+                Orangepi = True
+                Aprilmode = True
+                RingMode = False
+                Livemode = False
+            else:
+                Livemode = False
+
+  except FileNotFoundError:
+        Livemode = False
+  print(testmode + Livemode)
 
   def __init__(self, src=0):
     
-    global table
+    global table, tab2
 
     #init network tables
     TEAM = 5607
     if testmode == False:
         ntinst = ntcore.NetworkTableInstance.getDefault()
     table = ntinst.getTable("PiDetector")
+    tab2 = ntinst.getTable("UnicornHat")
     ntinst.startClient4("pi1 vision client")
     ntinst.setServer("10.56.7.2")
     
+    #Find the camera and
     # initialize the video camera stream and read the 
     # first frame from the stream
     self.stream = cv2.VideoCapture(src) 
@@ -74,10 +106,10 @@ def read_from_txt_file(filename):
                 var4 = lines[3].strip()
                 return var1, var2, var3, var4
             else:
-                print(f"File '{filename}' does not contain enough lines.")
+                #print(f"File '{filename}' does not contain enough lines.")
                 return None
     except FileNotFoundError:
-        print(f"File '{filename}' not found.")
+        #print(f"File '{filename}' not found.")
         return None
 
 
@@ -159,12 +191,13 @@ def average_position_of_pixels(mat, threshold=128):
     else:
         return 0, 0
 
-
 # main program
 #configs the detector
 if testmode == False:
-    vs = myWebcamVideoStream(0).start()
-    vb = myWebcamVideoStream(1).start()
+    if Orangepi == True:
+        vs = myWebcamVideoStream(0).start()
+    else:
+        vs = myWebcamVideoStream(1).start()
 options = apriltag.DetectorOptions(families="tag36h11")
 detector = apriltag.Detector(options)
 
@@ -172,102 +205,143 @@ FRCtagSize = float(0.17) #17cm
 fx, fy, cx, cy = read_from_txt_file("cal.txt")
 
 cameraParams = float(fx), float(fy), float(cx), float(cy)
-
 # define color the list of boundaries
-boundaries = [
-	([80,45,170], [100,145,255])
-]
+if Livemode:
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    #socketCnt = 0
+    #while socketCnt <= 100:
+    #    try:
+    #        print(str("Attempt:", socketCnt, "of connecting"))
+    s.connect(("localhost", 86))
+    #        socketCnt = 101
+    #        print("Success!")
+    #    except:
+    #        print("Failed")
+    #        socketCnt += 1
+if RingMode:
+    boundaries = [
+        ([80,45,170], [100,145,255])
+    ]
 
 iteration = 0
 saved = False
+TagNum = ""
 
 #Todo: Make not timed but not stupid
 while testmode == False | (iteration < 3 & testmode == True):
    if testmode == False:
     frame = vs.read()
-    frame2 = vs.read()
    else:
       frame = cv2.imread('test.jpg')
-      frame2 = cv2.imread('test.jpg')
 
-   for (lower, upper) in boundaries:
-    # create NumPy arrays from the boundaries
-    lower = np.array(lower, dtype = "uint8")
-    upper = np.array(upper, dtype = "uint8")
-    # find the colors within the specified boundaries and apply
-    # the mask
-    mask = cv2.inRange(frame2, lower, upper)
-    output = cv2.bitwise_and(frame2, frame2, mask = mask)
-    output = cv2.cvtColor(output, cv2.COLOR_BGR2GRAY)
-    # show the images
-    output = denoise_image(output)
-    avX, avY = average_position_of_pixels(output, 120)
-    print(avX, avY)
-    if testmode == False:
-        myStrPub = table.getStringTopic("FoundRings").publish()
-        myStrPub.set('{"X": avX, "Y": avY}' )
-    #cv2.imshow("images", output)
-    #cv2.waitKey(5)
+   if Livemode:
+        if TagNum != "":
+            tagtext = "Tag " + TagNum
+        else:
+            tagtext = "No Tags"
+        encodedStr = socket.socket.encode(tagtext)
+        socket.socket.send(encodedStr)
 
-   #frame = cv2.undistort(img, mtx, dist, None, newcameramtx)
-   grayimage = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-   #cv2.imshow('frame', frame)
-   #cv2.imwrite("fulmer2.jpg",frame)
 
-   detections = detector.detect(grayimage)
-   if detections:
-       #print("Nothing")
-       #cv2.putText(frame, "Nothing Detected", (500,500), cv2.FONT_HERSHEY_SIMPLEX, 2.0, (0, 0, 255), 2)
-       #cv2.imshow('frame', frame)
-       #cv2.imwrite("fulmer.jpg",frame)
-       #cv2.waitKey(1)
-       #iterates over all tags detected
-       for detect in detections:
-           #pos, e1,f1=detector.detection_pose( detect, cameraParams, FRCtagSize, z_sign=1)
-           marker = find_marker(frame)
-           print(marker)
-           distance = distance_to_camera(FRCtagSize,fx,marker[1][0])
-           #apriltag._draw_pose(frame,cameraParams,FRCtagSize,pos)
-           print("POSE DATA START")
-           print("POS")
-           print(distance)
-           print("POSE DATA END")
+   if RingMode:
+    #     cool = open("coolstuff.txt", "w")
+    #     cool.write(color)
+    #     cool.close()
+    for (lower, upper) in boundaries:
+        # create NumPy arrays from the boundaries
+        lower = np.array(lower, dtype = "uint8")
+        upper = np.array(upper, dtype = "uint8")
+        # find the colors within the specified boundaries and apply
+        # the mask
+        mask = cv2.inRange(frame, lower, upper)
+        output = cv2.bitwise_and(frame, frame, mask = mask)
+        output = cv2.cvtColor(output, cv2.COLOR_BGR2GRAY)
+        # show the images
+        output = denoise_image(output)
+        avX, avY = average_position_of_pixels(output, 120)
+        #print(avX, avY)
+        if testmode == False:
+            myStrPub = table.getStringTopic("FoundRings").publish()
+            myStrPub.set('{"X": avX, "Y": avY}' )
+            #cv2.imshow("images", output)
+            #cv2.waitKey(5)
+            Val = tab2.getString("status","False")
+            cool2 = open("Status.txt", "w")
+            cool2.write(Val)
+            cool2.close()
+   
+   if Aprilmode:
+    #frame = cv2.undistort(img, mtx, dist, None, newcameramtx)
+    grayimage = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    #cv2.imshow('frame', frame)
+    #cv2.imwrite("fulmer2.jpg",frame)
 
-           #sends the tag data named the t(str(detect.tag_id)).publish()ag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
-           if testmode == False:
-            myStrPub =table.getStringTopic(str(detect.tag_id)).publish()
-            myStrPub.set('{"Center": detect.center, "TopLft": detect.corners[0], "BotRht": detect.corners[2], "Dist": distance}' )
-           print("tag_id: %s, center: %s, corners: %s, corner.top_left: %s , corner.bottom-right: %s" % (detect.tag_id, detect.center, detect.corners[0:], detect.corners[0], detect.corners[2]))
-           frame=plotPoint(frame, detect.center, (255,0,255)) #purpe center
-           cornerIndex=0
-           for corner in detect.corners:
-               if cornerIndex== 0:
-                print("top left corner %s" %(corner[0]))
-                frame=plotPoint(frame, corner, (0,0,255)) #red for top left corner
-                #xord=int(corner[0])
-                #yord=int(corner[1])
-                org=(int(corner[0]),int(corner[1]))
-                tagId=("AprilTagId %s" % (str(detect.tag_id)))
-                cv2.putText(frame, tagId, org, cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-               elif cornerIndex == 2:
-                print("bottom right corner %s" %(corner[0]))
-                frame=plotPoint(frame, corner, (0,255,0)) #green for bottom right corner
-               else:
-                frame=plotPoint(frame, corner, (0,255,255)) #yellow corner
-               cornerIndex+=1
-       if not saved:
-           #find a apriltag save the image catches programmers looking weird
-           #cv2.imwrite("fulmer.jpg",frame)
-           saved = True
-           print("Saved!")
+    detections = detector.detect(grayimage)
+    if detections:
+        #print("Nothing")
+        #cv2.putText(frame, "Nothing Detected", (500,500), cv2.FONT_HERSHEY_SIMPLEX, 2.0, (0, 0, 255), 2)
+        #cv2.imshow('frame', frame)
+        #cv2.imwrite("fulmer.jpg",frame)
+        #cv2.waitKey(1)
+        #iterates over all tags detected
+        for detect in detections:
+            pos, e1,f1=detector.detection_pose( detect, cameraParams, FRCtagSize, z_sign=1)
+            pos = pos[:3, :3]
+            rotation = Rotation.from_matrix(pos)
+            euler_angles = rotation.as_euler('xyz')
+            pos = np.degrees(euler_angles)
+            marker = find_marker(frame)
+            distance = distance_to_camera(FRCtagSize,fx,marker[1][0])
+            #apriltag._draw_pose(frame,cameraParams,FRCtagSize,pos)
+            #print("POSE DATA START")
+            print(pos)
+            #print("distace")
+            #print(distance)
+            #print("POSE DATA END")
+            
+            TagNum = str(detect.tag_id)
+
+
+            #sends the tag data named the t(str(detect.tag_id)).publish()ag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
+            if testmode == False:
+                myStrPub =table.getStringTopic(str(detect.tag_id)).publish()
+                myStrPub.set('{"Center": detect.center, "TopLft": detect.corners[0], "BotRht": detect.corners[2], "Dist": distance, "XYZ": pos}' )
+            #print("tag_id: %s, center: %s, corners: %s, corner.top_left: %s , corner.bottom-right: %s" % (detect.tag_id, detect.center, detect.corners[0:], detect.corners[0], detect.corners[2]))
+            frame=plotPoint(frame, detect.center, (255,0,255)) #purpe center
+            cornerIndex=0
+            for corner in detect.corners:
+                if cornerIndex== 0:
+                    #print("top left corner %s" %(corner[0]))
+                    frame=plotPoint(frame, corner, (0,0,255)) #red for top left corner
+                    #xord=int(corner[0])
+                    #yord=int(corner[1])
+                    org=(int(corner[0]),int(corner[1]))
+                    tagId=("AprilTagId %s" % (str(detect.tag_id)))
+                    cv2.putText(frame, tagId, org, cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                elif cornerIndex == 2:
+                    #print("bottom right corner %s" %(corner[0]))
+                    frame=plotPoint(frame, corner, (0,255,0)) #green for bottom right corner
+                else:
+                    frame=plotPoint(frame, corner, (0,255,255)) #yellow corner
+                cornerIndex+=1
+        if not saved:
+            #find a apriltag save the image catches programmers looking weird
+            #cv2.imwrite("fulmer.jpg",frame)
+            saved = True
+            #print("Saved!")
+       
    #cv2.imshow('frame', frame)
    #cv2.waitKey(1)
    iteration = iteration + 1
-   time.sleep(0.1)
-
+   if iteration > 50:
+       iteration = 0
 
 version =ntcore.ConnectionInfo.protocol_version
 print("Exitting Code 0_o")
+try:
+    socket.close(s)
+except:
+    print("Closing Failed")
 
 #Closes everything out
 if testmode == False:

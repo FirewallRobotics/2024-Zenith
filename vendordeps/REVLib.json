@@ -13,6 +13,11 @@
             "groupId": "com.revrobotics.frc",
             "artifactId": "REVLib-java",
             "version": "2024.2.0"
+        },
+        {
+            "groupId": "org.json",
+            "artifactId": "json",
+            "version": "20240205"
         }
     ],
     "jniDependencies": [

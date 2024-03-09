@@ -5,18 +5,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.AxleSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
-public class AimAmpCommand extends Command {
+public class IndexCommand extends Command {
   /** Creates a new ShootSpeakerCommand. */
-  private final AxleSubsystem m_Axle;
+  private final IntakeSubsystem m_Intake;
 
-  public AimAmpCommand(AxleSubsystem a_Subsystem) {
+  public IndexCommand(IntakeSubsystem i_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
 
-    m_Axle = a_Subsystem;
+    m_Intake = i_Subsystem;
 
-    addRequirements(a_Subsystem);
+    addRequirements(i_Subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -26,12 +26,16 @@ public class AimAmpCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Axle.SetAmpHeight();
+
+    m_Intake.StartIndex();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    if (interrupted == true) {}
+    m_Intake.StopIntake();
+  }
 
   // Returns true when the command should end.
   @Override

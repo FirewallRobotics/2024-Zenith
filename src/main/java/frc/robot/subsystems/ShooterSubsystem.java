@@ -7,7 +7,9 @@ package frc.robot.subsystems;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.ShooterConstants;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -16,6 +18,9 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public static CANSparkMax MinionShooterMotor;
   public static AbsoluteEncoder ArmEncoder;
+
+  private double shootSpeakerSpeed = Constants.ShooterConstants.kShootSpeakerSpeed;
+  private double shootAmpSpeed = Constants.ShooterConstants.kShootAmpSpeed;
 
   public ShooterSubsystem() {
     MasterShooterMotor =
@@ -26,35 +31,42 @@ public class ShooterSubsystem extends SubsystemBase {
     MasterShooterMotor.restoreFactoryDefaults();
     MinionShooterMotor.restoreFactoryDefaults();
 
-    MasterShooterMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
-    MasterShooterMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
+    // MasterShooterMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
+    // MasterShooterMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
 
-    MasterShooterMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 10);
-    MasterShooterMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);
+    // MasterShooterMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 10);
+    // MasterShooterMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);
 
     // MasterIntakeMotor.setIdleMode(IdleMode.kCoast);
 
-    MinionShooterMotor.follow(MasterShooterMotor, true);
+    MinionShooterMotor.follow(MasterShooterMotor, false);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    shootSpeakerSpeed = SmartDashboard.getNumber("Shoot Speaker Speed", shootSpeakerSpeed);
+    shootAmpSpeed = SmartDashboard.getNumber("Shoot Amp Speed", shootAmpSpeed);
   }
 
   public void ShootAmp() {
-    MasterShooterMotor.set(ShooterConstants.kShooterMotorSpeed);
+    MasterShooterMotor.set(shootAmpSpeed);
+    System.out.println("Shooting at the Amp...");
   }
 
   public void ShootSpeaker() {
-    MasterShooterMotor.set(ShooterConstants.kShooterMotorSpeed);
+    VisionSubsystem.UnicornNotify("True");
+    MasterShooterMotor.set(shootSpeakerSpeed);
+    System.out.println("Shooting at the Speaker...");
   }
 
   public void ShootTrap() {
-    MasterShooterMotor.set(ShooterConstants.kShooterMotorSpeed);
+    MasterShooterMotor.set(shootAmpSpeed);
   }
 
   public void StopShoot() {
+    VisionSubsystem.UnicornNotify("False");
     MasterShooterMotor.set(0);
   }
 }

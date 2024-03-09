@@ -6,16 +6,21 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.AxleSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
 
-public class AimAmpCommand extends Command {
+public class ClimberUpCommand extends Command {
   /** Creates a new ShootSpeakerCommand. */
+  private final ClimbSubsystem m_Climb;
+
   private final AxleSubsystem m_Axle;
 
-  public AimAmpCommand(AxleSubsystem a_Subsystem) {
+  /** Creates a new ClimbDefaultCommand. */
+  public ClimberUpCommand(ClimbSubsystem c_Subsystem, AxleSubsystem a_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-
+    m_Climb = c_Subsystem;
     m_Axle = a_Subsystem;
 
+    addRequirements(c_Subsystem);
     addRequirements(a_Subsystem);
   }
 
@@ -26,16 +31,23 @@ public class AimAmpCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Axle.SetAmpHeight();
+    m_Climb.ClimberUp();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    if (interrupted == true) {
+      m_Climb.stopClimb();
+    }
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if (m_Climb.bottomLimitSwitch.isPressed()) {
+      return true;
+    }
     return false;
   }
 }

@@ -12,32 +12,59 @@ import frc.robot.Constants.climbConstants;
 
 public class ClimbSubsystem extends SubsystemBase {
 
-  public static CANSparkMax climbMotorRight;
-  public static CANSparkMax climbMotorLeft;
+  public static CANSparkMax climbMotorMaster;
+  // public static CANSparkMax climbMotorLeft;
 
-  private SparkLimitSwitch m_climbLimit;
+  public SparkLimitSwitch topLimitSwitch;
+  public SparkLimitSwitch bottomLimitSwitch;
+
+  // By default, we want to keep the climb down
+  // If you want the motor to go all the way up, then you need a button to change this to false.
+  public boolean keepDown = true;
+
+  // Variables for setting the climb to default
+
+  // public double hieghtDefault;
+  public double currentPos;
 
   /** Creates a new ClimbSubsystem. */
   public ClimbSubsystem() {
 
-    climbMotorRight =
+    climbMotorMaster =
         new CANSparkMax(
-            climbConstants.kRightClimbMotorPort,
-            com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
+            climbConstants.kClimbMotorPort, com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
 
-    m_climbLimit = climbMotorRight.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
+    topLimitSwitch = climbMotorMaster.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
+    bottomLimitSwitch =
+        climbMotorMaster.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
 
-    m_climbLimit.enableLimitSwitch(true);
+    topLimitSwitch.enableLimitSwitch(true);
+    bottomLimitSwitch.enableLimitSwitch(true);
 
-    SmartDashboard.putBoolean("Right Limit Enabled", m_climbLimit.isLimitSwitchEnabled());
+    SmartDashboard.putBoolean("Top Limit Enabled", topLimitSwitch.isLimitSwitchEnabled());
+    SmartDashboard.putBoolean("Bottom Limit Enabled", bottomLimitSwitch.isLimitSwitchEnabled());
+
+    // climbMotorMaster.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
+    // climbMotorMaster.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
+
+    // climbMotorMaster.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 10);
+    // climbMotorMaster.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);
   }
+
+  /*
+  public void initialize(){
+
+    hieghtDefault = climbEncoder.getPosition();
+  }
+  */
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
 
     // enable/disable limit switches based on value read from SmartDashboard
-    m_climbLimit.enableLimitSwitch(SmartDashboard.getBoolean("Right Limit Enabled", false));
+    topLimitSwitch.enableLimitSwitch(SmartDashboard.getBoolean("Top Limit Enabled", true));
+    bottomLimitSwitch.enableLimitSwitch(SmartDashboard.getBoolean("Bottom Limit Enabled", true));
 
     /**
      * The isPressed() method can be used on a SparkLimitSwitch object to read the state of the
@@ -47,14 +74,46 @@ public class ClimbSubsystem extends SubsystemBase {
      * isPressed() will return true if the switch is pressed. It will also return true if you do not
      * have a switch connected. isPressed() will return false when the switch is released.
      */
-    SmartDashboard.putBoolean("Right Limit Switch", m_climbLimit.isPressed());
+    SmartDashboard.putBoolean("Top Limit Switch", topLimitSwitch.isPressed());
+    SmartDashboard.putBoolean("Bottom Limit Switch", topLimitSwitch.isPressed());
+
+    //
+    if ((keepDown == true) && (bottomLimitSwitch.isPressed() == false)) {
+      climbMotorMaster.set(climbConstants.kClimbMotorPortSpeed);
+    } else if ((keepDown == true) && (bottomLimitSwitch.isPressed())) {
+      stopClimb();
+    }
+
+    if ((keepDown == false) && (topLimitSwitch.isPressed() == false)) {
+      climbMotorMaster.set(0.05);
+    }
+
+    /*if (topLimitSwitch.isPressed() || bottomLimitSwitch.isPressed()) {
+      stopClimb();
+    }*/
+
   }
 
-  public void DefaultHeight() {}
+  public void DefaultHeight() {
+    if (topLimitSwitch.isPressed()) {
+      stopClimb();
+    } else {
+      climbMotorMaster.set(-1 * climbConstants.kClimbMotorPortSpeed);
+    }
+  }
 
-  public void ClimbLeft() {}
+  public void ClimberUp() {
+    if (bottomLimitSwitch.isPressed()) {
+      stopClimb();
+    } else {
+      climbMotorMaster.set(climbConstants.kClimbMotorPortSpeed);
+    }
+    System.out.println("Climbing...");
+  }
 
-  public void ClimbMiddle() {}
-
-  public void ClimbRight() {}
+  // Stop climb
+  public void stopClimb() {
+    climbMotorMaster.set(0);
+    System.out.println("Climber stopped!");
+  }
 }

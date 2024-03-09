@@ -13,18 +13,30 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
-import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
+import frc.robot.subsystems.AutoAimSubsystem;
+import frc.robot.subsystems.AutonomousTrajectories;
+import frc.robot.subsystems.AxleSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.UltrasonicSensor;
 import frc.robot.subsystems.VisionSubsystem;
 import java.util.List;
@@ -38,16 +50,97 @@ import java.util.List;
 public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  private final ShooterSubsystem m_shooter = new ShooterSubsystem();
+  private final IntakeSubsystem m_intake = new IntakeSubsystem();
+  private final ClimbSubsystem m_climb = new ClimbSubsystem();
+  private final AxleSubsystem m_axle = new AxleSubsystem();
   private final VisionSubsystem m_vision = new VisionSubsystem();
+  private final AutoAimSubsystem m_autoAim = new AutoAimSubsystem();
   private final UltrasonicSensor m_UltrasonicSensor = new UltrasonicSensor();
-  private final LEDSubsystem m_LEDSubsystem = new LEDSubsystem();
+  private final LEDSubsystem m_LED = new LEDSubsystem();
+
+  private final AutonomousTrajectories m_trajectories = new AutonomousTrajectories();
 
   // The driver's controller
-  XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
+
+  // Static for trigger
+  static XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
+
+  SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
+
+    SmartDashboard.putNumber("Shoot Speaker Speed", Constants.ShooterConstants.kShootSpeakerSpeed);
+    SmartDashboard.putNumber("Shoot Amp Speed", Constants.ShooterConstants.kShootAmpSpeed);
+    SmartDashboard.putNumber("Index Speed", Constants.IntakeConstants.kIndexSpeed);
+    SmartDashboard.putNumber("Reverse Index Speed", Constants.IntakeConstants.kIndexReverseSpeed);
+    SmartDashboard.putNumber("Intake Speed", Constants.IntakeConstants.kIntakeMotorSpeed);
+    SmartDashboard.putNumber("Arm Speed", Constants.AxleConstants.kAxleTestSpeed);
+    SmartDashboard.putNumber("Arm Test Angle", Constants.AxleConstants.kTestHeight);
+
+    m_chooser.setDefaultOption(
+        "Default Auto - Drive Straight 2 Meters", m_trajectories.getDriveStraight(m_robotDrive));
+    // m_chooser.addOption(
+    //     "Basic Auto: Start in front of Subwoofer, Score 2, Pick up middlfe note",
+    //     m_trajectories.getScore2InFrontOfSubwooferCommand(
+    //         m_robotDrive, m_axle, m_intake, m_shooter, m_climb, m_LED));
+    m_chooser.addOption(
+        "Basic Auto: Start in front of Subwoofer, Score 1, Pick up middlfe note",
+        m_trajectories.getScore1InFrontOfSubwooferCommand(
+            m_robotDrive, m_axle, m_intake, m_shooter, m_climb, m_LED));
+    m_chooser.addOption(
+        "Red: Start Right, Score 2 Speaker, Pick Up Right Note, Park Far Right",
+        m_trajectories.getRedRightGrab1Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+    m_chooser.addOption(
+        "Red: Start Right, Score 3 Speaker, Pick Up Right + Middle Notes, Park Right of Stage",
+        m_trajectories.getRedRightGrab2Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+    m_chooser.addOption(
+        "Red: Start Right, Score 4 Speaker, Pick Up All Notes, Park Right of Stage",
+        m_trajectories.getRedRightGrab3Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+    m_chooser.addOption(
+        "Red: Start Left, Score 2 Speaker, Pick Up Left Note, Park Left of Stage",
+        m_trajectories.getRedMiddleGrab1Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+    m_chooser.addOption(
+        "Red: Start Left, Score 3 Speaker, Pick Up Left + Middle Notes, Park Right of Stage",
+        m_trajectories.getRedMiddleGrab2Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+    m_chooser.addOption(
+        "Red: Start Left, Score 4 Speaker, Pick Up All Notes, Park Far Right",
+        m_trajectories.getRedMiddleGrab3Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+    m_chooser.addOption(
+        "Blue: Start Left, Score 2 Speaker, Pick Up Left Note, Park Far Left",
+        m_trajectories.getBlueLeftGrab1Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+    m_chooser.addOption(
+        "Blue: Start Left, Score 3 Speaker, Pick Up Left + Middle Notes, Park Left of Stage",
+        m_trajectories.getBlueLeftGrab2Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+    m_chooser.addOption(
+        "Blue: Start Left, Score 4 Speaker, Pick Up All Notes, Park Left of Stage",
+        m_trajectories.getBlueLeftGrab3Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+    m_chooser.addOption(
+        "Blue: Start Right, Score 2 Speaker, Pick Up Right Note, Park Right of Stage",
+        m_trajectories.getBlueMiddleGrab1Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+    m_chooser.addOption(
+        "Blue: Start Right, Score 3 Speaker, Pick Up Right + Middle Notes, Park Left of Stage",
+        m_trajectories.getBlueMiddleGrab2Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+    m_chooser.addOption(
+        "Blue: Start Right, Score 4 Speaker, Pick Up All Notes, Park Far Left",
+        m_trajectories.getBlueMiddleGrab3Note(
+            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+
+    SmartDashboard.putData(m_chooser);
+
     configureButtonBindings();
 
     // Configure default commands
@@ -58,16 +151,20 @@ public class RobotContainer {
             () ->
                 m_robotDrive.drive(
                     -MathUtil.applyDeadband(
-                        m_driverController.getLeftY(), OIConstants.kDriveDeadband),
+                        m_driverController.getLeftY(), OIConstants.kDriveDeadband)
+                    /*- (OIConstants.kDriveDeadband  * changeSpeed())*/ ,
                     -MathUtil.applyDeadband(
-                        m_driverController.getLeftX(), OIConstants.kDriveDeadband),
+                        m_driverController.getLeftX(), OIConstants.kDriveDeadband)
+                    /*  * changeSpeed() */ ,
                     -MathUtil.applyDeadband(
-                        m_driverController.getRightX(), OIConstants.kDriveDeadband),
+                        m_driverController.getRightX(), OIConstants.kDriveDeadband)
+                    /** changeSpeed() */
+                    ,
                     true,
                     true),
             m_robotDrive));
 
-    m_LEDSubsystem.setDefaultCommand(new LightScroll4LEDCommand(m_LEDSubsystem));
+    m_LED.setDefaultCommand(new LightScroll4LEDCommand(m_LED));
   }
 
   /**
@@ -77,8 +174,59 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_driverController, Button.kR1.value)
-        .whileTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
+    // new JoystickButton(m_driverController, Button.kR1.value)
+    //     .whileTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
+
+    new JoystickButton(m_driverController, Button.kRightBumper.value)
+        .whileTrue(
+            new ParallelCommandGroup(
+                new SequentialCommandGroup(
+                    new WaitCommand(0.75), new ShootSpeakerCommand(m_shooter, m_axle, m_intake)),
+                new SequentialCommandGroup(
+                    new ReverseIndexCommand(m_intake).withTimeout(0.75),
+                    new WaitCommand(2),
+                    new IndexCommand(m_intake))));
+
+    // new JoystickButton(m_driverController, Button.kRightBumper.value)
+    //     .whileTrue(new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
+
+    new JoystickButton(m_driverController, Button.kLeftBumper.value)
+        .whileTrue(new IntakeFloorCommand(m_intake, m_axle, m_LED));
+
+    new JoystickButton(m_driverController, Button.kX.value)
+        .whileTrue(new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LED));
+
+    new JoystickButton(m_driverController, Button.kY.value).whileTrue(new AimAmpCommand(m_axle));
+    new JoystickButton(m_driverController, Button.kY.value).whileTrue(new AimAmpCommand(m_axle));
+
+    new POVButton(m_driverController, 0).whileTrue(new ClimberUpCommand(m_climb, m_axle));
+
+    new POVButton(m_driverController, 180).whileTrue(new ClimbDefaultCommand(m_climb, m_axle));
+
+    // new JoystickButton(m_driverController, Button.kB.value).whileTrue(new AxleUpCommand(m_axle));
+    // .whileFalse(new DefaultAxleHeightCommand(m_axle));
+    // new JoystickButton(m_driverController, Button.kA.value)
+    //     .whileTrue(new AxleEncoderTestCommand(m_axle));
+
+    new JoystickButton(m_driverController, Button.kB.value).whileTrue(new AxleUpCommand(m_axle));
+
+    new JoystickButton(m_driverController, Button.kA.value).whileTrue(new AxleDownCommand(m_axle));
+
+    new POVButton(m_driverController, 270) // left D-pad
+        .onTrue(new GyroSetZeroCommand(m_robotDrive));
+
+    new POVButton(m_driverController, 90) // right D-pad
+        .whileTrue(
+            new ParallelCommandGroup(
+                new ShootAmpCommand(m_shooter, m_axle, m_intake), new IndexCommand(m_intake)));
+    // right D-pad for AMP shoot
+
+    // new JoystickButton(m_driverController, Axis.kRightTrigger);
+
+    // new JoystickButton(m_driverController, Button.kL2.value)
+    //     .whileTrue(new ClimbMiddleCommand(m_climb));
+
+    // new POVButton(m_driverController, 270).whileTrue(new ShootTrapCommand(m_shooter, m_axle));
   }
 
   /**
@@ -88,6 +236,20 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // Create config for trajectory
+    boolean tryTest = false;
+
+    if (tryTest) {
+      return m_trajectories.getDriveStraight(m_robotDrive);
+    }
+
+    // If true, you will perform one of the sequentual command groups rather than example
+    // trajectories
+    boolean doScoringAuto = true;
+
+    if (doScoringAuto) {
+      return m_chooser.getSelected();
+    }
+
     TrajectoryConfig config =
         new TrajectoryConfig(
                 AutoConstants.kMaxSpeedMetersPerSecond,
@@ -148,7 +310,7 @@ public class RobotContainer {
     if (bonusTrajectory != null) {
       bonusSwerveControllerCommand =
           new SwerveControllerCommand(
-              myTrajectory,
+              bonusTrajectory,
               m_robotDrive::getPose, // Functional interface to feed supplier
               DriveConstants.kDriveKinematics,
 
@@ -338,5 +500,33 @@ public class RobotContainer {
             config);
 
     return nullTrajectory;
+  }
+
+  private double changeSpeed() {
+    // As of this moment, no one knows if up is - or +, this might need to change.
+    if (m_UltrasonicSensor.inRange30() && m_driverController.getLeftY() > 0) {
+      return m_UltrasonicSensor.speedNeeded();
+    } else {
+      return 0;
+    }
+  }
+
+  static boolean RightInthershold() {
+    double rightTriggerValue = m_driverController.getRightTriggerAxis();
+
+    if (rightTriggerValue >= 0.5) {
+      return true;
+    }
+
+    return false;
+  }
+
+  static boolean LeftTriggerInThershold() {
+    double leftTriggerValue = m_driverController.getLeftTriggerAxis();
+
+    if (leftTriggerValue >= 0.5) {
+      return true;
+    }
+    return false;
   }
 }

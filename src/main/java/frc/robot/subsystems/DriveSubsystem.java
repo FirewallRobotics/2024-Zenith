@@ -21,32 +21,32 @@ import frc.utils.SwerveUtils;
 
 public class DriveSubsystem extends SubsystemBase {
   // Create MAXSwerveModules
-  private final MAXSwerveModule m_frontLeft =
+  public final MAXSwerveModule m_frontLeft =
       new MAXSwerveModule(
           DriveConstants.kFrontLeftDrivingCanId,
           DriveConstants.kFrontLeftTurningCanId,
           DriveConstants.kFrontLeftChassisAngularOffset);
 
-  private final MAXSwerveModule m_frontRight =
+  public final MAXSwerveModule m_frontRight =
       new MAXSwerveModule(
           DriveConstants.kFrontRightDrivingCanId,
           DriveConstants.kFrontRightTurningCanId,
           DriveConstants.kFrontRightChassisAngularOffset);
 
-  private final MAXSwerveModule m_rearLeft =
+  public final MAXSwerveModule m_rearLeft =
       new MAXSwerveModule(
           DriveConstants.kRearLeftDrivingCanId,
           DriveConstants.kRearLeftTurningCanId,
           DriveConstants.kBackLeftChassisAngularOffset);
 
-  private final MAXSwerveModule m_rearRight =
+  public final MAXSwerveModule m_rearRight =
       new MAXSwerveModule(
           DriveConstants.kRearRightDrivingCanId,
           DriveConstants.kRearRightTurningCanId,
           DriveConstants.kBackRightChassisAngularOffset);
 
   // The gyro sensor
-  private final ADIS16470_IMU m_gyro = new ADIS16470_IMU();
+  public final ADIS16470_IMU m_gyro = new ADIS16470_IMU();
 
   // Slew rate filter variables for controlling lateral acceleration
   private double m_currentRotation = 0.0;
@@ -230,6 +230,7 @@ public class DriveSubsystem extends SubsystemBase {
   /** Zeroes the heading of the robot. */
   public void zeroHeading() {
     m_gyro.reset();
+    System.out.println("Gyro Reset!");
   }
 
   /**

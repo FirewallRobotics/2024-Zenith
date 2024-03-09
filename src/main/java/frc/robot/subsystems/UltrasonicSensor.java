@@ -8,14 +8,17 @@ import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.UltrasonicConstants;
 
 public class UltrasonicSensor extends SubsystemBase {
 
   // Gets the output of the sensor. High output when object is detected in range
-  public DigitalOutput ultrasonicTrigger = new DigitalOutput(0);
+  public DigitalOutput ultrasonicTrigger =
+      new DigitalOutput(UltrasonicConstants.kUltrasonicTriggerPort);
 
   // Create an instance of the AnalogInput class so we can read from it later
-  public AnalogInput ultrasonicSensor = new AnalogInput(0);
+  public AnalogInput ultrasonicSensor = new AnalogInput(UltrasonicConstants.kUltrasonicSensorPort);
 
   // Ultrasonic range. How far an object was from the sensor. The closer the object, the higher the
   // mm.
@@ -35,6 +38,8 @@ public class UltrasonicSensor extends SubsystemBase {
   // Calculate into inches
   double currentDistanceInches = ultrasonicSensor.getValue() * voltage_scale_factor * 0.0492;
 
+  private boolean rangeOf30 = false;
+
   /** Creates a new UltrasonicSensor. */
   public UltrasonicSensor() {}
 
@@ -43,5 +48,39 @@ public class UltrasonicSensor extends SubsystemBase {
     currentDistanceCentimeters = ultrasonicSensor.getValue() * voltage_scale_factor * 0.125;
 
     SmartDashboard.putNumber("Sensor Range", currentDistanceCentimeters);
+
+    if (currentDistanceCentimeters <= 30) {
+      rangeOf30 = true;
+    } else {
+      rangeOf30 = false;
+    }
+  }
+
+  public double speedNeeded() {
+    double precentOfSpeed;
+    if (rangeOf30 == true) {
+      precentOfSpeed = percentFormual(currentDistanceCentimeters, 30);
+      return precentOfSpeed;
+    } else {
+      return DriveConstants.kMaxSpeedMetersPerSecond;
+    }
+  }
+
+  public boolean inRange30() {
+    if (rangeOf30) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  private double percentFormual(double part, double whole) {
+    double percent;
+    if (whole != 0 && part != 0) {
+      percent = (part / whole);
+      return percent;
+    } else {
+      return 0;
+    }
   }
 }

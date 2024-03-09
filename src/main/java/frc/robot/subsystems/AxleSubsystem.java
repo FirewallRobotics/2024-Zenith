@@ -5,11 +5,11 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.AbsoluteEncoder;
-import com.revrobotics.CANSparkBase.SoftLimitDirection;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AxleConstants;
 
@@ -19,10 +19,13 @@ public class AxleSubsystem extends SubsystemBase {
 
   public static CANSparkMax MinionAxleMotor;
   public static AbsoluteEncoder AxleEncoder;
-  DigitalInput topLimitSwitch = new DigitalInput(0);
-  DigitalInput bottomLimitSwitch = new DigitalInput(1);
+  DigitalInput topLimitSwitch = new DigitalInput(AxleConstants.kTopLimitSwitchPort);
   private SparkPIDController AxlePIDController;
+
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
+
+  private double axleSpeed = AxleConstants.kAxleTestSpeed;
+  private double testHeight = AxleConstants.kTestHeight;
 
   public AxleSubsystem() {
 
@@ -45,15 +48,11 @@ public class AxleSubsystem extends SubsystemBase {
     MasterAxleMotor.restoreFactoryDefaults();
     MinionAxleMotor.restoreFactoryDefaults();
 
-    MasterAxleMotor.enableSoftLimit(SoftLimitDirection.kForward, true);
-    MasterAxleMotor.enableSoftLimit(SoftLimitDirection.kReverse, true);
-    MinionAxleMotor.enableSoftLimit(SoftLimitDirection.kForward, true);
-    MinionAxleMotor.enableSoftLimit(SoftLimitDirection.kReverse, true);
+    MinionAxleMotor.follow(MasterAxleMotor, true);
 
-    MinionAxleMotor.follow(MasterAxleMotor);
+    AxlePIDController = MasterAxleMotor.getPIDController();
 
     AxleEncoder = MasterAxleMotor.getAbsoluteEncoder(Type.kDutyCycle);
-    AxleEncoder.setInverted(false);
 
     AxlePIDController.setP(kP);
     AxlePIDController.setI(kI);
@@ -63,52 +62,109 @@ public class AxleSubsystem extends SubsystemBase {
     AxlePIDController.setOutputRange(kMinOutput, kMaxOutput);
   }
 
-  public void setMotorSpeed(double speed) {
-    if (speed > 0) {
-      if (topLimitSwitch.get()) {
-        // We are going up and top limit is tripped so stop
-        MasterAxleMotor.set(0);
-      } else {
-        // We are going up but top limit is not tripped so go at commanded speed
-        MasterAxleMotor.set(speed);
-      }
-    } else {
-      if (bottomLimitSwitch.get()) {
-        // We are going down and bottom limit is tripped so stop
-        MasterAxleMotor.set(0);
-      } else {
-        // We are going down but bottom limit is not tripped so go at commanded speed
-        MasterAxleMotor.set(speed);
-      }
-    }
-  }
-
-  public void GravityOffset(double kdefaultheight) {
-    double kMeasuredPosHorizontal =
-        .512; // position measured when arm is horizontal (with Pheonix Tuner)
+  public void GravityOffset(double targetAngle) {
+    // position measured when arm is horizontal (with Pheonix Tuner)
     double currentPos = AxleEncoder.getPosition();
-    double radians = currentPos - kMeasuredPosHorizontal;
+    System.out.println("Target Angle" + targetAngle);
+    System.out.println("Starting Position" + AxleEncoder.getPosition());
+    double radians = (currentPos - AxleConstants.kMeasuredPosHorizontal);
     double cosineScalar = java.lang.Math.cos(radians);
     AxlePIDController.setFF(kFF * cosineScalar);
-    AxlePIDController.setReference(kdefaultheight, CANSparkMax.ControlType.kPosition);
+    AxlePIDController.setReference(targetAngle, CANSparkMax.ControlType.kPosition);
+    System.out.println("Axle Motor Speed" + MasterAxleMotor.get());
+  }
+
+  public double getAngle() {
+    double currentPos = AxleEncoder.getPosition();
+    double radians = currentPos - AxleConstants.kMeasuredPosHorizontal;
+    return radians;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
 
-    // setMotorSpeed(joystick.getRawAxis(2));
+    // setMotorSpeed(AxleEncoder.getVelocity());
+    // System.out.println("Current Speed: " + MasterAxleMotor.get());
+
+    axleSpeed = SmartDashboard.getNumber("Arm Speed", axleSpeed);
+    testHeight = SmartDashboard.getNumber("Arm Test Height", testHeight);
   }
 
-  public void DefaultAngle() {}
+  public void setMotorSpeed(double speed) {
+    if (speed > 0) {
+      if (topLimitSwitch.get()) {
+        // We are going up and top limit is tripped so stop
+        MasterAxleMotor.set(0);
+        System.out.println("Upper limit reached!");
+      } else {
+        // We are going up but top limit is not tripped so go at commanded speed
+        MasterAxleMotor.set(speed);
+      }
 
-  public void AimAmpAngle() {}
+    } else {
+      MasterAxleMotor.set(speed);
+    }
+  }
 
-  public void AimSpeakerAngle() {}
+  public void setTestHeight() {
+    GravityOffset(testHeight);
+  }
 
-  public void AimTrapAngle() {}
+  public void SetAimHeight(double angle) {
+    GravityOffset(angle);
+  }
 
-  public void IntakeFloorAngle() {}
+  public void SetAmpHeight() {
+    GravityOffset(AxleConstants.kAmpHeight);
+    System.out.println("Raising to Amp Height...");
+  }
 
-  public void IntakeSourceAngle() {}
+  public void SetDefaultHeight() {
+    GravityOffset(AxleConstants.kDefaultHeight);
+  }
+
+  public void SetIntakeHeight() {
+    GravityOffset(AxleConstants.kIntakeHeight);
+  }
+
+  public void SetBasicSpeakerAimHeight() {
+    GravityOffset(AxleConstants.kBasicSpeakerAimHeight);
+  }
+
+  public void AxleUp() {
+    // if (topLimitSwitch.isPressed()) {
+    //   MasterAxleMotor.set(0);
+    // } else {
+    //   MasterAxleMotor.set(AxleConstants.kAxleTestSpeed);
+    // }
+    MasterAxleMotor.set(axleSpeed);
+    System.out.println("Moving axle up...");
+  }
+
+  public void AxleDown() {
+    // if (topLimitSwitch.isPressed()) {
+    //   MasterAxleMotor.set(0);
+    // } else {
+    //   MasterAxleMotor.set(-AxleConstants.kAxleTestSpeed);
+    // }
+    MasterAxleMotor.set(-axleSpeed);
+    System.out.println("Moving axle up...");
+  }
+
+  public void setAxleMotorSpeed(double speed) {
+    MasterAxleMotor.set(speed);
+  }
+
+  // public void DefaultAngle() {}
+
+  // public void AimAmpAngle() {}
+
+  // public void AimSpeakerAngle() {}
+
+  // public void AimTrapAngle() {}
+
+  // public void IntakeFloorAngle() {}
+
+  // public void IntakeSourceAngle() {}
 }
