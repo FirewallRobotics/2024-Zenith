@@ -160,7 +160,6 @@ public final class Constants {
     public static final int kMasterAxleMotorPort = 9;
     public static final int kMinionAxleMotorPort = 10;
     public static final int kTopLimitSwitchPort = 5;
-    public static final int kBottomLimitSwitchPort = 6;
 
     public final double kAimHeight = .01;
     public static final double kDefaultHeight = .01;

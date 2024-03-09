@@ -20,7 +20,6 @@ public class AxleSubsystem extends SubsystemBase {
   public static CANSparkMax MinionAxleMotor;
   public static AbsoluteEncoder AxleEncoder;
   DigitalInput topLimitSwitch = new DigitalInput(AxleConstants.kTopLimitSwitchPort);
-  DigitalInput bottomLimitSwitch = new DigitalInput(AxleConstants.kBottomLimitSwitchPort);
   private SparkPIDController AxlePIDController;
 
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
@@ -104,14 +103,7 @@ public class AxleSubsystem extends SubsystemBase {
       }
 
     } else {
-      if (bottomLimitSwitch.get()) {
-        // We are going down and bottom limit is tripped so stop
-        MasterAxleMotor.set(0);
-        System.out.println("Lower limit reached!");
-      } else {
-        // We are going down but bottom limit is not tripped so go at commanded speed
-        MasterAxleMotor.set(speed);
-      }
+      MasterAxleMotor.set(speed);
     }
   }
 
