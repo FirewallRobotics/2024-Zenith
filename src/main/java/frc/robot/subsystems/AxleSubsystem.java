@@ -8,6 +8,9 @@ import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkPIDController;
+import edu.wpi.first.util.datalog.DataLog;
+import edu.wpi.first.util.datalog.StringLogEntry;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,6 +19,8 @@ import frc.robot.Constants.AxleConstants;
 public class AxleSubsystem extends SubsystemBase {
   /** Creates a new AxleSubsystem. */
   public static CANSparkMax MasterAxleMotor;
+
+  StringLogEntry axleStartLog;
 
   public static CANSparkMax MinionAxleMotor;
   public static AbsoluteEncoder AxleEncoder;
@@ -28,6 +33,8 @@ public class AxleSubsystem extends SubsystemBase {
   private double testHeight = AxleConstants.kTestHeight;
 
   public AxleSubsystem() {
+    DataLog log = DataLogManager.getLog();
+    axleStartLog = new StringLogEntry(log, "Moving Axle");
 
     kP = 0.1;
     kI = 1e-4;
@@ -118,6 +125,7 @@ public class AxleSubsystem extends SubsystemBase {
   public void SetAmpHeight() {
     GravityOffset(AxleConstants.kAmpHeight);
     System.out.println("Raising to Amp Height...");
+    axleStartLog.append("Raising to Amp height...");
   }
 
   public void SetDefaultHeight() {
@@ -140,6 +148,7 @@ public class AxleSubsystem extends SubsystemBase {
     // }
     MasterAxleMotor.set(axleSpeed);
     System.out.println("Moving axle up...");
+    axleStartLog.append("Axle going up...");
   }
 
   public void AxleDown() {
@@ -150,6 +159,7 @@ public class AxleSubsystem extends SubsystemBase {
     // }
     MasterAxleMotor.set(-axleSpeed);
     System.out.println("Moving axle up...");
+    axleStartLog.append("Axle going down...");
   }
 
   public void setAxleMotorSpeed(double speed) {
