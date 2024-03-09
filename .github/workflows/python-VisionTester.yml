@@ -26,6 +26,6 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest pyntcore numpy apriltag opencv-python imutils scipy unicornhat
+        pip install flake8 pytest pyntcore numpy apriltag opencv-python imutils scipy unicornhat cscore
     - name: Run Wrapper Script
       run: python src/orangepi/ProductionFiles/FinalPiProgram.py $--test
