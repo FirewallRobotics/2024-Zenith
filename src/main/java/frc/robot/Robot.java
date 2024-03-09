@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -27,6 +28,8 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
 
     m_robotContainer = new RobotContainer();
+
+    DataLogManager.start();
 
     // TacticChooser.setDefaultOption("Start Left, Shoot 0,",
     // m_robotContainer.getAutonomousSpeaker(red_alliance, 1));
