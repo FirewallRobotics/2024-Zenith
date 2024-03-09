@@ -4,18 +4,6 @@ import time
 import os
 import socket
 
-'''This file contains all the letter designs as an 8x8 bitarray. 
-You can add your won by just folowing the same format. Don't forget to specify the character 
-to which it relates to in the mapping dictionary. 
-
-Currently only uppercase letter are defined. Any message enetered with lowercase chars will
-automatically be rendered in uppercase
-
-If you try to create a scrolling message using another undefined character it will be displayed as an
-underscore (_)
-
-'''
-
 # Letter space
 x0= bitarray('00000000')
 x1= bitarray('00000000')
@@ -740,8 +728,8 @@ x7= bitarray('00000000')
 letterWhite = [x0,x1,x2,x3,x4,x5,x6,x7]
 
 x0= bitarray('00000000')
-x1= bitarray('01000010')
-x2= bitarray('01000010')
+x1= bitarray('00100100')
+x2= bitarray('00100100')
 x3= bitarray('00000000')
 x4= bitarray('01000010')
 x5= bitarray('00111100')
@@ -751,8 +739,8 @@ x7= bitarray('00000000')
 Smile0 = [x0,x1,x2,x3,x4,x5,x6,x7]
 
 x0= bitarray('11100111')
-x1= bitarray('01000010')
-x2= bitarray('01000010')
+x1= bitarray('00100100')
+x2= bitarray('00100100')
 x3= bitarray('00000000')
 x4= bitarray('01000010')
 x5= bitarray('00111100')
@@ -763,7 +751,7 @@ Smile1 = [x0,x1,x2,x3,x4,x5,x6,x7]
 
 x0= bitarray('00000000')
 x1= bitarray('11100111')
-x2= bitarray('01000010')
+x2= bitarray('00100100')
 x3= bitarray('00000000')
 x4= bitarray('01000010')
 x5= bitarray('00111100')
@@ -799,9 +787,10 @@ def ShowBuls(brightness):
 
 	UH.show()
 
-Smilestage = 0
-def ShowSmile(brightness):
-	if Smilestage == 0:
+def ShowSmile(brightness, Smilestage):
+	UH.rotation(90)		
+	if Smilestage < 61:
+		print("1")
 		UH.clear()
 		for i in range(8):
 			for j in range(8):
@@ -809,7 +798,7 @@ def ShowSmile(brightness):
 					UH.set_pixel(j,flip[i],brightness,0,0)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
-	if Smilestage == 1:
+	elif Smilestage == 61:
 		UH.clear()
 		for i in range(8):
 			for j in range(8):
@@ -817,7 +806,7 @@ def ShowSmile(brightness):
 					UH.set_pixel(j,flip[i],brightness,0,0)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
-	if Smilestage == 2:
+	elif Smilestage == 62:
 		UH.clear()
 		for i in range(8):
 			for j in range(8):
@@ -825,7 +814,7 @@ def ShowSmile(brightness):
 					UH.set_pixel(j,flip[i],brightness,0,0)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
-	if Smilestage == 3:
+	elif Smilestage == 63:
 		UH.clear()
 		for i in range(8):
 			for j in range(8):
@@ -833,7 +822,7 @@ def ShowSmile(brightness):
 					UH.set_pixel(j,flip[i],brightness,0,0)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
-	if Smilestage == 4:
+	elif Smilestage == 64:
 		UH.clear()
 		for i in range(8):
 			for j in range(8):
@@ -841,7 +830,7 @@ def ShowSmile(brightness):
 					UH.set_pixel(j,flip[i],brightness,0,0)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
-	if Smilestage == 5:
+	elif Smilestage == 65:
 		UH.clear()
 		for i in range(8):
 			for j in range(8):
@@ -849,7 +838,7 @@ def ShowSmile(brightness):
 					UH.set_pixel(j,flip[i],brightness,0,0)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
-	if Smilestage == 6:
+	elif Smilestage == 66:
 		UH.clear()
 		for i in range(8):
 			for j in range(8):
@@ -857,9 +846,8 @@ def ShowSmile(brightness):
 					UH.set_pixel(j,flip[i],brightness,0,0)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
-	Smilestage += 1
-	if Smilestage > 6:
-		Smilestage = 0
+	UH.show()
+
 
 		
 
@@ -1021,30 +1009,28 @@ try:
 except:
 	print("starting in no connection mode")
 
-iter = 0
+Nofile = True
+addr = ""
+try:
+    while addr == "":
+        c, addr = s.accept()
+    txttmp = c.recv(1024).decode()
+except:
+    txttmp = "RIP"
+
+
 Brightmulti = 1
+Smilestage = 0
 
 while True:
-    color = randcolor()
-    Nofile = True
-    addr = ""
-    try:
-        while addr == "":
-            c, addr = s.accept()
-        txttmp = c.recv(1024).decode()
-    except:
-        print("no connection")
-
-    if (iter % 5) == 0:
-        UH.clear()
-        Brightmulti = 1
-    elif(txttmp == "Shooting"):
+    ShowSmile(100, Smilestage)
+    time.sleep(0.2)
+    Smilestage += 1
+    if Smilestage > 66:
+        Smilestage = 0
+    if(txttmp == "Shooting"):
         UH.clear()
         ShowBuls(50 * Brightmulti)
         Brightmulti += 0.35
         if Brightmulti > 3.9:
             Brightmulti = 1
-    else:
-        Brightmulti = 1
-        ShowSmile(100)
-    iter += 1
