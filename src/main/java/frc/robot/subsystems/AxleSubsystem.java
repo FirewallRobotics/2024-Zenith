@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AxleConstants;
 
@@ -19,10 +20,12 @@ public class AxleSubsystem extends SubsystemBase {
   public static CANSparkMax MinionAxleMotor;
   public static AbsoluteEncoder AxleEncoder;
   DigitalInput topLimitSwitch = new DigitalInput(AxleConstants.kTopLimitSwitchPort);
-  DigitalInput bottomLimitSwitch = new DigitalInput(AxleConstants.kBottomLimitSwitchPort);
   private SparkPIDController AxlePIDController;
 
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
+
+  private double axleSpeed = AxleConstants.kAxleTestSpeed;
+  private double testHeight = AxleConstants.kTestHeight;
 
   public AxleSubsystem() {
 
@@ -83,6 +86,9 @@ public class AxleSubsystem extends SubsystemBase {
 
     // setMotorSpeed(AxleEncoder.getVelocity());
     // System.out.println("Current Speed: " + MasterAxleMotor.get());
+
+    axleSpeed = SmartDashboard.getNumber("Arm Speed", axleSpeed);
+    testHeight = SmartDashboard.getNumber("Arm Test Height", testHeight);
   }
 
   public void setMotorSpeed(double speed) {
@@ -90,20 +96,19 @@ public class AxleSubsystem extends SubsystemBase {
       if (topLimitSwitch.get()) {
         // We are going up and top limit is tripped so stop
         MasterAxleMotor.set(0);
+        System.out.println("Upper limit reached!");
       } else {
         // We are going up but top limit is not tripped so go at commanded speed
         MasterAxleMotor.set(speed);
       }
 
     } else {
-      if (bottomLimitSwitch.get()) {
-        // We are going down and bottom limit is tripped so stop
-        MasterAxleMotor.set(0);
-      } else {
-        // We are going down but bottom limit is not tripped so go at commanded speed
-        MasterAxleMotor.set(speed);
-      }
+      MasterAxleMotor.set(speed);
     }
+  }
+
+  public void setTestHeight() {
+    GravityOffset(testHeight);
   }
 
   public void SetAimHeight(double angle) {
@@ -133,7 +138,7 @@ public class AxleSubsystem extends SubsystemBase {
     // } else {
     //   MasterAxleMotor.set(AxleConstants.kAxleTestSpeed);
     // }
-    MasterAxleMotor.set(AxleConstants.kAxleTestSpeed);
+    MasterAxleMotor.set(axleSpeed);
     System.out.println("Moving axle up...");
   }
 
@@ -143,7 +148,7 @@ public class AxleSubsystem extends SubsystemBase {
     // } else {
     //   MasterAxleMotor.set(-AxleConstants.kAxleTestSpeed);
     // }
-    MasterAxleMotor.set(-AxleConstants.kAxleTestSpeed);
+    MasterAxleMotor.set(-axleSpeed);
     System.out.println("Moving axle up...");
   }
 

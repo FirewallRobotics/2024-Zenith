@@ -22,7 +22,7 @@ public final class Constants {
   public static final class DriveConstants {
     // Driving Parameters - Note that these are not the maximum capable speeds of
     // the robot, rather the allowed maximum speeds
-    public static final double kMaxSpeedMetersPerSecond = 4; // 4.8
+    public static final double kMaxSpeedMetersPerSecond = 4.8;
     public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second
 
     public static final double kDirectionSlewRate = 1.2; // radians per second
@@ -160,7 +160,6 @@ public final class Constants {
     public static final int kMasterAxleMotorPort = 9;
     public static final int kMinionAxleMotorPort = 10;
     public static final int kTopLimitSwitchPort = 5;
-    public static final int kBottomLimitSwitchPort = 6;
 
     public final double kAimHeight = .01;
     public static final double kDefaultHeight = .01;
@@ -169,6 +168,8 @@ public final class Constants {
     public static final double kBasicSpeakerAimHeight = .01;
     public static double kMeasuredPosHorizontal = .106;
     public static double kAxleTestSpeed = .2;
+
+    public static final double kTestHeight = 0.0;
 
     public static double kTestRadiansNeeded = Math.PI / 2;
   }

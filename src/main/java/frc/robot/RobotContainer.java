@@ -25,7 +25,6 @@ import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
@@ -72,6 +71,14 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
+
+    SmartDashboard.putNumber("Shoot Speaker Speed", Constants.ShooterConstants.kShootSpeakerSpeed);
+    SmartDashboard.putNumber("Shoot Amp Speed", Constants.ShooterConstants.kShootAmpSpeed);
+    SmartDashboard.putNumber("Index Speed", Constants.IntakeConstants.kIndexSpeed);
+    SmartDashboard.putNumber("Reverse Index Speed", Constants.IntakeConstants.kIndexReverseSpeed);
+    SmartDashboard.putNumber("Intake Speed", Constants.IntakeConstants.kIntakeMotorSpeed);
+    SmartDashboard.putNumber("Arm Speed", Constants.AxleConstants.kAxleTestSpeed);
+    SmartDashboard.putNumber("Arm Test Angle", Constants.AxleConstants.kTestHeight);
 
     m_chooser.setDefaultOption(
         "Default Auto - Drive Straight 2 Meters", m_trajectories.getDriveStraight(m_robotDrive));
@@ -192,10 +199,9 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kY.value).whileTrue(new AimAmpCommand(m_axle));
     new JoystickButton(m_driverController, Button.kY.value).whileTrue(new AimAmpCommand(m_axle));
 
-    new Trigger(RobotContainer::RightInthershold).whileTrue(new ClimbLeftCommand(m_climb, m_axle));
+    new POVButton(m_driverController, 0).whileTrue(new ClimberUpCommand(m_climb, m_axle));
 
-    new Trigger(RobotContainer::LeftTriggerInThershold)
-        .whileTrue(new ClimbDefaultCommand(m_climb, m_axle));
+    new POVButton(m_driverController, 180).whileTrue(new ClimbDefaultCommand(m_climb, m_axle));
 
     // new JoystickButton(m_driverController, Button.kB.value).whileTrue(new AxleUpCommand(m_axle));
     // .whileFalse(new DefaultAxleHeightCommand(m_axle));
@@ -212,8 +218,7 @@ public class RobotContainer {
     new POVButton(m_driverController, 90) // right D-pad
         .whileTrue(
             new ParallelCommandGroup(
-                new SequentialCommandGroup(new ShootAmpCommand(m_shooter, m_axle, m_intake)),
-                new SequentialCommandGroup(new WaitCommand(.75), new IndexCommand(m_intake))));
+                new ShootAmpCommand(m_shooter, m_axle, m_intake), new IndexCommand(m_intake)));
     // right D-pad for AMP shoot
 
     // new JoystickButton(m_driverController, Axis.kRightTrigger);
@@ -231,7 +236,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // Create config for trajectory
-    boolean tryTest = true;
+    boolean tryTest = false;
 
     if (tryTest) {
       return m_trajectories.getDriveStraight(m_robotDrive);
