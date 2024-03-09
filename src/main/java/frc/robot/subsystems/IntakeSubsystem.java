@@ -7,12 +7,16 @@ package frc.robot.subsystems;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
+
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.IntakeConstants;
+import edu.wpi.first.util.datalog.DataLog;
+import edu.wpi.first.util.datalog.StringLogEntry;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
@@ -22,6 +26,8 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public DigitalInput intakeSensor;
   public DigitalOutput outputSensor;
+  StringLogEntry speedOfIntake;
+;
 
   private double intakeSpeed = Constants.IntakeConstants.kIntakeMotorSpeed;
   private double indexSpeed = Constants.IntakeConstants.kIndexSpeed;
@@ -35,6 +41,8 @@ public class IntakeSubsystem extends SubsystemBase {
     // outputSensor = new DigitalOutput(IntakeConstants.kIntakeOutputPort);
     // outputSensor.set(true);
     MasterIntakeMotor.restoreFactoryDefaults();
+     DataLog log = DataLogManager.getLog();
+    speedOfIntake = new StringLogEntry(log, "Speed of Intake");
 
     // MasterIntakeMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
     // MasterIntakeMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
@@ -57,14 +65,17 @@ public class IntakeSubsystem extends SubsystemBase {
   /** Starts motor intake */
   public void StartIntake() {
     MasterIntakeMotor.set(intakeSpeed);
+    speedOfIntake.append("The Intake Speed...");
   }
 
   public void StartIndex() {
     MasterIntakeMotor.set(indexSpeed);
+    speedOfIntake.append("The Index Speed...");
   }
 
   public void StartReverseIndex() {
     MasterIntakeMotor.set(-indexReverseSpeed);
+    speedOfIntake.append("The reverse Index Speed...");
   }
 
   /** Stops motor intake */
