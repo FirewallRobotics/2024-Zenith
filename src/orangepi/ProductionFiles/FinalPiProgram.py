@@ -212,6 +212,9 @@ if CamBroadcast == True & testmode == False:
 
     def parseError(str):
         """Report parse error."""
+        myStrPub = table.getStringTopic("Errors").publish()
+        errorstring = str("config error in '" + configFile + "': " + str, file=sys.stderr)
+        myStrPub.set('{"Data": errorstring}')
         print("config error in '" + configFile + "': " + str, file=sys.stderr)
 
     def readCameraConfig(config):
@@ -424,6 +427,7 @@ if CamBroadcast == True & testmode == False:
             startSwitchedCamera(config)
 
 #Todo: Make not timed but not stupid
+
 while testmode == False | (iteration < 3 & testmode == True):
    if testmode == False:
     frame = vs.read()
