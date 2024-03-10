@@ -164,7 +164,7 @@ public class RobotContainer {
                     true),
             m_robotDrive));
 
-    m_LED.setDefaultCommand(new LightScroll4LEDCommand(m_LED));
+    m_LED.setDefaultCommand(new SetLEDOrange(m_LED));
   }
 
   /**
@@ -196,7 +196,6 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kX.value)
         .whileTrue(new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LED));
 
-    new JoystickButton(m_driverController, Button.kY.value).whileTrue(new AimAmpCommand(m_axle));
     new JoystickButton(m_driverController, Button.kY.value).whileTrue(new AimAmpCommand(m_axle));
 
     new POVButton(m_driverController, 0).whileTrue(new ClimberUpCommand(m_climb, m_axle));
