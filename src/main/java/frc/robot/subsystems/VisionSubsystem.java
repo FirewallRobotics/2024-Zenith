@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.StringPublisher;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import java.util.Set;
@@ -14,6 +15,8 @@ public class VisionSubsystem extends SubsystemBase {
   private static NetworkTable aprilTagsTable = inst.getTable("PiDetector");
 
   private NetworkTable ringTable = inst.getTable("RingFinder");
+
+  private static NetworkTable Unicorntable = inst.getTable("UnicornHat");
 
   private double decelerationDistance = Constants.VisionConstants.kDecelerationDistance;
   private double[] declareRingPosNeeded = Constants.VisionConstants.kCenterOfScreen;
@@ -146,7 +149,9 @@ public class VisionSubsystem extends SubsystemBase {
 
   // Communication For The Unicornhat
   public static void UnicornNotify(String status) {
-    //   aprilTagsTable.getStringTopic("UnicornHat").publishEx("status", "{'status': status}");
+    final StringPublisher dblPub;
+    dblPub = Unicorntable.getStringTopic("FoundRings").publish();
+    dblPub.set(status);
   }
 
   private double DecelerationSpeed(double positionDifference, double targetRange) {

@@ -62,10 +62,11 @@ public class ShooterSubsystem extends SubsystemBase {
     MasterShooterMotor.set(shootAmpSpeed);
     System.out.println("Shooting at the Amp...");
     shooterActive.append("Shooting at log Amp...");
+    VisionSubsystem.UnicornNotify("ShootingAmp");
   }
 
   public void ShootSpeaker() {
-    VisionSubsystem.UnicornNotify("True");
+    VisionSubsystem.UnicornNotify("ShootingSpeaker");
     MasterShooterMotor.set(shootSpeakerSpeed);
     System.out.println("Shooting at the Speaker...");
     shooterActive.append("Shooting at log Speaker...");
@@ -76,7 +77,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void StopShoot() {
-    VisionSubsystem.UnicornNotify("False");
+    VisionSubsystem.UnicornNotify("");
     MasterShooterMotor.set(0);
   }
 }
