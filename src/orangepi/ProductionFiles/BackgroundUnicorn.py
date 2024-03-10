@@ -3,6 +3,7 @@ from bitarray import bitarray
 import time
 import os
 import socket
+import ntcore
 
 # Letter space
 x0= bitarray('00000000')
@@ -695,12 +696,12 @@ super_wides = [special_smilie, special_hart]
 specials = ['~heart','~smile','~degrs']
 
 
-'''It assumes the Pi/hat will orientated with the long side of the Pi without any connectors on
-the bottom, i.e. the Hat will be rotated 90 degrees clockwise (assuming the "UNICORN HAT" label and 
-Pimoroni logo are normally at the bottom of the hat. If you want to use a different orientation  
-then you can alter the UH.rotation value in the show_letter function below. You may also need to adjust or omit
-the flip call which is used to ensure that the bitarray definitions in uhscroll_letters are the correct 
-way round for easy reading'''
+#It assumes the Pi/hat will orientated with the long side of the Pi without any connectors on
+#the bottom, i.e. the Hat will be rotated 90 degrees clockwise (assuming the "UNICORN HAT" label and 
+#Pimoroni logo are normally at the bottom of the hat. If you want to use a different orientation  
+#then you can alter the UH.rotation value in the show_letter function below. You may also need to adjust or omit
+#the flip call which is used to ensure that the bitarray definitions in uhscroll_letters are the correct 
+#way round for easy reading
 
 flip = [7,6,5,4,3,2,1,0]
 
@@ -727,6 +728,29 @@ x7= bitarray('00000000')
 
 letterWhite = [x0,x1,x2,x3,x4,x5,x6,x7]
 
+x0= bitarray('00000000')
+x1= bitarray('00011000')
+x2= bitarray('00111100')
+x3= bitarray('00011000')
+x4= bitarray('00011000')
+x5= bitarray('00000000')
+x6= bitarray('00000000')
+x7= bitarray('00000000')
+
+letterredS = [x0,x1,x2,x3,x4,x5,x6,x7]
+
+x0= bitarray('00000000')
+x1= bitarray('00100000')
+x2= bitarray('01000000')
+x3= bitarray('00100000')
+x4= bitarray('00100000')
+x5= bitarray('00011000')
+x6= bitarray('00000000')
+x7= bitarray('00000000')
+
+letterWhiteS = [x0,x1,x2,x3,x4,x5,x6,x7]
+
+#smiles
 x0= bitarray('00000000')
 x1= bitarray('00100100')
 x2= bitarray('00100100')
@@ -771,19 +795,29 @@ x7= bitarray('00000000')
 
 Smile3 = [x0,x1,x2,x3,x4,x5,x6,x7]
 
-def ShowBuls(brightness):
+def ShowBuls(brightness, Status):
 	UH.rotation(90)		
 	for i in range(8):
 		for j in range(8):
-			if letterred[j][i]:
-				UH.set_pixel(j,flip[i],brightness,0,0)
+			if Status == "Amp":
+				if letterred[j][i]:
+					UH.set_pixel(j,flip[i],brightness,0,0)
+				else:
+					UH.set_pixel(j,flip[i],0,0,0)
 			else:
-				UH.set_pixel(j,flip[i],0,0,0)
+				if letterredS[j][i]:
+					UH.set_pixel(j,flip[i],brightness,0,0)
+				else:
+					UH.set_pixel(j,flip[i],0,0,0)
 
 	for i in range(8):
 		for j in range(8):
-			if letterWhite[j][i]:
-				UH.set_pixel(j,flip[i],brightness,brightness,brightness)
+			if Status == "Amp":
+				if letterWhite[j][i]:
+					UH.set_pixel(j,flip[i],brightness,brightness,brightness)
+			else:
+				if letterWhiteS[j][i]:
+					UH.set_pixel(j,flip[i],brightness,brightness,brightness)				
 
 	UH.show()
 
@@ -892,14 +926,7 @@ def scroll_letter(letter,colour,brightness,speed): # scrolls a single letter acr
 '''scrolling is achieved by redrawing the letter with a column of the bitarray shifted to the left and a new blank column
 added to the right'''
 def scroll_word(word,colour,brightness,speed): # scrolls a word across the UH
-    try:
-        unmod = txt
-    except:
-        print("broken")
     for s in range(len(word[0])):
-        if (unmod != txt):
-            UH.clear()
-            return
         show_letter(word,colour,brightness)
         time.sleep(speed)
         for i in range(8):
@@ -1002,35 +1029,41 @@ def randcolor():
 #]
 
 
+
 try:
-	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	s.bind(("localhost", 86))
-	s.listen(1)
+    ntinst = ntcore.NetworkTableInstance.getDefault()
+    table = ntinst.getTable("UnicornHat")
 except:
 	print("starting in no connection mode")
-
-Nofile = True
-addr = ""
-try:
-    while addr == "":
-        c, addr = s.accept()
-    txttmp = c.recv(1024).decode()
-except:
-    txttmp = "RIP"
-
 
 Brightmulti = 1
 Smilestage = 0
 
+
 while True:
-    ShowSmile(100, Smilestage)
+    try:
+        Shoot = table.getString("status","False")
+        tagid = table.getString("TagID", "")
+    except:
+        print("rip")
+    if (Shoot != "ShootingAmp" | Shoot != "ShootingSpeaker"):
+        if tagid == "":
+            ShowSmile(100, Smilestage)
+        else:
+            unicorn_scroll(str("Tag", tagid), 'red', 100, 0.01)
     time.sleep(0.2)
     Smilestage += 1
     if Smilestage > 66:
         Smilestage = 0
-    if(txttmp == "Shooting"):
+    if(Shoot == "ShootingAmp"):
         UH.clear()
-        ShowBuls(50 * Brightmulti)
+        ShowBuls(50 * Brightmulti, "Amp")
+        Brightmulti += 0.35
+        if Brightmulti > 3.9:
+            Brightmulti = 1
+    elif(Shoot == "ShootingSpeaker"):
+        UH.clear()
+        ShowBuls(50 * Brightmulti, "Speaker")
         Brightmulti += 0.35
         if Brightmulti > 3.9:
             Brightmulti = 1

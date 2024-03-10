@@ -57,14 +57,14 @@ class myWebcamVideoStream:
 
   def __init__(self, src=0):
     
-    global table, tab2
+    global table, table2
 
     #init network tables
     TEAM = 5607
     if testmode == False:
         ntinst = ntcore.NetworkTableInstance.getDefault()
     table = ntinst.getTable("PiDetector")
-    tab2 = ntinst.getTable("UnicornHat")
+    table2 = ntinst.getTable("UnicornHat")
     ntinst.startClient4("pi1 vision client")
     ntinst.setServer("10.56.7.2")
     
@@ -212,6 +212,9 @@ if CamBroadcast == True & testmode == False:
 
     def parseError(str):
         """Report parse error."""
+        myStrPub = table.getStringTopic("Errors").publish()
+        errorstring = str("config error in '" + configFile + "': " + str, file=sys.stderr)
+        myStrPub.set('{"Data": errorstring}')
         print("config error in '" + configFile + "': " + str, file=sys.stderr)
 
     def readCameraConfig(config):
@@ -271,7 +274,7 @@ if CamBroadcast == True & testmode == False:
             with open(configFile, "rt", encoding="utf-8") as f:
                 j = json.load(f)
         except OSError as err:
-            print("could not open '{}': {}".format(configFile, err), file=sys.stderr)
+            parseError("could not open '{}': {}".format(configFile, err), file=sys.stderr)
             return False
 
         # top level must be an object
@@ -361,10 +364,10 @@ if CamBroadcast == True & testmode == False:
 # main program
 #configs the detector
 if testmode == False:
-    if Orangepi == True:
-        vs = myWebcamVideoStream(0).start()
-    else:
-        vs = myWebcamVideoStream(1).start()
+    #if Orangepi == True:
+    vs = myWebcamVideoStream(0).start()
+    #else:
+    #    vs = myWebcamVideoStream(1).start()
 options = apriltag.DetectorOptions(families="tag36h11")
 detector = apriltag.Detector(options)
 
@@ -424,20 +427,14 @@ if CamBroadcast == True & testmode == False:
             startSwitchedCamera(config)
 
 #Todo: Make not timed but not stupid
+
 while testmode == False | (iteration < 3 & testmode == True):
    if testmode == False:
     frame = vs.read()
    else:
       frame = cv2.imread('test.jpg')
 
-   if Livemode:
-        myStrPub = table.getStringTopic("FoundRings").publish()
-        myStrPub.set('{"X": avX, "Y": avY}' )
-        #cv2.imshow("images", output)
-        #cv2.waitKey(5)
-        Shoot = tab2.getString("status","False")
-        encodedStr = str(Shoot)
-        s.send(encodedStr.encode())
+   
 
 
    if RingMode:
@@ -486,6 +483,7 @@ while testmode == False | (iteration < 3 & testmode == True):
             #print("distace")
             #print(distance)
             #print("POSE DATA END")
+            TagNum = detect.tag_id
 
             #sends the tag data named the t(str(detect.tag_id)).publish()ag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
             if testmode == False:
@@ -514,7 +512,13 @@ while testmode == False | (iteration < 3 & testmode == True):
             #cv2.imwrite("fulmer.jpg",frame)
             saved = True
             #print("Saved!")
-       
+    
+    if Livemode:
+        myStrPub = table.getStringTopic("FoundRings").publish()
+        myStrPub.set('{"X": avX, "Y": avY}' )
+        myStrPub2 = table2.getStringTopic("TagID").publish()
+        myStrPub2.set('{"TagID": TagNum}')
+
    #cv2.imshow('frame', frame)
    #cv2.waitKey(1)
    iteration = iteration + 1
