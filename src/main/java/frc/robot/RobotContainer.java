@@ -164,7 +164,7 @@ public class RobotContainer {
                     true),
             m_robotDrive));
 
-    m_LED.setDefaultCommand(new LightScroll4LEDCommand(m_LED));
+    // m_LED.setDefaultCommand(new SetLEDOrange(m_LED));
   }
 
   /**
@@ -180,12 +180,8 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kRightBumper.value)
         .whileTrue(
             new ParallelCommandGroup(
-                new SequentialCommandGroup(
-                    new WaitCommand(0.75), new ShootSpeakerCommand(m_shooter, m_axle, m_intake)),
-                new SequentialCommandGroup(
-                    new ReverseIndexCommand(m_intake).withTimeout(0.75),
-                    new WaitCommand(2),
-                    new IndexCommand(m_intake))));
+                new SequentialCommandGroup(new ShootSpeakerCommand(m_shooter, m_axle, m_intake)),
+                new SequentialCommandGroup(new WaitCommand(1), new IndexCommand(m_intake))));
 
     // new JoystickButton(m_driverController, Button.kRightBumper.value)
     //     .whileTrue(new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
@@ -196,7 +192,6 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kX.value)
         .whileTrue(new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LED));
 
-    new JoystickButton(m_driverController, Button.kY.value).whileTrue(new AimAmpCommand(m_axle));
     new JoystickButton(m_driverController, Button.kY.value).whileTrue(new AimAmpCommand(m_axle));
 
     new POVButton(m_driverController, 0).whileTrue(new ClimberUpCommand(m_climb, m_axle));

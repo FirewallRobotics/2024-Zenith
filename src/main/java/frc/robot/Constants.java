@@ -163,10 +163,10 @@ public final class Constants {
 
     public final double kAimHeight = .01;
     public static final double kDefaultHeight = .01;
-    public static final double kAmpHeight = .334;
+    public static final double kAmpHeight = .15;
     public static final double kIntakeHeight = .092;
     public static final double kBasicSpeakerAimHeight = .01;
-    public static double kMeasuredPosHorizontal = .106;
+    public static double kMeasuredPosHorizontal = 0.023;
     public static double kAxleTestSpeed = .2;
 
     public static final double kTestHeight = 0.0;
@@ -188,21 +188,21 @@ public final class Constants {
   }
 
   public static final class LEDConstants {
-    public static final int kLEDPort = 4;
+    public static final int kLEDPort = 8;
   }
 
   public static final class IntakeConstants {
     public static final int kMasterIntakeMotorPort = 13;
 
-    public static final double kIntakeMotorSpeed = -0.5;
-    public static final double kIndexSpeed = -.5;
+    public static final double kIntakeMotorSpeed = -1.0;
+    public static final double kIndexSpeed = -1.0;
     public static final double kIndexReverseSpeed = -.2;
 
     public static final int kIntakeSensorPort = 0;
     public static final int kIntakeOutputPort = 1;
 
     // May need to swap this value after testing the sensor
-    public static final boolean kIntakeSensorNoteDetected = true;
+    public static final boolean kIntakeSensorNoteDetected = false;
   }
 
   public static final class climbConstants {
