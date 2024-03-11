@@ -795,6 +795,39 @@ x7= bitarray('00000000')
 
 Smile3 = [x0,x1,x2,x3,x4,x5,x6,x7]
 
+x0= bitarray('00000000')
+x1= bitarray('00100100')
+x2= bitarray('00100100')
+x3= bitarray('00000000')
+x4= bitarray('01000010')
+x5= bitarray('00111100')
+x6= bitarray('00000000')
+x7= bitarray('00000000')
+
+Smile1A = [x0,x1,x2,x3,x4,x5,x6,x7]
+
+x0= bitarray('00100100')
+x1= bitarray('01011010')
+x2= bitarray('01011010')
+x3= bitarray('00100100')
+x4= bitarray('01000010')
+x5= bitarray('00111100')
+x6= bitarray('00000000')
+x7= bitarray('00000000')
+
+Smile2A = [x0,x1,x2,x3,x4,x5,x6,x7]
+
+x0= bitarray('01011010')
+x1= bitarray('10011001')
+x2= bitarray('10011001')
+x3= bitarray('01011010')
+x4= bitarray('01100110')
+x5= bitarray('00111100')
+x6= bitarray('00000000')
+x7= bitarray('00000000')
+
+Smile3A = [x0,x1,x2,x3,x4,x5,x6,x7]
+
 def ShowBuls(brightness, Status):
 	UH.rotation(90)		
 	for i in range(8):
@@ -819,6 +852,51 @@ def ShowBuls(brightness, Status):
 				if letterWhiteS[j][i]:
 					UH.set_pixel(j,flip[i],brightness,brightness,brightness)				
 
+	UH.show()
+
+def ShowSmileAuto(brightness, smilestage):
+	UH.rotation(90)		
+	if Smilestage < 61:
+		print("1")
+		UH.clear()
+		for i in range(8):
+			for j in range(8):
+				if Smile1A[j][i]:
+					UH.set_pixel(j,flip[i],brightness,0,0)
+				else:
+					UH.set_pixel(j,flip[i],0,0,0)
+	elif Smilestage == 61:
+		UH.clear()
+		for i in range(8):
+			for j in range(8):
+				if Smile2A[j][i]:
+					UH.set_pixel(j,flip[i],brightness,0,0)
+				else:
+					UH.set_pixel(j,flip[i],0,0,0)
+	elif Smilestage == 62:
+		UH.clear()
+		for i in range(8):
+			for j in range(8):
+				if Smile3A[j][i]:
+					UH.set_pixel(j,flip[i],brightness,0,0)
+				else:
+					UH.set_pixel(j,flip[i],0,0,0)
+	elif Smilestage == 63:
+		UH.clear()
+		for i in range(8):
+			for j in range(8):
+				if Smile2A[j][i]:
+					UH.set_pixel(j,flip[i],brightness,0,0)
+				else:
+					UH.set_pixel(j,flip[i],0,0,0)
+	elif Smilestage == 64:
+		UH.clear()
+		for i in range(8):
+			for j in range(8):
+				if Smile1A[j][i]:
+					UH.set_pixel(j,flip[i],brightness,0,0)
+				else:
+					UH.set_pixel(j,flip[i],0,0,0)
 	UH.show()
 
 def ShowSmile(brightness, Smilestage):
@@ -1038,7 +1116,7 @@ except:
 
 Brightmulti = 1
 Smilestage = 0
-
+smileauto = 0
 
 while True:
     try:
@@ -1046,11 +1124,18 @@ while True:
         tagid = table.getString("TagID", "")
     except:
         print("rip")
-    if (Shoot != "ShootingAmp" | Shoot != "ShootingSpeaker"):
-        if tagid == "":
-            ShowSmile(100, Smilestage)
-        else:
-            unicorn_scroll(str("Tag", tagid), 'red', 100, 0.01)
+    if (Shoot != "ShootingAmp"):
+        if(Shoot != "ShootingSpeaker"):
+            if tagid == "":
+                if(Shoot != "AutoStart"):
+                   ShowSmile(100, Smilestage)
+                else:
+                    ShowSmileAuto(100, smileauto)
+                    smileauto += 1
+                    if smileauto > 64:
+                        smileauto = 0
+            else:
+                unicorn_scroll(str("Tag", tagid), 'red', 100, 0.01)
     time.sleep(0.2)
     Smilestage += 1
     if Smilestage > 66:
