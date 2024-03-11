@@ -194,15 +194,15 @@ public final class Constants {
   public static final class IntakeConstants {
     public static final int kMasterIntakeMotorPort = 13;
 
-    public static final double kIntakeMotorSpeed = -0.5;
-    public static final double kIndexSpeed = -.5;
+    public static final double kIntakeMotorSpeed = -1.0;
+    public static final double kIndexSpeed = -1.0;
     public static final double kIndexReverseSpeed = -.2;
 
     public static final int kIntakeSensorPort = 0;
     public static final int kIntakeOutputPort = 1;
 
     // May need to swap this value after testing the sensor
-    public static final boolean kIntakeSensorNoteDetected = true;
+    public static final boolean kIntakeSensorNoteDetected = false;
   }
 
   public static final class climbConstants {
