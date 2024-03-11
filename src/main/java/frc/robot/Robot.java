@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -32,9 +33,12 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
 
     m_robotContainer = new RobotContainer();
-    // m_Camera = CameraServer.startAutomaticCapture(0);
-    // m_Camera.setResolution(640, 480);
-    // m_Camera.setFPS(12);
+
+    m_robotContainer.m_robotDrive.m_gyro.calibrate();
+
+    m_Camera = CameraServer.startAutomaticCapture(0);
+    m_Camera.setResolution(640, 480);
+    m_Camera.setFPS(12);
 
     DataLogManager.start();
     URCL.start();
@@ -96,6 +100,8 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
       System.out.println("Cancel");
     }
+
+    m_robotContainer.m_robotDrive.zeroHeading();
   }
 
   /** This function is called periodically during operator control. */

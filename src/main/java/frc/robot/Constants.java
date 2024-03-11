@@ -163,8 +163,8 @@ public final class Constants {
 
     public final double kAimHeight = .01;
     public static final double kDefaultHeight = .01;
-    public static final double kAmpHeight = .15;
-    public static final double kIntakeHeight = .092;
+    public static final double kAmpHeight = .276;
+    public static final double kIntakeHeight = .003;
     public static final double kBasicSpeakerAimHeight = .01;
     public static double kMeasuredPosHorizontal = 0.023;
     public static double kAxleTestSpeed = .2;

@@ -49,7 +49,7 @@ import java.util.List;
  */
 public class RobotContainer {
   // The robot's subsystems
-  private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  public final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final ShooterSubsystem m_shooter = new ShooterSubsystem();
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
   private final ClimbSubsystem m_climb = new ClimbSubsystem();
@@ -189,8 +189,10 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kLeftBumper.value)
         .whileTrue(new IntakeFloorCommand(m_intake, m_axle, m_LED));
 
-    new JoystickButton(m_driverController, Button.kX.value)
-        .whileTrue(new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LED));
+    // new JoystickButton(m_driverController, Button.kX.value)
+    //     .whileTrue(new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LED));
+
+    new JoystickButton(m_driverController, Button.kX.value).whileTrue(new IntakeAxleHeightCommand(m_axle, m_climb));
 
     new JoystickButton(m_driverController, Button.kY.value).whileTrue(new AimAmpCommand(m_axle));
 
@@ -208,7 +210,7 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kA.value).whileTrue(new AxleDownCommand(m_axle));
 
     new POVButton(m_driverController, 270) // left D-pad
-        .onTrue(new GyroSetZeroCommand(m_robotDrive));
+        .whileTrue(new GyroSetZeroCommand(m_robotDrive));
 
     new POVButton(m_driverController, 90) // right D-pad
         .whileTrue(
