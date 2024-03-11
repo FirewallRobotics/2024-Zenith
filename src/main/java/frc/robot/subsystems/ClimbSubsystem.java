@@ -114,6 +114,6 @@ public class ClimbSubsystem extends SubsystemBase {
   // Stop climb
   public void stopClimb() {
     climbMotorMaster.set(0);
-    System.out.println("Climber stopped!");
+    // System.out.println("Climber stopped!");
   }
 }

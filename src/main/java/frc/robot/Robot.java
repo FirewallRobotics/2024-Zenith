@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,6 +20,7 @@ import org.littletonrobotics.urcl.URCL;
 public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
+  private UsbCamera m_Camera;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -30,6 +32,9 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
 
     m_robotContainer = new RobotContainer();
+    // m_Camera = CameraServer.startAutomaticCapture(0);
+    // m_Camera.setResolution(640, 480);
+    // m_Camera.setFPS(12);
 
     DataLogManager.start();
     URCL.start();

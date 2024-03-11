@@ -163,10 +163,10 @@ public final class Constants {
 
     public final double kAimHeight = .01;
     public static final double kDefaultHeight = .01;
-    public static final double kAmpHeight = .334;
+    public static final double kAmpHeight = .15;
     public static final double kIntakeHeight = .092;
     public static final double kBasicSpeakerAimHeight = .01;
-    public static double kMeasuredPosHorizontal = .106;
+    public static double kMeasuredPosHorizontal = 0.023;
     public static double kAxleTestSpeed = .2;
 
     public static final double kTestHeight = 0.0;
@@ -188,7 +188,7 @@ public final class Constants {
   }
 
   public static final class LEDConstants {
-    public static final int kLEDPort = 4;
+    public static final int kLEDPort = 8;
   }
 
   public static final class IntakeConstants {
