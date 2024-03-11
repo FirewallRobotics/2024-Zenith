@@ -164,7 +164,7 @@ public class RobotContainer {
                     true),
             m_robotDrive));
 
-    m_LED.setDefaultCommand(new SetLEDOrange(m_LED));
+    // m_LED.setDefaultCommand(new SetLEDOrange(m_LED));
   }
 
   /**
