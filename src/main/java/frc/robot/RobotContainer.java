@@ -192,7 +192,8 @@ public class RobotContainer {
     // new JoystickButton(m_driverController, Button.kX.value)
     //     .whileTrue(new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LED));
 
-    new JoystickButton(m_driverController, Button.kX.value).whileTrue(new IntakeAxleHeightCommand(m_axle, m_climb));
+    new JoystickButton(m_driverController, Button.kX.value)
+        .whileTrue(new IntakeAxleHeightCommand(m_axle, m_climb));
 
     new JoystickButton(m_driverController, Button.kY.value).whileTrue(new AimAmpCommand(m_axle));
 

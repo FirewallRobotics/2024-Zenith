@@ -32,7 +32,7 @@ public class IntakeAxleHeightCommand extends Command {
   @Override
   public void execute() {
     // if (m_climb.bottomLimitSwitch.isPressed()) {
-      
+
     // }
 
     m_axle.SetIntakeHeight();
