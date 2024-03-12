@@ -36,7 +36,7 @@ public class AxleSubsystem extends SubsystemBase {
     DataLog log = DataLogManager.getLog();
     axleStartLog = new StringLogEntry(log, "Moving Axle");
 
-    kP = 0.5;
+    kP = 2.75;
     kI = 0.0;
     kD = 0.0;
     kIz = 0;
