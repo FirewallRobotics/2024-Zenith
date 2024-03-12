@@ -1111,7 +1111,7 @@ def randcolor():
 try:
     ntinst = ntcore.NetworkTableInstance.getDefault()
     table = ntinst.getTable("UnicornHatRIO")
-	table2 = ntinst.getTable("UnicornHat")
+    table2 = ntinst.getTable("UnicornHat")
 except:
 	print("starting in no connection mode")
 
