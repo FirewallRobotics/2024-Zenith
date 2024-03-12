@@ -36,11 +36,11 @@ public class AxleSubsystem extends SubsystemBase {
     DataLog log = DataLogManager.getLog();
     axleStartLog = new StringLogEntry(log, "Moving Axle");
 
-    kP = 0.1;
-    kI = 1e-4;
-    kD = 1;
+    kP = 0.5;
+    kI = 0.0;
+    kD = 0.0;
     kIz = 0;
-    kFF = 0.3;
+    kFF = 0.5;
     kMaxOutput = 1;
     kMinOutput = -1;
     MasterAxleMotor =
@@ -57,9 +57,10 @@ public class AxleSubsystem extends SubsystemBase {
 
     MinionAxleMotor.follow(MasterAxleMotor, true);
 
-    AxlePIDController = MasterAxleMotor.getPIDController();
-
     AxleEncoder = MasterAxleMotor.getAbsoluteEncoder(Type.kDutyCycle);
+
+    AxlePIDController = MasterAxleMotor.getPIDController();
+    AxlePIDController.setFeedbackDevice(AxleEncoder);
 
     AxlePIDController.setP(kP);
     AxlePIDController.setI(kI);
@@ -74,11 +75,12 @@ public class AxleSubsystem extends SubsystemBase {
     double currentPos = AxleEncoder.getPosition();
     System.out.println("Target Angle" + targetAngle);
     System.out.println("Starting Position" + AxleEncoder.getPosition());
-    double radians = (currentPos - AxleConstants.kMeasuredPosHorizontal);
+    double radians = (currentPos - AxleConstants.kMeasuredPosHorizontal) * 2 * Math.PI;
     double cosineScalar = java.lang.Math.cos(radians);
     AxlePIDController.setFF(kFF * cosineScalar);
     AxlePIDController.setReference(targetAngle, CANSparkMax.ControlType.kPosition);
-    System.out.println("Axle Motor Speed" + MasterAxleMotor.get());
+    System.out.println("Axle Motor Speed" + MasterAxleMotor.getAppliedOutput());
+    System.out.println("Following Axle Motor Speed" + MinionAxleMotor.getAppliedOutput());
   }
 
   public double getAngle() {
