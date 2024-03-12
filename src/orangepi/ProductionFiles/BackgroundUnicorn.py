@@ -1110,7 +1110,8 @@ def randcolor():
 
 try:
     ntinst = ntcore.NetworkTableInstance.getDefault()
-    table = ntinst.getTable("UnicornHat")
+    table = ntinst.getTable("UnicornHatRIO")
+	table2 = ntinst.getTable("UnicornHat")
 except:
 	print("starting in no connection mode")
 
@@ -1120,8 +1121,8 @@ smileauto = 0
 
 while True:
     try:
-        Shoot = table.getString("ToUnicornStatus","")
-        tagid = table.getString("TagID", "")
+        Shoot = table.getString("ToUnicornStatus","") 
+        tagid = table2.getString("TagID", "")
     except:
         print("rip")
     if (Shoot != "ShootingAmp"):

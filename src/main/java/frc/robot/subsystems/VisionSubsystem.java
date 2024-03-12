@@ -16,7 +16,7 @@ public class VisionSubsystem extends SubsystemBase {
 
   private NetworkTable ringTable = inst.getTable("RingFinder");
 
-  private static NetworkTable Unicorntable = inst.getTable("UnicornHat");
+  private static NetworkTable Unicorntable = inst.getTable("UnicornHatRIO");
 
   private double decelerationDistance = Constants.VisionConstants.kDecelerationDistance;
   private double[] declareRingPosNeeded = Constants.VisionConstants.kCenterOfScreen;
