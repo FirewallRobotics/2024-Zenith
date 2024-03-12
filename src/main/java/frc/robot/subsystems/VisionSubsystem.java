@@ -150,7 +150,7 @@ public class VisionSubsystem extends SubsystemBase {
   // Communication For The Unicornhat
   public static void UnicornNotify(String status) {
     final StringPublisher dblPub;
-    dblPub = Unicorntable.getStringTopic("FoundRings").publish();
+    dblPub = Unicorntable.getStringTopic("ToUnicornStatus").publish();
     dblPub.set(status);
   }
 

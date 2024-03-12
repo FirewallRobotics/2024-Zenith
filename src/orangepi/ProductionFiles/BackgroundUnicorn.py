@@ -1120,7 +1120,7 @@ smileauto = 0
 
 while True:
     try:
-        Shoot = table.getString("status","False")
+        Shoot = table.getString("ToUnicornStatus","")
         tagid = table.getString("TagID", "")
     except:
         print("rip")
