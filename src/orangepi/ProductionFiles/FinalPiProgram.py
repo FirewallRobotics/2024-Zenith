@@ -41,14 +41,13 @@ class myWebcamVideoStream:
   TEAM = 5607
   if testmode == False:
     ntinst = ntcore.NetworkTableInstance.getDefault()
-  table = ntinst.getTable("PiDetector")
-  table2 = ntinst.getTable("UnicornHat")
-  ConfigTable = ntinst.getTable("SmartDashboard")
-  ntinst.startClient4("pi1 vision client")
-  ntinst.setServer("10.56.7.2")
-  
-  ConfigTable.putBoolean("Aprilmode", True)
-  ConfigTable.putBoolean("RingMode", False)
+    table = ntinst.getTable("PiDetector")
+    table2 = ntinst.getTable("UnicornHat")
+    ConfigTable = ntinst.getTable("SmartDashboard")
+    ntinst.startClient4("pi1 vision client")
+    ntinst.setServer("10.56.7.2")
+    ConfigTable.putBoolean("Aprilmode", True)
+    ConfigTable.putBoolean("RingMode", False)
   Aprilmode = True
   def __init__(self, src=0):
     
