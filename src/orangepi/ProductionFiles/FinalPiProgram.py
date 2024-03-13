@@ -23,8 +23,9 @@ class myWebcamVideoStream:
   global testmode, myStrPub, Livemode, RingMode, Aprilmode, Orangepi
   testmode = False
   Livemode = True
-  Aprilmode = True
+  RingMode = False
   Orangepi = False
+
 
   print(sys.argv[1:])
   if sys.argv[1:] == ['ehB-test']:
@@ -33,20 +34,26 @@ class myWebcamVideoStream:
   elif (sys.argv[1:] == ['--not-pi']):
       Livemode = False
   print(testmode + Livemode)
-
-  def __init__(self, src=0):
-    
-    global table, table2
+  
+  global table, table2, Aprilpub, OrangePub, ConfigTable
 
     #init network tables
-    TEAM = 5607
-    if testmode == False:
-        ntinst = ntcore.NetworkTableInstance.getDefault()
-    table = ntinst.getTable("PiDetector")
-    table2 = ntinst.getTable("UnicornHat")
-    ntinst.startClient4("pi1 vision client")
-    ntinst.setServer("10.56.7.2")
+  TEAM = 5607
+  if testmode == False:
+    ntinst = ntcore.NetworkTableInstance.getDefault()
+  table = ntinst.getTable("PiDetector")
+  table2 = ntinst.getTable("UnicornHat")
+  ConfigTable = ntinst.getTable("SmartDashboard")
+  ntinst.startClient4("pi1 vision client")
+  ntinst.setServer("10.56.7.2")
+  
+  ConfigTable.putBoolean("Aprilmode", True)
+  ConfigTable.putBoolean("RingMode", False)
+  Aprilmode = True
+  def __init__(self, src=0):
     
+    
+
     #Find the camera and
     # initialize the video camera stream and read the 
     # first frame from the stream
@@ -396,6 +403,9 @@ if CamBroadcast == True & testmode == False:
 #Todo: Make not timed but not stupid
 
 while testmode == False | (iteration < 3 & testmode == True):
+   if Livemode:
+        Aprilmode = ConfigTable.getBoolean("Aprilmode", True)
+        RingMode = ConfigTable.getBoolean("RingMode", False)
    if testmode == False:
     frame = vs.read()
    else:
