@@ -173,6 +173,8 @@ public final class Constants {
     public static final double kTestHeight = 0.0;
 
     public static double kTestRadiansNeeded = Math.PI / 2;
+
+    public static final double kAxleToShooterInvertOffsetDeg = 50;
   }
 
   public static final class ShooterConstants {
@@ -247,9 +249,10 @@ public final class Constants {
 
     public static final double kDriveRotationPower = 0.1;
 
-    public static final double kMaxPhysicalAngleDegrees = 50; // in degrees (if that wasn't obvious)
-    public static final double kPhysicalShooterAngleOffsetDegrees =
-        20; // in degrees, ADDED to the axle angle for shooter
+    public static final double kMaxPhysicalAngleDegrees =
+        50
+            + (AxleConstants.kMeasuredPosHorizontal - AxleConstants.kIntakeHeight)
+                * 360; // in degrees (if that wasn't obvious)
 
     public static final double kShooterAimErrorRangeDegrees = 5; // In degrees
   }
