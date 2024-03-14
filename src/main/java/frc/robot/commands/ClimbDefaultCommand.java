@@ -32,7 +32,7 @@ public class ClimbDefaultCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Math.abs(m_Axle.getAngle() - AxleConstants.kDefaultHeight) < 10) {
+    if (Math.abs(m_Axle.AxleEncoder.getPosition() - AxleConstants.kDefaultHeight) < 10) {
       m_Climb.DefaultHeight();
     } else {
       m_Climb.stopClimb();
@@ -52,7 +52,8 @@ public class ClimbDefaultCommand extends Command {
   @Override
   public boolean isFinished() {
     // Test if currentPos is equal to the default height
-    if (m_Climb.topLimitSwitch.isPressed() || (Math.abs(m_Axle.getAngle() - Math.PI / 2) < 10)) {
+    if (m_Climb.topLimitSwitch.isPressed()
+        || m_Axle.reachedSetPosition(AxleConstants.kAmpHeight, 0.01)) {
       return true;
     }
     return false;
