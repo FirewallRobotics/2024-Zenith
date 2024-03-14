@@ -14,6 +14,7 @@ import time
 import sys
 
 from cscore import CameraServer, VideoSource, UsbCamera, MjpegServer
+import cscore
 from ntcore import NetworkTableInstance, EventFlags
 
 CamBroadcast = True
@@ -49,44 +50,6 @@ class myWebcamVideoStream:
     ConfigTable.putBoolean("Aprilmode", True)
     ConfigTable.putBoolean("RingMode", False)
   Aprilmode = True
-  def __init__(self, src=0):
-    
-    
-
-    #Find the camera and
-    # initialize the video camera stream and read the 
-    # first frame from the stream
-    self.stream = cv2.VideoCapture(src) 
-    (self.grabbed, self.frame) = self.stream.read()
-
-    # flag to stop the thread
-
-    self.stopped = False
-
-  def start(self):
-    # start the thread to read frames
-    Thread(target=self.update, args=()).start()
-    return self
-
-  def update(self):
-
-    while True:
-       # have we been told to stop?  If so, get out of here
-       if self.stopped:
-           return
-
-       # otherwise, get another frame
-       (self.grabbed, self.frame) = self.stream.read()
-
-  def read(self):
-      # return the most recent frame
-      return self.frame
-
-  def stop(self):
-      # signal thread to end
-      self.stopped = True
-      return
-
 #reads the calibration data
 def read_from_txt_file(filename):
     try:
@@ -184,7 +147,7 @@ def average_position_of_pixels(mat, threshold=128):
     else:
         return 0, 0
 
-if CamBroadcast == True & testmode == False:
+if testmode == False:
     configFile = "/boot/frc.json"
 
     class CameraConfig: pass
@@ -269,7 +232,7 @@ if CamBroadcast == True & testmode == False:
 
         # team number
         try:
-            team = j["team"]
+            team = 5607
         except KeyError:
             parseError("could not read team number")
             return False
@@ -348,11 +311,6 @@ if CamBroadcast == True & testmode == False:
 
 # main program
 #configs the detector
-if testmode == False:
-    #if Orangepi == True:
-    vs = myWebcamVideoStream(0).start()
-    #else:
-    #    vs = myWebcamVideoStream(1).start()
 options = apriltag.DetectorOptions(families="tag36h11")
 detector = apriltag.Detector(options)
 
@@ -369,7 +327,7 @@ if RingMode:
 iteration = 0
 saved = False
 TagNum = ""
-if CamBroadcast == True & testmode == False:
+if testmode == False:
     if __name__ == "__main__":
         if len(sys.argv) >= 2:
             configFile = sys.argv[1]
@@ -392,21 +350,17 @@ if CamBroadcast == True & testmode == False:
         # start cameras
         # work around wpilibsuite/allwpilib#5055
         CameraServer.setSize(CameraServer.kSize160x120)
-        for config in cameraConfigs:
-            cameras.append(startCamera(config))
+        server = CameraServer.addSwitchedCamera('dev/video0')
 
-        # start switched cameras
-        for config in switchedCameraConfigs:
-            startSwitchedCamera(config)
-
+cvSnk = cscore.MjpegServer.getSource(server)
 #Todo: Make not timed but not stupid
-
 while testmode == False | (iteration < 3 & testmode == True):
    if Livemode:
         Aprilmode = ConfigTable.getBoolean("Aprilmode", True)
         RingMode = ConfigTable.getBoolean("RingMode", False)
    if testmode == False:
-    frame = vs.read()
+    dim = cvSnk.read()
+    frame = dim[1]
    else:
       frame = cv2.imread('test.jpg')
 
@@ -437,7 +391,7 @@ while testmode == False | (iteration < 3 & testmode == True):
     #cv2.imshow('frame', frame)
     #cv2.imwrite("fulmer2.jpg",frame)
 
-    detections = detector.detect(grayimage)
+    detections = detector.detect(frame)
     if detections:
         #print("Nothing")
         #cv2.putText(frame, "Nothing Detected", (500,500), cv2.FONT_HERSHEY_SIMPLEX, 2.0, (0, 0, 255), 2)
@@ -491,7 +445,7 @@ while testmode == False | (iteration < 3 & testmode == True):
     
     if Livemode:
         myStrPub2 = table2.getStringTopic("TagID").publish()
-        myStrPub2.set('{"TagID": TagNum}')
+        table2.putString("TagID", TagNum)
 
    #cv2.imshow('frame', frame)
    #cv2.waitKey(1)
@@ -507,6 +461,4 @@ except:
     print("Closing Failed")
 
 #Closes everything out
-if testmode == False:
-    vs.stop()
 #cv2.destroyAllWindows()
