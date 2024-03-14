@@ -43,16 +43,16 @@ def distance_to_camera(knownWidth, focalLength, perWidth):
 # pulled from testAprilTagrecognition.py
 def find_marker(image):
 	# convert the image to grayscale, blur it, and detect edges
-	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-	gray = cv2.GaussianBlur(gray, (5, 5), 0)
-	edged = cv2.Canny(gray, 35, 125)
+	# gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    image = cv2.GaussianBlur(image, (5, 5), 0)
+    edged = cv2.Canny(image, 35, 125)
 	# find the contours in the edged image and keep the largest one;
 	# we'll assume that this is our piece of paper in the image
-	cnts = cv2.findContours(edged.copy(), cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
-	cnts = imutils.grab_contours(cnts)
-	c = max(cnts, key = cv2.contourArea)
+    cnts = cv2.findContours(edged.copy(), cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+    cnts = imutils.grab_contours(cnts)
+    c = max(cnts, key = cv2.contourArea)
 	# compute the bounding box of the of the paper region and return it
-	return cv2.minAreaRect(c)
+    return cv2.minAreaRect(c)
 
 #reads the calibration data; pulled from FinalPiProgram.py
 def read_from_txt_file(filename):
@@ -120,8 +120,8 @@ def main():
         # cv2.rectangle(img, (100, 100), (400, 400), (255, 255, 255), 5)
   
         # Process image for Apriltags
-        grayimage= cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        detections = detector.detect(grayimage)
+        img= cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        detections = detector.detect(img)
         if not detections:
             #  Notify that no tags are detected on image
             myStrPub.set("status : iteration is {}. Nothing detected".format(iteration))
@@ -146,6 +146,7 @@ def main():
                  cv2.putText(img, pos_string, (600,600),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
                  # Label corner of tags with id
+                 cornerIndex=0
                  for corner in detect.corners:
                     if cornerIndex== 0:
                         org=(int(corner[0]),int(corner[1]))
