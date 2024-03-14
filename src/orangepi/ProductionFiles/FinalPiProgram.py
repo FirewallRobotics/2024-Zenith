@@ -407,7 +407,7 @@ while testmode == False | (iteration < 3 & testmode == True):
     #cv2.imshow('frame', frame)
     #cv2.imwrite("fulmer2.jpg",frame)
 
-    detections = detector.detect(frame)
+    detections = detector.detect(grayimage)
     if detections:
         #print("Nothing")
         #cv2.putText(frame, "Nothing Detected", (500,500), cv2.FONT_HERSHEY_SIMPLEX, 2.0, (0, 0, 255), 2)
