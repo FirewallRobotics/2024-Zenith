@@ -161,11 +161,10 @@ public final class Constants {
     public static final int kMinionAxleMotorPort = 10;
     public static final int kTopLimitSwitchPort = 5;
 
-    public final double kAimHeight = .01;
-    public static final double kDefaultHeight = .01;
+    public static final double kDefaultHeight = .003;
     public static final double kAmpHeight = .276;
     public static final double kIntakeHeight = .003;
-    public static final double kBasicSpeakerAimHeight = .01;
+    public static final double kBasicSpeakerAimHeight = .003;
     public static double kMeasuredPosHorizontal = 0.023;
     public static double kAxleTestSpeed = .2;
 
@@ -196,7 +195,8 @@ public final class Constants {
 
     public static final double kIntakeMotorSpeed = -1.0;
     public static final double kIndexSpeed = -1.0;
-    public static final double kIndexReverseSpeed = -.2;
+    public static final double kIndexSpeedSlow = -0.1;
+    public static final double kIndexReverseSpeed = .2;
 
     public static final int kIntakeSensorPort = 0;
     public static final int kIntakeOutputPort = 1;

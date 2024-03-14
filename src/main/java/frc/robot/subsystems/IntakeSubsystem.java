@@ -72,6 +72,11 @@ public class IntakeSubsystem extends SubsystemBase {
     speedOfIntake.append("The Index Speed...");
   }
 
+  public void StartIndexSlow() {
+    MasterIntakeMotor.set(IntakeConstants.kIndexSpeedSlow);
+    speedOfIntake.append("The Index Speed...");
+  }
+
   public void StartReverseIndex() {
     MasterIntakeMotor.set(-indexReverseSpeed);
     speedOfIntake.append("The reverse Index Speed...");

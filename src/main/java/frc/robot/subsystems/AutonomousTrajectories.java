@@ -23,11 +23,11 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.AutoAimSpeakerCommand;
 import frc.robot.commands.AutoBasicAimSpeakerCommand;
 import frc.robot.commands.AutoShootSpeakerCommand;
-import frc.robot.commands.AxleDownCommand;
 import frc.robot.commands.IndexCommand;
 import frc.robot.commands.IntakeAxleHeightCommand;
 import frc.robot.commands.IntakeFloorCommand;
 import frc.robot.commands.ReverseIndexCommand;
+import frc.robot.commands.ReverseShooterCommand;
 import frc.robot.commands.ShootSpeakerCommand;
 import java.util.List;
 
@@ -305,7 +305,21 @@ public class AutonomousTrajectories extends SubsystemBase {
             // No additional interior waypoints
             List.of(),
             // End 2 meters straight ahead of where we started, facing forward
-            new Pose2d(1, 0, new Rotation2d(0)),
+            new Pose2d(1.2, 0, new Rotation2d(0)),
+            config);
+
+    return forwardTrajectory;
+  }
+
+  public Trajectory getReverseBasicAutoTrajectory(TrajectoryConfig config) {
+    Trajectory forwardTrajectory =
+        TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(1.2, 0, new Rotation2d(0)),
+            // No additional interior waypoints
+            List.of(),
+            // End 2 meters straight ahead of where we started, facing forward
+            new Pose2d(0, 0, new Rotation2d(0)),
             config);
 
     return forwardTrajectory;
@@ -909,7 +923,7 @@ public class AutonomousTrajectories extends SubsystemBase {
             thetaController));
   }
 
-  public Command getScore2InFrontOfSubwooferCommand(
+  public Command getScore2FromSubwooferCommand(
       DriveSubsystem m_robotDrive,
       AxleSubsystem m_axle,
       IntakeSubsystem m_intake,
@@ -949,17 +963,43 @@ public class AutonomousTrajectories extends SubsystemBase {
       ClimbSubsystem m_climb,
       LEDSubsystem m_led) {
     return new SequentialCommandGroup(
-        new AxleDownCommand(m_axle).withTimeout(0.75),
+        new AutoBasicAimSpeakerCommand(m_axle, m_climb),
         new ParallelCommandGroup(
-                new SequentialCommandGroup(
-                    new WaitCommand(0.25), new ShootSpeakerCommand(m_shooter, m_axle, m_intake)),
-                new SequentialCommandGroup(
-                    new ReverseIndexCommand(m_intake).withTimeout(0.25),
-                    new WaitCommand(2.0),
-                    new IndexCommand(m_intake)))
+                new SequentialCommandGroup(new ShootSpeakerCommand(m_shooter, m_axle, m_intake)),
+                new SequentialCommandGroup(new WaitCommand(1.0), new IndexCommand(m_intake)))
             .withTimeout(2.0),
         getTrajectoryCommand(
             getBasicAutoTrajectory(trajectoryConfig), m_robotDrive, thetaController));
+  }
+
+  public Command getScore2InFrontOfSubwooferCommand(
+      DriveSubsystem m_robotDrive,
+      AxleSubsystem m_axle,
+      IntakeSubsystem m_intake,
+      ShooterSubsystem m_shooter,
+      ClimbSubsystem m_climb,
+      LEDSubsystem m_led) {
+    return new SequentialCommandGroup(
+        new AutoBasicAimSpeakerCommand(m_axle, m_climb),
+        getShootCommandWithTimeout(2.0, m_shooter, m_axle, m_intake),
+        new WaitCommand(1),
+        new ReverseShooterCommand(m_shooter).withTimeout(0.5),
+        new ParallelCommandGroup(
+                getTrajectoryCommand(
+                    getBasicAutoTrajectory(trajectoryConfig), m_robotDrive, thetaController),
+                new IntakeFloorCommand(m_intake, m_axle, m_led))
+            .withTimeout(2.0),
+        getTrajectoryCommand(
+            getReverseBasicAutoTrajectory(trajectoryConfig), m_robotDrive, thetaController),
+        getShootCommandWithTimeout(2.0, m_shooter, m_axle, m_intake));
+  }
+
+  public Command getShootCommandWithTimeout(
+      double timeout, ShooterSubsystem m_shooter, AxleSubsystem m_axle, IntakeSubsystem m_intake) {
+    return new ParallelCommandGroup(
+            new SequentialCommandGroup(new ShootSpeakerCommand(m_shooter, m_axle, m_intake)),
+            new SequentialCommandGroup(new WaitCommand(1.0), new IndexCommand(m_intake)))
+        .withTimeout(timeout);
   }
 
   public Command getDriveStraight(DriveSubsystem m_robotDrive) {

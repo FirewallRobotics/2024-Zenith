@@ -85,7 +85,7 @@ public class AxleSubsystem extends SubsystemBase {
 
   public double getAngle() {
     double currentPos = AxleEncoder.getPosition();
-    double radians = currentPos - AxleConstants.kMeasuredPosHorizontal;
+    double radians = (currentPos - AxleConstants.kMeasuredPosHorizontal) * 2 * Math.PI;
     return radians;
   }
 
@@ -166,6 +166,10 @@ public class AxleSubsystem extends SubsystemBase {
 
   public void setAxleMotorSpeed(double speed) {
     MasterAxleMotor.set(speed);
+  }
+
+  public boolean reachedSetPosition(double setPosition, double error) {
+    return Math.abs(AxleEncoder.getPosition() - setPosition) < error;
   }
 
   // public void DefaultAngle() {}
