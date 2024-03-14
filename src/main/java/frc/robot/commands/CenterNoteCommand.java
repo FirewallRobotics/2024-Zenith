@@ -5,24 +5,23 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.AxleConstants;
-import frc.robot.subsystems.AxleSubsystem;
-import frc.robot.subsystems.ClimbSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 
-public class AutoBasicAimSpeakerCommand extends Command {
-  /** Creates a new AutoBasicAimSpeakerCommand. */
-  private final AxleSubsystem m_Axle;
+public class CenterNoteCommand extends Command {
+  /** Creates a new CenterNoteCommand. */
+  ShooterSubsystem m_shooter;
 
-  private final ClimbSubsystem m_Climb;
+  IntakeSubsystem m_intake;
 
-  public AutoBasicAimSpeakerCommand(AxleSubsystem a_Subsystem, ClimbSubsystem c_Subsystem) {
+  public CenterNoteCommand(ShooterSubsystem s_Subsystem, IntakeSubsystem i_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
 
-    m_Axle = a_Subsystem;
-    m_Climb = c_Subsystem;
+    m_shooter = s_Subsystem;
+    m_intake = i_Subsystem;
 
-    addRequirements(a_Subsystem);
-    addRequirements(c_Subsystem);
+    addRequirements(s_Subsystem);
+    addRequirements(i_Subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -32,7 +31,8 @@ public class AutoBasicAimSpeakerCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Axle.SetBasicSpeakerAimHeight();
+    m_shooter.ReverseShooter();
+    m_intake.StartIndexSlow();
   }
 
   // Called once the command ends or is interrupted.
@@ -42,6 +42,6 @@ public class AutoBasicAimSpeakerCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_Axle.reachedSetPosition(AxleConstants.kBasicSpeakerAimHeight, 0.01);
+    return false;
   }
 }

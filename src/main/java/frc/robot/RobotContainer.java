@@ -87,8 +87,12 @@ public class RobotContainer {
     //     m_trajectories.getScore2InFrontOfSubwooferCommand(
     //         m_robotDrive, m_axle, m_intake, m_shooter, m_climb, m_LED));
     m_chooser.addOption(
-        "Basic Auto: Start in front of Subwoofer, Score 1, Pick up middlfe note",
+        "Basic Auto: Start in front of Subwoofer, Score 1, Park Past Line",
         m_trajectories.getScore1InFrontOfSubwooferCommand(
+            m_robotDrive, m_axle, m_intake, m_shooter, m_climb, m_LED));
+    m_chooser.addOption(
+        "Basic Auto: Start in front of Subwoofer, Score 2, Pick up middle note",
+        m_trajectories.getScore2InFrontOfSubwooferCommand(
             m_robotDrive, m_axle, m_intake, m_shooter, m_climb, m_LED));
     m_chooser.addOption(
         "Red: Start Right, Score 2 Speaker, Pick Up Right Note, Park Far Right",
@@ -188,6 +192,9 @@ public class RobotContainer {
 
     new JoystickButton(m_driverController, Button.kLeftBumper.value)
         .whileTrue(new IntakeFloorCommand(m_intake, m_axle, m_LED));
+    // new SequentialCommandGroup(
+    //   new IntakeFloorCommand(m_intake, m_axle, m_LED),
+    //   new CenterNoteCommand(m_shooter, m_intake)));
 
     // new JoystickButton(m_driverController, Button.kX.value)
     //     .whileTrue(new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LED));

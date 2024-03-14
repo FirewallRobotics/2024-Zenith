@@ -80,4 +80,8 @@ public class ShooterSubsystem extends SubsystemBase {
     VisionSubsystem.UnicornNotify("");
     MasterShooterMotor.set(0);
   }
+
+  public void ReverseShooter() {
+    MasterShooterMotor.set(-shootAmpSpeed);
+  }
 }
