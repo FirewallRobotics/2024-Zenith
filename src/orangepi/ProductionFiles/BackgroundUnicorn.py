@@ -856,8 +856,7 @@ def ShowBuls(brightness, Status):
 
 def ShowSmileAuto(brightness, smilestage):
 	UH.rotation(90)		
-	if Smilestage < 1:
-		print("1")
+	if Smilestage == 1:
 		UH.clear()
 		for i in range(8):
 			for j in range(8):
@@ -1138,7 +1137,7 @@ while True:
         else:
             ShowSmileAuto(100, smileauto)
             smileauto += 1
-            if smileauto > 5:
+            if smileauto == 5:
                 smileauto = 0
     else:
         unicorn_scroll(str("Tag", tagid), 'red', 100, 0.01)
