@@ -81,7 +81,7 @@ public class AimSpeakerCommand extends Command {
       findAimAngle(cameraDistanceToSpeaker);
       findTagXPosition(cameraDistanceToSpeaker, angleOfTag);
 
-      if (targetAimAngle > (AutoAimConstants.kMaxPhysicalAngleDegrees * Math.PI / 180)) {
+      if (targetAimAngle > (Math.toRadians(AutoAimConstants.kMaxPhysicalAngleDegrees))) {
         System.out.println("Too close");
         // Set LEDs for TOO CLOSE
       }
@@ -106,15 +106,11 @@ public class AimSpeakerCommand extends Command {
     }
 
     if (foundTargetAngle) {
-
-      m_Axle.SetAimHeight(targetAimAngle + AutoAimConstants.kPhysicalShooterAngleOffsetDegrees);
+      m_Axle.SetAimWithShooterAngle(targetAimAngle);
 
       successfulAngleAim =
-          (Math.abs(
-                  targetAimAngle
-                      - (m_Axle.getAngle()
-                          + (AutoAimConstants.kPhysicalShooterAngleOffsetDegrees * Math.PI / 180)))
-              < (AutoAimConstants.kShooterAimErrorRangeDegrees * Math.PI / 180));
+          m_Axle.reachedShooterSetPosition(
+              targetAimAngle, Math.toRadians(AutoAimConstants.kShooterAimErrorRangeDegrees));
 
       System.out.println("Angle found - changing to angle");
       // Set LEDs for in range
@@ -135,9 +131,7 @@ public class AimSpeakerCommand extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_Axle.SetDefaultHeight();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
@@ -162,7 +156,7 @@ public class AimSpeakerCommand extends Command {
         cameraDistanceToSpeaker + AutoAimConstants.kLaunchToCameraDifference;
 
     double driveAngle = m_AutoAim.solveForDriveAngle(launchDistanceToSpeaker, angleOfTag);
-    double driveAngleDegrees = driveAngle * Math.PI / 180;
+    double driveAngleDegrees = Math.toDegrees(driveAngle);
 
     double driveAnglePixels =
         driveAngleDegrees * VisionConstants.kCameraCenterX * 2 / VisionConstants.kCameraFOV;
