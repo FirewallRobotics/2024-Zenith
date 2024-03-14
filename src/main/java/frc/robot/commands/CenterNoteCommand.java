@@ -10,8 +10,8 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 public class CenterNoteCommand extends Command {
   /** Creates a new CenterNoteCommand. */
-
   ShooterSubsystem m_shooter;
+
   IntakeSubsystem m_intake;
 
   public CenterNoteCommand(ShooterSubsystem s_Subsystem, IntakeSubsystem i_Subsystem) {

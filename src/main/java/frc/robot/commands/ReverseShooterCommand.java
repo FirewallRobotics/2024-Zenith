@@ -9,7 +9,6 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 public class ReverseShooterCommand extends Command {
   /** Creates a new ReverseShooterCommand. */
-
   ShooterSubsystem m_shooter;
 
   public ReverseShooterCommand(ShooterSubsystem s_Subsystem) {

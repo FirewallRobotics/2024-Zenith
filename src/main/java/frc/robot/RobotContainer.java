@@ -192,10 +192,9 @@ public class RobotContainer {
 
     new JoystickButton(m_driverController, Button.kLeftBumper.value)
         .whileTrue(new IntakeFloorCommand(m_intake, m_axle, m_LED));
-        // new SequentialCommandGroup(
-        //   new IntakeFloorCommand(m_intake, m_axle, m_LED), 
-        //   new CenterNoteCommand(m_shooter, m_intake)));  
-        
+    // new SequentialCommandGroup(
+    //   new IntakeFloorCommand(m_intake, m_axle, m_LED),
+    //   new CenterNoteCommand(m_shooter, m_intake)));
 
     // new JoystickButton(m_driverController, Button.kX.value)
     //     .whileTrue(new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LED));
