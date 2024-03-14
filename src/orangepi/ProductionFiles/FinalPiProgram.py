@@ -363,16 +363,14 @@ if testmode == False:
 #outputStream = CameraServer.putVideo("ApriltTagTest", 640, 480)
 
 # Allocating new images is very expensive, always try to preallocate
-#img = np.zeros(shape=(480, 640, 3), dtype=np.uint8)
+img = np.zeros(shape=(480, 640, 3), dtype=np.uint8)
 #Todo: Make not timed but not stupid
 while testmode == False | (iteration < 3 & testmode == True):
    if Livemode:
         Aprilmode = ConfigTable.getBoolean("Aprilmode", True)
         RingMode = ConfigTable.getBoolean("RingMode", False)
    if testmode == False:
-    dim = cvSnk.read()
-    frame = dim[1]
-    #time, frame = cvSink.grabFrame(img)
+    time, frame = cscore.CvSink.grabFrame(img)
     #if time == 0:
         # Send the output the error.
         # skip the rest of the current iteration
