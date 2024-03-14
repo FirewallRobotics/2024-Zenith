@@ -98,13 +98,43 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>static com.revrobotics.AbsoluteEncoder</code></div>
 <div class="col-second even-row-color"><code><a href="#ArmEncoder" class="member-name-link">ArmEncoder</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>double</code></div>
+<div class="col-second odd-row-color"><code><a href="#finalVelocity" class="member-name-link">finalVelocity</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>double</code></div>
+<div class="col-second even-row-color"><code><a href="#kD" class="member-name-link">kD</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>double</code></div>
+<div class="col-second odd-row-color"><code><a href="#kFF" class="member-name-link">kFF</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>double</code></div>
+<div class="col-second even-row-color"><code><a href="#kI" class="member-name-link">kI</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>double</code></div>
+<div class="col-second odd-row-color"><code><a href="#kIz" class="member-name-link">kIz</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>double</code></div>
+<div class="col-second even-row-color"><code><a href="#kMaxOutput" class="member-name-link">kMaxOutput</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>double</code></div>
+<div class="col-second odd-row-color"><code><a href="#kMinOutput" class="member-name-link">kMinOutput</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>double</code></div>
+<div class="col-second even-row-color"><code><a href="#kP" class="member-name-link">kP</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
 <div class="col-first odd-row-color"><code>static com.revrobotics.CANSparkMax</code></div>
 <div class="col-second odd-row-color"><code><a href="#MasterShooterMotor" class="member-name-link">MasterShooterMotor</a></code></div>
 <div class="col-last odd-row-color">
 <div class="block">Creates a new ShooterSubsystem.</div>
 </div>
-<div class="col-first even-row-color"><code>static com.revrobotics.CANSparkMax</code></div>
-<div class="col-second even-row-color"><code><a href="#MinionShooterMotor" class="member-name-link">MinionShooterMotor</a></code></div>
+<div class="col-first even-row-color"><code>double</code></div>
+<div class="col-second even-row-color"><code><a href="#maxRPM" class="member-name-link">maxRPM</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>static com.revrobotics.CANSparkMax</code></div>
+<div class="col-second odd-row-color"><code><a href="#MinionShooterMotor" class="member-name-link">MinionShooterMotor</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>static com.revrobotics.RelativeEncoder</code></div>
+<div class="col-second even-row-color"><code><a href="#ShooterEncoder" class="member-name-link">ShooterEncoder</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
@@ -191,6 +221,66 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="ArmEncoder">
 <h3>ArmEncoder</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">com.revrobotics.AbsoluteEncoder</span>&nbsp;<span class="element-name">ArmEncoder</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="ShooterEncoder">
+<h3>ShooterEncoder</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">com.revrobotics.RelativeEncoder</span>&nbsp;<span class="element-name">ShooterEncoder</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="finalVelocity">
+<h3>finalVelocity</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">finalVelocity</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="kP">
+<h3>kP</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">kP</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="kI">
+<h3>kI</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">kI</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="kD">
+<h3>kD</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">kD</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="kIz">
+<h3>kIz</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">kIz</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="kFF">
+<h3>kFF</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">kFF</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="kMaxOutput">
+<h3>kMaxOutput</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">kMaxOutput</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="kMinOutput">
+<h3>kMinOutput</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">kMinOutput</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="maxRPM">
+<h3>maxRPM</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">maxRPM</span></div>
 </section>
 </li>
 </ul>
