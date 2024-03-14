@@ -75,7 +75,7 @@ public class AutoAimSpeakerCommand extends Command {
       findAimAngle(cameraDistanceToSpeaker);
       findTagXPosition(cameraDistanceToSpeaker, angleOfTag);
 
-      if (targetAimAngle > (AutoAimConstants.kMaxPhysicalAngleDegrees * Math.PI / 180)) {
+      if (targetAimAngle > (Math.toRadians(AutoAimConstants.kMaxPhysicalAngleDegrees))) {
         System.out.println("Too close");
         // Set LEDs for TOO CLOSE
       }
@@ -100,14 +100,11 @@ public class AutoAimSpeakerCommand extends Command {
     }
 
     if (foundTargetAngle) {
-      m_Axle.SetAimHeight(targetAimAngle + AutoAimConstants.kPhysicalShooterAngleOffsetDegrees);
+      m_Axle.SetAimWithShooterAngle(targetAimAngle);
 
       successfulAngleAim =
-          (Math.abs(
-                  targetAimAngle
-                      - (m_Axle.getAngle()
-                          + (AutoAimConstants.kPhysicalShooterAngleOffsetDegrees * Math.PI / 180)))
-              < (AutoAimConstants.kShooterAimErrorRangeDegrees * Math.PI / 180));
+          m_Axle.reachedShooterSetPosition(
+              targetAimAngle, Math.toRadians(AutoAimConstants.kShooterAimErrorRangeDegrees));
 
       System.out.println("Angle found - changing to angle");
       // Set LEDs for in range
@@ -118,6 +115,11 @@ public class AutoAimSpeakerCommand extends Command {
     } else {
       System.out.println("Not in range");
       // Set LEDs for not in range
+    }
+
+    if (successfulAngleAim && successfulDriveAim) {
+      System.out.println("Successful Aim!");
+      // Set LEDs for aimed successfully
     }
   }
 
@@ -150,7 +152,7 @@ public class AutoAimSpeakerCommand extends Command {
         cameraDistanceToSpeaker + AutoAimConstants.kLaunchToCameraDifference;
 
     double driveAngle = m_AutoAim.solveForDriveAngle(launchDistanceToSpeaker, angleOfTag);
-    double driveAngleDegrees = driveAngle * Math.PI / 180;
+    double driveAngleDegrees = Math.toDegrees(driveAngle);
 
     double driveAnglePixels =
         driveAngleDegrees * VisionConstants.kCameraCenterX * 2 / VisionConstants.kCameraFOV;

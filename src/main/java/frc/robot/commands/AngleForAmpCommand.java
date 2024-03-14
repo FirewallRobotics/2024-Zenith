@@ -26,9 +26,9 @@ public class AngleForAmpCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_AxleSubsystem.getAngle() > neededRadians) {
+    if (m_AxleSubsystem.getAngleRadians() > neededRadians) {
       m_AxleSubsystem.AxleDown();
-    } else if (m_AxleSubsystem.getAngle() < neededRadians) {
+    } else if (m_AxleSubsystem.getAngleRadians() < neededRadians) {
       m_AxleSubsystem.AxleUp();
     }
   }
@@ -40,7 +40,7 @@ public class AngleForAmpCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (m_AxleSubsystem.getAngle() == neededRadians) {
+    if (m_AxleSubsystem.getAngleRadians() == neededRadians) {
       return true;
     }
     return false;

@@ -83,10 +83,14 @@ public class AxleSubsystem extends SubsystemBase {
     System.out.println("Following Axle Motor Speed" + MinionAxleMotor.getAppliedOutput());
   }
 
-  public double getAngle() {
+  public double getAngleRadians() {
     double currentPos = AxleEncoder.getPosition();
     double radians = (currentPos - AxleConstants.kMeasuredPosHorizontal) * 2 * Math.PI;
     return radians;
+  }
+
+  public double getShooterAngleRadians() {
+    return Math.toRadians(AxleConstants.kAxleToShooterInvertOffsetDeg) - getAngleRadians();
   }
 
   @Override
@@ -120,8 +124,12 @@ public class AxleSubsystem extends SubsystemBase {
     GravityOffset(testHeight);
   }
 
-  public void SetAimHeight(double angle) {
-    GravityOffset(angle);
+  public void SetAimHeight(double angleRadians) {
+    GravityOffset(angleRadians / 2 / Math.PI);
+  }
+
+  public void SetAimWithShooterAngle(double shooterAngle) {
+    SetAimHeight(Math.toRadians(AxleConstants.kAxleToShooterInvertOffsetDeg) - shooterAngle);
   }
 
   public void SetAmpHeight() {
@@ -170,6 +178,10 @@ public class AxleSubsystem extends SubsystemBase {
 
   public boolean reachedSetPosition(double setPosition, double error) {
     return Math.abs(AxleEncoder.getPosition() - setPosition) < error;
+  }
+
+  public boolean reachedShooterSetPosition(double setPosition, double error) {
+    return Math.abs(getShooterAngleRadians() - setPosition) < error;
   }
 
   // public void DefaultAngle() {}
