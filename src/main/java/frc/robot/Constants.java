@@ -180,6 +180,8 @@ public final class Constants {
 
     public static final double kShootSpeakerSpeed = 1;
     public static final double kShootAmpSpeed = .2;
+
+    public static final double kTestVelocity = 50.0;
   }
 
   public static final class UltrasonicConstants {

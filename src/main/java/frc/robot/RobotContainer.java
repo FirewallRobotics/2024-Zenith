@@ -20,9 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.Constants.AutoConstants;
@@ -177,12 +175,16 @@ public class RobotContainer {
     // new JoystickButton(m_driverController, Button.kR1.value)
     //     .whileTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
 
-    new JoystickButton(m_driverController, Button.kRightBumper.value)
-        .whileTrue(
-            new ParallelCommandGroup(
-                new SequentialCommandGroup(new ShootSpeakerCommand(m_shooter, m_axle, m_intake)),
-                new SequentialCommandGroup(new WaitCommand(1), new IndexCommand(m_intake))));
+    // THIS IS THE OG SHOOTER. DO NOT DELETE IN CASE I HAVE MESSED UP.
+    // new JoystickButton(m_driverController, Button.kRightBumper.value)
+    //    .whileTrue(
+    //        new ParallelCommandGroup(
+    //            new SequentialCommandGroup(new ShootSpeakerCommand(m_shooter, m_axle, m_intake)),
+    //            new SequentialCommandGroup(new WaitCommand(1), new IndexCommand(m_intake))));
 
+    // New shooter. Hasn't been tested.
+    new JoystickButton(m_driverController, Button.kRightBumper.value)
+        .whileTrue(new ShootAtVelocityCommand(m_shooter, m_intake));
     // new JoystickButton(m_driverController, Button.kRightBumper.value)
     //     .whileTrue(new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
 
