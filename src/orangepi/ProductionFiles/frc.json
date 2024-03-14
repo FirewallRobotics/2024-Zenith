@@ -1,0 +1,21 @@
+
+   {
+       "team": 5607,
+       "ntmode": "client",
+       "cameras": [
+           {
+               "name": "USB Camera 0",
+               "path": "/dev/video0",
+               "width": "360",
+               "height": "180"
+               
+          }
+       ],
+       "switched cameras": [
+          {
+               "name": "pi5",
+              "key": "pi5"
+             
+          }
+      ]
+  }

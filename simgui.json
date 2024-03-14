@@ -1,10 +1,13 @@
 {
   "HALProvider": {
-    "Other Devices": {
-      "SPARK MAX [9]": {
-        "header": {
-          "open": true
-        }
+    "Addressable LEDs": {
+      "window": {
+        "visible": true
+      }
+    },
+    "PWM Outputs": {
+      "window": {
+        "visible": true
       }
     }
   },
@@ -12,9 +15,74 @@
     "types": {
       "/FMSInfo": "FMSInfo",
       "/SmartDashboard/SendableChooser[0]": "String Chooser"
+    },
+    "windows": {
+      "/SmartDashboard/SendableChooser[0]": {
+        "window": {
+          "visible": true
+        }
+      }
+    }
+  },
+  "NetworkTables": {
+    "retained": {
+      "SmartDashboard": {
+        "open": true
+      }
+    },
+    "transitory": {
+      "CameraPublisher": {
+        "ApriltTagTest": {
+          "open": true,
+          "string[]##v_/CameraPublisher/ApriltTagTest/streams": {
+            "open": true
+          }
+        },
+        "USB Camera 0": {
+          "open": true,
+          "string[]##v_/CameraPublisher/USB Camera 0/modes": {
+            "open": true
+          },
+          "string[]##v_/CameraPublisher/USB Camera 0/streams": {
+            "open": true
+          }
+        },
+        "open": true
+      },
+      "LiveWindow": {
+        ".status": {
+          "open": true
+        }
+      },
+      "Shuffleboard": {
+        ".metadata": {
+          "open": true
+        }
+      },
+      "UnicornHatRIO": {
+        "open": true
+      },
+      "myCamPub": {
+        "open": true
+      }
     }
   },
   "NetworkTables Info": {
+    "Clients": {
+      "open": true
+    },
+    "Server": {
+      "open": true
+    },
+    "shuffleboard@1": {
+      "Publishers": {
+        "open": true
+      },
+      "Subscribers": {
+        "open": true
+      },
+      "open": true
+    },
     "visible": true
   }
 }

@@ -176,3 +176,6 @@ logs/
 
 # Folder that has CTRE Phoenix Sim device config storage
 ctre_sim/
+Log Files/wpilogs/FRC_20240310_172430.wpilog
+Log Files/wpilogs/FRC_TBD_314bdc83f04ec947.wpilog
+*.wpilog

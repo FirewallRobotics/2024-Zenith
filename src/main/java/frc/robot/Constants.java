@@ -189,6 +189,7 @@ public final class Constants {
 
   public static final class LEDConstants {
     public static final int kLEDPort = 8;
+    public static final int kNUM_LEDS = 27;
   }
 
   public static final class IntakeConstants {
