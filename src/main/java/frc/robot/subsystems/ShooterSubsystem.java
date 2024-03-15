@@ -47,6 +47,12 @@ public class ShooterSubsystem extends SubsystemBase {
     DataLog log = DataLogManager.getLog();
     shooterActive = new StringLogEntry(log, "Shooters Shoot");
 
+    MinionShooterMotor.follow(MasterShooterMotor, false);
+
+    ShooterEncoder = MasterShooterMotor.getEncoder();
+    m_pidController = MasterShooterMotor.getPIDController();
+
+    m_pidController.setFeedbackDevice(ShooterEncoder);
     // PID coefficients
     kP = 6e-5;
     kI = 0;
@@ -74,6 +80,7 @@ public class ShooterSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Max Output Shooter:", kMaxOutput);
     SmartDashboard.putNumber("Min Output Shooter:", kMinOutput);
 
+    SmartDashboard.putNumber("Testing Velocity", finalVelocity);
     // MasterShooterMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward,
     // true);
     // MasterShooterMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse,
@@ -84,10 +91,6 @@ public class ShooterSubsystem extends SubsystemBase {
 
     // MasterIntakeMotor.setIdleMode(IdleMode.kCoast);
 
-    MinionShooterMotor.follow(MasterShooterMotor, false);
-
-    ShooterEncoder = MasterShooterMotor.getEncoder();
-    m_pidController = MasterShooterMotor.getPIDController();
   }
 
   @Override
