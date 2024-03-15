@@ -33,7 +33,6 @@ from scipy.spatial.transform import Rotation
 
 from cscore import CameraServer as CS
 # import added in an attempt to get feeds on thr Shuffleboard display... not needed for browser viewing
-from wpilib.shuffleboard import Shuffleboard
 
 # pulled from testAprilTagrecognition.py
 def distance_to_camera(knownWidth, focalLength, perWidth):
@@ -44,7 +43,7 @@ def distance_to_camera(knownWidth, focalLength, perWidth):
 def find_marker(image):
 	# convert the image to grayscale, blur it, and detect edges
 	# gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    image = cv2.GaussianBlur(image, (5, 5), 0)
+    #image = cv2.GaussianBlur(image, (5, 5), 0)
     edged = cv2.Canny(image, 35, 125)
 	# find the contours in the edged image and keep the largest one;
 	# we'll assume that this is our piece of paper in the image
@@ -110,6 +109,7 @@ def main():
         # Tell the CvSink to grab a frame from the camera and put it
         # in the source image.  If there is an error notify the output.
         time, img = cvSink.grabFrame(img)
+        img = np.rot90(np.rot90(img, 1), 1)
         if time == 0:
             # Send the output the error.
             outputStream.notifyError(cvSink.getError())
@@ -127,7 +127,6 @@ def main():
             myStrPub.set("status : iteration is {}. Nothing detected".format(iteration))
             cv2.putText(img, "Nothing Detected", (100,100), cv2.FONT_HERSHEY_SIMPLEX, 2.0, (0, 0, 255), 2)
             outputStream.putFrame(img)
-            Shuffleboard.update()
             continue
         else :
             for detect in detections:
@@ -159,9 +158,8 @@ def main():
 
         # Give the output stream a new image to display
         outputStream.putFrame(img)
-        Shuffleboard.update()
         
-        myStrPub =table.getStringTopic(str("Cam1_Status")).publish()
+        myStrPub = table.getStringTopic(str("Cam1_Status")).publish()
 
         myStrPub.set("status : iteration is {}".format(iteration))
         iteration+=1
@@ -177,7 +175,7 @@ if __name__ == "__main__":
     # import ntcore
     nt = ntcore.NetworkTableInstance.getDefault()
     # nt.setServerTeam(XXXX)
-    nt.setServer("localhost")
+    nt.setServer("10.56.7.2")
     # nt.startClient4(__file__)
     nt.startClient4("myCamPub vision client")
     table = nt.getTable("myCamPub")
