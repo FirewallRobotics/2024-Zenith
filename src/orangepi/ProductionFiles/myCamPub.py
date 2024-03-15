@@ -30,6 +30,7 @@ import ntcore
 import apriltag
 import imutils
 from scipy.spatial.transform import Rotation
+import sys
 
 from cscore import CameraServer as CS
 # import added in an attempt to get feeds on thr Shuffleboard display... not needed for browser viewing
@@ -77,7 +78,7 @@ def main():
     # nice part of sample code enables internal logging of the CameraServer code
     CS.enableLogging()
 
-    camera = CS.startAutomaticCapture()
+    camera = CS.startAutomaticCapture(1)
 
     camera.setResolution(640, 480)
 
@@ -101,7 +102,7 @@ def main():
 
     # iteration updated in status to NT tables to make sure program is still alive
     iteration= 0
-    myStrPub =table.getStringTopic(str("Cam1_Status")).publish()
+    myStatusPub =table.getStringTopic(str("Cam1_Status")).publish()
 
     myStrPub.set("status : iteration is {}".format(iteration))
 
@@ -109,7 +110,7 @@ def main():
         # Tell the CvSink to grab a frame from the camera and put it
         # in the source image.  If there is an error notify the output.
         time, img = cvSink.grabFrame(img)
-        img = np.rot90(np.rot90(img, 1), 1)
+        #img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
         if time == 0:
             # Send the output the error.
             outputStream.notifyError(cvSink.getError())
@@ -124,16 +125,16 @@ def main():
         detections = detector.detect(img)
         if not detections:
             #  Notify that no tags are detected on image
-            myStrPub.set("status : iteration is {}. Nothing detected".format(iteration))
-            cv2.putText(img, "Nothing Detected", (100,100), cv2.FONT_HERSHEY_SIMPLEX, 2.0, (0, 0, 255), 2)
+            myStatusPub.set("status : iteration is {}. Nothing detected".format(iteration))
+            cv2.putText(img, "Nothing Detected", (1,1), cv2.FONT_HERSHEY_SIMPLEX, 2.0, (0, 0, 255), 2)
             outputStream.putFrame(img)
             continue
         else :
             for detect in detections:
                  marker = find_marker(img)
                  distance = distance_to_camera(FRCtagSize,fx,marker[1][0])
-                 myStrPub.set("status : Distance to marker is {}.".format(distance))
-                 cv2.putText(img, "Distance: {}".format(distance), (200,200), cv2.FONT_HERSHEY_SIMPLEX, 2.0, (0, 0, 255), 2)
+                 myStatusPub.set("status : Distance to marker is {}.".format(distance))
+                 cv2.putText(img, "Distance: {}".format(distance), (20,20), cv2.FONT_HERSHEY_SIMPLEX, 2.0, (0, 0, 255), 2)
 
                 # Processing pulled from FianlPiProgram
                  pos, e1,f1=detector.detection_pose( detect, cameraParams, FRCtagSize, z_sign=1)
@@ -142,7 +143,7 @@ def main():
                  euler_angles = rotation.as_euler('xyz')
                  pos = np.degrees(euler_angles)
                  pos_string = ("POS euler_angle: %s" % (str(pos)))
-                 cv2.putText(img, pos_string, (600,600),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                 cv2.putText(img, pos_string, (60,60),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
                  # Label corner of tags with id
                  cornerIndex=0
@@ -152,16 +153,16 @@ def main():
                         tagId=("AprilTagId %s" % (str(detect.tag_id)))
                         cv2.putText(img, tagId, org, cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
                     cornerIndex+=1
-                 myStrPub =table.getStringTopic(str(detect.tag_id)).publish()
-                 tag_dat= '{ "POS_euler": ' + '"{}",'.format(pos) + '"distance": "{}" }'.format(distance)
-                 myStrPub.set(tag_dat)
+                 myATPosFieldPub =table.getStringTopic("AT_POS/"+str(detect.tag_id)).publish()
+                 tag_data = '{{  "POS_euler": {},\n  "distance": "{}"}}'.format(pos, distance)
+                 myATPosFieldPub.set(tag_data)
 
-        # Give the output stream a new image to display
-        outputStream.putFrame(img)
+                 # Give the output stream a new image to display
+                 outputStream.putFrame(img)
         
-        myStrPub = table.getStringTopic(str("Cam1_Status")).publish()
+        myStatusPub = table.getStringTopic(str("Cam1_Status")).publish()
 
-        myStrPub.set("status : iteration is {}".format(iteration))
+        myStatusPub.set("status : iteration is {}".format(iteration))
         iteration+=1
        
 
@@ -175,7 +176,12 @@ if __name__ == "__main__":
     # import ntcore
     nt = ntcore.NetworkTableInstance.getDefault()
     # nt.setServerTeam(XXXX)
-    nt.setServer("10.56.7.2")
+
+    if len(sys.argv) > 1:
+     server = sys.argv[1]
+    else:
+     server="10.56.7.2"
+    nt.setServer(server)
     # nt.startClient4(__file__)
     nt.startClient4("myCamPub vision client")
     table = nt.getTable("myCamPub")
