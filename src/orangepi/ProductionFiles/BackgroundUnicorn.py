@@ -1133,6 +1133,12 @@ while True:
         auto = False
     if tagid == "":
         if(auto == False):
+            if Shoot == "ShootingAmp":
+               ShowBuls(100, "Amp")
+            if Shoot == "ShootingSpeaker":
+               ShowBuls(100, "Speaker")
+            if Shoot == "Climb":
+               ShowBuls(100, "Speaker")
             ShowSmile(100, Smilestage)
         else:
             ShowSmileAuto(100, smileauto)
