@@ -856,45 +856,44 @@ def ShowBuls(brightness, Status):
 
 def ShowSmileAuto(brightness, smilestage):
 	UH.rotation(90)		
-	if Smilestage < 61:
-		print("1")
+	if Smilestage <= 1:
 		UH.clear()
 		for i in range(8):
 			for j in range(8):
 				if Smile1A[j][i]:
-					UH.set_pixel(j,flip[i],brightness,0,0)
+					UH.set_pixel(j,flip[i],0,brightness,0)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
-	elif Smilestage == 61:
+	elif Smilestage == 2:
 		UH.clear()
 		for i in range(8):
 			for j in range(8):
 				if Smile2A[j][i]:
-					UH.set_pixel(j,flip[i],brightness,0,0)
+					UH.set_pixel(j,flip[i],0,brightness,0)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
-	elif Smilestage == 62:
+	elif Smilestage == 3:
 		UH.clear()
 		for i in range(8):
 			for j in range(8):
 				if Smile3A[j][i]:
-					UH.set_pixel(j,flip[i],brightness,0,0)
+					UH.set_pixel(j,flip[i],0,brightness,0)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
-	elif Smilestage == 63:
+	elif Smilestage == 4:
 		UH.clear()
 		for i in range(8):
 			for j in range(8):
 				if Smile2A[j][i]:
-					UH.set_pixel(j,flip[i],brightness,0,0)
+					UH.set_pixel(j,flip[i],0,brightness,0)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
-	elif Smilestage == 64:
+	elif Smilestage == 5:
 		UH.clear()
 		for i in range(8):
 			for j in range(8):
 				if Smile1A[j][i]:
-					UH.set_pixel(j,flip[i],brightness,0,0)
+					UH.set_pixel(j,flip[i],0,brightness,0)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
 	UH.show()
@@ -1118,6 +1117,7 @@ except:
 Brightmulti = 1
 Smilestage = 0
 smileauto = 0
+auto = False
 
 while True:
     try:
@@ -1125,18 +1125,28 @@ while True:
         tagid = table2.getString("TagID", "")
     except:
         print("rip")
-    if (Shoot != "ShootingAmp"):
-        if(Shoot != "ShootingSpeaker"):
-            if tagid == "":
-                if(Shoot != "AutoStart"):
-                   ShowSmile(100, Smilestage)
-                else:
-                    ShowSmileAuto(100, smileauto)
-                    smileauto += 1
-                    if smileauto > 64:
-                        smileauto = 0
-            else:
-                unicorn_scroll(str("Tag", tagid), 'red', 100, 0.01)
+    if Shoot == "AutoStart":
+        auto = True
+    if Shoot == "Disabled":
+        auto = False
+    if Shoot == "TeleStart":
+        auto = False
+    if tagid == "":
+        if(auto == False):
+            if Shoot == "ShootingAmp":
+               ShowBuls(100, "Amp")
+            if Shoot == "ShootingSpeaker":
+               ShowBuls(100, "Speaker")
+            if Shoot == "Climb":
+               ShowBuls(100, "Speaker")
+            ShowSmile(100, Smilestage)
+        else:
+            ShowSmileAuto(100, smileauto)
+            smileauto += 1
+            if smileauto >= 5:
+                smileauto = 1
+    else:
+        unicorn_scroll(str("Tag", tagid), 'red', 100, 0.01)
     time.sleep(0.2)
     Smilestage += 1
     if Smilestage > 66:
