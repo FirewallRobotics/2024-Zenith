@@ -1132,7 +1132,7 @@ while True:
     if Shoot == "TeleStart":
         auto = False
     if tagid == "":
-        if Shoot == "Disabled":
+        if Shoot != "Disabled":
          if(auto == False):
              if Shoot == "ShootingAmp":
                 ShowBuls(100, "Amp")

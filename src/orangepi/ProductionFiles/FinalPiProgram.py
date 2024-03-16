@@ -355,6 +355,7 @@ TagNum = ""
 while testmode == False | (iteration < 3 & testmode == True):
    if testmode == False:
     time, frame = cvSink.grabFrame(img)
+    frame = np.rot90(np.rot90(frame, 1), 1)
    else:
       frame = cv2.imread('test.jpg')
 
@@ -413,12 +414,12 @@ while testmode == False | (iteration < 3 & testmode == True):
 
             #sends the tag data named the t(str(detect.tag_id)).publish()ag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
             if testmode == False:
-                table.putString(str(detect.tag_id, "TimeSeen"), ntcore._now())
-                table.putString(str(detect.tag_id, "Center"), detect.center)
-                table.putString(str(detect.tag_id, "TopLft"), detect.corners[0])
-                table.putString(str(detect.tag_id, "BotRht"), detect.corners[2])
-                table.putString(str(detect.tag_id, "Dist"), distance)
-                table.putString(str(detect.tag_id, "XYZ"), pos)
+                table.putNumber((str(detect.tag_id) + "TimeSeen"), ntcore._now())
+                table.putNumberArray((str(detect.tag_id) + "Center"), detect.center)
+                table.putNumberArray((str(detect.tag_id) + "TopLft"), detect.corners[0])
+                table.putNumberArray((str(detect.tag_id) + "BotRht"), detect.corners[2])
+                table.putNumber((str(detect.tag_id) + "Dist"), distance)
+                table.putNumberArray((str(detect.tag_id) + "XYZ"), pos)
             #print("tag_id: %s, center: %s, corners: %s, corner.top_left: %s , corner.bottom-right: %s" % (detect.tag_id, detect.center, detect.corners[0:], detect.corners[0], detect.corners[2]))
             frame=plotPoint(frame, detect.center, (255,0,255)) #purpe center
             cornerIndex=0
