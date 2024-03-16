@@ -104,8 +104,10 @@ public class ClimbSubsystem extends SubsystemBase {
 
   public void ClimberUp() {
     if (bottomLimitSwitch.isPressed()) {
+      VisionSubsystem.UnicornNotify("ClimbStop");
       stopClimb();
     } else {
+      VisionSubsystem.UnicornNotify("Climb");
       climbMotorMaster.set(climbConstants.kClimbMotorPortSpeed);
     }
     System.out.println("Climbing...");
