@@ -177,10 +177,10 @@ public final class Constants {
     public static final int kMasterShooterMotorPort = 11;
     public static final int kMinionShooterMotorPort = 12;
 
-    public static final double kShootSpeakerSpeed = 1;
+    public static final double kShootSpeakerSpeed = 0.5;
     public static final double kShootAmpSpeed = .2;
 
-    public static final double kTestVelocity = 50.0;
+    public static final double kTestVelocity = 100.0;
   }
 
   public static final class UltrasonicConstants {

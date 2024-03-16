@@ -39,16 +39,16 @@ public class VisionSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
 
-    tags = aprilTagsTable.getKeys();
+    // tags = aprilTagsTable.getKeys();
 
-    if (checkForSpeakerTag()) {
-      System.out.println("Distance to Tag -> " + getSpeakerTagDistanceToTag());
-      System.out.println("CenterX -> " + getSpeakerTagCenterX());
-      System.out.println("RotationZ -> " + getSpeakerTagRotationZ());
-    } else {
-      // System.out.print("No Speaker Tag - Current Tags: ");
-      // printAllTags();
-    }
+    // if (checkForSpeakerTag()) {
+    //   System.out.println("Distance to Tag -> " + getSpeakerTagDistanceToTag());
+    //   System.out.println("CenterX -> " + getSpeakerTagCenterX());
+    //   System.out.println("RotationZ -> " + getSpeakerTagRotationZ());
+    // } else {
+    //   // System.out.print("No Speaker Tag - Current Tags: ");
+    //   // printAllTags();
+    // }
   }
 
   public boolean checkForSpeakerTag() {
