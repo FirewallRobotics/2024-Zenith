@@ -34,8 +34,6 @@ public class ShooterSubsystem extends SubsystemBase {
   private SparkPIDController m_pidController;
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
 
-  private boolean shooterPidActive = false;
-
   public ShooterSubsystem() {
     MasterShooterMotor =
         new CANSparkMax(ShooterConstants.kMasterShooterMotorPort, MotorType.kBrushless);
@@ -44,6 +42,10 @@ public class ShooterSubsystem extends SubsystemBase {
 
     MasterShooterMotor.restoreFactoryDefaults();
     MinionShooterMotor.restoreFactoryDefaults();
+
+    MasterShooterMotor.setSmartCurrentLimit(35);
+    MinionShooterMotor.setSmartCurrentLimit(35);
+    
     DataLog log = DataLogManager.getLog();
     shooterActive = new StringLogEntry(log, "Shooters Shoot");
 
@@ -54,11 +56,11 @@ public class ShooterSubsystem extends SubsystemBase {
 
     m_pidController.setFeedbackDevice(ShooterEncoder);
     // PID coefficients
-    kP = 6e-5;
+    kP = 0.0;
     kI = 0;
     kD = 0;
     kIz = 0;
-    kFF = 0.000015;
+    kFF = 0.0;
     kMaxOutput = 1;
     kMinOutput = -1;
     maxRPM = 5700;
@@ -91,20 +93,25 @@ public class ShooterSubsystem extends SubsystemBase {
 
     // MasterIntakeMotor.setIdleMode(IdleMode.kCoast);
 
+    MasterShooterMotor.burnFlash();
+    MinionShooterMotor.burnFlash();
   }
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Shooter 11 Current:", MasterShooterMotor.getOutputCurrent());
+    SmartDashboard.putNumber("Shooter 12 Current:", MinionShooterMotor.getOutputCurrent());
+
     // This method will be called once per scheduler run
 
     // read PID coefficients from SmartDashboard
-    double p = SmartDashboard.getNumber("P Gain", 0);
-    double i = SmartDashboard.getNumber("I Gain", 0);
-    double d = SmartDashboard.getNumber("D Gain", 0);
-    double iz = SmartDashboard.getNumber("I Zone", 0);
-    double ff = SmartDashboard.getNumber("Feed Forward", 0);
-    double max = SmartDashboard.getNumber("Max Output", 0);
-    double min = SmartDashboard.getNumber("Min Output", 0);
+    double p = SmartDashboard.getNumber("P Gain Shooter:", 0);
+    double i = SmartDashboard.getNumber("I Gain Shooter:", 0);
+    double d = SmartDashboard.getNumber("D Gain Shooter:", 0);
+    double iz = SmartDashboard.getNumber("I Zone Shooter:", 0);
+    double ff = SmartDashboard.getNumber("Feed Forward Shooter:", 0);
+    double max = SmartDashboard.getNumber("Max Output Shooter:", 0);
+    double min = SmartDashboard.getNumber("Min Output Shooter:", 0);
 
     // if PID coefficients on SmartDashboard have changed, write new values to controller
     if ((p != kP)) {
@@ -137,23 +144,28 @@ public class ShooterSubsystem extends SubsystemBase {
     finalVelocity = SmartDashboard.getNumber("Testing Velocity", finalVelocity);
 
     SmartDashboard.putNumber("Current Velocity:", ShooterEncoder.getVelocity());
-
-    if (shooterPidActive) {
-      m_pidController.setReference(finalVelocity, CANSparkMax.ControlType.kVelocity);
-    }
   }
 
   public void ShootAmp() {
     MasterShooterMotor.set(shootAmpSpeed);
+
     System.out.println("Shooting at the Amp...");
     shooterActive.append("Shooting at log Amp...");
     VisionSubsystem.UnicornNotify("ShootingAmp");
   }
 
-  public void ShootSpeaker() {
-    shooterPidActive = true;
+  public void ShootSpeakerWithPID() {
+    m_pidController.setReference(finalVelocity, CANSparkMax.ControlType.kVelocity);
+
     VisionSubsystem.UnicornNotify("ShootingSpeaker");
+    System.out.println("Shooting at the Speaker...");
+    shooterActive.append("Shooting at log Speaker...");
+  }
+
+  public void ShootSpeaker() {
     MasterShooterMotor.set(shootSpeakerSpeed);
+
+    VisionSubsystem.UnicornNotify("ShootingSpeaker");
     System.out.println("Shooting at the Speaker...");
     shooterActive.append("Shooting at log Speaker...");
   }
@@ -163,9 +175,9 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void StopShoot() {
-    VisionSubsystem.UnicornNotify("");
     MasterShooterMotor.set(0);
-    shooterPidActive = false;
+    
+    VisionSubsystem.UnicornNotify("");
   }
 
   public void ReverseShooter() {
