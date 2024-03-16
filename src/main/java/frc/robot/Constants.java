@@ -205,6 +205,7 @@ public final class Constants {
 
     // May need to swap this value after testing the sensor
     public static final boolean kIntakeSensorNoteDetected = false;
+    public static final boolean kOutputSensorNoteDetected = false;
   }
 
   public static final class climbConstants {
