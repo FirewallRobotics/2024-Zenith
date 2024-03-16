@@ -413,8 +413,12 @@ while testmode == False | (iteration < 3 & testmode == True):
 
             #sends the tag data named the t(str(detect.tag_id)).publish()ag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
             if testmode == False:
-                myStrPub =table.getStringTopic(str(detect.tag_id)).publish()
-                myStrPub.set('{"Center": detect.center, "TopLft": detect.corners[0], "BotRht": detect.corners[2], "Dist": distance, "XYZ": pos}' )
+                table.putString(str(detect.tag_id, "TimeSeen"), ntcore._now())
+                table.putString(str(detect.tag_id, "Center"), detect.center)
+                table.putString(str(detect.tag_id, "TopLft"), detect.corners[0])
+                table.putString(str(detect.tag_id, "BotRht"), detect.corners[2])
+                table.putString(str(detect.tag_id, "Dist"), distance)
+                table.putString(str(detect.tag_id, "XYZ"), pos)
             #print("tag_id: %s, center: %s, corners: %s, corner.top_left: %s , corner.bottom-right: %s" % (detect.tag_id, detect.center, detect.corners[0:], detect.corners[0], detect.corners[2]))
             frame=plotPoint(frame, detect.center, (255,0,255)) #purpe center
             cornerIndex=0
@@ -440,8 +444,7 @@ while testmode == False | (iteration < 3 & testmode == True):
             #print("Saved!")
     
     if Livemode:
-        myStrPub2 = table2.getStringTopic("TagID").publish()
-        myStrPub2.set('{"TagID": TagNum}')
+        table2.putString("TagID", TagNum)
 
    #cv2.imshow('frame', frame)
    #cv2.waitKey(1)
