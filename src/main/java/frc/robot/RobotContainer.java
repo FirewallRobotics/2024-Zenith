@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.revrobotics.REVPhysicsSim;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -341,6 +342,11 @@ public class RobotContainer {
           .andThen(bonusSwerveControllerCommand)
           .andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
     }
+  }
+
+  /** Run simlation related methods */
+  public void simulationPeriodic() {
+    REVPhysicsSim.getInstance().run();
   }
 
   private Trajectory getExampleTrajectory(TrajectoryConfig config) {
