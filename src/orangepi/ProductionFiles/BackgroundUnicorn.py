@@ -1074,36 +1074,36 @@ def randcolor():
     color = colors[Numcol]
     return color
 
-#funny_phrases = [
-#    "404 Humor not found",
-#    "Im not lazy im in energy-saving mode",
-#    "When testing is over. you will be baked and there will be cake.",
-#    "ChatGPT is my best friend",
-#    "Not antisocial just user unfriendly",
-#    "hold on justa little while longer - hold on justa little while longer",
-#    "it works why",
-#    "flip the world",
-#    "lttstore.com",
-#    "binary is as easy as 01 10 11",
-#    "my attitude isnt bad its in beta",
-#    "ctrl+c ctrl+v",
-#    "i use arch btw",
-#    "wpi bye",
-#    "help i am blind",
-#    "omg they killed kenny",
-#    "a robot gets arrested - charged with battery",
-#    "does r2d2 have any brothers - no only transitors",
-#	"Before we start. however. keep in mind that while fun and learning are the primary goals of all enrichment center activitys. serious injuries may occur.",
-#	"For your own safety and the safety of others please refrain from touching (bzzzzzt)",
-#	"Lets be honest. neither one of us knows what that thing does. just put it in the corner. and Ill deal with it later.",
-#	"How Are You Holding Up? Because Im A Potato.",
-#	"Aperture Science",
-#    "Before we start. however. keep in mind that while fun and learning are the primary goals of all enrichment center activitys. serious injuries may occur.",
-#    "For your own safety and the safety of others please refrain from touching (bzzzzzt)",
-#    "Lets be honest. neither one of us knows what that thing does. just put it in the corner. and Ill deal with it later.",
-#    "call me GLADOS",
-#	"tiss buta scratch",
-#]
+funny_phrases = [
+    "404 Humor not found",
+    "Im not lazy im in energy-saving mode",
+    "When testing is over. you will be baked and there will be cake.",
+    "ChatGPT is my best friend",
+    "Not antisocial just user unfriendly",
+    "hold on justa little while longer - hold on justa little while longer",
+    "it works why",
+    "flip the world",
+    "lttstore.com",
+    "binary is as easy as 01 10 11",
+    "my attitude isnt bad its in beta",
+    "ctrl+c ctrl+v",
+    "i use arch btw",
+    "wpi bye",
+    "help i am blind",
+    "omg they killed kenny",
+    "a robot gets arrested - charged with battery",
+    "does r2d2 have any brothers - no only transitors",
+	"Before we start. however. keep in mind that while fun and learning are the primary goals of all enrichment center activitys. serious injuries may occur.",
+	"For your own safety and the safety of others please refrain from touching (bzzzzzt)",
+	"Lets be honest. neither one of us knows what that thing does. just put it in the corner. and Ill deal with it later.",
+	"How Are You Holding Up? Because Im A Potato.",
+	"Aperture Science",
+    "Before we start. however. keep in mind that while fun and learning are the primary goals of all enrichment center activitys. serious injuries may occur.",
+    "For your own safety and the safety of others please refrain from touching (bzzzzzt)",
+    "Lets be honest. neither one of us knows what that thing does. just put it in the corner. and Ill deal with it later.",
+    "call me GLADOS",
+	"tiss buta scratch",
+]
 
 
 
@@ -1132,19 +1132,25 @@ while True:
     if Shoot == "TeleStart":
         auto = False
     if tagid == "":
-        if(auto == False):
-            if Shoot == "ShootingAmp":
-               ShowBuls(100, "Amp")
-            if Shoot == "ShootingSpeaker":
-               ShowBuls(100, "Speaker")
-            if Shoot == "Climb":
-               ShowBuls(100, "Speaker")
-            ShowSmile(100, Smilestage)
+        if Shoot == "Disabled":
+         if(auto == False):
+             if Shoot == "ShootingAmp":
+                ShowBuls(100, "Amp")
+             if Shoot == "ShootingSpeaker":
+                ShowBuls(100, "Speaker")
+             if Shoot == "Climb":
+                ShowBuls(100, "Speaker")
+             ShowSmile(100, Smilestage)
+         else:
+             ShowSmileAuto(100, smileauto)
+             smileauto += 1
+             if smileauto >= 5:
+                 smileauto = 1
         else:
-            ShowSmileAuto(100, smileauto)
-            smileauto += 1
-            if smileauto >= 5:
-                smileauto = 1
+            if random.randrange(0,10) == 10:
+                unicorn_scroll(funny_phrases[random.randrange(1,len(funny_phrases))], "red", 100, 0.01)
+            else:
+                ShowSmile(100, Smilestage)
     else:
         unicorn_scroll(str("Tag", tagid), 'red', 100, 0.01)
     time.sleep(0.2)
