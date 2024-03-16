@@ -26,7 +26,6 @@ public class IntakeSubsystem extends SubsystemBase {
   public DigitalInput intakeSensor;
   public DigitalOutput outputSensor;
   StringLogEntry speedOfIntake;
-  ;
 
   private double intakeSpeed = Constants.IntakeConstants.kIntakeMotorSpeed;
   private double indexSpeed = Constants.IntakeConstants.kIndexSpeed;
