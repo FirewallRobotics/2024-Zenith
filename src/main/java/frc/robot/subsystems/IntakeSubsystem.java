@@ -49,6 +49,8 @@ public class IntakeSubsystem extends SubsystemBase {
     // MasterIntakeMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);
 
     // MasterIntakeMotor.setIdleMode(IdleMode.kCoast);
+
+    MasterIntakeMotor.burnFlash();
   }
 
   @Override

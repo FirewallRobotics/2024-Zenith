@@ -29,7 +29,7 @@ public class ShootAtVelocityCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_ShooterSubsystem.ShootSpeaker();
+    m_ShooterSubsystem.ShootSpeakerWithPID();
 
     // We may not get to the PID value before we need to shoot.
     if (ShooterSubsystem.ShooterEncoder.getVelocity() >= (m_ShooterSubsystem.finalVelocity - 2.0)) {
