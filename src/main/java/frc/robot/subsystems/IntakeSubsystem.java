@@ -11,12 +11,10 @@ import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.util.datalog.StringLogEntry;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.IntakeConstants;
-import frc.robot.Constants.ShooterConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
@@ -56,8 +54,10 @@ public class IntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // System.out.println("Intake Sensor:" + (intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected));
-    // System.out.println("Output Sensor:" + (outputSensor.get() == IntakeConstants.kOutputSensorNoteDetected));
+    // System.out.println("Intake Sensor:" + (intakeSensor.get() ==
+    // IntakeConstants.kIntakeSensorNoteDetected));
+    // System.out.println("Output Sensor:" + (outputSensor.get() ==
+    // IntakeConstants.kOutputSensorNoteDetected));
 
     intakeSpeed = SmartDashboard.getNumber("Intake Speed", intakeSpeed);
     indexSpeed = SmartDashboard.getNumber("Index Speed", indexSpeed);

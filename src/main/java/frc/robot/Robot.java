@@ -87,7 +87,6 @@ public class Robot extends TimedRobot {
     VisionSubsystem.UnicornNotify("AutoStart");
     m_robotContainer.m_robotDrive.resetOdometry(new Pose2d());
 
-    
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
       System.out.println("Scheduled");

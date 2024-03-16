@@ -45,7 +45,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     MasterShooterMotor.setSmartCurrentLimit(35);
     MinionShooterMotor.setSmartCurrentLimit(35);
-    
+
     DataLog log = DataLogManager.getLog();
     shooterActive = new StringLogEntry(log, "Shooters Shoot");
 
@@ -176,7 +176,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void StopShoot() {
     MasterShooterMotor.set(0);
-    
+
     VisionSubsystem.UnicornNotify("");
   }
 

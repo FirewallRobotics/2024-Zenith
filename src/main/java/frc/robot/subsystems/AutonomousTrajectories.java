@@ -27,7 +27,6 @@ import frc.robot.commands.IndexCommand;
 import frc.robot.commands.IntakeAxleHeightCommand;
 import frc.robot.commands.IntakeFloorCommand;
 import frc.robot.commands.ReverseIndexCommand;
-import frc.robot.commands.ReverseShooterCommand;
 import frc.robot.commands.ShootSpeakerCommand;
 import java.util.List;
 
@@ -986,8 +985,8 @@ public class AutonomousTrajectories extends SubsystemBase {
         new ParallelCommandGroup(
                 getTrajectoryCommand(
                     getBasicAutoTrajectory(trajectoryConfig), m_robotDrive, thetaController),
-                    new IntakeFloorCommand(m_intake, m_axle, m_led)
-        ).withTimeout(3.0),
+                new IntakeFloorCommand(m_intake, m_axle, m_led))
+            .withTimeout(3.0),
         getTrajectoryCommand(
             getReverseBasicAutoTrajectory(trajectoryConfig), m_robotDrive, thetaController),
         getShootCommandWithTimeout(3.0, m_shooter, m_axle, m_intake));

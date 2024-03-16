@@ -51,7 +51,9 @@ public class IntakeFloorCommand extends Command {
     // This is the LED sensor.
     sensorStartIntake();
 
-    System.out.println("Should Stop: " + (m_Intake.intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected));
+    System.out.println(
+        "Should Stop: "
+            + (m_Intake.intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected));
 
     // m_Intake.StartIntake();
   }

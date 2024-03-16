@@ -183,10 +183,10 @@ public class RobotContainer {
 
     // THIS IS THE OG SHOOTER. DO NOT DELETE IN CASE I HAVE MESSED UP.
     new JoystickButton(m_driverController, Button.kRightBumper.value)
-       .whileTrue(
-           new ParallelCommandGroup(
-               new SequentialCommandGroup(new ShootSpeakerCommand(m_shooter, m_axle, m_intake)),
-               new SequentialCommandGroup(new WaitCommand(2.5), new IndexCommand(m_intake))));
+        .whileTrue(
+            new ParallelCommandGroup(
+                new SequentialCommandGroup(new ShootSpeakerCommand(m_shooter, m_axle, m_intake)),
+                new SequentialCommandGroup(new WaitCommand(2.5), new IndexCommand(m_intake))));
 
     // New shooter. Hasn't been tested.
     // new JoystickButton(m_driverController, Button.kRightBumper.value)
