@@ -168,6 +168,8 @@ public final class Constants {
     public static double kMeasuredPosHorizontal = 0.023;
     public static double kAxleTestSpeed = .2;
 
+    public static final double kManualAimSpeed = 0.1;
+
     public static final double kTestHeight = 0.0;
 
     public static double kTestRadiansNeeded = Math.PI / 2;
@@ -179,6 +181,7 @@ public final class Constants {
 
     public static final double kShootSpeakerSpeed = 0.5;
     public static final double kShootAmpSpeed = .2;
+    public static final double kReverseIndexSpeed = -.2;
 
     public static final double kTestVelocity = 100.0;
   }

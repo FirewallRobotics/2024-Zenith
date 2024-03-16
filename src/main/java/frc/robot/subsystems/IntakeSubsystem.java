@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.IntakeConstants;
+import frc.robot.Constants.ShooterConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
@@ -24,7 +25,7 @@ public class IntakeSubsystem extends SubsystemBase {
   public AbsoluteEncoder ArmEncoder;
 
   public DigitalInput intakeSensor;
-  public DigitalOutput outputSensor;
+  public DigitalInput outputSensor;
   StringLogEntry speedOfIntake;
 
   private double intakeSpeed = Constants.IntakeConstants.kIntakeMotorSpeed;
@@ -36,7 +37,7 @@ public class IntakeSubsystem extends SubsystemBase {
         new CANSparkMax(IntakeConstants.kMasterIntakeMotorPort, MotorType.kBrushless);
 
     intakeSensor = new DigitalInput(IntakeConstants.kIntakeSensorPort);
-    // outputSensor = new DigitalOutput(IntakeConstants.kIntakeOutputPort);
+    outputSensor = new DigitalInput(IntakeConstants.kIntakeOutputPort);
     // outputSensor.set(true);
     MasterIntakeMotor.restoreFactoryDefaults();
     DataLog log = DataLogManager.getLog();
@@ -55,6 +56,9 @@ public class IntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    // System.out.println("Intake Sensor:" + (intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected));
+    // System.out.println("Output Sensor:" + (outputSensor.get() == IntakeConstants.kOutputSensorNoteDetected));
+
     intakeSpeed = SmartDashboard.getNumber("Intake Speed", intakeSpeed);
     indexSpeed = SmartDashboard.getNumber("Index Speed", indexSpeed);
     indexReverseSpeed = SmartDashboard.getNumber("Index Reverse Speed", indexReverseSpeed);
@@ -79,7 +83,7 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void StartReverseIndex() {
-    MasterIntakeMotor.set(-indexReverseSpeed);
+    MasterIntakeMotor.set(indexReverseSpeed);
     speedOfIntake.append("The reverse Index Speed...");
   }
 

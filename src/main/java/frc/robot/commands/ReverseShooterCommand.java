@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -17,11 +18,14 @@ public class ReverseShooterCommand extends Command {
   private IntakeSubsystem m_Intake;
   private LEDSubsystem m_LED;
 
+  private Timer timer = new Timer();
+
   public ReverseShooterCommand(
       ShooterSubsystem s_Subsystem, IntakeSubsystem i_Subsystem, LEDSubsystem l_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
 
     m_Shooter = s_Subsystem;
+    m_Intake = i_Subsystem;
 
     addRequirements(s_Subsystem);
     addRequirements(i_Subsystem);
@@ -29,7 +33,7 @@ public class ReverseShooterCommand extends Command {
   }
 
   public void sensorReverseShooter() {
-    if (m_Intake.outputSensor.get() == IntakeConstants.kIntakeSensorNoteDetected) {
+    if (m_Intake.outputSensor.get() == IntakeConstants.kOutputSensorNoteDetected) {
       System.out.println("Note out of place!");
       m_Intake.StartReverseIndex();
       m_Shooter.ReverseShooter();
@@ -43,7 +47,10 @@ public class ReverseShooterCommand extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    timer.start();
+    timer.reset();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -53,7 +60,10 @@ public class ReverseShooterCommand extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_Intake.StopIntake();
+    m_Shooter.StopShoot();
+  }
 
   // Returns true when the command should end.
   @Override

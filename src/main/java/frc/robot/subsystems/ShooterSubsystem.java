@@ -181,6 +181,6 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void ReverseShooter() {
-    MasterShooterMotor.set(-shootAmpSpeed);
+    MasterShooterMotor.set(ShooterConstants.kReverseIndexSpeed);
   }
 }
