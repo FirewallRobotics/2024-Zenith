@@ -983,7 +983,7 @@ public class AutonomousTrajectories extends SubsystemBase {
         new AutoBasicAimSpeakerCommand(m_axle, m_climb),
         getShootCommandWithTimeout(2.0, m_shooter, m_axle, m_intake),
         new WaitCommand(1),
-        new ReverseShooterCommand(m_shooter).withTimeout(0.5),
+        new ReverseShooterCommand(m_shooter, m_intake, m_led).withTimeout(0.5),
         new ParallelCommandGroup(
                 getTrajectoryCommand(
                     getBasicAutoTrajectory(trajectoryConfig), m_robotDrive, thetaController),

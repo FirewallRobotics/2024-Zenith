@@ -196,7 +196,10 @@ public class RobotContainer {
     //     .whileTrue(new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
 
     new JoystickButton(m_driverController, Button.kLeftBumper.value)
-        .whileTrue(new IntakeFloorCommand(m_intake, m_axle, m_LED));
+        .whileTrue(
+            new SequentialCommandGroup(
+                new IntakeFloorCommand(m_intake, m_axle, m_LED),
+                new ReverseShooterCommand(m_shooter, m_intake, m_LED)));
     // new SequentialCommandGroup(
     //   new IntakeFloorCommand(m_intake, m_axle, m_LED),
     //   new CenterNoteCommand(m_shooter, m_intake)));
