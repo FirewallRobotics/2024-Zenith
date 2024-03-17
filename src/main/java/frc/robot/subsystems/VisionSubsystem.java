@@ -1,7 +1,12 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.networktables.FloatArrayEntry;
+import edu.wpi.first.networktables.FloatArrayTopic;
+import edu.wpi.first.networktables.FloatEntry;
+import edu.wpi.first.networktables.FloatTopic;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.PubSubOption;
 import edu.wpi.first.networktables.StringPublisher;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -29,7 +34,7 @@ public class VisionSubsystem extends SubsystemBase {
   private final String speakerCenterName = "Center";
   private final String speakerRotationName = "XYZ";
 
-  private final String ringKey = "FoundRing";
+  private final String ringKey = "Rings";
 
   private final String[] ampTags = {"9", "1"};
   private final String ampCenterName = "Center";
@@ -39,21 +44,22 @@ public class VisionSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
 
-    // tags = aprilTagsTable.getKeys();
+    tags = aprilTagsTable.getKeys();
 
-    // if (checkForSpeakerTag()) {
-    //   System.out.println("Distance to Tag -> " + getSpeakerTagDistanceToTag());
-    //   System.out.println("CenterX -> " + getSpeakerTagCenterX());
-    //   System.out.println("RotationZ -> " + getSpeakerTagRotationZ());
-    // } else {
-    //   // System.out.print("No Speaker Tag - Current Tags: ");
-    //   // printAllTags();
-    // }
+    if (checkForSpeakerTag()) {
+      System.out.println("CurrSpeakerTag -> " + findSpeakerTagInView());
+      System.out.println("Distance to Tag -> " + getSpeakerTagDistanceToTag());
+      System.out.println("CenterX -> " + getSpeakerTagCenterX());
+      System.out.println("RotationZ -> " + getSpeakerTagRotationZ());
+    } else {
+      // System.out.print("No Speaker Tag - Current Tags: ");
+      // printAllTags();
+    }
   }
 
   public boolean checkForSpeakerTag() {
-    for (String tagNum : speakerTags) {
-      if (aprilTagsTable.containsKey(tagNum)) {
+    for (String tagNum : speakerTags) {      
+      if (aprilTagsTable.containsKey(tagNum + "-" + speakerCenterName)) {
         return true;
       }
     }
@@ -63,14 +69,12 @@ public class VisionSubsystem extends SubsystemBase {
 
   /** Must have checkForSpeakerTag return true before executing this method */
   public float getSpeakerTagDistanceToTag() {
-    String tag = findSpeakerTagInView();
+    String tagNum = findSpeakerTagInView();
 
-    if (tag != null) {
-      JSONObject jsonObj =
-          new JSONObject(
-              aprilTagsTable.getEntry(tag).getString("{\"" + speakerDistanceToTagName + "\": 0}"));
-
-      return jsonObj.getFloat(speakerDistanceToTagName);
+    if (tagNum != null) {
+      FloatTopic floatTopic = aprilTagsTable.getFloatTopic(tagNum + "-" + speakerDistanceToTagName);
+      FloatEntry floatEntry = floatTopic.getEntry(0);
+      return floatEntry.get();
     }
 
     return 0;
@@ -78,16 +82,13 @@ public class VisionSubsystem extends SubsystemBase {
 
   /** Must have checkForSpeakerTag return true before executing this method */
   public float getSpeakerTagCenterX() {
-    String tag = findSpeakerTagInView();
+    String tagNum = findSpeakerTagInView();
 
-    if (tag != null) {
-      JSONObject jsonObj =
-          new JSONObject(
-              aprilTagsTable.getEntry(tag).getString("{\"" + speakerCenterName + "\": [0,0]}"));
-
-      JSONArray centerArray = jsonObj.getJSONArray(speakerCenterName);
-
-      return centerArray.getFloat(0);
+    if (tagNum != null) {
+      FloatArrayTopic arrayTopic = aprilTagsTable.getFloatArrayTopic(tagNum + "-" + speakerCenterName);
+      FloatArrayEntry arrayEntry = arrayTopic.getEntry(new float[] {0,0});
+      float[] array = arrayEntry.get();
+      return array[0];
     }
 
     return 0;
@@ -95,16 +96,13 @@ public class VisionSubsystem extends SubsystemBase {
 
   /** Must have checkForSpeakerTag return true before executing this method */
   public float getSpeakerTagRotationZ() {
-    String tag = findSpeakerTagInView();
+    String tagNum = findSpeakerTagInView();
 
-    if (tag != null) {
-      JSONObject jsonObj =
-          new JSONObject(
-              aprilTagsTable.getEntry(tag).getString("{\"" + speakerRotationName + "\": [0,0,0]}"));
-
-      JSONArray rotationArray = jsonObj.getJSONArray(speakerRotationName);
-
-      return rotationArray.getFloat(2);
+    if (tagNum != null) {
+      FloatArrayTopic arrayTopic = aprilTagsTable.getFloatArrayTopic(tagNum + "-" + speakerRotationName);
+      FloatArrayEntry arrayEntry = arrayTopic.getEntry(new float[] {0,0,0});
+      float[] array = arrayEntry.get();
+      return array[2];
     }
 
     return 0;
@@ -112,7 +110,7 @@ public class VisionSubsystem extends SubsystemBase {
 
   private String findSpeakerTagInView() {
     for (String tagNum : speakerTags) {
-      if (aprilTagsTable.containsKey(tagNum)) {
+      if (aprilTagsTable.containsKey(tagNum + "-" + speakerCenterName)) {
         return tagNum;
       }
     }
@@ -166,24 +164,26 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   public float getPixelX() {
-    Boolean orangeCheckBoolean = OrangeCheckInView();
+    boolean orangeCheckBoolean = OrangeCheckInView();
 
     if (orangeCheckBoolean) {
-      JSONObject jsonObj = new JSONObject(ringTable.getEntry(ringKey).getString("{\"X\": 0}"));
-
-      return jsonObj.getFloat("X");
+      FloatArrayTopic arrayTopic = aprilTagsTable.getFloatArrayTopic(ringKey);
+      FloatArrayEntry arrayEntry = arrayTopic.getEntry(new float[] {0,0});
+      float[] array = arrayEntry.get();
+      return array[0];
     }
 
     return -1;
   }
 
   public float getPixelY() {
-    Boolean orangeCheckBoolean = OrangeCheckInView();
+    boolean orangeCheckBoolean = OrangeCheckInView();
 
     if (orangeCheckBoolean) {
-      JSONObject jsonObj = new JSONObject(ringTable.getEntry(ringKey).getString("{\"Y\": 0}"));
-
-      return jsonObj.getFloat("Y");
+      FloatArrayTopic arrayTopic = aprilTagsTable.getFloatArrayTopic(ringKey);
+      FloatArrayEntry arrayEntry = arrayTopic.getEntry(new float[] {0,0});
+      float[] array = arrayEntry.get();
+      return array[1];
     }
 
     return -1;
@@ -198,32 +198,26 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   public float getAmpTagCenterX() {
-    String tag = findAmpTagInView();
+    String tagNum = findAmpTagInView();
 
-    if (tag != null) {
-      JSONObject jsonObj =
-          new JSONObject(
-              aprilTagsTable.getEntry(tag).getString("{\"" + ampCenterName + "\": [0,0]}"));
-
-      JSONArray centerArray = jsonObj.getJSONArray(ampCenterName);
-
-      return centerArray.getFloat(0);
+    if (tagNum != null) {
+      FloatArrayTopic arrayTopic = aprilTagsTable.getFloatArrayTopic(tagNum + "-" + ampCenterName);
+      FloatArrayEntry arrayEntry = arrayTopic.getEntry(new float[] {0,0});
+      float[] array = arrayEntry.get();
+      return array[0];
     }
 
     return 0;
   }
 
   public float getAmpTagCenterY() {
-    String tag = findAmpTagInView();
+    String tagNum = findAmpTagInView();
 
-    if (tag != null) {
-      JSONObject jsonObj =
-          new JSONObject(
-              aprilTagsTable.getEntry(tag).getString("{\"" + ampCenterName + "\": [0,0]}"));
-
-      JSONArray centerArray = jsonObj.getJSONArray(ampCenterName);
-
-      return centerArray.getFloat(1);
+    if (tagNum != null) {
+      FloatArrayTopic arrayTopic = aprilTagsTable.getFloatArrayTopic(tagNum + "-" + ampCenterName);
+      FloatArrayEntry arrayEntry = arrayTopic.getEntry(new float[] {0,0});
+      float[] array = arrayEntry.get();
+      return array[1];
     }
 
     return 0;
