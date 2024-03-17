@@ -163,7 +163,6 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void StopShoot() {
-    VisionSubsystem.UnicornNotify("");
     MasterShooterMotor.set(0);
     shooterPidActive = false;
   }
