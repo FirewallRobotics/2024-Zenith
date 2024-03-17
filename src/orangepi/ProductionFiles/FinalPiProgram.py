@@ -1,4 +1,5 @@
 from threading import Thread
+import threading
 import ntcore
 import cv2
 import numpy as np
@@ -42,6 +43,41 @@ if testmode == False:
     ntinst.startClient4("pi1 vision client")
     ntinst.setServer("10.56.7.2")
 
+class myWebcamVideoStream:
+  def __init__(self, src=14):
+    # initialize the video camera stream and read the 
+    # first frame from the stream
+    self.stream = cv2.VideoCapture(src) 
+    (self.grabbed, self.frame) = self.stream.read()
+
+    # flag to stop the thread
+
+    self.stopped = False
+
+  def start(self):
+    # start the thread to read frames
+    Thread(target=self.update, args=()).start()
+    return self
+
+  def update(self):
+
+    while True:
+       # have we been told to stop?  If so, get out of here
+       if self.stopped:
+           return
+
+       # otherwise, get another frame
+       (self.grabbed, self.frame) = self.stream.read()
+
+  def read(self):
+      # return the most recent frame
+      return self.frame
+
+  def stop(self):
+      # signal thread to end
+      self.stopped = True
+      return
+
 #reads the calibration data
 def read_from_txt_file(filename):
     try:
@@ -59,22 +95,6 @@ def read_from_txt_file(filename):
     except FileNotFoundError:
         #print(f"File '{filename}' not found.")
         return None
-
-
-#I think this plots the locations on the screen?
-def plotPoint(image, center, color):
-    center = (int(center[0]), int(center[1]))
-    image = cv2.line(image,
-                     (center[0] - 5, center[1]),
-                     (center[0] + 5, center[1]),
-                     color,
-                     3)
-    image = cv2.line(image,
-                     (center[0], center[1] - 5),
-                     (center[0], center[1] + 5),
-                     color,
-                     3)
-    return image
 
 def distance_to_camera(knownWidth, focalLength, perWidth):
 	# compute and return the distance from the maker to the camera
@@ -139,6 +159,28 @@ def average_position_of_pixels(mat, threshold=128):
     else:
         return 0, 0
 
+def RingDetection(vs):
+    try:
+        while True:
+            frame2 = vs.read()
+            for (lower, upper) in boundaries:
+                # create NumPy arrays from the boundaries
+                lower = np.array(lower, dtype = "uint8")
+                upper = np.array(upper, dtype = "uint8")
+                # find the colors within the specified boundaries and apply
+                # the mask
+                mask = cv2.inRange(frame2, lower, upper)
+                output = cv2.bitwise_and(frame2, frame2, mask = mask)
+                output = cv2.cvtColor(output, cv2.COLOR_BGR2GRAY)
+                # show the images
+                output = denoise_image(output)
+                avX, avY = average_position_of_pixels(output, 120)
+                #print(avX, avY)
+                table.putNumberArray("Rings", (avX, avY))
+    except:
+        RingMode = False
+        print("Rings disabled due to error")
+        vs.stop()
 
 configFile = "/boot/frc.json"
 
@@ -349,6 +391,11 @@ if RingMode:
 iteration = 0
 saved = False
 TagNum = ""
+
+
+if RingMode:
+    RingDetection(myWebcamVideoStream(2).start())
+
 #Todo: Make not timed but not stupid
 while testmode == False | (iteration < 3 & testmode == True):
    if testmode == False:
@@ -356,42 +403,13 @@ while testmode == False | (iteration < 3 & testmode == True):
         frame = np.rot90(np.rot90(frame, 1), 1)
    else:
       frame = cv2.imread('test.jpg')
-
-   
-
-
-   if RingMode:
-    #     cool = open("coolstuff.txt", "w")
-    #     cool.write(color)
-    #     cool.close()
-    for (lower, upper) in boundaries:
-        # create NumPy arrays from the boundaries
-        lower = np.array(lower, dtype = "uint8")
-        upper = np.array(upper, dtype = "uint8")
-        # find the colors within the specified boundaries and apply
-        # the mask
-        mask = cv2.inRange(frame, lower, upper)
-        output = cv2.bitwise_and(frame, frame, mask = mask)
-        output = cv2.cvtColor(output, cv2.COLOR_BGR2GRAY)
-        # show the images
-        output = denoise_image(output)
-        avX, avY = average_position_of_pixels(output, 120)
-        #print(avX, avY)
-        table.putNumberArray("Rings", (avX, avY))
    
    if Aprilmode:
     #frame = cv2.undistort(img, mtx, dist, None, newcameramtx)
     grayimage = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    #cv2.imshow('frame', frame)
-    #cv2.imwrite("fulmer2.jpg",frame)
 
     detections = detector.detect(grayimage)
     if detections:
-        #print("Nothing")
-        #cv2.putText(frame, "Nothing Detected", (500,500), cv2.FONT_HERSHEY_SIMPLEX, 2.0, (0, 0, 255), 2)
-        #cv2.imshow('frame', frame)
-        #cv2.imwrite("fulmer.jpg",frame)
-        #cv2.waitKey(1)
         #iterates over all tags detected
         for detect in detections:
             pos, e1,f1=detector.detection_pose( detect, cameraParams, FRCtagSize, z_sign=1)
@@ -411,35 +429,12 @@ while testmode == False | (iteration < 3 & testmode == True):
 
             #sends the tag data named the t(str(detect.tag_id)).publish()ag_ID myStrPub =table.getStringTopic("tag1").publish()with Center, TopLeft, BottomRight Locations
             if testmode == False:
-                table.putNumber((str(detect.tag_id) + "TimeSeen"), ntcore._now())
-                table.putNumberArray((str(detect.tag_id) + "Center"), detect.center)
-                table.putNumberArray((str(detect.tag_id) + "TopLft"), detect.corners[0])
-                table.putNumberArray((str(detect.tag_id) + "BotRht"), detect.corners[2])
-                table.putNumber((str(detect.tag_id) + "Dist"), distance)
-                table.putNumberArray((str(detect.tag_id) + "XYZ"), pos)
-            #print("tag_id: %s, center: %s, corners: %s, corner.top_left: %s , corner.bottom-right: %s" % (detect.tag_id, detect.center, detect.corners[0:], detect.corners[0], detect.corners[2]))
-            frame=plotPoint(frame, detect.center, (255,0,255)) #purpe center
-            cornerIndex=0
-            for corner in detect.corners:
-                if cornerIndex== 0:
-                    #print("top left corner %s" %(corner[0]))
-                    frame=plotPoint(frame, corner, (0,0,255)) #red for top left corner
-                    #xord=int(corner[0])
-                    #yord=int(corner[1])
-                    org=(int(corner[0]),int(corner[1]))
-                    tagId=("AprilTagId %s" % (str(detect.tag_id)))
-                    cv2.putText(frame, tagId, org, cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-                elif cornerIndex == 2:
-                    #print("bottom right corner %s" %(corner[0]))
-                    frame=plotPoint(frame, corner, (0,255,0)) #green for bottom right corner
-                else:
-                    frame=plotPoint(frame, corner, (0,255,255)) #yellow corner
-                cornerIndex+=1
-        if not saved:
-            #find a apriltag save the image catches programmers looking weird
-            #cv2.imwrite("fulmer.jpg",frame)
-            saved = True
-            #print("Saved!")
+                table.putNumber((str(detect.tag_id) + "-TimeSeen"), ntcore._now())
+                table.putNumberArray((str(detect.tag_id) + "-Center"), detect.center)
+                table.putNumberArray((str(detect.tag_id) + "-TopLft"), detect.corners[0])
+                table.putNumberArray((str(detect.tag_id) + "-BotRht"), detect.corners[2])
+                table.putNumber((str(detect.tag_id) + "-Dist"), distance)
+                table.putNumberArray((str(detect.tag_id) + "-XYZ"), pos)
     
     if Livemode:
         table2.putString("TagID", TagNum)
