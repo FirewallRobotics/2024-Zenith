@@ -1107,65 +1107,43 @@ funny_phrases = [
 
 
 
-try:
-    ntinst = ntcore.NetworkTableInstance.getDefault()
-    table = ntinst.getTable("UnicornHatRIO")
-    table2 = ntinst.getTable("UnicornHat")
-except:
-	print("starting in no connection mode")
+ntinst = ntcore.NetworkTableInstance.getDefault()
+table = ntinst.getTable("UnicornHatRIO")
+table2 = ntinst.getTable("UnicornHat")
 
 Brightmulti = 1
 Smilestage = 0
 smileauto = 0
 auto = False
+brightness = 255
 
 while True:
-    try:
-        Shoot = table.getString("ToUnicornStatus","") 
-        tagid = table2.getString("TagID", "")
-    except:
-        print("rip")
+    Shoot = table.getString("ToUnicornStatus", "") 
+    tagid = table2.getString("TagID", "")
+    print(Shoot)
     if Shoot == "AutoStart":
         auto = True
     if Shoot == "Disabled":
         auto = False
     if Shoot == "TeleStart":
         auto = False
-    if tagid == "":
-        if Shoot != "Disabled":
-         if(auto == False):
+    if(auto == False):
              if Shoot == "ShootingAmp":
-                ShowBuls(100, "Amp")
-             if Shoot == "ShootingSpeaker":
-                ShowBuls(100, "Speaker")
-             if Shoot == "Climb":
-                ShowBuls(100, "Speaker")
-             ShowSmile(100, Smilestage)
-         else:
-             ShowSmileAuto(100, smileauto)
+                ShowBuls(brightness, "Amp")
+             elif Shoot == "ShootingSpeaker":
+                ShowBuls(brightness, "Speaker")
+             elif Shoot == "Climb":
+                ShowBuls(brightness, "Speaker")
+             else:
+                ShowSmile(brightness, Smilestage)
+    else:
+             ShowSmileAuto(brightness, smileauto)
              smileauto += 1
              if smileauto >= 5:
                  smileauto = 1
-        else:
-            if random.randrange(0,10) == 10:
-                unicorn_scroll(funny_phrases[random.randrange(1,len(funny_phrases))], "red", 100, 0.01)
-            else:
-                ShowSmile(100, Smilestage)
-    else:
-        unicorn_scroll(str("Tag", tagid), 'red', 100, 0.01)
+    if tagid != "":
+        unicorn_scroll(str("Tag", tagid), 'red', brightness, 0.01)
     time.sleep(0.2)
     Smilestage += 1
     if Smilestage > 66:
         Smilestage = 0
-    if(Shoot == "ShootingAmp"):
-        UH.clear()
-        ShowBuls(50 * Brightmulti, "Amp")
-        Brightmulti += 0.35
-        if Brightmulti > 3.9:
-            Brightmulti = 1
-    elif(Shoot == "ShootingSpeaker"):
-        UH.clear()
-        ShowBuls(50 * Brightmulti, "Speaker")
-        Brightmulti += 0.35
-        if Brightmulti > 3.9:
-            Brightmulti = 1

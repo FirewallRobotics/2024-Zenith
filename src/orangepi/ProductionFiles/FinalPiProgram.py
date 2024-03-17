@@ -18,11 +18,10 @@ from ntcore import NetworkTableInstance, EventFlags
 
 CamBroadcast = True
 
-  
 global testmode, myStrPub, Livemode, RingMode, Aprilmode, Orangepi, table, table2
 testmode = False
 Livemode = True
-RingMode = False
+RingMode = True
 Aprilmode = True
 Orangepi = False
 
@@ -337,7 +336,6 @@ if __name__ == "__main__":
 #configs the detector
 options = apriltag.DetectorOptions(families="tag36h11")
 detector = apriltag.Detector(options)
-
 FRCtagSize = float(0.17) #17cm
 fx, fy, cx, cy = read_from_txt_file("cal.txt")
 
@@ -354,8 +352,8 @@ TagNum = ""
 #Todo: Make not timed but not stupid
 while testmode == False | (iteration < 3 & testmode == True):
    if testmode == False:
-    time, frame = cvSink.grabFrame(img)
-    frame = np.rot90(np.rot90(frame, 1), 1)
+        time, frame = cvSink.grabFrame(img)
+        frame = np.rot90(np.rot90(frame, 1), 1)
    else:
       frame = cv2.imread('test.jpg')
 
@@ -379,8 +377,7 @@ while testmode == False | (iteration < 3 & testmode == True):
         output = denoise_image(output)
         avX, avY = average_position_of_pixels(output, 120)
         #print(avX, avY)
-        myStrPub = table.getStringTopic("FoundRings").publish()
-        myStrPub.set('{"X": avX, "Y": avY}' )
+        table.putNumberArray("Rings", (avX, avY))
    
    if Aprilmode:
     #frame = cv2.undistort(img, mtx, dist, None, newcameramtx)
@@ -461,6 +458,4 @@ except:
     print("Closing Failed")
 
 #Closes everything out
-if testmode == False:
-    vs.stop()
 #cv2.destroyAllWindows()
