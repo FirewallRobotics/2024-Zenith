@@ -149,14 +149,14 @@ public class AxleSubsystem extends SubsystemBase {
     //   MasterAxleMotor.set(AxleConstants.kAxleTestSpeed);
     // }
 
-    // MasterAxleMotor.set(axleSpeed);
-    // System.out.println("Moving axle up...");
-    // axleStartLog.append("Axle going up...");
+    MasterAxleMotor.set(axleSpeed);
+    System.out.println("Moving axle up...");
+    axleStartLog.append("Axle going up...");
 
-    double currentPos = AxleEncoder.getPosition();
-    double radians = (currentPos - AxleConstants.kMeasuredPosHorizontal) * 2 * Math.PI;
-    double cosineScalar = java.lang.Math.cos(radians);
-    AxlePIDController.setFF(kFF * cosineScalar + AxleConstants.kManualAimSpeed);
+    // double currentPos = AxleEncoder.getPosition();
+    // double radians = (currentPos - AxleConstants.kMeasuredPosHorizontal) * 2 * Math.PI;
+    // double cosineScalar = java.lang.Math.cos(radians);
+    // AxlePIDController.setFF(kFF * cosineScalar + AxleConstants.kManualAimSpeed);
   }
 
   public void AxleDown() {
@@ -166,14 +166,14 @@ public class AxleSubsystem extends SubsystemBase {
     //   MasterAxleMotor.set(-AxleConstants.kAxleTestSpeed);
     // }
 
-    // MasterAxleMotor.set(-axleSpeed);
-    // System.out.println("Moving axle up...");
-    // axleStartLog.append("Axle going down...");
+    MasterAxleMotor.set(-axleSpeed);
+    System.out.println("Moving axle up...");
+    axleStartLog.append("Axle going down...");
 
-    double currentPos = AxleEncoder.getPosition();
-    double radians = (currentPos - AxleConstants.kMeasuredPosHorizontal) * 2 * Math.PI;
-    double cosineScalar = java.lang.Math.cos(radians);
-    AxlePIDController.setFF(kFF * cosineScalar - AxleConstants.kManualAimSpeed);
+    // double currentPos = AxleEncoder.getPosition();
+    // double radians = (currentPos - AxleConstants.kMeasuredPosHorizontal) * 2 * Math.PI;
+    // double cosineScalar = java.lang.Math.cos(radians);
+    // AxlePIDController.setFF(kFF * cosineScalar - AxleConstants.kManualAimSpeed);
   }
 
   public void setAxleMotorSpeed(double speed) {
