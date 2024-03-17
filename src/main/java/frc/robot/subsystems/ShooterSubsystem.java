@@ -177,7 +177,7 @@ public class ShooterSubsystem extends SubsystemBase {
   public void StopShoot() {
     MasterShooterMotor.set(0);
 
-    VisionSubsystem.UnicornNotify("");
+    // VisionSubsystem.UnicornNotify("");
   }
 
   public void ReverseShooter() {

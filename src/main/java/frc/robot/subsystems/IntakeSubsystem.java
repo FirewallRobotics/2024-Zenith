@@ -11,6 +11,7 @@ import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.util.datalog.StringLogEntry;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -24,6 +25,9 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public DigitalInput intakeSensor;
   public DigitalInput outputSensor;
+  public DigitalOutput NoteDetectedLED;
+  public DigitalOutput NoteReadyLED;
+
   StringLogEntry speedOfIntake;
 
   private double intakeSpeed = Constants.IntakeConstants.kIntakeMotorSpeed;
@@ -38,7 +42,12 @@ public class IntakeSubsystem extends SubsystemBase {
 
     intakeSensor = new DigitalInput(IntakeConstants.kIntakeSensorPort);
     outputSensor = new DigitalInput(IntakeConstants.kIntakeOutputPort);
-    // outputSensor.set(true);
+
+    NoteDetectedLED = new DigitalOutput(IntakeConstants.kNoteDetectedLEDPort);
+    NoteReadyLED = new DigitalOutput(IntakeConstants.kNoteReadyLEDPort);
+    NoteDetectedLED.set(false);
+    NoteReadyLED.set(false);
+
     MasterIntakeMotor.restoreFactoryDefaults();
     DataLog log = DataLogManager.getLog();
     speedOfIntake = new StringLogEntry(log, "Speed of Intake");
@@ -60,6 +69,15 @@ public class IntakeSubsystem extends SubsystemBase {
     // IntakeConstants.kIntakeSensorNoteDetected));
     // System.out.println("Output Sensor:" + (outputSensor.get() ==
     // IntakeConstants.kOutputSensorNoteDetected));
+    if ((intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected)
+        || (outputSensor.get() == IntakeConstants.kOutputSensorNoteDetected))
+      NoteDetectedLED.set(true);
+    else NoteDetectedLED.set(false);
+
+    if ((intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected)
+        && (outputSensor.get() == IntakeConstants.kOutputSensorNoteDetected))
+      NoteReadyLED.set(true);
+    else NoteReadyLED.set(false);
 
     intakeSpeed = SmartDashboard.getNumber("Intake Speed", intakeSpeed);
     indexSpeed = SmartDashboard.getNumber("Index Speed", indexSpeed);

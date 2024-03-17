@@ -187,8 +187,8 @@ public final class Constants {
   }
 
   public static final class UltrasonicConstants {
-    public static final int kUltrasonicTriggerPort = 2;
-    public static final int kUltrasonicSensorPort = 3;
+    // public static final int kUltrasonicTriggerPort = 2;
+    // public static final int kUltrasonicSensorPort = 3;
   }
 
   public static final class LEDConstants {
@@ -205,6 +205,8 @@ public final class Constants {
 
     public static final int kIntakeSensorPort = 0;
     public static final int kIntakeOutputPort = 1;
+    public static final int kNoteDetectedLEDPort = 2;
+    public static final int kNoteReadyLEDPort = 3;
 
     // May need to swap this value after testing the sensor
     public static final boolean kIntakeSensorNoteDetected = false;
