@@ -11,7 +11,6 @@ import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.util.datalog.StringLogEntry;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -24,7 +23,7 @@ public class IntakeSubsystem extends SubsystemBase {
   public AbsoluteEncoder ArmEncoder;
 
   public DigitalInput intakeSensor;
-  public DigitalOutput outputSensor;
+  public DigitalInput outputSensor;
   StringLogEntry speedOfIntake;
 
   private double intakeSpeed = Constants.IntakeConstants.kIntakeMotorSpeed;
@@ -36,7 +35,7 @@ public class IntakeSubsystem extends SubsystemBase {
         new CANSparkMax(IntakeConstants.kMasterIntakeMotorPort, MotorType.kBrushless);
 
     intakeSensor = new DigitalInput(IntakeConstants.kIntakeSensorPort);
-    // outputSensor = new DigitalOutput(IntakeConstants.kIntakeOutputPort);
+    outputSensor = new DigitalInput(IntakeConstants.kIntakeOutputPort);
     // outputSensor.set(true);
     MasterIntakeMotor.restoreFactoryDefaults();
     DataLog log = DataLogManager.getLog();
@@ -49,10 +48,17 @@ public class IntakeSubsystem extends SubsystemBase {
     // MasterIntakeMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);
 
     // MasterIntakeMotor.setIdleMode(IdleMode.kCoast);
+
+    MasterIntakeMotor.burnFlash();
   }
 
   @Override
   public void periodic() {
+    // System.out.println("Intake Sensor:" + (intakeSensor.get() ==
+    // IntakeConstants.kIntakeSensorNoteDetected));
+    // System.out.println("Output Sensor:" + (outputSensor.get() ==
+    // IntakeConstants.kOutputSensorNoteDetected));
+
     intakeSpeed = SmartDashboard.getNumber("Intake Speed", intakeSpeed);
     indexSpeed = SmartDashboard.getNumber("Index Speed", indexSpeed);
     indexReverseSpeed = SmartDashboard.getNumber("Index Reverse Speed", indexReverseSpeed);
@@ -77,7 +83,7 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void StartReverseIndex() {
-    MasterIntakeMotor.set(-indexReverseSpeed);
+    MasterIntakeMotor.set(indexReverseSpeed);
     speedOfIntake.append("The reverse Index Speed...");
   }
 

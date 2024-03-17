@@ -27,7 +27,6 @@ import frc.robot.commands.IndexCommand;
 import frc.robot.commands.IntakeAxleHeightCommand;
 import frc.robot.commands.IntakeFloorCommand;
 import frc.robot.commands.ReverseIndexCommand;
-import frc.robot.commands.ReverseShooterCommand;
 import frc.robot.commands.ShootSpeakerCommand;
 import java.util.List;
 
@@ -981,24 +980,23 @@ public class AutonomousTrajectories extends SubsystemBase {
       LEDSubsystem m_led) {
     return new SequentialCommandGroup(
         new AutoBasicAimSpeakerCommand(m_axle, m_climb),
-        getShootCommandWithTimeout(2.0, m_shooter, m_axle, m_intake),
+        getShootCommandWithTimeout(3.0, m_shooter, m_axle, m_intake),
         new WaitCommand(1),
-        new ReverseShooterCommand(m_shooter).withTimeout(0.5),
         new ParallelCommandGroup(
                 getTrajectoryCommand(
                     getBasicAutoTrajectory(trajectoryConfig), m_robotDrive, thetaController),
                 new IntakeFloorCommand(m_intake, m_axle, m_led))
-            .withTimeout(2.0),
+            .withTimeout(3.0),
         getTrajectoryCommand(
             getReverseBasicAutoTrajectory(trajectoryConfig), m_robotDrive, thetaController),
-        getShootCommandWithTimeout(2.0, m_shooter, m_axle, m_intake));
+        getShootCommandWithTimeout(3.0, m_shooter, m_axle, m_intake));
   }
 
   public Command getShootCommandWithTimeout(
       double timeout, ShooterSubsystem m_shooter, AxleSubsystem m_axle, IntakeSubsystem m_intake) {
     return new ParallelCommandGroup(
             new SequentialCommandGroup(new ShootSpeakerCommand(m_shooter, m_axle, m_intake)),
-            new SequentialCommandGroup(new WaitCommand(1.0), new IndexCommand(m_intake)))
+            new SequentialCommandGroup(new WaitCommand(2.5), new IndexCommand(m_intake)))
         .withTimeout(timeout);
   }
 
