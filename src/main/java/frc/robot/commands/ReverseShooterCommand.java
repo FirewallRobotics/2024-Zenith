@@ -68,6 +68,6 @@ public class ReverseShooterCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_Intake.outputSensor.get() != IntakeConstants.kOutputSensorNoteDetected;
   }
 }
