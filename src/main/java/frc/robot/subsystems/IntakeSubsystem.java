@@ -73,7 +73,7 @@ public class IntakeSubsystem extends SubsystemBase {
     else NoteDetectedLED.set(false);
 
     if ((intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected)
-        && (outputSensor.get() == IntakeConstants.kOutputSensorNoteDetected))
+        && (outputSensor.get() != IntakeConstants.kOutputSensorNoteDetected))
       NoteReadyLED.set(true);
     else NoteReadyLED.set(false);
 
