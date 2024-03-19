@@ -70,6 +70,7 @@ public class IntakeSubsystem extends SubsystemBase {
   public void StartIntake() {
     MasterIntakeMotor.set(intakeSpeed);
     speedOfIntake.append("The Intake Speed...");
+    VisionSubsystem.UnicornNotify("Intake");
   }
 
   public void StartIndex() {
@@ -91,5 +92,6 @@ public class IntakeSubsystem extends SubsystemBase {
   public void StopIntake() {
     MasterIntakeMotor.set(0);
     System.out.println("Intake stopped!");
+    VisionSubsystem.UnicornNotify("");
   }
 }

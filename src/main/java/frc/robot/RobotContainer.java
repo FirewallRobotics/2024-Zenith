@@ -59,15 +59,9 @@ public class RobotContainer {
   private final UltrasonicSensor m_UltrasonicSensor = new UltrasonicSensor();
   private final LEDSubsystem m_LED = new LEDSubsystem();
 
-  private final AutonomousTrajectories m_trajectories = new AutonomousTrajectories(
-    m_robotDrive, 
-    m_autoAim, 
-    m_vision, 
-    m_axle, 
-    m_intake, 
-    m_LED, 
-    m_climb, 
-    m_shooter);
+  private final AutonomousTrajectories m_trajectories =
+      new AutonomousTrajectories(
+          m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter);
 
   // The driver's controller
 
