@@ -37,7 +37,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.UltrasonicSensor;
+// import frc.robot.subsystems.UltrasonicSensor;
 import frc.robot.subsystems.VisionSubsystem;
 import java.util.List;
 
@@ -56,7 +56,7 @@ public class RobotContainer {
   private final AxleSubsystem m_axle = new AxleSubsystem();
   private final VisionSubsystem m_vision = new VisionSubsystem();
   private final AutoAimSubsystem m_autoAim = new AutoAimSubsystem();
-  private final UltrasonicSensor m_UltrasonicSensor = new UltrasonicSensor();
+  // private final UltrasonicSensor m_UltrasonicSensor = new UltrasonicSensor();
   private final LEDSubsystem m_LED = new LEDSubsystem();
 
   private final AutonomousTrajectories m_trajectories = new AutonomousTrajectories();
@@ -515,14 +515,14 @@ public class RobotContainer {
     return nullTrajectory;
   }
 
-  private double changeSpeed() {
-    // As of this moment, no one knows if up is - or +, this might need to change.
-    if (m_UltrasonicSensor.inRange30() && m_driverController.getLeftY() > 0) {
-      return m_UltrasonicSensor.speedNeeded();
-    } else {
-      return 0;
-    }
-  }
+  // private double changeSpeed() {
+  //   // As of this moment, no one knows if up is - or +, this might need to change.
+  //   if (m_UltrasonicSensor.inRange30() && m_driverController.getLeftY() > 0) {
+  //     return m_UltrasonicSensor.speedNeeded();
+  //   } else {
+  //     return 0;
+  //   }
+  // }
 
   static boolean RightInthershold() {
     double rightTriggerValue = m_driverController.getRightTriggerAxis();
