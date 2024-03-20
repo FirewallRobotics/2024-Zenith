@@ -447,10 +447,6 @@ while testmode == False | (iteration < 3 & testmode == True):
 
 version =ntcore.ConnectionInfo.protocol_version
 print("Exitting Code 0_o")
-try:
-    socket.close(s)
-except:
-    print("Closing Failed")
 
 #Closes everything out
 #cv2.destroyAllWindows()
