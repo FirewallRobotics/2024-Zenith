@@ -182,15 +182,16 @@ def RingDetection(vs):
         print("Rings disabled due to error")
         vs.stop()
 
-configFile = "/boot/frc.json"
+if not testmode:
+    configFile = "/boot/frc.json"
 
-class CameraConfig: pass
+    class CameraConfig: pass
 
-team = None
-server = False
-cameraConfigs = []
-switchedCameraConfigs = []
-cameras = []
+    team = None
+    server = False
+    cameraConfigs = []
+    switchedCameraConfigs = []
+    cameras = []
 
 def parseError(str):
     """Report parse error."""
@@ -339,38 +340,39 @@ def startSwitchedCamera(config):
 
     return server
 
-if __name__ == "__main__":
-    if len(sys.argv) >= 2:
-        configFile = sys.argv[1]
+if not testmode:
+    if __name__ == "__main__":
+        if len(sys.argv) >= 2:
+            configFile = sys.argv[1]
 
-    # read configuration
-    if not readConfig():
-        sys.exit(1)
+        # read configuration
+        if not readConfig():
+            sys.exit(1)
 
-    # start NetworkTables
-    ntinst = NetworkTableInstance.getDefault()
-    if server:
-        print("Setting up NetworkTables server")
-        ntinst.startServer()
-    else:
-        print("Setting up NetworkTables client for team {}".format(team))
-        ntinst.startClient4("wpilibpi")
-        ntinst.setServerTeam(team)
-        ntinst.startDSClient()
+        # start NetworkTables
+        ntinst = NetworkTableInstance.getDefault()
+        if server:
+            print("Setting up NetworkTables server")
+            ntinst.startServer()
+        else:
+            print("Setting up NetworkTables client for team {}".format(team))
+            ntinst.startClient4("wpilibpi")
+            ntinst.setServerTeam(team)
+            ntinst.startDSClient()
 
-    # start cameras
-    # work around wpilibsuite/allwpilib#5055
-    CameraServer.setSize(CameraServer.kSize160x120)
-    for config in cameraConfigs:
-        cameras.append(startCamera(config))
+        # start cameras
+        # work around wpilibsuite/allwpilib#5055
+        CameraServer.setSize(CameraServer.kSize160x120)
+        for config in cameraConfigs:
+            cameras.append(startCamera(config))
 
-    # start switched cameras
-    for config in switchedCameraConfigs:
-        startSwitchedCamera(config)
-    # get frame/sink to process from first camera
-    img = np.zeros(shape=(480, 640, 3), dtype=np.uint8)
-    cvSink = CameraServer.getVideo()
-    output = CameraServer.putVideo("AprilTags", 680, 360)
+        # start switched cameras
+        for config in switchedCameraConfigs:
+            startSwitchedCamera(config)
+        # get frame/sink to process from first camera
+        img = np.zeros(shape=(480, 640, 3), dtype=np.uint8)
+        cvSink = CameraServer.getVideo()
+        output = CameraServer.putVideo("AprilTags", 680, 360)
 
 
 
