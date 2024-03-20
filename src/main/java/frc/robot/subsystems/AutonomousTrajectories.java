@@ -266,8 +266,8 @@ public class AutonomousTrajectories extends SubsystemBase {
             currentPose.transformBy(
                 new Transform2d(
                     new Translation2d(
-                        diagonalDistance * 0.5,
-                        diagonalDistance * Math.sqrt(3) / 2 * dirMultiplier),
+                        diagonalDistance * Math.cos(Math.toRadians(60)),
+                        diagonalDistance * Math.sin(Math.toRadians(60)) * dirMultiplier),
                     new Rotation2d())),
             config);
 
