@@ -30,6 +30,8 @@ public class IntakeSubsystem extends SubsystemBase {
   private double indexSpeed = Constants.IntakeConstants.kIndexSpeed;
   private double indexReverseSpeed = Constants.IntakeConstants.kIndexReverseSpeed;
 
+  public boolean noteInShooter = false;
+
   public IntakeSubsystem() {
     MasterIntakeMotor =
         new CANSparkMax(IntakeConstants.kMasterIntakeMotorPort, MotorType.kBrushless);
@@ -52,6 +54,7 @@ public class IntakeSubsystem extends SubsystemBase {
     MasterIntakeMotor.burnFlash();
   }
 
+
   @Override
   public void periodic() {
     // System.out.println("Intake Sensor:" + (intakeSensor.get() ==
@@ -62,6 +65,20 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeSpeed = SmartDashboard.getNumber("Intake Speed", intakeSpeed);
     indexSpeed = SmartDashboard.getNumber("Index Speed", indexSpeed);
     indexReverseSpeed = SmartDashboard.getNumber("Index Reverse Speed", indexReverseSpeed);
+
+    if((intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected) || (outputSensor.get() == IntakeConstants.kOutputSensorNoteDetected)){
+      noteInShooter = true;
+    } else{
+      noteInShooter = false;
+    }
+
+    // if((intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected) && (outputSensor.get() != IntakeConstants.kOutputSensorNoteDetected)){
+    //   noteInShooter = true;
+    // } else{
+    //   noteInShooter = false;
+    // }
+
+    SmartDashboard.putBoolean("Note in the sensor", noteInShooter);
   }
 
   /** Starts motor intake but stops if a note is detected inside */
