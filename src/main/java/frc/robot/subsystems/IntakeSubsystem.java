@@ -71,10 +71,9 @@ public class IntakeSubsystem extends SubsystemBase {
     //   noteInShooter = false;
     // }
 
-    if((intakeSensor.get() == true) && (outputSensor.get()
-    != true)){
+    if ((intakeSensor.get() == true) && (outputSensor.get() != true)) {
       noteInShooter = true;
-    } else{
+    } else {
       noteInShooter = false;
     }
 
