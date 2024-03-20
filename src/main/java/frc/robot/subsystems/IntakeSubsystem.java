@@ -54,7 +54,6 @@ public class IntakeSubsystem extends SubsystemBase {
     MasterIntakeMotor.burnFlash();
   }
 
-
   @Override
   public void periodic() {
     // System.out.println("Intake Sensor:" + (intakeSensor.get() ==
@@ -66,13 +65,15 @@ public class IntakeSubsystem extends SubsystemBase {
     indexSpeed = SmartDashboard.getNumber("Index Speed", indexSpeed);
     indexReverseSpeed = SmartDashboard.getNumber("Index Reverse Speed", indexReverseSpeed);
 
-    if((intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected) || (outputSensor.get() == IntakeConstants.kOutputSensorNoteDetected)){
+    if ((intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected)
+        || (outputSensor.get() == IntakeConstants.kOutputSensorNoteDetected)) {
       noteInShooter = true;
-    } else{
+    } else {
       noteInShooter = false;
     }
 
-    // if((intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected) && (outputSensor.get() != IntakeConstants.kOutputSensorNoteDetected)){
+    // if((intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected) && (outputSensor.get()
+    // != IntakeConstants.kOutputSensorNoteDetected)){
     //   noteInShooter = true;
     // } else{
     //   noteInShooter = false;
