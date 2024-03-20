@@ -65,19 +65,18 @@ public class IntakeSubsystem extends SubsystemBase {
     indexSpeed = SmartDashboard.getNumber("Index Speed", indexSpeed);
     indexReverseSpeed = SmartDashboard.getNumber("Index Reverse Speed", indexReverseSpeed);
 
-    if ((intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected)
-        || (outputSensor.get() == IntakeConstants.kOutputSensorNoteDetected)) {
-      noteInShooter = true;
-    } else {
-      noteInShooter = false;
-    }
-
-    // if((intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected) && (outputSensor.get()
-    // != IntakeConstants.kOutputSensorNoteDetected)){
+    // if ((intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected)) {
     //   noteInShooter = true;
-    // } else{
+    // } else {
     //   noteInShooter = false;
     // }
+
+    if((intakeSensor.get() == true) && (outputSensor.get()
+    != true)){
+      noteInShooter = true;
+    } else{
+      noteInShooter = false;
+    }
 
     SmartDashboard.putBoolean("Note in the sensor", noteInShooter);
   }
