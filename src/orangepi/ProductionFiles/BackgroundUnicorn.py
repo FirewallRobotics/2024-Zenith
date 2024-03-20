@@ -1,8 +1,6 @@
 import unicornhat as UH 
 from bitarray import bitarray
 import time
-import os
-import socket
 import ntcore
 
 # Letter space
@@ -731,24 +729,13 @@ letterWhite = [x0,x1,x2,x3,x4,x5,x6,x7]
 x0= bitarray('00000000')
 x1= bitarray('00011000')
 x2= bitarray('00111100')
-x3= bitarray('00011000')
+x3= bitarray('01111110')
 x4= bitarray('00011000')
-x5= bitarray('00000000')
-x6= bitarray('00000000')
+x5= bitarray('00011000')
+x6= bitarray('00011000')
 x7= bitarray('00000000')
 
 letterredS = [x0,x1,x2,x3,x4,x5,x6,x7]
-
-x0= bitarray('00000000')
-x1= bitarray('00100000')
-x2= bitarray('01000000')
-x3= bitarray('00100000')
-x4= bitarray('00100000')
-x5= bitarray('00011000')
-x6= bitarray('00000000')
-x7= bitarray('00000000')
-
-letterWhiteS = [x0,x1,x2,x3,x4,x5,x6,x7]
 
 #smiles
 x0= bitarray('00000000')
@@ -828,6 +815,18 @@ x7= bitarray('00000000')
 
 Smile3A = [x0,x1,x2,x3,x4,x5,x6,x7]
 
+x0= bitarray('00000000')
+x1= bitarray('00100100')
+x2= bitarray('00100100')
+x3= bitarray('00000000')
+x4= bitarray('00011000')
+x5= bitarray('00100100')
+x6= bitarray('00100100')
+x7= bitarray('00011000')
+
+SmileSuk = [x0,x1,x2,x3,x4,x5,x6,x7]
+
+
 def ShowBuls(brightness, Status):
 	UH.rotation(90)		
 	for i in range(8):
@@ -837,24 +836,19 @@ def ShowBuls(brightness, Status):
 					UH.set_pixel(j,flip[i],brightness,0,0)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
-			else:
+			if Status == "Speaker":
 				if letterredS[j][i]:
 					UH.set_pixel(j,flip[i],brightness,0,0)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
-
-	for i in range(8):
-		for j in range(8):
-			if Status == "Amp":
-				if letterWhite[j][i]:
-					UH.set_pixel(j,flip[i],brightness,brightness,brightness)
-			else:
-				if letterWhiteS[j][i]:
-					UH.set_pixel(j,flip[i],brightness,brightness,brightness)				
-
+			if Status == "Intake":
+				if SmileSuk[j][i]:
+					UH.set_pixel(j,flip[i],brightness,0,0)
+				else:
+					UH.set_pixel(j,flip[i],0,0,0)          
 	UH.show()
 
-def ShowSmileAuto(brightness, smilestage):
+def ShowSmileAuto(brightness, Smilestage):
 	UH.rotation(90)		
 	if Smilestage <= 1:
 		UH.clear()
@@ -1071,95 +1065,90 @@ import random
 def randcolor():
     colors = ['red', 'white', 'blue', 'green', 'pink', 'yellow', 'orange']
     Numcol = random.randrange(0, len(colors))
-    color = colors[Numcol]
-    return color
+    return colors[Numcol]
 
-#funny_phrases = [
-#    "404 Humor not found",
-#    "Im not lazy im in energy-saving mode",
-#    "When testing is over. you will be baked and there will be cake.",
-#    "ChatGPT is my best friend",
-#    "Not antisocial just user unfriendly",
-#    "hold on justa little while longer - hold on justa little while longer",
-#    "it works why",
-#    "flip the world",
-#    "lttstore.com",
-#    "binary is as easy as 01 10 11",
-#    "my attitude isnt bad its in beta",
-#    "ctrl+c ctrl+v",
-#    "i use arch btw",
-#    "wpi bye",
-#    "help i am blind",
-#    "omg they killed kenny",
-#    "a robot gets arrested - charged with battery",
-#    "does r2d2 have any brothers - no only transitors",
-#	"Before we start. however. keep in mind that while fun and learning are the primary goals of all enrichment center activitys. serious injuries may occur.",
-#	"For your own safety and the safety of others please refrain from touching (bzzzzzt)",
-#	"Lets be honest. neither one of us knows what that thing does. just put it in the corner. and Ill deal with it later.",
-#	"How Are You Holding Up? Because Im A Potato.",
-#	"Aperture Science",
-#    "Before we start. however. keep in mind that while fun and learning are the primary goals of all enrichment center activitys. serious injuries may occur.",
-#    "For your own safety and the safety of others please refrain from touching (bzzzzzt)",
-#    "Lets be honest. neither one of us knows what that thing does. just put it in the corner. and Ill deal with it later.",
-#    "call me GLADOS",
-#	"tiss buta scratch",
-#]
+funny_phrases = [
+    "404 Humor not found",
+    "Im not lazy im in energy-saving mode",
+    "When testing is over. you will be baked and there will be cake.",
+    "ChatGPT is my best friend",
+    "Not antisocial just user unfriendly",
+    "hold on justa little while longer - hold on justa little while longer",
+    "it works why",
+    "flip the world",
+    "lttstore.com",
+    "binary is as easy as 01 10 11",
+    "my attitude isnt bad its in beta",
+    "ctrl+c ctrl+v",
+    "i use arch btw",
+    "wpi bye",
+    "help i am blind",
+    "omg they killed kenny",
+    "a robot gets arrested - charged with battery",
+    "does r2d2 have any brothers - no only transitors",
+	"How Are You Holding Up? Because Im A Potato.",
+	"Aperture Science",
+    "call me GLADOS",
+	"tiss buta scratch",
+]
+
+def randphrase():
+	Numcol = random.randrange(0,len(funny_phrases))
+	return(funny_phrases[Numcol])
 
 
-
-try:
-    ntinst = ntcore.NetworkTableInstance.getDefault()
-    table = ntinst.getTable("UnicornHatRIO")
-    table2 = ntinst.getTable("UnicornHat")
-except:
-	print("starting in no connection mode")
+ntinst = ntcore.NetworkTableInstance.getDefault()
+ntinst.setServer("10.56.7.2")
+ntinst.startClient4("Background Unicorn")
+table = ntinst.getTable("UnicornHatRIO")
 
 Brightmulti = 1
 Smilestage = 0
 smileauto = 0
 auto = False
+brightness = 255
+smileShow = random.randrange(0,60)
 
 while True:
     try:
-        Shoot = table.getString("ToUnicornStatus","") 
-        tagid = table2.getString("TagID", "")
+        Shoot = table.getString("ToUnicornStatus", "Disabled")
     except:
-        print("rip")
+        Shoot = "Disabled"
+    if Shoot != "":
+        print(Shoot)
     if Shoot == "AutoStart":
         auto = True
     if Shoot == "Disabled":
         auto = False
     if Shoot == "TeleStart":
         auto = False
-    if tagid == "":
-        if(auto == False):
-            if Shoot == "ShootingAmp":
-               ShowBuls(100, "Amp")
-            if Shoot == "ShootingSpeaker":
-               ShowBuls(100, "Speaker")
-            if Shoot == "Climb":
-               ShowBuls(100, "Speaker")
-            ShowSmile(100, Smilestage)
-        else:
-            ShowSmileAuto(100, smileauto)
-            smileauto += 1
-            if smileauto >= 5:
-                smileauto = 1
+    if(auto == False):
+             if Shoot == "ShootingAmp":
+                ShowBuls(brightness, "Amp")
+             elif Shoot == "ShootingSpeaker":
+                ShowBuls(brightness, "Speaker")
+             elif Shoot == "Climb":
+                ShowBuls(brightness, "Speaker")
+             elif Shoot == "Intake":
+                ShowBuls(brightness, "Intake")
+             elif Shoot == "Disabled":
+                if Smilestage == smileShow:
+                    #unicorn_scroll(randphrase(), randcolor(), brightness, 0.11)
+                    #Smilestage += 1
+                    print(smileShow)
+                else:
+                    ShowSmile(brightness, Smilestage)
+                    Smilestage += 1
+             else:
+                ShowSmile(brightness, Smilestage)
+                Smilestage += 1
+
     else:
-        unicorn_scroll(str("Tag", tagid), 'red', 100, 0.01)
+             ShowSmileAuto(brightness, smileauto)
+             smileauto += 1
+             if smileauto >= 5:
+                 smileauto = 1
     time.sleep(0.2)
-    Smilestage += 1
     if Smilestage > 66:
         Smilestage = 0
-    if(Shoot == "ShootingAmp"):
-        UH.clear()
-        ShowBuls(50 * Brightmulti, "Amp")
-        Brightmulti += 0.35
-        if Brightmulti > 3.9:
-            Brightmulti = 1
-    elif(Shoot == "ShootingSpeaker"):
-        UH.clear()
-        ShowBuls(50 * Brightmulti, "Speaker")
-        Brightmulti += 0.35
-        if Brightmulti > 3.9:
-            Brightmulti = 1
+        smileShow = random.randrange(0,60)
