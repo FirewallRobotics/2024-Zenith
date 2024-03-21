@@ -59,7 +59,9 @@ public class RobotContainer {
   // private final UltrasonicSensor m_UltrasonicSensor = new UltrasonicSensor();
   private final LEDSubsystem m_LED = new LEDSubsystem();
 
-  private final AutonomousTrajectories m_trajectories = new AutonomousTrajectories();
+  private final AutonomousTrajectories m_trajectories =
+      new AutonomousTrajectories(
+          m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter);
 
   // The driver's controller
 
@@ -81,67 +83,62 @@ public class RobotContainer {
     SmartDashboard.putNumber("Arm Test Angle", Constants.AxleConstants.kTestHeight);
 
     m_chooser.setDefaultOption(
-        "Default Auto - Drive Straight 2 Meters", m_trajectories.getDriveStraight(m_robotDrive));
+        "Default Auto - Drive Straight 2 Meters", m_trajectories.getDriveStraight());
     // m_chooser.addOption(
     //     "Basic Auto: Start in front of Subwoofer, Score 2, Pick up middlfe note",
     //     m_trajectories.getScore2InFrontOfSubwooferCommand(
     //         m_robotDrive, m_axle, m_intake, m_shooter, m_climb, m_LED));
     m_chooser.addOption(
         "Basic Auto: Start in front of Subwoofer, Score 1, Park Past Line",
-        m_trajectories.getScore1InFrontOfSubwooferCommand(
-            m_robotDrive, m_axle, m_intake, m_shooter, m_climb, m_LED));
+        m_trajectories.getScore1InFrontOfSubwooferCommand());
     m_chooser.addOption(
         "Basic Auto: Start in front of Subwoofer, Score 2, Pick up middle note",
-        m_trajectories.getScore2InFrontOfSubwooferCommand(
-            m_robotDrive, m_axle, m_intake, m_shooter, m_climb, m_LED));
+        m_trajectories.getScore2InFrontOfSubwooferCommand());
+    // m_chooser.addOption(
+    //     "Basic Auto: Start in front of Subwoofer, Score 3, Pick up middle note, then right note",
+    //     m_trajectories.getScore3InFrontOfSubwooferCommand(true));
+    // m_chooser.addOption(
+    //     "Basic Auto: Start in front of Subwoofer, Score 3, Pick up middle note, then left note",
+    //     m_trajectories.getScore3InFrontOfSubwooferCommand(false));
+
+    // m_chooser.addOption(
+    //     "Basic Auto: Start in front of Subwoofer, Score 4, Pick up middle note, then right note,
+    // then left note",
+    //     m_trajectories.getScore3InFrontOfSubwooferCommand(true));
+    // m_chooser.addOption(
+    //     "Basic Auto: Start in front of Subwoofer, Score 4, Pick up middle note, then left note,
+    // then right note",
+    //     m_trajectories.getScore3InFrontOfSubwooferCommand(false));
     m_chooser.addOption(
-        "Red: Start Right, Score 2 Speaker, Pick Up Right Note, Park Far Right",
-        m_trajectories.getRedRightGrab1Note(
-            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+        "Basic Auto: RED TEAM - Start left facing subwoofer, Score 1, Park Past Line",
+        m_trajectories.getRedScore1OnLeftSideOfSubwooferCommand());
     m_chooser.addOption(
-        "Red: Start Right, Score 3 Speaker, Pick Up Right + Middle Notes, Park Right of Stage",
-        m_trajectories.getRedRightGrab2Note(
-            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+        "Basic Auto: RED TEAM - Start right facing subwoofer, Score 1, Park Past Line",
+        m_trajectories.getRedScore1OnRightSideOfSubwooferCommand());
     m_chooser.addOption(
-        "Red: Start Right, Score 4 Speaker, Pick Up All Notes, Park Right of Stage",
-        m_trajectories.getRedRightGrab3Note(
-            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+        "Basic Auto: BLUE TEAM - Start left facing subwoofer, Score 1, Park Past Line",
+        m_trajectories.getBlueScore1OnLeftSideOfSubwooferCommand());
     m_chooser.addOption(
-        "Red: Start Left, Score 2 Speaker, Pick Up Left Note, Park Left of Stage",
-        m_trajectories.getRedMiddleGrab1Note(
-            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+        "Basic Auto: BLUE TEAM - Start right facing subwoofer, Score 1, Park Past Line",
+        m_trajectories.getBlueScore1OnRightSideOfSubwooferCommand());
     m_chooser.addOption(
-        "Red: Start Left, Score 3 Speaker, Pick Up Left + Middle Notes, Park Right of Stage",
-        m_trajectories.getRedMiddleGrab2Note(
-            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+        "Start facing right note, Score 2 Speaker, Pick Up Right Note, (WIP Park Far Right)",
+        m_trajectories.getSideOfSubwooferRoutine(2, true));
     m_chooser.addOption(
-        "Red: Start Left, Score 4 Speaker, Pick Up All Notes, Park Far Right",
-        m_trajectories.getRedMiddleGrab3Note(
-            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+        "Start facing right note, Score 3 Speaker, Pick Up Right + Middle Notes, (WIP Park Right of Stage)",
+        m_trajectories.getSideOfSubwooferRoutine(3, true));
     m_chooser.addOption(
-        "Blue: Start Left, Score 2 Speaker, Pick Up Left Note, Park Far Left",
-        m_trajectories.getBlueLeftGrab1Note(
-            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+        "Start facing right note, Score 4 Speaker, Pick Up All Notes, (WIP Park Right of Stage)",
+        m_trajectories.getSideOfSubwooferRoutine(4, true));
     m_chooser.addOption(
-        "Blue: Start Left, Score 3 Speaker, Pick Up Left + Middle Notes, Park Left of Stage",
-        m_trajectories.getBlueLeftGrab2Note(
-            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+        "Start facing left note, Score 2 Speaker, Pick Up Left Note, (WIP Park Left of Stage)",
+        m_trajectories.getSideOfSubwooferRoutine(2, false));
     m_chooser.addOption(
-        "Blue: Start Left, Score 4 Speaker, Pick Up All Notes, Park Left of Stage",
-        m_trajectories.getBlueLeftGrab3Note(
-            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+        "Start facing left note, Score 3 Speaker, Pick Up Left + Middle Notes, (WIP Park Right of Stage)",
+        m_trajectories.getSideOfSubwooferRoutine(3, false));
     m_chooser.addOption(
-        "Blue: Start Right, Score 2 Speaker, Pick Up Right Note, Park Right of Stage",
-        m_trajectories.getBlueMiddleGrab1Note(
-            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
-    m_chooser.addOption(
-        "Blue: Start Right, Score 3 Speaker, Pick Up Right + Middle Notes, Park Left of Stage",
-        m_trajectories.getBlueMiddleGrab2Note(
-            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
-    m_chooser.addOption(
-        "Blue: Start Right, Score 4 Speaker, Pick Up All Notes, Park Far Left",
-        m_trajectories.getBlueMiddleGrab3Note(
-            m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter));
+        "Start facing left note, Score 4 Speaker, Pick Up All Notes, (WIP Park Far Right)",
+        m_trajectories.getSideOfSubwooferRoutine(4, false));
 
     SmartDashboard.putData(m_chooser);
 
@@ -249,11 +246,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // Create config for trajectory
-    boolean tryTest = false;
-
-    if (tryTest) {
-      return m_trajectories.getDriveStraight(m_robotDrive);
-    }
 
     // If true, you will perform one of the sequentual command groups rather than example
     // trajectories
