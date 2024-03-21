@@ -94,10 +94,15 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">AutonomousTrajectories</a>()</code></div>
-<div class="col-last even-row-color">
-<div class="block">Creates a new AutonomousTrajectories.</div>
-</div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)" class="member-name-link">AutonomousTrajectories</a><wbr>(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
+ <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
+ <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
+ <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
+ <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
+ <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
+ <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
+ <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</code></div>
+<div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -115,266 +120,135 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBasicAutoTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getBasicAutoTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.wpilibj2.command.Command</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueLeftGrab1Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)" class="member-name-link">getBlueLeftGrab1Note</a><wbr>(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.wpilibj2.command.Command</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueLeftGrab2Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)" class="member-name-link">getBlueLeftGrab2Note</a><wbr>(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.wpilibj2.command.Command</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueLeftGrab3Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)" class="member-name-link">getBlueLeftGrab3Note</a><wbr>(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueLeftMostTrajectory1(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getBlueLeftMostTrajectory1</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Starting from the left most starting position, it goes from start to a spot inbetween the
- speaker and the first note</div>
-</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueLeftMostTrajectory2FieldRelative(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getBlueLeftMostTrajectory2FieldRelative</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueLeftMostTrajectory3FieldRelative(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getBlueLeftMostTrajectory3FieldRelative</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueMiddleAlternateTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getBlueMiddleAlternateTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBasicLeftRightAutoTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig,boolean)" class="member-name-link">getBasicLeftRightAutoTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config,
+ boolean&nbsp;goingRightNote)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Starting from the middle starting position, it goes from start to a spot inbetween the speaker
- and the middle note</div>
+<div class="block">Goes only left or right at the distance between notes</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.wpilibj2.command.Command</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueMiddleGrab1Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)" class="member-name-link">getBlueMiddleGrab1Note</a><wbr>(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBasicReverseLeftRightAutoTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig,boolean)" class="member-name-link">getBasicReverseLeftRightAutoTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config,
+ boolean&nbsp;goingRightNote)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBasicReverseSideNoteAutoTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig,boolean)" class="member-name-link">getBasicReverseSideNoteAutoTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config,
+ boolean&nbsp;goingRightNote)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBasicSideNoteAutoTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig,boolean)" class="member-name-link">getBasicSideNoteAutoTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config,
+ boolean&nbsp;goingRightNote)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueParkAfterLeftNoteLeftPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getBlueParkAfterLeftNoteLeftPathTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueParkAfterLeftNoteRightPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getBlueParkAfterLeftNoteRightPathTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueParkAfterMiddleNoteLeftPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getBlueParkAfterMiddleNoteLeftPathTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueParkAfterMiddleNoteRightPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getBlueParkAfterMiddleNoteRightPathTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueParkAfterRightNoteLeftPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getBlueParkAfterRightNoteLeftPathTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueParkAfterRightNoteRightPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getBlueParkAfterRightNoteRightPathTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.wpilibj2.command.Command</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueMiddleGrab2Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)" class="member-name-link">getBlueMiddleGrab2Note</a><wbr>(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueScore1OnLeftSideOfSubwooferCommand()" class="member-name-link">getBlueScore1OnLeftSideOfSubwooferCommand</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.wpilibj2.command.Command</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueMiddleGrab3Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)" class="member-name-link">getBlueMiddleGrab3Note</a><wbr>(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueScore1OnRightSideOfSubwooferCommand()" class="member-name-link">getBlueScore1OnRightSideOfSubwooferCommand</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueMiddleTrajectory1(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getBlueMiddleTrajectory1</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Starting from the middle starting position, it goes from start to a spot inbetween the speaker
- and the first note</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueMiddleTrajectory2FieldRelative(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getBlueMiddleTrajectory2FieldRelative</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueMiddleTrajectory3FieldRelative(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getBlueMiddleTrajectory3FieldRelative</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueParkAfterLeftNoteLeftPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getBlueParkAfterLeftNoteLeftPathTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueParkAfterLeftNoteRightPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getBlueParkAfterLeftNoteRightPathTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueParkAfterMiddleNoteLeftPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getBlueParkAfterMiddleNoteLeftPathTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueParkAfterMiddleNoteRightPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getBlueParkAfterMiddleNoteRightPathTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueParkAfterRightNoteLeftPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getBlueParkAfterRightNoteLeftPathTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBlueParkAfterRightNoteRightPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getBlueParkAfterRightNoteRightPathTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getDiagonalTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig,boolean,edu.wpi.first.math.geometry.Pose2d)" class="member-name-link">getDiagonalTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config,
+ boolean&nbsp;rightOfSubwoofer,
+ edu.wpi.first.math.geometry.Pose2d&nbsp;currentPose)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.wpilibj2.command.Command</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getDriveStraight(frc.robot.subsystems.DriveSubsystem)" class="member-name-link">getDriveStraight</a><wbr>(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getDriveStraight()" class="member-name-link">getDriveStraight</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getForwardTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getForwardTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Goes straight forward 2 meters for a standard mobility bonus and nothing else</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.wpilibj2.command.Command</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getIntakeWithTrajectory(edu.wpi.first.wpilibj2.command.Command)" class="member-name-link">getIntakeWithTrajectory</a><wbr>(edu.wpi.first.wpilibj2.command.Command&nbsp;trajectoryCommand)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getParkAfterAmpSideNoteTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig,edu.wpi.first.math.geometry.Pose2d)" class="member-name-link">getParkAfterAmpSideNoteTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config,
+ edu.wpi.first.math.geometry.Pose2d&nbsp;currentPose)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedMiddleAlternateTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getRedMiddleAlternateTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Starting from the middle starting position, it goes from start to a spot inbetween the speaker
- and the middle note</div>
-</div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedParkAfterLeftNoteLeftPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getRedParkAfterLeftNoteLeftPathTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedParkAfterLeftNoteRightPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getRedParkAfterLeftNoteRightPathTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedParkAfterMiddleNoteLeftPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getRedParkAfterMiddleNoteLeftPathTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedParkAfterMiddleNoteRightPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getRedParkAfterMiddleNoteRightPathTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedParkAfterRightNoteLeftPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getRedParkAfterRightNoteLeftPathTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.wpilibj2.command.Command</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedMiddleGrab1Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)" class="member-name-link">getRedMiddleGrab1Note</a><wbr>(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedScore1OnLeftSideOfSubwooferCommand()" class="member-name-link">getRedScore1OnLeftSideOfSubwooferCommand</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.wpilibj2.command.Command</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedMiddleGrab2Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)" class="member-name-link">getRedMiddleGrab2Note</a><wbr>(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.wpilibj2.command.Command</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedMiddleGrab3Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)" class="member-name-link">getRedMiddleGrab3Note</a><wbr>(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedMiddleTrajectory1(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getRedMiddleTrajectory1</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Starting from the middle starting position, it goes from start to a spot inbetween the speaker
- and the first note</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedMiddleTrajectory2FieldRelative(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getRedMiddleTrajectory2FieldRelative</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedMiddleTrajectory3FieldRelative(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getRedMiddleTrajectory3FieldRelative</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedParkAfterLeftNoteLeftPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getRedParkAfterLeftNoteLeftPathTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedParkAfterLeftNoteRightPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getRedParkAfterLeftNoteRightPathTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedParkAfterMiddleNoteLeftPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getRedParkAfterMiddleNoteLeftPathTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedParkAfterMiddleNoteRightPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getRedParkAfterMiddleNoteRightPathTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedParkAfterRightNoteLeftPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getRedParkAfterRightNoteLeftPathTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedParkAfterRightNoteRightPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getRedParkAfterRightNoteRightPathTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.wpilibj2.command.Command</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedRightGrab1Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)" class="member-name-link">getRedRightGrab1Note</a><wbr>(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.wpilibj2.command.Command</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedRightGrab2Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)" class="member-name-link">getRedRightGrab2Note</a><wbr>(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.wpilibj2.command.Command</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedRightGrab3Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)" class="member-name-link">getRedRightGrab3Note</a><wbr>(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedRightMostTrajectory1(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getRedRightMostTrajectory1</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Starting from the left most starting position, it goes from start to a spot inbetween the
- speaker and the first note</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedRightMostTrajectory2FieldRelative(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getRedRightMostTrajectory2FieldRelative</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedRightMostTrajectory3FieldRelative(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getRedRightMostTrajectory3FieldRelative</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRedScore1OnRightSideOfSubwooferCommand()" class="member-name-link">getRedScore1OnRightSideOfSubwooferCommand</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getReverseBasicAutoTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getReverseBasicAutoTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.wpilibj2.command.Command</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getScore1InFrontOfSubwooferCommand(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.ShooterSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.LEDSubsystem)" class="member-name-link">getScore1InFrontOfSubwooferCommand</a><wbr>(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_led)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getScore1InFrontOfSubwooferCommand()" class="member-name-link">getScore1InFrontOfSubwooferCommand</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.wpilibj2.command.Command</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getScore2FromSubwooferCommand(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.ShooterSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.LEDSubsystem)" class="member-name-link">getScore2FromSubwooferCommand</a><wbr>(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_led)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getScore2FromSubwooferCommand()" class="member-name-link">getScore2FromSubwooferCommand</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.wpilibj2.command.Command</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getScore2InFrontOfSubwooferCommand(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.ShooterSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.LEDSubsystem)" class="member-name-link">getScore2InFrontOfSubwooferCommand</a><wbr>(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_led)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getScore2InFrontOfSubwooferCommand()" class="member-name-link">getScore2InFrontOfSubwooferCommand</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.wpilibj2.command.Command</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getShootCommandWithTimeout(double,frc.robot.subsystems.ShooterSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem)" class="member-name-link">getShootCommandWithTimeout</a><wbr>(double&nbsp;timeout,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getShootCommandWithTimeout(frc.robot.subsystems.ShooterSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem)" class="member-name-link">getShootCommandWithTimeout</a><wbr>(<a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter,
  <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
  <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getShortForwardTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)" class="member-name-link">getShortForwardTrajectory</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.wpilibj2.command.Command</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSideOfSubwooferRoutine(int,boolean)" class="member-name-link">getSideOfSubwooferRoutine</a><wbr>(int&nbsp;notesScored,
+ boolean&nbsp;rightOfSubwoofer)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSideTrajectory1(edu.wpi.first.math.trajectory.TrajectoryConfig,boolean)" class="member-name-link">getSideTrajectory1</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config,
+ boolean&nbsp;rightOfSubwoofer)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Starts from one side of the subwoofer directly facing the first note</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSideTrajectory2(edu.wpi.first.math.trajectory.TrajectoryConfig,boolean)" class="member-name-link">getSideTrajectory2</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config,
+ boolean&nbsp;rightOfSubwoofer)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Starts from one side of the subwoofer directly facing the first note</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSideTrajectory3(edu.wpi.first.math.trajectory.TrajectoryConfig,boolean)" class="member-name-link">getSideTrajectory3</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config,
+ boolean&nbsp;rightOfSubwoofer)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.math.trajectory.Trajectory</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSideTrajectory4(edu.wpi.first.math.trajectory.TrajectoryConfig,boolean)" class="member-name-link">getSideTrajectory4</a><wbr>(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config,
+ boolean&nbsp;rightOfSubwoofer)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>edu.wpi.first.wpilibj2.command.SwerveControllerCommand</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTrajectoryCommand(edu.wpi.first.math.trajectory.Trajectory,frc.robot.subsystems.DriveSubsystem,edu.wpi.first.math.controller.ProfiledPIDController)" class="member-name-link">getTrajectoryCommand</a><wbr>(edu.wpi.first.math.trajectory.Trajectory&nbsp;myTrajectory,
- <a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTrajectoryCommand(edu.wpi.first.math.trajectory.Trajectory,edu.wpi.first.math.controller.ProfiledPIDController)" class="member-name-link">getTrajectoryCommand</a><wbr>(edu.wpi.first.math.trajectory.Trajectory&nbsp;myTrajectory,
  edu.wpi.first.math.controller.ProfiledPIDController&nbsp;thetaController)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
@@ -404,10 +278,16 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;()">
+<section class="detail" id="&lt;init&gt;(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)">
 <h3>AutonomousTrajectories</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">AutonomousTrajectories</span>()</div>
-<div class="block">Creates a new AutonomousTrajectories.</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">AutonomousTrajectories</span><wbr><span class="parameters">(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
+ <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
+ <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
+ <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
+ <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
+ <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
+ <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
+ <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</span></div>
 </section>
 </li>
 </ul>
@@ -425,99 +305,33 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="getRedRightMostTrajectory1(edu.wpi.first.math.trajectory.TrajectoryConfig)">
-<h3>getRedRightMostTrajectory1</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getRedRightMostTrajectory1</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</span></div>
-<div class="block">Starting from the left most starting position, it goes from start to a spot inbetween the
- speaker and the first note</div>
+<section class="detail" id="getSideTrajectory1(edu.wpi.first.math.trajectory.TrajectoryConfig,boolean)">
+<h3>getSideTrajectory1</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getSideTrajectory1</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config,
+ boolean&nbsp;rightOfSubwoofer)</span></div>
+<div class="block">Starts from one side of the subwoofer directly facing the first note</div>
 </section>
 </li>
 <li>
-<section class="detail" id="getRedRightMostTrajectory2FieldRelative(edu.wpi.first.math.trajectory.TrajectoryConfig)">
-<h3>getRedRightMostTrajectory2FieldRelative</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getRedRightMostTrajectory2FieldRelative</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</span></div>
+<section class="detail" id="getSideTrajectory2(edu.wpi.first.math.trajectory.TrajectoryConfig,boolean)">
+<h3>getSideTrajectory2</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getSideTrajectory2</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config,
+ boolean&nbsp;rightOfSubwoofer)</span></div>
+<div class="block">Starts from one side of the subwoofer directly facing the first note</div>
 </section>
 </li>
 <li>
-<section class="detail" id="getRedRightMostTrajectory3FieldRelative(edu.wpi.first.math.trajectory.TrajectoryConfig)">
-<h3>getRedRightMostTrajectory3FieldRelative</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getRedRightMostTrajectory3FieldRelative</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</span></div>
+<section class="detail" id="getSideTrajectory3(edu.wpi.first.math.trajectory.TrajectoryConfig,boolean)">
+<h3>getSideTrajectory3</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getSideTrajectory3</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config,
+ boolean&nbsp;rightOfSubwoofer)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="getBlueLeftMostTrajectory1(edu.wpi.first.math.trajectory.TrajectoryConfig)">
-<h3>getBlueLeftMostTrajectory1</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getBlueLeftMostTrajectory1</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</span></div>
-<div class="block">Starting from the left most starting position, it goes from start to a spot inbetween the
- speaker and the first note</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getBlueLeftMostTrajectory2FieldRelative(edu.wpi.first.math.trajectory.TrajectoryConfig)">
-<h3>getBlueLeftMostTrajectory2FieldRelative</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getBlueLeftMostTrajectory2FieldRelative</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getBlueLeftMostTrajectory3FieldRelative(edu.wpi.first.math.trajectory.TrajectoryConfig)">
-<h3>getBlueLeftMostTrajectory3FieldRelative</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getBlueLeftMostTrajectory3FieldRelative</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getRedMiddleTrajectory1(edu.wpi.first.math.trajectory.TrajectoryConfig)">
-<h3>getRedMiddleTrajectory1</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getRedMiddleTrajectory1</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</span></div>
-<div class="block">Starting from the middle starting position, it goes from start to a spot inbetween the speaker
- and the first note</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getRedMiddleTrajectory2FieldRelative(edu.wpi.first.math.trajectory.TrajectoryConfig)">
-<h3>getRedMiddleTrajectory2FieldRelative</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getRedMiddleTrajectory2FieldRelative</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getRedMiddleTrajectory3FieldRelative(edu.wpi.first.math.trajectory.TrajectoryConfig)">
-<h3>getRedMiddleTrajectory3FieldRelative</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getRedMiddleTrajectory3FieldRelative</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getBlueMiddleTrajectory1(edu.wpi.first.math.trajectory.TrajectoryConfig)">
-<h3>getBlueMiddleTrajectory1</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getBlueMiddleTrajectory1</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</span></div>
-<div class="block">Starting from the middle starting position, it goes from start to a spot inbetween the speaker
- and the first note</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getBlueMiddleTrajectory2FieldRelative(edu.wpi.first.math.trajectory.TrajectoryConfig)">
-<h3>getBlueMiddleTrajectory2FieldRelative</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getBlueMiddleTrajectory2FieldRelative</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getBlueMiddleTrajectory3FieldRelative(edu.wpi.first.math.trajectory.TrajectoryConfig)">
-<h3>getBlueMiddleTrajectory3FieldRelative</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getBlueMiddleTrajectory3FieldRelative</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getRedMiddleAlternateTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)">
-<h3>getRedMiddleAlternateTrajectory</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getRedMiddleAlternateTrajectory</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</span></div>
-<div class="block">Starting from the middle starting position, it goes from start to a spot inbetween the speaker
- and the middle note</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getBlueMiddleAlternateTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)">
-<h3>getBlueMiddleAlternateTrajectory</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getBlueMiddleAlternateTrajectory</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</span></div>
-<div class="block">Starting from the middle starting position, it goes from start to a spot inbetween the speaker
- and the middle note</div>
+<section class="detail" id="getSideTrajectory4(edu.wpi.first.math.trajectory.TrajectoryConfig,boolean)">
+<h3>getSideTrajectory4</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getSideTrajectory4</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config,
+ boolean&nbsp;rightOfSubwoofer)</span></div>
 </section>
 </li>
 <li>
@@ -533,10 +347,59 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="getBasicLeftRightAutoTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig,boolean)">
+<h3>getBasicLeftRightAutoTrajectory</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getBasicLeftRightAutoTrajectory</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config,
+ boolean&nbsp;goingRightNote)</span></div>
+<div class="block">Goes only left or right at the distance between notes</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>config</code> - </dd>
+<dt>Returns:</dt>
+<dd>Trajectory for this portion of auto</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getBasicReverseLeftRightAutoTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig,boolean)">
+<h3>getBasicReverseLeftRightAutoTrajectory</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getBasicReverseLeftRightAutoTrajectory</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config,
+ boolean&nbsp;goingRightNote)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="getBasicSideNoteAutoTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig,boolean)">
+<h3>getBasicSideNoteAutoTrajectory</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getBasicSideNoteAutoTrajectory</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config,
+ boolean&nbsp;goingRightNote)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="getBasicReverseSideNoteAutoTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig,boolean)">
+<h3>getBasicReverseSideNoteAutoTrajectory</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getBasicReverseSideNoteAutoTrajectory</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config,
+ boolean&nbsp;goingRightNote)</span></div>
+</section>
+</li>
+<li>
 <section class="detail" id="getForwardTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)">
 <h3>getForwardTrajectory</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getForwardTrajectory</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</span></div>
 <div class="block">Goes straight forward 2 meters for a standard mobility bonus and nothing else</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getShortForwardTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)">
+<h3>getShortForwardTrajectory</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getShortForwardTrajectory</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="getDiagonalTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig,boolean,edu.wpi.first.math.geometry.Pose2d)">
+<h3>getDiagonalTrajectory</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getDiagonalTrajectory</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config,
+ boolean&nbsp;rightOfSubwoofer,
+ edu.wpi.first.math.geometry.Pose2d&nbsp;currentPose)</span></div>
 </section>
 </li>
 <li>
@@ -570,9 +433,10 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="getRedParkAfterRightNoteRightPathTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig)">
-<h3>getRedParkAfterRightNoteRightPathTrajectory</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getRedParkAfterRightNoteRightPathTrajectory</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config)</span></div>
+<section class="detail" id="getParkAfterAmpSideNoteTrajectory(edu.wpi.first.math.trajectory.TrajectoryConfig,edu.wpi.first.math.geometry.Pose2d)">
+<h3>getParkAfterAmpSideNoteTrajectory</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.math.trajectory.Trajectory</span>&nbsp;<span class="element-name">getParkAfterAmpSideNoteTrajectory</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.TrajectoryConfig&nbsp;config,
+ edu.wpi.first.math.geometry.Pose2d&nbsp;currentPose)</span></div>
 </section>
 </li>
 <li>
@@ -612,215 +476,79 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="getTrajectoryCommand(edu.wpi.first.math.trajectory.Trajectory,frc.robot.subsystems.DriveSubsystem,edu.wpi.first.math.controller.ProfiledPIDController)">
+<section class="detail" id="getTrajectoryCommand(edu.wpi.first.math.trajectory.Trajectory,edu.wpi.first.math.controller.ProfiledPIDController)">
 <h3>getTrajectoryCommand</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.SwerveControllerCommand</span>&nbsp;<span class="element-name">getTrajectoryCommand</span><wbr><span class="parameters">(edu.wpi.first.math.trajectory.Trajectory&nbsp;myTrajectory,
- <a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
  edu.wpi.first.math.controller.ProfiledPIDController&nbsp;thetaController)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="getRedRightGrab1Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)">
-<h3>getRedRightGrab1Note</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getRedRightGrab1Note</span><wbr><span class="parameters">(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</span></div>
+<section class="detail" id="getSideOfSubwooferRoutine(int,boolean)">
+<h3>getSideOfSubwooferRoutine</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getSideOfSubwooferRoutine</span><wbr><span class="parameters">(int&nbsp;notesScored,
+ boolean&nbsp;rightOfSubwoofer)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="getRedRightGrab2Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)">
-<h3>getRedRightGrab2Note</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getRedRightGrab2Note</span><wbr><span class="parameters">(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getRedRightGrab3Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)">
-<h3>getRedRightGrab3Note</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getRedRightGrab3Note</span><wbr><span class="parameters">(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getRedMiddleGrab1Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)">
-<h3>getRedMiddleGrab1Note</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getRedMiddleGrab1Note</span><wbr><span class="parameters">(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getRedMiddleGrab2Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)">
-<h3>getRedMiddleGrab2Note</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getRedMiddleGrab2Note</span><wbr><span class="parameters">(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getRedMiddleGrab3Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)">
-<h3>getRedMiddleGrab3Note</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getRedMiddleGrab3Note</span><wbr><span class="parameters">(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getBlueLeftGrab1Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)">
-<h3>getBlueLeftGrab1Note</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getBlueLeftGrab1Note</span><wbr><span class="parameters">(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getBlueLeftGrab2Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)">
-<h3>getBlueLeftGrab2Note</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getBlueLeftGrab2Note</span><wbr><span class="parameters">(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getBlueLeftGrab3Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)">
-<h3>getBlueLeftGrab3Note</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getBlueLeftGrab3Note</span><wbr><span class="parameters">(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getBlueMiddleGrab1Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)">
-<h3>getBlueMiddleGrab1Note</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getBlueMiddleGrab1Note</span><wbr><span class="parameters">(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getBlueMiddleGrab2Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)">
-<h3>getBlueMiddleGrab2Note</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getBlueMiddleGrab2Note</span><wbr><span class="parameters">(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getBlueMiddleGrab3Note(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AutoAimSubsystem,frc.robot.subsystems.VisionSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.LEDSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.ShooterSubsystem)">
-<h3>getBlueMiddleGrab3Note</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getBlueMiddleGrab3Note</span><wbr><span class="parameters">(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AutoAimSubsystem.html" title="class in frc.robot.subsystems">AutoAimSubsystem</a>&nbsp;m_autoAim,
- <a href="VisionSubsystem.html" title="class in frc.robot.subsystems">VisionSubsystem</a>&nbsp;m_vision,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_LED,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getScore2FromSubwooferCommand(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.ShooterSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.LEDSubsystem)">
+<section class="detail" id="getScore2FromSubwooferCommand()">
 <h3>getScore2FromSubwooferCommand</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getScore2FromSubwooferCommand</span><wbr><span class="parameters">(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_led)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getScore2FromSubwooferCommand</span>()</div>
 </section>
 </li>
 <li>
-<section class="detail" id="getScore1InFrontOfSubwooferCommand(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.ShooterSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.LEDSubsystem)">
+<section class="detail" id="getScore1InFrontOfSubwooferCommand()">
 <h3>getScore1InFrontOfSubwooferCommand</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getScore1InFrontOfSubwooferCommand</span><wbr><span class="parameters">(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_led)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getScore1InFrontOfSubwooferCommand</span>()</div>
 </section>
 </li>
 <li>
-<section class="detail" id="getScore2InFrontOfSubwooferCommand(frc.robot.subsystems.DriveSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem,frc.robot.subsystems.ShooterSubsystem,frc.robot.subsystems.ClimbSubsystem,frc.robot.subsystems.LEDSubsystem)">
+<section class="detail" id="getScore2InFrontOfSubwooferCommand()">
 <h3>getScore2InFrontOfSubwooferCommand</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getScore2InFrontOfSubwooferCommand</span><wbr><span class="parameters">(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive,
- <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
- <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter,
- <a href="ClimbSubsystem.html" title="class in frc.robot.subsystems">ClimbSubsystem</a>&nbsp;m_climb,
- <a href="LEDSubsystem.html" title="class in frc.robot.subsystems">LEDSubsystem</a>&nbsp;m_led)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getScore2InFrontOfSubwooferCommand</span>()</div>
 </section>
 </li>
 <li>
-<section class="detail" id="getShootCommandWithTimeout(double,frc.robot.subsystems.ShooterSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem)">
+<section class="detail" id="getRedScore1OnRightSideOfSubwooferCommand()">
+<h3>getRedScore1OnRightSideOfSubwooferCommand</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getRedScore1OnRightSideOfSubwooferCommand</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getRedScore1OnLeftSideOfSubwooferCommand()">
+<h3>getRedScore1OnLeftSideOfSubwooferCommand</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getRedScore1OnLeftSideOfSubwooferCommand</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getBlueScore1OnRightSideOfSubwooferCommand()">
+<h3>getBlueScore1OnRightSideOfSubwooferCommand</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getBlueScore1OnRightSideOfSubwooferCommand</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getBlueScore1OnLeftSideOfSubwooferCommand()">
+<h3>getBlueScore1OnLeftSideOfSubwooferCommand</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getBlueScore1OnLeftSideOfSubwooferCommand</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getShootCommandWithTimeout(frc.robot.subsystems.ShooterSubsystem,frc.robot.subsystems.AxleSubsystem,frc.robot.subsystems.IntakeSubsystem)">
 <h3>getShootCommandWithTimeout</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getShootCommandWithTimeout</span><wbr><span class="parameters">(double&nbsp;timeout,
- <a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getShootCommandWithTimeout</span><wbr><span class="parameters">(<a href="ShooterSubsystem.html" title="class in frc.robot.subsystems">ShooterSubsystem</a>&nbsp;m_shooter,
  <a href="AxleSubsystem.html" title="class in frc.robot.subsystems">AxleSubsystem</a>&nbsp;m_axle,
  <a href="IntakeSubsystem.html" title="class in frc.robot.subsystems">IntakeSubsystem</a>&nbsp;m_intake)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="getDriveStraight(frc.robot.subsystems.DriveSubsystem)">
+<section class="detail" id="getIntakeWithTrajectory(edu.wpi.first.wpilibj2.command.Command)">
+<h3>getIntakeWithTrajectory</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getIntakeWithTrajectory</span><wbr><span class="parameters">(edu.wpi.first.wpilibj2.command.Command&nbsp;trajectoryCommand)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="getDriveStraight()">
 <h3>getDriveStraight</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getDriveStraight</span><wbr><span class="parameters">(<a href="DriveSubsystem.html" title="class in frc.robot.subsystems">DriveSubsystem</a>&nbsp;m_robotDrive)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">edu.wpi.first.wpilibj2.command.Command</span>&nbsp;<span class="element-name">getDriveStraight</span>()</div>
 </section>
 </li>
 </ul>
