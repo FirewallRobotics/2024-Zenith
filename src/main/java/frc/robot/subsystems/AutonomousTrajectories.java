@@ -220,6 +220,80 @@ public class AutonomousTrajectories extends SubsystemBase {
     return forwardTrajectory;
   }
 
+  /**
+   * Goes only left or right at the distance between notes
+   *
+   * @param config
+   * @return Trajectory for this portion of auto
+   */
+  public Trajectory getBasicLeftRightAutoTrajectory(
+      TrajectoryConfig config, boolean goingRightNote) {
+    int dirMultiplier = (goingRightNote) ? -1 : 1;
+
+    Trajectory curveTrajectory =
+        TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(0, 0, new Rotation2d(0)),
+            // No additional interior waypoints
+            List.of(),
+            // End 2 meters straight ahead of where we started, facing forward
+            new Pose2d(0, yDistanceBetweenNotes * dirMultiplier, new Rotation2d(0)),
+            config);
+
+    return curveTrajectory;
+  }
+
+  public Trajectory getBasicReverseLeftRightAutoTrajectory(
+      TrajectoryConfig config, boolean goingRightNote) {
+    int dirMultiplier = (goingRightNote) ? -1 : 1;
+
+    Trajectory curveTrajectory =
+        TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(0, yDistanceBetweenNotes * dirMultiplier, new Rotation2d(0)),
+            // No additional interior waypoints
+            List.of(),
+            // End 2 meters straight ahead of where we started, facing forward
+            new Pose2d(0, 0, new Rotation2d(0)),
+            config);
+
+    return curveTrajectory;
+  }
+
+  public Trajectory getBasicSideNoteAutoTrajectory(
+      TrajectoryConfig config, boolean goingRightNote) {
+    int dirMultiplier = (goingRightNote) ? -1 : 1;
+
+    Trajectory curveTrajectory =
+        TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(0, yDistanceBetweenNotes * dirMultiplier, new Rotation2d(0)),
+            // No additional interior waypoints
+            List.of(),
+            // End 2 meters straight ahead of where we started, facing forward
+            new Pose2d(xDistanceToNote, yDistanceBetweenNotes * dirMultiplier, new Rotation2d(0)),
+            config);
+
+    return curveTrajectory;
+  }
+
+  public Trajectory getBasicReverseSideNoteAutoTrajectory(
+      TrajectoryConfig config, boolean goingRightNote) {
+    int dirMultiplier = (goingRightNote) ? -1 : 1;
+
+    Trajectory curveTrajectory =
+        TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(xDistanceToNote, yDistanceBetweenNotes * dirMultiplier, new Rotation2d(0)),
+            // No additional interior waypoints
+            List.of(),
+            // End 2 meters straight ahead of where we started, facing forward
+            new Pose2d(0, yDistanceBetweenNotes * dirMultiplier, new Rotation2d(0)),
+            config);
+
+    return curveTrajectory;
+  }
+
   /** Goes straight forward 2 meters for a standard mobility bonus and nothing else */
   public Trajectory getForwardTrajectory(TrajectoryConfig config) {
     Trajectory forwardTrajectory =
@@ -531,6 +605,54 @@ public class AutonomousTrajectories extends SubsystemBase {
         getTrajectoryCommand(getReverseBasicAutoTrajectory(trajectoryConfig), thetaController),
         getShootCommandWithTimeout(m_shooter, m_axle, m_intake));
   }
+
+  // public Command getScore3InFrontOfSubwooferCommand(boolean secondNoteRight) {
+  //   return new SequentialCommandGroup(
+  //       new AutoBasicAimSpeakerCommand(m_axle, m_climb),
+  //       getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
+
+  //       new WaitCommand(1),
+  //       getIntakeWithTrajectory(
+  //           getTrajectoryCommand(getBasicAutoTrajectory(trajectoryConfig), thetaController)),
+  //       getTrajectoryCommand(getReverseBasicAutoTrajectory(trajectoryConfig), thetaController),
+  //       getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
+
+  //       new WaitCommand(1),
+  //       getIntakeWithTrajectory(
+  //           getTrajectoryCommand(getBasicSideNoteAutoTrajectory(trajectoryConfig,
+  // secondNoteRight), thetaController)),
+  //       getTrajectoryCommand(getBasicReverseSideNoteAutoTrajectory(trajectoryConfig,
+  // secondNoteRight), thetaController),
+  //       getShootCommandWithTimeout(m_shooter, m_axle, m_intake));
+  // }
+
+  // public Command getScore4InFrontOfSubwooferCommand(boolean secondNoteRight) {
+  //   return new SequentialCommandGroup(
+  //       new AutoBasicAimSpeakerCommand(m_axle, m_climb),
+  //       getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
+
+  //       new WaitCommand(1),
+  //       getIntakeWithTrajectory(
+  //           getTrajectoryCommand(getBasicAutoTrajectory(trajectoryConfig), thetaController)),
+  //       getTrajectoryCommand(getReverseBasicAutoTrajectory(trajectoryConfig), thetaController),
+  //       getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
+
+  //       new WaitCommand(1),
+  //       getIntakeWithTrajectory(
+  //           getTrajectoryCommand(getBasicSideNoteAutoTrajectory(trajectoryConfig,
+  // secondNoteRight), thetaController)),
+  //       getTrajectoryCommand(getBasicReverseSideNoteAutoTrajectory(trajectoryConfig,
+  // secondNoteRight), thetaController),
+  //       getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
+
+  //       new WaitCommand(1),
+  //       getIntakeWithTrajectory(
+  //           getTrajectoryCommand(getBasicSideNoteAutoTrajectory(trajectoryConfig,
+  // !secondNoteRight), thetaController)),
+  //       getTrajectoryCommand(getBasicReverseSideNoteAutoTrajectory(trajectoryConfig,
+  // !secondNoteRight), thetaController),
+  //       getShootCommandWithTimeout(m_shooter, m_axle, m_intake));
+  // }
 
   public Command getRedScore1OnRightSideOfSubwooferCommand() {
     return new SequentialCommandGroup(
