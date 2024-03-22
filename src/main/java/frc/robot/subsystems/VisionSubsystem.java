@@ -4,12 +4,15 @@ import edu.wpi.first.networktables.FloatArrayEntry;
 import edu.wpi.first.networktables.FloatArrayTopic;
 import edu.wpi.first.networktables.FloatEntry;
 import edu.wpi.first.networktables.FloatTopic;
+import edu.wpi.first.networktables.GenericSubscriber;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.PubSubOption;
 import edu.wpi.first.networktables.StringPublisher;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+
+import java.lang.reflect.Array;
 import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -19,6 +22,7 @@ public class VisionSubsystem extends SubsystemBase {
   private static NetworkTableInstance inst = NetworkTableInstance.getDefault();
   private static NetworkTable aprilTagsTable = inst.getTable("PiDetector");
 
+  //place for future growth?
   FloatTopic Dist1 = aprilTagsTable.getFloatTopic("1-Dist");
   FloatTopic Dist2 = aprilTagsTable.getFloatTopic("2-Dist");
   FloatTopic Dist3 = aprilTagsTable.getFloatTopic("3-Dist");
@@ -97,6 +101,17 @@ public class VisionSubsystem extends SubsystemBase {
 
   private Set<String> tags;
 
+  //Actually extracting data
+  final GenericSubscriber SubDist4 = Dist4.genericSubscribe(PubSubOption.keepDuplicates(false));
+  final GenericSubscriber SubDist7 = Dist7.genericSubscribe(PubSubOption.keepDuplicates(false));
+  final GenericSubscriber SubCenter4 = Center4.genericSubscribe(PubSubOption.keepDuplicates(false));
+  final GenericSubscriber SubCenter7 = Center7.genericSubscribe(PubSubOption.keepDuplicates(false));
+  final GenericSubscriber SubXYZ4 = XYZ4.genericSubscribe(PubSubOption.keepDuplicates(false));
+  final GenericSubscriber SubXYZ7 = XYZ7.genericSubscribe(PubSubOption.keepDuplicates(false));
+
+  final GenericSubscriber SubCenter9 = Center9.genericSubscribe(PubSubOption.keepDuplicates(false));
+  final GenericSubscriber SubCenter1 = Center1.genericSubscribe(PubSubOption.keepDuplicates(false));
+
   private final String[] speakerTags = {"4", "7"};
   private final String speakerDistanceToTagName = "Dist";
   private final String speakerCenterName = "Center";
@@ -107,12 +122,13 @@ public class VisionSubsystem extends SubsystemBase {
   private final String[] ampTags = {"9", "1"};
   private final String ampCenterName = "Center";
 
-  public VisionSubsystem() {}
+  public VisionSubsystem() {
+
+  }
 
   @Override
   public void periodic() {
-
-    tags = aprilTagsTable.getKeys();
+    XYZ1.getGenericEntry("");
 
     if (checkForSpeakerTag()) {
       System.out.println("CurrSpeakerTag -> " + findSpeakerTagInView());
