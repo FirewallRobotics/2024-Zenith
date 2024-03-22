@@ -337,12 +337,14 @@ public class AutonomousTrajectories extends SubsystemBase {
             // No additional interior waypoints
             List.of(),
             // End 2 meters straight ahead of where we started, facing forward
-            m_robotDrive.getPose().transformBy(
-                new Transform2d(
-                    new Translation2d(
-                        diagonalDistance * Math.cos(Math.toRadians(60)),
-                        diagonalDistance * Math.sin(Math.toRadians(60)) * dirMultiplier),
-                    new Rotation2d())),
+            m_robotDrive
+                .getPose()
+                .transformBy(
+                    new Transform2d(
+                        new Translation2d(
+                            diagonalDistance * Math.cos(Math.toRadians(60)),
+                            diagonalDistance * Math.sin(Math.toRadians(60)) * dirMultiplier),
+                        new Rotation2d())),
             config);
 
     return diagonalTrajectory;
@@ -611,23 +613,24 @@ public class AutonomousTrajectories extends SubsystemBase {
     return new SequentialCommandGroup(
         new AutoBasicAimSpeakerCommand(m_axle, m_climb),
         getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
-
         new WaitCommand(1),
         getIntakeWithTrajectory(
             getTrajectoryCommand(getBasicAutoTrajectory(trajectoryConfig), thetaController)),
         getTrajectoryCommand(getReverseBasicAutoTrajectory(trajectoryConfig), thetaController),
         getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
-
         new WaitCommand(1),
-        getTrajectoryCommand(getBasicLeftRightAutoTrajectory(trajectoryConfig, secondNoteRight), thetaController),
-
+        getTrajectoryCommand(
+            getBasicLeftRightAutoTrajectory(trajectoryConfig, secondNoteRight), thetaController),
         getIntakeWithTrajectory(
-            getTrajectoryCommand(getBasicSideNoteAutoTrajectory(trajectoryConfig,
-  secondNoteRight), thetaController)),
-        getTrajectoryCommand(getBasicReverseSideNoteAutoTrajectory(trajectoryConfig,
-  secondNoteRight), thetaController),
-        getTrajectoryCommand(getBasicReverseLeftRightAutoTrajectory(trajectoryConfig, secondNoteRight), thetaController),
-
+            getTrajectoryCommand(
+                getBasicSideNoteAutoTrajectory(trajectoryConfig, secondNoteRight),
+                thetaController)),
+        getTrajectoryCommand(
+            getBasicReverseSideNoteAutoTrajectory(trajectoryConfig, secondNoteRight),
+            thetaController),
+        getTrajectoryCommand(
+            getBasicReverseLeftRightAutoTrajectory(trajectoryConfig, secondNoteRight),
+            thetaController),
         getShootCommandWithTimeout(m_shooter, m_axle, m_intake));
   }
 
@@ -635,27 +638,28 @@ public class AutonomousTrajectories extends SubsystemBase {
     return new SequentialCommandGroup(
         new AutoBasicAimSpeakerCommand(m_axle, m_climb),
         getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
-
         new WaitCommand(1),
         getIntakeWithTrajectory(
             getTrajectoryCommand(getBasicAutoTrajectory(trajectoryConfig), thetaController)),
         getTrajectoryCommand(getReverseBasicAutoTrajectory(trajectoryConfig), thetaController),
         getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
-
         new WaitCommand(1),
         getIntakeWithTrajectory(
-            getTrajectoryCommand(getBasicSideNoteAutoTrajectory(trajectoryConfig,
-  secondNoteRight), thetaController)),
-        getTrajectoryCommand(getBasicReverseSideNoteAutoTrajectory(trajectoryConfig,
-  secondNoteRight), thetaController),
+            getTrajectoryCommand(
+                getBasicSideNoteAutoTrajectory(trajectoryConfig, secondNoteRight),
+                thetaController)),
+        getTrajectoryCommand(
+            getBasicReverseSideNoteAutoTrajectory(trajectoryConfig, secondNoteRight),
+            thetaController),
         getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
-
         new WaitCommand(1),
         getIntakeWithTrajectory(
-            getTrajectoryCommand(getBasicSideNoteAutoTrajectory(trajectoryConfig,
-  !secondNoteRight), thetaController)),
-        getTrajectoryCommand(getBasicReverseSideNoteAutoTrajectory(trajectoryConfig,
-  !secondNoteRight), thetaController),
+            getTrajectoryCommand(
+                getBasicSideNoteAutoTrajectory(trajectoryConfig, !secondNoteRight),
+                thetaController)),
+        getTrajectoryCommand(
+            getBasicReverseSideNoteAutoTrajectory(trajectoryConfig, !secondNoteRight),
+            thetaController),
         getShootCommandWithTimeout(m_shooter, m_axle, m_intake));
   }
 
