@@ -128,7 +128,6 @@ public class VisionSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    XYZ1.getGenericEntry("");
 
     if (checkForSpeakerTag()) {
       System.out.println("CurrSpeakerTag -> " + findSpeakerTagInView());
