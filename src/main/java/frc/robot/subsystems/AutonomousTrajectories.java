@@ -328,21 +328,23 @@ public class AutonomousTrajectories extends SubsystemBase {
 
   public Trajectory getDiagonalTrajectory(
       TrajectoryConfig config, boolean rightOfSubwoofer, Pose2d currentPose) {
-    int dirMultiplier = (rightOfSubwoofer) ? 1 : -1;
+    int dirMultiplier = (rightOfSubwoofer) ? -1 : 1;
 
     Trajectory diagonalTrajectory =
         TrajectoryGenerator.generateTrajectory(
             // Start at the origin facing the +X direction
-            currentPose,
+            m_robotDrive.getPose(),
             // No additional interior waypoints
             List.of(),
             // End 2 meters straight ahead of where we started, facing forward
-            currentPose.transformBy(
-                new Transform2d(
-                    new Translation2d(
-                        diagonalDistance * Math.cos(Math.toRadians(60)),
-                        diagonalDistance * Math.sin(Math.toRadians(60)) * dirMultiplier),
-                    new Rotation2d())),
+            m_robotDrive
+                .getPose()
+                .transformBy(
+                    new Transform2d(
+                        new Translation2d(
+                            diagonalDistance * Math.cos(Math.toRadians(60)),
+                            diagonalDistance * Math.sin(Math.toRadians(60)) * dirMultiplier),
+                        new Rotation2d())),
             config);
 
     return diagonalTrajectory;
@@ -603,56 +605,63 @@ public class AutonomousTrajectories extends SubsystemBase {
         getIntakeWithTrajectory(
             getTrajectoryCommand(getBasicAutoTrajectory(trajectoryConfig), thetaController)),
         getTrajectoryCommand(getReverseBasicAutoTrajectory(trajectoryConfig), thetaController),
+        new WaitCommand(1.0),
         getShootCommandWithTimeout(m_shooter, m_axle, m_intake));
   }
 
-  // public Command getScore3InFrontOfSubwooferCommand(boolean secondNoteRight) {
-  //   return new SequentialCommandGroup(
-  //       new AutoBasicAimSpeakerCommand(m_axle, m_climb),
-  //       getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
+  public Command getScore3InFrontOfSubwooferCommand(boolean secondNoteRight) {
+    return new SequentialCommandGroup(
+        new AutoBasicAimSpeakerCommand(m_axle, m_climb),
+        getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
+        new WaitCommand(1),
+        getIntakeWithTrajectory(
+            getTrajectoryCommand(getBasicAutoTrajectory(trajectoryConfig), thetaController)),
+        getTrajectoryCommand(getReverseBasicAutoTrajectory(trajectoryConfig), thetaController),
+        getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
+        new WaitCommand(1),
+        getTrajectoryCommand(
+            getBasicLeftRightAutoTrajectory(trajectoryConfig, secondNoteRight), thetaController),
+        getIntakeWithTrajectory(
+            getTrajectoryCommand(
+                getBasicSideNoteAutoTrajectory(trajectoryConfig, secondNoteRight),
+                thetaController)),
+        getTrajectoryCommand(
+            getBasicReverseSideNoteAutoTrajectory(trajectoryConfig, secondNoteRight),
+            thetaController),
+        getTrajectoryCommand(
+            getBasicReverseLeftRightAutoTrajectory(trajectoryConfig, secondNoteRight),
+            thetaController),
+        getShootCommandWithTimeout(m_shooter, m_axle, m_intake));
+  }
 
-  //       new WaitCommand(1),
-  //       getIntakeWithTrajectory(
-  //           getTrajectoryCommand(getBasicAutoTrajectory(trajectoryConfig), thetaController)),
-  //       getTrajectoryCommand(getReverseBasicAutoTrajectory(trajectoryConfig), thetaController),
-  //       getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
-
-  //       new WaitCommand(1),
-  //       getIntakeWithTrajectory(
-  //           getTrajectoryCommand(getBasicSideNoteAutoTrajectory(trajectoryConfig,
-  // secondNoteRight), thetaController)),
-  //       getTrajectoryCommand(getBasicReverseSideNoteAutoTrajectory(trajectoryConfig,
-  // secondNoteRight), thetaController),
-  //       getShootCommandWithTimeout(m_shooter, m_axle, m_intake));
-  // }
-
-  // public Command getScore4InFrontOfSubwooferCommand(boolean secondNoteRight) {
-  //   return new SequentialCommandGroup(
-  //       new AutoBasicAimSpeakerCommand(m_axle, m_climb),
-  //       getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
-
-  //       new WaitCommand(1),
-  //       getIntakeWithTrajectory(
-  //           getTrajectoryCommand(getBasicAutoTrajectory(trajectoryConfig), thetaController)),
-  //       getTrajectoryCommand(getReverseBasicAutoTrajectory(trajectoryConfig), thetaController),
-  //       getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
-
-  //       new WaitCommand(1),
-  //       getIntakeWithTrajectory(
-  //           getTrajectoryCommand(getBasicSideNoteAutoTrajectory(trajectoryConfig,
-  // secondNoteRight), thetaController)),
-  //       getTrajectoryCommand(getBasicReverseSideNoteAutoTrajectory(trajectoryConfig,
-  // secondNoteRight), thetaController),
-  //       getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
-
-  //       new WaitCommand(1),
-  //       getIntakeWithTrajectory(
-  //           getTrajectoryCommand(getBasicSideNoteAutoTrajectory(trajectoryConfig,
-  // !secondNoteRight), thetaController)),
-  //       getTrajectoryCommand(getBasicReverseSideNoteAutoTrajectory(trajectoryConfig,
-  // !secondNoteRight), thetaController),
-  //       getShootCommandWithTimeout(m_shooter, m_axle, m_intake));
-  // }
+  public Command getScore4InFrontOfSubwooferCommand(boolean secondNoteRight) {
+    return new SequentialCommandGroup(
+        new AutoBasicAimSpeakerCommand(m_axle, m_climb),
+        getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
+        new WaitCommand(1),
+        getIntakeWithTrajectory(
+            getTrajectoryCommand(getBasicAutoTrajectory(trajectoryConfig), thetaController)),
+        getTrajectoryCommand(getReverseBasicAutoTrajectory(trajectoryConfig), thetaController),
+        getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
+        new WaitCommand(1),
+        getIntakeWithTrajectory(
+            getTrajectoryCommand(
+                getBasicSideNoteAutoTrajectory(trajectoryConfig, secondNoteRight),
+                thetaController)),
+        getTrajectoryCommand(
+            getBasicReverseSideNoteAutoTrajectory(trajectoryConfig, secondNoteRight),
+            thetaController),
+        getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
+        new WaitCommand(1),
+        getIntakeWithTrajectory(
+            getTrajectoryCommand(
+                getBasicSideNoteAutoTrajectory(trajectoryConfig, !secondNoteRight),
+                thetaController)),
+        getTrajectoryCommand(
+            getBasicReverseSideNoteAutoTrajectory(trajectoryConfig, !secondNoteRight),
+            thetaController),
+        getShootCommandWithTimeout(m_shooter, m_axle, m_intake));
+  }
 
   public Command getRedScore1OnRightSideOfSubwooferCommand() {
     return new SequentialCommandGroup(

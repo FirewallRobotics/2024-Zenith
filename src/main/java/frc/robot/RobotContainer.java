@@ -94,21 +94,19 @@ public class RobotContainer {
     m_chooser.addOption(
         "Basic Auto: Start in front of Subwoofer, Score 2, Pick up middle note",
         m_trajectories.getScore2InFrontOfSubwooferCommand());
-    // m_chooser.addOption(
-    //     "Basic Auto: Start in front of Subwoofer, Score 3, Pick up middle note, then right note",
-    //     m_trajectories.getScore3InFrontOfSubwooferCommand(true));
-    // m_chooser.addOption(
-    //     "Basic Auto: Start in front of Subwoofer, Score 3, Pick up middle note, then left note",
-    //     m_trajectories.getScore3InFrontOfSubwooferCommand(false));
+    m_chooser.addOption(
+        "Basic Auto: Start in front of Subwoofer, Score 3, Pick up middle note, then right note",
+        m_trajectories.getScore3InFrontOfSubwooferCommand(true));
+    m_chooser.addOption(
+        "Basic Auto: Start in front of Subwoofer, Score 3, Pick up middle note, then left note",
+        m_trajectories.getScore3InFrontOfSubwooferCommand(false));
 
-    // m_chooser.addOption(
-    //     "Basic Auto: Start in front of Subwoofer, Score 4, Pick up middle note, then right note,
-    // then left note",
-    //     m_trajectories.getScore3InFrontOfSubwooferCommand(true));
-    // m_chooser.addOption(
-    //     "Basic Auto: Start in front of Subwoofer, Score 4, Pick up middle note, then left note,
-    // then right note",
-    //     m_trajectories.getScore3InFrontOfSubwooferCommand(false));
+    m_chooser.addOption(
+        "Basic Auto: Start in front of Subwoofer, Score 4, Pick up middle note, then right note, then left note",
+        m_trajectories.getScore3InFrontOfSubwooferCommand(true));
+    m_chooser.addOption(
+        "Basic Auto: Start in front of Subwoofer, Score 4, Pick up middle note, then left note, then right note",
+        m_trajectories.getScore3InFrontOfSubwooferCommand(false));
     m_chooser.addOption(
         "Basic Auto: RED TEAM - Start left facing subwoofer, Score 1, Park Past Line",
         m_trajectories.getRedScore1OnLeftSideOfSubwooferCommand());
