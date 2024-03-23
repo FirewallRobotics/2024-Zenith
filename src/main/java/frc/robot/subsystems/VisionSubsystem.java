@@ -96,6 +96,7 @@ public class VisionSubsystem extends SubsystemBase {
   NetworkTableEntry XYZ16 = aprilTagsTable.getEntry ("16-XYZ");
 
   private NetworkTable ringTable = inst.getTable("RingFinder");
+  private NetworkTableEntry ring = ringTable.getEntry("Rings");
 
   private static NetworkTable Unicorntable = inst.getTable("UnicornHatRIO");
   static final StringPublisher dblPub = Unicorntable.getStringTopic("ToUnicornStatus").publish();
@@ -108,21 +109,20 @@ public class VisionSubsystem extends SubsystemBase {
   private float[] defaultfloat = {1};
 
   //Actually extracting data
-  final float[] SubDist4 = Dist4.getFloatArray(defaultfloat);
-  final float[] SubDist7 = Dist7.getFloatArray(defaultfloat);
-  final float[] SubCenter4 = Center4.getFloatArray(defaultfloat);
-  final float[] SubCenter7 = Center7.getFloatArray(defaultfloat);
-  final float[] SubXYZ4 = XYZ4.getFloatArray(defaultfloat);
-  final float[] SubXYZ7 = XYZ7.getFloatArray(defaultfloat);;
+  private float SubDist4;
+  private float SubDist7;
+  private float[] SubCenter4;
+  private float[] SubCenter7;
+  private float[] SubXYZ4;
+  private float[] SubXYZ7;
 
-  final float[] SubCenter9 = Center9.getFloatArray(defaultfloat);
-  final float[] SubCenter1 = Center1.getFloatArray(defaultfloat);
+  private float[] SubCenter9;
+  private float[] SubCenter1;
 
-  final float Time1 = TimeSeen1.getFloat(0);
-  final float Time9 = TimeSeen9.getFloat(0);
-  final float Time4 = TimeSeen4.getFloat(0);
-  final float Time7 = TimeSeen7.getFloat(0);
-
+  private float Time1;
+  private float Time9;
+  private float Time4;
+  private float Time7;
 
   private final String[] speakerTags = {"4", "7"};
   private final String speakerDistanceToTagName = "Dist";
@@ -134,12 +134,26 @@ public class VisionSubsystem extends SubsystemBase {
   private final String[] ampTags = {"9", "1"};
   private final String ampCenterName = "Center";
 
-  public VisionSubsystem() {
-
-  }
+  public VisionSubsystem() {}
 
   @Override
   public void periodic() {
+
+    SubDist4 = Dist4.getFloat(0);
+    SubDist7 = Dist7.getFloat(0);
+    SubCenter4 = Center4.getFloatArray(defaultfloat);
+    SubCenter7 = Center7.getFloatArray(defaultfloat);
+    SubXYZ4 = XYZ4.getFloatArray(defaultfloat);
+    SubXYZ7 = XYZ7.getFloatArray(defaultfloat);;
+
+    SubCenter9 = Center9.getFloatArray(defaultfloat);
+    SubCenter1 = Center1.getFloatArray(defaultfloat);
+
+    Time1 = TimeSeen1.getFloat(0);
+    Time9 = TimeSeen9.getFloat(0);
+    Time4 = TimeSeen4.getFloat(0);
+    Time7 = TimeSeen7.getFloat(0);
+
     if(NetworkTablesJNI.now() + 10 >= Time1 && !tags.contains("1")){
       tags.add("1");
     }else if((NetworkTablesJNI.now() + 10 >= Time1) == false){
@@ -177,7 +191,7 @@ public class VisionSubsystem extends SubsystemBase {
 
   public boolean checkForSpeakerTag() {
     for (String tagNum : speakerTags) {      
-      if (aprilTagsTable.containsKey(tagNum + "-" + speakerCenterName)) {
+      if (tags.contains(tagNum)) {
         return true;
       }
     }
@@ -189,10 +203,12 @@ public class VisionSubsystem extends SubsystemBase {
   public float getSpeakerTagDistanceToTag() {
     String tagNum = findSpeakerTagInView();
 
-    if (tagNum != null) {
-      FloatTopic floatTopic = aprilTagsTable.getFloatTopic(tagNum + "-" + speakerDistanceToTagName);
-      FloatEntry floatEntry = floatTopic.getEntry(0);
-      return floatEntry.get();
+    if(tagNum.equals("4")){
+      return SubDist4;
+    }
+
+    if(tagNum.equals("7")){
+      return SubDist7;
     }
 
     return 0;
@@ -202,11 +218,12 @@ public class VisionSubsystem extends SubsystemBase {
   public float getSpeakerTagCenterX() {
     String tagNum = findSpeakerTagInView();
 
-    if (tagNum != null) {
-      FloatArrayTopic arrayTopic = aprilTagsTable.getFloatArrayTopic(tagNum + "-" + speakerCenterName);
-      FloatArrayEntry arrayEntry = arrayTopic.getEntry(new float[] {0,0});
-      float[] array = arrayEntry.get();
-      return array[0];
+    if(tagNum.equals("4")){
+      return SubCenter4[0];
+    }
+
+    if(tagNum.equals("7")){
+      return SubCenter7[0];
     }
 
     return 0;
@@ -216,11 +233,12 @@ public class VisionSubsystem extends SubsystemBase {
   public float getSpeakerTagRotationZ() {
     String tagNum = findSpeakerTagInView();
 
-    if (tagNum != null) {
-      FloatArrayTopic arrayTopic = aprilTagsTable.getFloatArrayTopic(tagNum + "-" + speakerRotationName);
-      FloatArrayEntry arrayEntry = arrayTopic.getEntry(new float[] {0,0,0});
-      float[] array = arrayEntry.get();
-      return array[2];
+    if(tagNum.equals("4")){
+      return SubXYZ4[2];
+    }
+
+    if(tagNum.equals("7")){
+      return SubXYZ7[2];
     }
 
     return 0;
@@ -228,7 +246,7 @@ public class VisionSubsystem extends SubsystemBase {
 
   private String findSpeakerTagInView() {
     for (String tagNum : speakerTags) {
-      if (aprilTagsTable.containsKey(tagNum + "-" + speakerCenterName)) {
+      if (tags.contains("tagNum")) {
         return tagNum;
       }
     }
@@ -308,7 +326,6 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   private boolean OrangeCheckInView() {
-
     if (ringTable.containsKey(ringKey)) {
       return true;
     }
