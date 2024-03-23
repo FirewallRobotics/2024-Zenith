@@ -4,15 +4,9 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -21,12 +15,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import frc.robot.Constants.AutoConstants;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
 import frc.robot.subsystems.AutoAimSubsystem;
@@ -39,10 +30,6 @@ import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 // import frc.robot.subsystems.UltrasonicSensor;
 import frc.robot.subsystems.VisionSubsystem;
-import java.util.List;
-
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.auto.NamedCommands;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -77,14 +64,13 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-    NamedCommands.registerCommand("aimSpeaker", 
-      new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LED));
-    NamedCommands.registerCommand("autoShootSpeaker", 
-      new AutoShootSpeakerCommand(m_shooter, m_intake));
-    NamedCommands.registerCommand("intakeFloor", 
-      new IntakeFloorCommand(m_intake, m_axle, m_LED));
-    NamedCommands.registerCommand("adjustNote", 
-      new ReverseShooterCommand(m_shooter, m_intake, m_LED));
+    NamedCommands.registerCommand(
+        "aimSpeaker", new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LED));
+    NamedCommands.registerCommand(
+        "autoShootSpeaker", new AutoShootSpeakerCommand(m_shooter, m_intake));
+    NamedCommands.registerCommand("intakeFloor", new IntakeFloorCommand(m_intake, m_axle, m_LED));
+    NamedCommands.registerCommand(
+        "adjustNote", new ReverseShooterCommand(m_shooter, m_intake, m_LED));
 
     m_autoChooser = AutoBuilder.buildAutoChooser("ThreeMeterAuto");
     SmartDashboard.putData(m_autoChooser);
@@ -267,283 +253,287 @@ public class RobotContainer {
 
     return m_autoChooser.getSelected();
 
-  //   TrajectoryConfig config =
-  //       new TrajectoryConfig(
-  //               AutoConstants.kMaxSpeedMetersPerSecond,
-  //               AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-  //           // Add kinematics to ensure max speed is actually obeyed
-  //           .setKinematics(DriveConstants.kDriveKinematics);
+    //   TrajectoryConfig config =
+    //       new TrajectoryConfig(
+    //               AutoConstants.kMaxSpeedMetersPerSecond,
+    //               AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+    //           // Add kinematics to ensure max speed is actually obeyed
+    //           .setKinematics(DriveConstants.kDriveKinematics);
 
-  //   Trajectory myTrajectory;
-  //   Trajectory bonusTrajectory = null;
+    //   Trajectory myTrajectory;
+    //   Trajectory bonusTrajectory = null;
 
-  //   String chooser = "Example";
+    //   String chooser = "Example";
 
-  //   if (chooser.equals("Example")) {
-  //     myTrajectory = getExampleTrajectory(config);
-  //   } else if (chooser.equals("Forward")) {
-  //     myTrajectory = getForwardTrajectory(config);
-  //   } else if (chooser.equals("Forward180")) {
-  //     myTrajectory = getForward180Trajectory(config);
-  //   } else if (chooser.equals("Diagonal")) {
-  //     myTrajectory = getDiagonalTrajectory(config);
-  //   } else if (chooser.equals("Diagonal90")) {
-  //     myTrajectory = getDiagonal90Trajectory(config);
-  //   } else if (chooser.equals("Curve")) {
-  //     myTrajectory = getCurveTrajectory(config);
-  //   } else if (chooser.equals("Curve180")) {
-  //     myTrajectory = getCurve180Trajectory(config);
-  //   } else if (chooser.equals("BigCurve180")) {
-  //     myTrajectory = getBigCurve180Trajectory(config);
-  //   } else if (chooser.equals("ForwardDown")) {
-  //     myTrajectory = getForwardTrajectory(config);
-  //     bonusTrajectory = getRightTrajectory(config);
-  //   } else if (chooser.equals("Spin")) {
-  //     myTrajectory = getSpinTrajectory(config);
-  //   } else {
-  //     myTrajectory = getNullTrajectory(config);
-  //   }
+    //   if (chooser.equals("Example")) {
+    //     myTrajectory = getExampleTrajectory(config);
+    //   } else if (chooser.equals("Forward")) {
+    //     myTrajectory = getForwardTrajectory(config);
+    //   } else if (chooser.equals("Forward180")) {
+    //     myTrajectory = getForward180Trajectory(config);
+    //   } else if (chooser.equals("Diagonal")) {
+    //     myTrajectory = getDiagonalTrajectory(config);
+    //   } else if (chooser.equals("Diagonal90")) {
+    //     myTrajectory = getDiagonal90Trajectory(config);
+    //   } else if (chooser.equals("Curve")) {
+    //     myTrajectory = getCurveTrajectory(config);
+    //   } else if (chooser.equals("Curve180")) {
+    //     myTrajectory = getCurve180Trajectory(config);
+    //   } else if (chooser.equals("BigCurve180")) {
+    //     myTrajectory = getBigCurve180Trajectory(config);
+    //   } else if (chooser.equals("ForwardDown")) {
+    //     myTrajectory = getForwardTrajectory(config);
+    //     bonusTrajectory = getRightTrajectory(config);
+    //   } else if (chooser.equals("Spin")) {
+    //     myTrajectory = getSpinTrajectory(config);
+    //   } else {
+    //     myTrajectory = getNullTrajectory(config);
+    //   }
 
-  //   var thetaController =
-  //       new ProfiledPIDController(
-  //           AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
-  //   thetaController.enableContinuousInput(-Math.PI, Math.PI);
+    //   var thetaController =
+    //       new ProfiledPIDController(
+    //           AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
+    //   thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-  //   SwerveControllerCommand swerveControllerCommand =
-  //       new SwerveControllerCommand(
-  //           myTrajectory,
-  //           m_robotDrive::getPose, // Functional interface to feed supplier
-  //           DriveConstants.kDriveKinematics,
+    //   SwerveControllerCommand swerveControllerCommand =
+    //       new SwerveControllerCommand(
+    //           myTrajectory,
+    //           m_robotDrive::getPose, // Functional interface to feed supplier
+    //           DriveConstants.kDriveKinematics,
 
-  //           // Position controllers
-  //           new PIDController(AutoConstants.kPXController, 0, 0),
-  //           new PIDController(AutoConstants.kPYController, 0, 0),
-  //           thetaController,
-  //           m_robotDrive::setModuleStates,
-  //           m_robotDrive);
+    //           // Position controllers
+    //           new PIDController(AutoConstants.kPXController, 0, 0),
+    //           new PIDController(AutoConstants.kPYController, 0, 0),
+    //           thetaController,
+    //           m_robotDrive::setModuleStates,
+    //           m_robotDrive);
 
-  //   SwerveControllerCommand bonusSwerveControllerCommand = null;
+    //   SwerveControllerCommand bonusSwerveControllerCommand = null;
 
-  //   if (bonusTrajectory != null) {
-  //     bonusSwerveControllerCommand =
-  //         new SwerveControllerCommand(
-  //             bonusTrajectory,
-  //             m_robotDrive::getPose, // Functional interface to feed supplier
-  //             DriveConstants.kDriveKinematics,
+    //   if (bonusTrajectory != null) {
+    //     bonusSwerveControllerCommand =
+    //         new SwerveControllerCommand(
+    //             bonusTrajectory,
+    //             m_robotDrive::getPose, // Functional interface to feed supplier
+    //             DriveConstants.kDriveKinematics,
 
-  //             // Position controllers
-  //             new PIDController(AutoConstants.kPXController, 0, 0),
-  //             new PIDController(AutoConstants.kPYController, 0, 0),
-  //             thetaController,
-  //             m_robotDrive::setModuleStates,
-  //             m_robotDrive);
-  //   }
+    //             // Position controllers
+    //             new PIDController(AutoConstants.kPXController, 0, 0),
+    //             new PIDController(AutoConstants.kPYController, 0, 0),
+    //             thetaController,
+    //             m_robotDrive::setModuleStates,
+    //             m_robotDrive);
+    //   }
 
-  //   // Reset odometry to the starting pose of the trajectory.
-  //   m_robotDrive.resetOdometry(myTrajectory.getInitialPose());
+    //   // Reset odometry to the starting pose of the trajectory.
+    //   m_robotDrive.resetOdometry(myTrajectory.getInitialPose());
 
-  //   if (bonusSwerveControllerCommand == null) {
-  //     // Run path following command, then stop at the end.
-  //     return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
-  //   } else {
-  //     // Run path following commands, then stop at the end.
-  //     return swerveControllerCommand
-  //         .andThen(bonusSwerveControllerCommand)
-  //         .andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
-  //   }
-  // }
+    //   if (bonusSwerveControllerCommand == null) {
+    //     // Run path following command, then stop at the end.
+    //     return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
+    //   } else {
+    //     // Run path following commands, then stop at the end.
+    //     return swerveControllerCommand
+    //         .andThen(bonusSwerveControllerCommand)
+    //         .andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
+    //   }
+    // }
 
-  // private Trajectory getExampleTrajectory(TrajectoryConfig config) {
-  //   // An example trajectory to follow. All units in meters.
-  //   Trajectory exampleTrajectory =
-  //       TrajectoryGenerator.generateTrajectory(
-  //           // Start at the origin facing the +X direction
-  //           new Pose2d(0, 0, new Rotation2d(0)),
-  //           // Pass through these two interior waypoints, making an 's' curve path
-  //           List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
-  //           // End 3 meters straight ahead of where we started, facing forward
-  //           new Pose2d(3, 0, new Rotation2d(0)),
-  //           config);
+    // private Trajectory getExampleTrajectory(TrajectoryConfig config) {
+    //   // An example trajectory to follow. All units in meters.
+    //   Trajectory exampleTrajectory =
+    //       TrajectoryGenerator.generateTrajectory(
+    //           // Start at the origin facing the +X direction
+    //           new Pose2d(0, 0, new Rotation2d(0)),
+    //           // Pass through these two interior waypoints, making an 's' curve path
+    //           List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+    //           // End 3 meters straight ahead of where we started, facing forward
+    //           new Pose2d(3, 0, new Rotation2d(0)),
+    //           config);
 
-  //   return exampleTrajectory;
-  // }
+    //   return exampleTrajectory;
+    // }
 
-  // private Trajectory getForwardTrajectory(TrajectoryConfig config) {
-  //   // An example trajectory to follow. All units in meters.
-  //   Trajectory forwardTrajectory =
-  //       TrajectoryGenerator.generateTrajectory(
-  //           // Start at the origin facing the +X direction
-  //           new Pose2d(0, 0, new Rotation2d(0)),
-  //           // No additional interior waypoints
-  //           List.of(),
-  //           // End 1 meter straight ahead of where we started, facing forward
-  //           new Pose2d(1, 0, new Rotation2d(0)),
-  //           config);
+    // private Trajectory getForwardTrajectory(TrajectoryConfig config) {
+    //   // An example trajectory to follow. All units in meters.
+    //   Trajectory forwardTrajectory =
+    //       TrajectoryGenerator.generateTrajectory(
+    //           // Start at the origin facing the +X direction
+    //           new Pose2d(0, 0, new Rotation2d(0)),
+    //           // No additional interior waypoints
+    //           List.of(),
+    //           // End 1 meter straight ahead of where we started, facing forward
+    //           new Pose2d(1, 0, new Rotation2d(0)),
+    //           config);
 
-  //   return forwardTrajectory;
-  // }
+    //   return forwardTrajectory;
+    // }
 
-  // private Trajectory getForward180Trajectory(TrajectoryConfig config) {
-  //   // An example trajectory to follow. All units in meters.
-  //   Trajectory forward180Trajectory =
-  //       TrajectoryGenerator.generateTrajectory(
-  //           // Start at the origin facing the +X direction
-  //           new Pose2d(0, 0, new Rotation2d(0)),
-  //           // No additional interior waypoints
-  //           List.of(),
-  //           // End 1 meter straight ahead of where we started, facing backwards
-  //           new Pose2d(1, 0, new Rotation2d(Math.PI)),
-  //           config);
+    // private Trajectory getForward180Trajectory(TrajectoryConfig config) {
+    //   // An example trajectory to follow. All units in meters.
+    //   Trajectory forward180Trajectory =
+    //       TrajectoryGenerator.generateTrajectory(
+    //           // Start at the origin facing the +X direction
+    //           new Pose2d(0, 0, new Rotation2d(0)),
+    //           // No additional interior waypoints
+    //           List.of(),
+    //           // End 1 meter straight ahead of where we started, facing backwards
+    //           new Pose2d(1, 0, new Rotation2d(Math.PI)),
+    //           config);
 
-  //   return forward180Trajectory;
-  // }
+    //   return forward180Trajectory;
+    // }
 
-  // private Trajectory getDiagonalTrajectory(TrajectoryConfig config) {
-  //   // An example trajectory to follow. All units in meters.
-  //   Trajectory diagonalTrajectory =
-  //       TrajectoryGenerator.generateTrajectory(
-  //           // Start at the origin facing the +X direction
-  //           new Pose2d(0, 0, new Rotation2d(0)),
-  //           // No additional interior waypoints
-  //           List.of(),
-  //           // End 1 meter straight ahead and 1 meter left? from where we started, facing forward
-  //           new Pose2d(1, 1, new Rotation2d(0)),
-  //           config);
+    // private Trajectory getDiagonalTrajectory(TrajectoryConfig config) {
+    //   // An example trajectory to follow. All units in meters.
+    //   Trajectory diagonalTrajectory =
+    //       TrajectoryGenerator.generateTrajectory(
+    //           // Start at the origin facing the +X direction
+    //           new Pose2d(0, 0, new Rotation2d(0)),
+    //           // No additional interior waypoints
+    //           List.of(),
+    //           // End 1 meter straight ahead and 1 meter left? from where we started, facing
+    // forward
+    //           new Pose2d(1, 1, new Rotation2d(0)),
+    //           config);
 
-  //   return diagonalTrajectory;
-  // }
+    //   return diagonalTrajectory;
+    // }
 
-  // private Trajectory getDiagonal90Trajectory(TrajectoryConfig config) {
-  //   // An example trajectory to follow. All units in meters.
-  //   Trajectory diagonal180Trajectory =
-  //       TrajectoryGenerator.generateTrajectory(
-  //           // Start at the origin facing the +X direction
-  //           new Pose2d(0, 0, new Rotation2d(0)),
-  //           // No additional interior waypoints
-  //           List.of(),
-  //           // End 1 meter straight ahead and 1 meter left? from where we started, facing left?
-  //           new Pose2d(1, 1, new Rotation2d(-Math.PI / 2)),
-  //           config);
+    // private Trajectory getDiagonal90Trajectory(TrajectoryConfig config) {
+    //   // An example trajectory to follow. All units in meters.
+    //   Trajectory diagonal180Trajectory =
+    //       TrajectoryGenerator.generateTrajectory(
+    //           // Start at the origin facing the +X direction
+    //           new Pose2d(0, 0, new Rotation2d(0)),
+    //           // No additional interior waypoints
+    //           List.of(),
+    //           // End 1 meter straight ahead and 1 meter left? from where we started, facing left?
+    //           new Pose2d(1, 1, new Rotation2d(-Math.PI / 2)),
+    //           config);
 
-  //   return diagonal180Trajectory;
-  // }
+    //   return diagonal180Trajectory;
+    // }
 
-  // private Trajectory getCurveTrajectory(TrajectoryConfig config) {
-  //   // An example trajectory to follow. All units in meters.
-  //   Trajectory curveTrajectory =
-  //       TrajectoryGenerator.generateTrajectory(
-  //           // Start at the origin facing the +X direction
-  //           new Pose2d(0, 0, new Rotation2d(0)),
-  //           // Pass through this interior waypoint, making "halfpipe" curve path
-  //           List.of(new Translation2d(0.2, -0.8)),
-  //           // End 1 meter straight ahead and 1 meter right? of where we started, facing forward
-  //           new Pose2d(1, -1, new Rotation2d(0)),
-  //           config);
+    // private Trajectory getCurveTrajectory(TrajectoryConfig config) {
+    //   // An example trajectory to follow. All units in meters.
+    //   Trajectory curveTrajectory =
+    //       TrajectoryGenerator.generateTrajectory(
+    //           // Start at the origin facing the +X direction
+    //           new Pose2d(0, 0, new Rotation2d(0)),
+    //           // Pass through this interior waypoint, making "halfpipe" curve path
+    //           List.of(new Translation2d(0.2, -0.8)),
+    //           // End 1 meter straight ahead and 1 meter right? of where we started, facing
+    // forward
+    //           new Pose2d(1, -1, new Rotation2d(0)),
+    //           config);
 
-  //   return curveTrajectory;
-  // }
+    //   return curveTrajectory;
+    // }
 
-  // private Trajectory getCurve180Trajectory(TrajectoryConfig config) {
-  //   // An example trajectory to follow. All units in meters.
-  //   Trajectory curve180Trajectory =
-  //       TrajectoryGenerator.generateTrajectory(
-  //           // Start at the origin facing the +X direction
-  //           new Pose2d(0, 0, new Rotation2d(0)),
-  //           // Pass through this interior waypoint, making "halfpipe" curve path
-  //           List.of(new Translation2d(0.2, -0.8)),
-  //           // End 1 meter straight ahead and 1 meter right? of where we started, facing backwards
-  //           new Pose2d(1, -1, new Rotation2d(Math.PI)),
-  //           config);
+    // private Trajectory getCurve180Trajectory(TrajectoryConfig config) {
+    //   // An example trajectory to follow. All units in meters.
+    //   Trajectory curve180Trajectory =
+    //       TrajectoryGenerator.generateTrajectory(
+    //           // Start at the origin facing the +X direction
+    //           new Pose2d(0, 0, new Rotation2d(0)),
+    //           // Pass through this interior waypoint, making "halfpipe" curve path
+    //           List.of(new Translation2d(0.2, -0.8)),
+    //           // End 1 meter straight ahead and 1 meter right? of where we started, facing
+    // backwards
+    //           new Pose2d(1, -1, new Rotation2d(Math.PI)),
+    //           config);
 
-  //   return curve180Trajectory;
-  // }
+    //   return curve180Trajectory;
+    // }
 
-  // private Trajectory getBigCurve180Trajectory(TrajectoryConfig config) {
-  //   // An example trajectory to follow. All units in meters.
-  //   Trajectory bigCurve180Trajectory =
-  //       TrajectoryGenerator.generateTrajectory(
-  //           // Start at the origin facing the +X direction
-  //           new Pose2d(0, 0, new Rotation2d(0)),
-  //           // Pass through this interior waypoint, making an 'c' curve path to the left? of the
-  //           // start
-  //           List.of(new Translation2d(1, 1)),
-  //           // End 2 meters straight ahead of where we started, facing backwards
-  //           new Pose2d(2, 0, new Rotation2d(0)),
-  //           config);
+    // private Trajectory getBigCurve180Trajectory(TrajectoryConfig config) {
+    //   // An example trajectory to follow. All units in meters.
+    //   Trajectory bigCurve180Trajectory =
+    //       TrajectoryGenerator.generateTrajectory(
+    //           // Start at the origin facing the +X direction
+    //           new Pose2d(0, 0, new Rotation2d(0)),
+    //           // Pass through this interior waypoint, making an 'c' curve path to the left? of
+    // the
+    //           // start
+    //           List.of(new Translation2d(1, 1)),
+    //           // End 2 meters straight ahead of where we started, facing backwards
+    //           new Pose2d(2, 0, new Rotation2d(0)),
+    //           config);
 
-  //   return bigCurve180Trajectory;
-  // }
+    //   return bigCurve180Trajectory;
+    // }
 
-  // private Trajectory getRightTrajectory(TrajectoryConfig config) {
-  //   // An example trajectory to follow. All units in meters.
-  //   Trajectory downTrajectory =
-  //       TrajectoryGenerator.generateTrajectory(
-  //           // Start at the origin facing the +X direction
-  //           new Pose2d(0, 0, new Rotation2d(0)),
-  //           // No additional interior waypoints
-  //           List.of(),
-  //           // End 1 meter straight right? of where we started, facing forward
-  //           new Pose2d(0, -1, new Rotation2d(0)),
-  //           config);
+    // private Trajectory getRightTrajectory(TrajectoryConfig config) {
+    //   // An example trajectory to follow. All units in meters.
+    //   Trajectory downTrajectory =
+    //       TrajectoryGenerator.generateTrajectory(
+    //           // Start at the origin facing the +X direction
+    //           new Pose2d(0, 0, new Rotation2d(0)),
+    //           // No additional interior waypoints
+    //           List.of(),
+    //           // End 1 meter straight right? of where we started, facing forward
+    //           new Pose2d(0, -1, new Rotation2d(0)),
+    //           config);
 
-  //   return downTrajectory;
-  // }
+    //   return downTrajectory;
+    // }
 
-  // private Trajectory getSpinTrajectory(TrajectoryConfig config) {
-  //   // An example trajectory to follow. All units in meters.
-  //   Trajectory spinTrajectory =
-  //       TrajectoryGenerator.generateTrajectory(
-  //           // Start at the origin facing the +X direction
-  //           new Pose2d(0, 0, new Rotation2d(0)),
-  //           // No additional interior waypoints
-  //           List.of(),
-  //           // Rotate 360 degrees and end facing forward again
-  //           new Pose2d(0, 0, new Rotation2d(2 * Math.PI)),
-  //           config);
+    // private Trajectory getSpinTrajectory(TrajectoryConfig config) {
+    //   // An example trajectory to follow. All units in meters.
+    //   Trajectory spinTrajectory =
+    //       TrajectoryGenerator.generateTrajectory(
+    //           // Start at the origin facing the +X direction
+    //           new Pose2d(0, 0, new Rotation2d(0)),
+    //           // No additional interior waypoints
+    //           List.of(),
+    //           // Rotate 360 degrees and end facing forward again
+    //           new Pose2d(0, 0, new Rotation2d(2 * Math.PI)),
+    //           config);
 
-  //   return spinTrajectory;
-  // }
+    //   return spinTrajectory;
+    // }
 
-  // private Trajectory getNullTrajectory(TrajectoryConfig config) {
-  //   // An example trajectory to follow. All units in meters.
-  //   Trajectory nullTrajectory =
-  //       TrajectoryGenerator.generateTrajectory(
-  //           // Start at the origin facing the +X direction
-  //           new Pose2d(0, 0, new Rotation2d(0)),
-  //           // No additional interior waypoints
-  //           List.of(),
-  //           // Don't move from original starting point
-  //           new Pose2d(0, 0, new Rotation2d(0)),
-  //           config);
+    // private Trajectory getNullTrajectory(TrajectoryConfig config) {
+    //   // An example trajectory to follow. All units in meters.
+    //   Trajectory nullTrajectory =
+    //       TrajectoryGenerator.generateTrajectory(
+    //           // Start at the origin facing the +X direction
+    //           new Pose2d(0, 0, new Rotation2d(0)),
+    //           // No additional interior waypoints
+    //           List.of(),
+    //           // Don't move from original starting point
+    //           new Pose2d(0, 0, new Rotation2d(0)),
+    //           config);
 
-  //   return nullTrajectory;
-  // }
+    //   return nullTrajectory;
+    // }
 
-  // // private double changeSpeed() {
-  // //   // As of this moment, no one knows if up is - or +, this might need to change.
-  // //   if (m_UltrasonicSensor.inRange30() && m_driverController.getLeftY() > 0) {
-  // //     return m_UltrasonicSensor.speedNeeded();
-  // //   } else {
-  // //     return 0;
-  // //   }
-  // // }
+    // // private double changeSpeed() {
+    // //   // As of this moment, no one knows if up is - or +, this might need to change.
+    // //   if (m_UltrasonicSensor.inRange30() && m_driverController.getLeftY() > 0) {
+    // //     return m_UltrasonicSensor.speedNeeded();
+    // //   } else {
+    // //     return 0;
+    // //   }
+    // // }
 
-  // static boolean RightInthershold() {
-  //   double rightTriggerValue = m_driverController.getRightTriggerAxis();
+    // static boolean RightInthershold() {
+    //   double rightTriggerValue = m_driverController.getRightTriggerAxis();
 
-  //   if (rightTriggerValue >= 0.5) {
-  //     return true;
-  //   }
+    //   if (rightTriggerValue >= 0.5) {
+    //     return true;
+    //   }
 
-  //   return false;
-  // }
+    //   return false;
+    // }
 
-  // static boolean LeftTriggerInThershold() {
-  //   double leftTriggerValue = m_driverController.getLeftTriggerAxis();
+    // static boolean LeftTriggerInThershold() {
+    //   double leftTriggerValue = m_driverController.getLeftTriggerAxis();
 
-  //   if (leftTriggerValue >= 0.5) {
-  //     return true;
-  //   }
-  //   return false;
+    //   if (leftTriggerValue >= 0.5) {
+    //     return true;
+    //   }
+    //   return false;
   }
 }
