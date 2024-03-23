@@ -328,7 +328,7 @@ public class AutonomousTrajectories extends SubsystemBase {
 
   public Trajectory getDiagonalTrajectory(
       TrajectoryConfig config, boolean rightOfSubwoofer, Pose2d currentPose) {
-    int dirMultiplier = (rightOfSubwoofer) ? -1 : 1;
+    int dirMultiplier = (rightOfSubwoofer) ? 1 : -1;
 
     Trajectory diagonalTrajectory =
         TrajectoryGenerator.generateTrajectory(
@@ -699,7 +699,7 @@ public class AutonomousTrajectories extends SubsystemBase {
         getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
         getTrajectoryCommand(getShortForwardTrajectory(trajectoryConfig), thetaController),
         getTrajectoryCommand(
-            getDiagonalTrajectory(trajectoryConfig, true, m_robotDrive.getPose()),
+            getDiagonalTrajectory(trajectoryConfig, false, m_robotDrive.getPose()),
             thetaController));
   }
 
