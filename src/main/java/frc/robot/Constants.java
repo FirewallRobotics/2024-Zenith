@@ -30,9 +30,9 @@ public final class Constants {
     public static final double kRotationalSlewRate = 2.0; // percent per second (1 = 100%)
 
     // Chassis configuration
-    public static final double kTrackWidth = Units.inchesToMeters(26.5);
+    public static final double kTrackWidth = Units.inchesToMeters(23.5);
     // Distance between centers of right and left wheels on robot
-    public static final double kWheelBase = Units.inchesToMeters(26.5);
+    public static final double kWheelBase = Units.inchesToMeters(23.5);
     // Distance between front and back wheels on robot
     public static final SwerveDriveKinematics kDriveKinematics =
         new SwerveDriveKinematics(
@@ -48,15 +48,15 @@ public final class Constants {
     public static final double kBackRightChassisAngularOffset = Math.PI / 2;
 
     // SPARK MAX CAN IDs
-    public static final int kFrontLeftDrivingCanId = 8;
-    public static final int kRearLeftDrivingCanId = 3;
-    public static final int kFrontRightDrivingCanId = 4;
-    public static final int kRearRightDrivingCanId = 5;
+    public static final int kFrontLeftDrivingCanId = 7;
+    public static final int kRearLeftDrivingCanId = 4;
+    public static final int kFrontRightDrivingCanId = 8;
+    public static final int kRearRightDrivingCanId = 2;
 
-    public static final int kFrontLeftTurningCanId = 7;
-    public static final int kRearLeftTurningCanId = 6;
-    public static final int kFrontRightTurningCanId = 1;
-    public static final int kRearRightTurningCanId = 2;
+    public static final int kFrontLeftTurningCanId = 5;
+    public static final int kRearLeftTurningCanId = 1;
+    public static final int kFrontRightTurningCanId = 3;
+    public static final int kRearRightTurningCanId = 6;
 
     public static final boolean kGyroReversed = false;
   }
@@ -122,7 +122,7 @@ public final class Constants {
   }
 
   public static final class AutoConstants {
-    public static final double kMaxSpeedMetersPerSecond = 3;
+    public static final double kMaxSpeedMetersPerSecond = 1.5;
     public static final double kMaxAccelerationMetersPerSecondSquared = 3;
     public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
     public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
@@ -143,37 +143,114 @@ public final class Constants {
 
   public static final class VisionConstants {
 
-    public static final double kCameraCenterX = 285;
+    public static final int kCameraCenterX = 285;
     public static final double kDecelerationDistance = 9;
     public static final int kTotalAprilTags = 12;
+
+    public static final double kCameraFOV = 68.5;
+
+    public static final float kCameraMaxWidth = 650;
+    public static final float kCameraMaxHieght = 570;
+    public static final double kNeededPos[] = {kCameraMaxWidth / 2, kCameraMaxHieght / 2};
+    public static final double kCenterOfScreen[] = {kCameraMaxWidth / 2, kCameraMaxHieght / 2};
+    public static final double kDriveAimErrorRange = 10; // In pixels
   }
 
   public static final class AxleConstants {
     public static final int kMasterAxleMotorPort = 9;
     public static final int kMinionAxleMotorPort = 10;
+    public static final int kTopLimitSwitchPort = 5;
+
+    public static final double kDefaultHeight = .003;
+    public static final double kAmpHeight = .276;
+    public static final double kIntakeHeight = .003;
+    public static final double kBasicSpeakerAimHeight = .003;
+    public static double kMeasuredPosHorizontal = 0.023;
+    public static double kAxleTestSpeed = .2;
+
+    public static final double kManualAimSpeed = 0.1;
+
+    public static final double kTestHeight = 0.0;
+
+    public static double kTestRadiansNeeded = Math.PI / 2;
   }
 
   public static final class ShooterConstants {
     public static final int kMasterShooterMotorPort = 11;
     public static final int kMinionShooterMotorPort = 12;
 
-    public static final double kShooterMotorSpeed = 0.2;
+    public static final double kShootSpeakerSpeed = 0.5;
+    public static final double kShootAmpSpeed = .2;
+    public static final double kReverseIndexSpeed = -.2;
+
+    public static final double kTestVelocity = 100.0;
+  }
+
+  public static final class UltrasonicConstants {
+    // public static final int kUltrasonicTriggerPort = 2;
+    // public static final int kUltrasonicSensorPort = 3;
+  }
+
+  public static final class LEDConstants {
+    public static final int kLEDPort = 8;
   }
 
   public static final class IntakeConstants {
     public static final int kMasterIntakeMotorPort = 13;
-    public static final int kMinionIntakeMotorPort = 14;
 
-    public static final double kIntakeMotorSpeed = 0.2;
+    public static final double kIntakeMotorSpeed = -1.0;
+    public static final double kIndexSpeed = -1.0;
+    public static final double kIndexSpeedSlow = -0.1;
+    public static final double kIndexReverseSpeed = .2;
 
     public static final int kIntakeSensorPort = 0;
+    public static final int kIntakeOutputPort = 1;
+    public static final int kNoteDetectedLEDPort = 2;
+    public static final int kNoteReadyLEDPort = 3;
 
     // May need to swap this value after testing the sensor
     public static final boolean kIntakeSensorNoteDetected = false;
+    public static final boolean kOutputSensorNoteDetected = false;
   }
 
   public static final class climbConstants {
-    public static final int kRightClimbMotorPort = 15;
-    public static final int kLeftClimbMotorPort = 16;
+    public static final int kClimbMotorPort = 14;
+
+    public static final double kClimbMotorPortSpeed = 0.1;
+
+    public static final double kClimbDefaultHeight = 0;
+  }
+
+  public static final class AutoAimConstants {
+    public static final double kLaunchStartingHeight =
+        0.35; // In meters; height of note launch point; ***SUBJECT TO CHANGE***
+    public static final double kLaunchToCameraDifference =
+        0.2; // In meters; distance to ADD to camera distance (positive if launcher is behind
+    // camera); ***SUBJECT TO CHANGE***
+    public static final double kTargetX =
+        0; // In meters; X value of speaker relative to origin (originX = speakerX)
+    public static final double kTargetY =
+        2.0; // In meters; height of speaker target; ***SUBJECT TO CHANGE***
+    public static final double kLaunchVelocity =
+        7.0; // In meters/second; velocity of note shooting out; ***SUBJECT TO CHANGE***
+    public static final double kgravitationalConstant =
+        9.80665; // In meters/second/second (acceleration); standard gravity constant
+
+    public static final int kMaxIterations =
+        100; // Number of iterations before giving up on angle solving
+    public static final double kRangeForAimAngle =
+        0.01; // Required accuracy for aim angle brute force calculation
+    public static final double kRangeForMax =
+        0.01; // Required accuracy for angle of max brute force calculation
+
+    public static final double kTagToSpeakerDistance = 0.25; // in meters; ***SUBJECT TO CHANGE***
+
+    public static final double kDriveRotationPower = 0.1;
+
+    public static final double kMaxPhysicalAngleDegrees = 50; // in degrees (if that wasn't obvious)
+    public static final double kPhysicalShooterAngleOffsetDegrees =
+        20; // in degrees, ADDED to the axle angle for shooter
+
+    public static final double kShooterAimErrorRangeDegrees = 5; // In degrees
   }
 }

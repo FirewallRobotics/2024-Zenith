@@ -6,10 +6,10 @@ import json
 
 
 class myWebcamVideoStream:
-  def __init__(self, src=0):
+  def __init__(self, src=1):
     # initialize the video camera stream and read the 
     # first frame from the stream
-    self.stream = cv.VideoCapture(src) 
+    self.stream = cv.VideoCapture(0) 
     (self.grabbed, self.frame) = self.stream.read()
 
     # flag to stop the thread

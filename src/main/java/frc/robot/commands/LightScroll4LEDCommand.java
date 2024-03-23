@@ -5,23 +5,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.AxleSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.*;
 
-public class ShootTrapCommand extends Command {
-  /** Creates a new ShootSpeakerCommand. */
-  private final ShooterSubsystem m_Shooter;
+public class LightScroll4LEDCommand extends Command {
 
-  private final AxleSubsystem m_Axle;
+  private LEDSubsystem m_LED;
 
-  public ShootTrapCommand(ShooterSubsystem sh_Subsystem, AxleSubsystem a_Subsystem) {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public LightScroll4LEDCommand(LEDSubsystem led_subsystem) {
+    m_LED = led_subsystem;
 
-    m_Shooter = sh_Subsystem;
-    m_Axle = a_Subsystem;
-
-    addRequirements(sh_Subsystem);
-    addRequirements(a_Subsystem);
+    addRequirements(led_subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -29,8 +22,10 @@ public class ShootTrapCommand extends Command {
   public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {}
+  // @Override
+  // public void execute() {
+  //   m_LED.RunDefaultLED(0);
+  // }
 
   // Called once the command ends or is interrupted.
   @Override

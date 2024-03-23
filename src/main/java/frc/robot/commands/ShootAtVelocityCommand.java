@@ -4,55 +4,48 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class AutoShootSpeakerCommand extends Command {
-  /** Creates a new ShootSpeakerCommand. */
-  private final ShooterSubsystem m_shooter;
+public class ShootAtVelocityCommand extends Command {
+  private final ShooterSubsystem m_ShooterSubsystem;
+  private final IntakeSubsystem m_IntakeSubsystem;
 
-  private final IntakeSubsystem m_intake;
-
-  final Timer timer = new Timer();
-
-  public AutoShootSpeakerCommand(ShooterSubsystem s_Subsystem, IntakeSubsystem i_Subsystem) {
+  /** Creates a new ShootAtVelocityCommand. */
+  public ShootAtVelocityCommand(ShooterSubsystem sh_Subsystem, IntakeSubsystem i_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
+    m_ShooterSubsystem = sh_Subsystem;
+    m_IntakeSubsystem = i_Subsystem;
 
-    m_shooter = s_Subsystem;
-    m_intake = i_Subsystem;
-
-    addRequirements(s_Subsystem);
+    addRequirements(sh_Subsystem);
     addRequirements(i_Subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    timer.reset();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooter.ShootSpeaker();
+    m_ShooterSubsystem.ShootSpeakerWithPID();
 
-    if (timer.hasElapsed(0.5)) {
-      m_intake.StartIntake();
+    // We may not get to the PID value before we need to shoot.
+    if (ShooterSubsystem.ShooterEncoder.getVelocity() >= (m_ShooterSubsystem.finalVelocity - 2.0)) {
+      m_IntakeSubsystem.StartIndex();
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_shooter.StopShoot();
-    m_intake.StopIntake();
+    m_ShooterSubsystem.StopShoot();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return timer.hasElapsed(0.75);
+    return false;
   }
 }

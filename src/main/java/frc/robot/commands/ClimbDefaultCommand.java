@@ -5,55 +5,56 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.AxleConstants;
 import frc.robot.subsystems.AxleSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
 
-public class ShootAmpCommand extends Command {
-  /** Creates a new ShootSpeakerCommand. */
-  private final ShooterSubsystem m_Shooter;
-
+public class ClimbDefaultCommand extends Command {
+  private final ClimbSubsystem m_Climb;
   private final AxleSubsystem m_Axle;
 
-  private final IntakeSubsystem m_Intake;
-
-  public ShootAmpCommand(
-      ShooterSubsystem sh_Subsystem, AxleSubsystem a_Subsystem, IntakeSubsystem i_Subsystem) {
+  /** Creates a new ClimbDefaultCommand. */
+  public ClimbDefaultCommand(ClimbSubsystem c_Subsystem, AxleSubsystem a_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-
-    m_Shooter = sh_Subsystem;
+    m_Climb = c_Subsystem;
     m_Axle = a_Subsystem;
-    m_Intake = i_Subsystem;
 
-    addRequirements(sh_Subsystem);
+    addRequirements(c_Subsystem);
     addRequirements(a_Subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_Climb.keepDown = false;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // m_Axle.AimAmpAngle();
-    m_Shooter.ShootAmp();
+    if (Math.abs(m_Axle.getAngle() - AxleConstants.kDefaultHeight) < 10) {
+      m_Climb.DefaultHeight();
+    } else {
+      m_Climb.stopClimb();
+      ;
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     if (interrupted == true) {
-      m_Shooter.StopShoot();
+      m_Climb.stopClimb();
     }
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // if (m_Intake.intakeSensor.get() == false) {
-    //   return true;
-    // }
+    // Test if currentPos is equal to the default height
+    if (m_Climb.topLimitSwitch.isPressed() || (Math.abs(m_Axle.getAngle() - Math.PI / 2) < 10)) {
+      return true;
+    }
     return false;
   }
 }

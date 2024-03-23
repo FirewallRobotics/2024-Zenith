@@ -5,23 +5,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.AxleSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.*;
 
-public class ShootTrapCommand extends Command {
-  /** Creates a new ShootSpeakerCommand. */
-  private final ShooterSubsystem m_Shooter;
+public class GyroSetZeroCommand extends Command {
+  /** Creates a new AutoBalanceZeroGyro. */
+  private DriveSubsystem m_drivetrain;
 
-  private final AxleSubsystem m_Axle;
+  private boolean isFinished = false;
 
-  public ShootTrapCommand(ShooterSubsystem sh_Subsystem, AxleSubsystem a_Subsystem) {
+  public GyroSetZeroCommand(DriveSubsystem dt_subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
 
-    m_Shooter = sh_Subsystem;
-    m_Axle = a_Subsystem;
-
-    addRequirements(sh_Subsystem);
-    addRequirements(a_Subsystem);
+    m_drivetrain = dt_subsystem;
+    addRequirements(dt_subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -30,7 +26,11 @@ public class ShootTrapCommand extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    System.out.println("Resetting gyro, zero heading");
+    m_drivetrain.zeroHeading();
+    isFinished = true;
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -39,6 +39,6 @@ public class ShootTrapCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return isFinished;
   }
 }

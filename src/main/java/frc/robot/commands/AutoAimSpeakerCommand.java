@@ -10,18 +10,15 @@ import frc.robot.Constants.VisionConstants;
 import frc.robot.subsystems.AutoAimSubsystem;
 import frc.robot.subsystems.AxleSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
-public class AimSpeakerCommand extends Command {
+public class AutoAimSpeakerCommand extends Command {
   /** Creates a new ShootSpeakerCommand. */
   private final DriveSubsystem m_Drivetrain;
 
   private final AutoAimSubsystem m_AutoAim;
   private final VisionSubsystem m_Vision;
   private final AxleSubsystem m_Axle;
-
-  private final LEDSubsystem m_LED;
 
   private boolean foundTargetAngle;
   private double targetAimAngle;
@@ -31,25 +28,22 @@ public class AimSpeakerCommand extends Command {
   private boolean successfulAngleAim;
   private boolean successfulDriveAim;
 
-  public AimSpeakerCommand(
+  public AutoAimSpeakerCommand(
       DriveSubsystem dt_Subsystem,
       AutoAimSubsystem aa_Subsystem,
       VisionSubsystem v_Subsystem,
-      AxleSubsystem a_Subsystem,
-      LEDSubsystem led_Subsystem) {
+      AxleSubsystem a_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
 
     m_Drivetrain = dt_Subsystem;
     m_AutoAim = aa_Subsystem;
     m_Vision = v_Subsystem;
     m_Axle = a_Subsystem;
-    m_LED = led_Subsystem;
 
     addRequirements(dt_Subsystem);
     addRequirements(aa_Subsystem);
     addRequirements(v_Subsystem);
     addRequirements(a_Subsystem);
-    addRequirements(led_Subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -106,7 +100,6 @@ public class AimSpeakerCommand extends Command {
     }
 
     if (foundTargetAngle) {
-
       m_Axle.SetAimHeight(targetAimAngle + AutoAimConstants.kPhysicalShooterAngleOffsetDegrees);
 
       successfulAngleAim =
@@ -126,11 +119,6 @@ public class AimSpeakerCommand extends Command {
       System.out.println("Not in range");
       // Set LEDs for not in range
     }
-
-    if (successfulAngleAim && successfulDriveAim) {
-      System.out.println("Successful Aim!");
-      // Set LEDs for aimed successfully
-    }
   }
 
   // Called once the command ends or is interrupted.
@@ -142,7 +130,7 @@ public class AimSpeakerCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return successfulAngleAim && successfulDriveAim;
   }
 
   private void findAimAngle(double cameraDistanceToSpeaker) {

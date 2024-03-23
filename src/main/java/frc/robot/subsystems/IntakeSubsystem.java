@@ -7,59 +7,109 @@ package frc.robot.subsystems;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
+import edu.wpi.first.util.datalog.DataLog;
+import edu.wpi.first.util.datalog.StringLogEntry;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
-  public static CANSparkMax MasterIntakeMotor;
+  public CANSparkMax MasterIntakeMotor;
 
-  public static CANSparkMax MinionIntakeMotor;
-  public static AbsoluteEncoder ArmEncoder;
+  public AbsoluteEncoder ArmEncoder;
 
-  public static DigitalInput intakeSensor;
+  public DigitalInput intakeSensor;
+  public DigitalInput outputSensor;
+  public DigitalOutput NoteDetectedLED;
+  public DigitalOutput NoteReadyLED;
+
+  StringLogEntry speedOfIntake;
+
+  private double intakeSpeed = Constants.IntakeConstants.kIntakeMotorSpeed;
+  private double indexSpeed = Constants.IntakeConstants.kIndexSpeed;
+  private double indexReverseSpeed = Constants.IntakeConstants.kIndexReverseSpeed;
 
   public IntakeSubsystem() {
     MasterIntakeMotor =
         new CANSparkMax(IntakeConstants.kMasterIntakeMotorPort, MotorType.kBrushless);
-    MinionIntakeMotor =
-        new CANSparkMax(IntakeConstants.kMinionIntakeMotorPort, MotorType.kBrushless);
+
     intakeSensor = new DigitalInput(IntakeConstants.kIntakeSensorPort);
+    outputSensor = new DigitalInput(IntakeConstants.kIntakeOutputPort);
+
+    NoteDetectedLED = new DigitalOutput(IntakeConstants.kNoteDetectedLEDPort);
+    NoteReadyLED = new DigitalOutput(IntakeConstants.kNoteReadyLEDPort);
+    NoteDetectedLED.set(false);
+    NoteReadyLED.set(false);
 
     MasterIntakeMotor.restoreFactoryDefaults();
-    MinionIntakeMotor.restoreFactoryDefaults();
+    DataLog log = DataLogManager.getLog();
+    speedOfIntake = new StringLogEntry(log, "Speed of Intake");
 
-    MasterIntakeMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
-    MasterIntakeMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
+    // MasterIntakeMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
+    // MasterIntakeMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
 
-    MasterIntakeMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 10);
-    MasterIntakeMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);
+    // MasterIntakeMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 10);
+    // MasterIntakeMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);
 
     // MasterIntakeMotor.setIdleMode(IdleMode.kCoast);
 
-    MinionIntakeMotor.follow(MasterIntakeMotor, true);
+    MasterIntakeMotor.burnFlash();
   }
 
   @Override
-  public void periodic() {}
+  public void periodic() {
+    // System.out.println("Intake Sensor:" + (intakeSensor.get() ==
+    // IntakeConstants.kIntakeSensorNoteDetected));
+    // System.out.println("Output Sensor:" + (outputSensor.get() ==
+    // IntakeConstants.kOutputSensorNoteDetected));
+    if ((intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected)
+        || (outputSensor.get() == IntakeConstants.kOutputSensorNoteDetected))
+      NoteDetectedLED.set(true);
+    else NoteDetectedLED.set(false);
+
+    if ((intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected)
+        && (outputSensor.get() != IntakeConstants.kOutputSensorNoteDetected))
+      NoteReadyLED.set(true);
+    else NoteReadyLED.set(false);
+
+    intakeSpeed = SmartDashboard.getNumber("Intake Speed", intakeSpeed);
+    indexSpeed = SmartDashboard.getNumber("Index Speed", indexSpeed);
+    indexReverseSpeed = SmartDashboard.getNumber("Index Reverse Speed", indexReverseSpeed);
+  }
 
   /** Starts motor intake but stops if a note is detected inside */
-  public void sensorStartIntake() {
-    if (intakeSensor.get() == IntakeConstants.kIntakeSensorNoteDetected) {
-      StartIntake();
-    } else {
-      StopIntake();
-    }
-  }
 
   /** Starts motor intake */
   public void StartIntake() {
-    MasterIntakeMotor.set(IntakeConstants.kIntakeMotorSpeed);
+    MasterIntakeMotor.set(intakeSpeed);
+    speedOfIntake.append("The Intake Speed...");
+    VisionSubsystem.UnicornNotify("Intake");
+  }
+
+  public void StartIndex() {
+    MasterIntakeMotor.set(indexSpeed);
+    speedOfIntake.append("The Index Speed...");
+  }
+
+  public void StartIndexSlow() {
+    MasterIntakeMotor.set(IntakeConstants.kIndexSpeedSlow);
+    speedOfIntake.append("The Index Speed...");
+  }
+
+  public void StartReverseIndex() {
+    MasterIntakeMotor.set(indexReverseSpeed);
+    speedOfIntake.append("The reverse Index Speed...");
   }
 
   /** Stops motor intake */
   public void StopIntake() {
     MasterIntakeMotor.set(0);
+    System.out.println("Intake stopped!");
+    VisionSubsystem.UnicornNotify("");
   }
 }

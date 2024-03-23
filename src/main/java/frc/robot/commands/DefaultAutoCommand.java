@@ -5,22 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.AxleSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.DriveSubsystem;
 
-public class ShootTrapCommand extends Command {
+public class DefaultAutoCommand extends Command {
   /** Creates a new ShootSpeakerCommand. */
-  private final ShooterSubsystem m_Shooter;
+  private final DriveSubsystem m_Drive;
 
-  private final AxleSubsystem m_Axle;
-
-  public ShootTrapCommand(ShooterSubsystem sh_Subsystem, AxleSubsystem a_Subsystem) {
+  public DefaultAutoCommand(DriveSubsystem a_Subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
 
-    m_Shooter = sh_Subsystem;
-    m_Axle = a_Subsystem;
+    m_Drive = a_Subsystem;
 
-    addRequirements(sh_Subsystem);
     addRequirements(a_Subsystem);
   }
 

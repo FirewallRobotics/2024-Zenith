@@ -5,16 +5,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.AxleSubsystem;
 
-public class SetLEDPurple extends Command {
+public class AxleUpCommand extends Command {
+  /** Creates a new ShootSpeakerCommand. */
+  private final AxleSubsystem m_Axle;
 
-  private LEDSubsystem m_LED;
+  public AxleUpCommand(AxleSubsystem a_Subsystem) {
+    // Use addRequirements() here to declare subsystem dependencies.
 
-  public SetLEDPurple(LEDSubsystem led_subsystem) {
-    m_LED = led_subsystem;
+    m_Axle = a_Subsystem;
 
-    addRequirements(led_subsystem);
+    addRequirements(a_Subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -24,12 +26,14 @@ public class SetLEDPurple extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_LED.SetPurple();
+    m_Axle.AxleUp();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    AxleSubsystem.MasterAxleMotor.set(0);
+  }
 
   // Returns true when the command should end.
   @Override
