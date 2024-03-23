@@ -77,6 +77,9 @@ public class DriveSubsystem extends SubsystemBase {
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
 
+    // THIS IS REQUIRED PATH PLANNER CODE!!!
+    // https://pathplanner.dev/home.html
+
     // Configure AutoBuilder last
     AutoBuilder.configureHolonomic(
         this::getPose, // Robot pose supplier
