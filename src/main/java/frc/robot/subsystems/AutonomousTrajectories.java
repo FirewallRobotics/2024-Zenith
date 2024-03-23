@@ -328,7 +328,7 @@ public class AutonomousTrajectories extends SubsystemBase {
 
   public Trajectory getDiagonalTrajectory(
       TrajectoryConfig config, boolean rightOfSubwoofer, Pose2d currentPose) {
-    int dirMultiplier = (rightOfSubwoofer) ? 1 : -1;
+    int dirMultiplier = (rightOfSubwoofer) ? -1 : 1;
 
     Trajectory diagonalTrajectory =
         TrajectoryGenerator.generateTrajectory(
