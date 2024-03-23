@@ -1,0 +1,58 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.8701900539193015,
+        "y": 6.571337038161013
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.3005404928188775,
+        "y": 6.922939429924444
+      },
+      "isLocked": false,
+      "linkedName": "ampSideSubwoofer"
+    },
+    {
+      "anchor": {
+        "x": 2.4789001597005584,
+        "y": 7.010076157919538
+      },
+      "prevControl": {
+        "x": 1.5461177361101157,
+        "y": 6.993104356579084
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "ampSideNoteFromSide"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.7,
+      "rotationDegrees": 0.0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "AmpSideSubwoofer",
+  "previewStartingState": {
+    "rotation": 59.26235998947783,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
