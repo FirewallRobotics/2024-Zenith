@@ -1,0 +1,95 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.8506905374855894,
+      "y": 4.514138054404375
+    },
+    "rotation": -60.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "aimSpeaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoShootSpeaker"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "StationSideSubwooferToStationSideNote"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "intakeFloor"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "adjustNote"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "StationSideNoteToStationSideSubwoofer"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "autoShootSpeaker"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "folder": "SideSubwooferAutos",
+  "choreoAuto": false
+}

@@ -1,0 +1,145 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.3381784483283943,
+      "y": 5.557362183607978
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "aimSpeaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoShootSpeaker"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "FrontSubwooferToMiddleNote"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "intakeFloor"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "adjustNote"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "MiddleNoteToFrontSubwoofer"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoShootSpeaker"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "FrontSubwooferToAmpSideNote"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "intakeFloor"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "adjustNote"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "AmpSideNoteToFrontSubwoofer"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoShootSpeaker"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "folder": "FrontSubwooferAutos",
+  "choreoAuto": false
+}

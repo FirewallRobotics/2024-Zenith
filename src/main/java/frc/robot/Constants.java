@@ -183,6 +183,9 @@ public final class Constants {
     public static final double kShootAmpSpeed = .2;
     public static final double kReverseIndexSpeed = -.2;
 
+    public static final double kShootSpeakerWait = 2.5; // In seconds (time before indexing)
+    public static final double kIndexWait = 0.5; // In seconds (time after indexing before finished)
+
     public static final double kTestVelocity = 100.0;
   }
 

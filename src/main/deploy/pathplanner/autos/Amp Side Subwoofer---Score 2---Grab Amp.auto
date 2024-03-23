@@ -1,0 +1,82 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.8701900539193015,
+      "y": 6.571337038161013
+    },
+    "rotation": 60.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "aimSpeaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoShootSpeaker"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "AmpSideSubwooferToAmpSideNote"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "intakeFloor"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "adjustNote"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "AmpSideNoteToAmpSideSubwoofer"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoShootSpeaker"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "folder": "SideSubwooferAutos",
+  "choreoAuto": false
+}
