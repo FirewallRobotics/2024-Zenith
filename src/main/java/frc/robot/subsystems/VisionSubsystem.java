@@ -3,12 +3,16 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.FloatArrayEntry;
 import edu.wpi.first.networktables.FloatArrayTopic;
 import edu.wpi.first.networktables.FloatEntry;
+import edu.wpi.first.networktables.FloatSubscriber;
 import edu.wpi.first.networktables.FloatTopic;
 import edu.wpi.first.networktables.GenericSubscriber;
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTablesJNI;
 import edu.wpi.first.networktables.PubSubOption;
 import edu.wpi.first.networktables.StringPublisher;
+import edu.wpi.first.units.Time;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -23,73 +27,73 @@ public class VisionSubsystem extends SubsystemBase {
   private static NetworkTable aprilTagsTable = inst.getTable("PiDetector");
 
   //place for future growth?
-  FloatTopic Dist1 = aprilTagsTable.getFloatTopic("1-Dist");
-  FloatTopic Dist2 = aprilTagsTable.getFloatTopic("2-Dist");
-  FloatTopic Dist3 = aprilTagsTable.getFloatTopic("3-Dist");
-  FloatTopic Dist4 = aprilTagsTable.getFloatTopic("4-Dist");
-  FloatTopic Dist5 = aprilTagsTable.getFloatTopic("5-Dist");
-  FloatTopic Dist6 = aprilTagsTable.getFloatTopic("6-Dist");
-  FloatTopic Dist7 = aprilTagsTable.getFloatTopic("7-Dist");
-  FloatTopic Dist8 = aprilTagsTable.getFloatTopic("8-Dist");
-  FloatTopic Dist9 = aprilTagsTable.getFloatTopic("9-Dist");
-  FloatTopic Dist10 = aprilTagsTable.getFloatTopic("10-Dist");
-  FloatTopic Dist11 = aprilTagsTable.getFloatTopic("11-Dist");
-  FloatTopic Dist12 = aprilTagsTable.getFloatTopic("12-Dist");
-  FloatTopic Dist13 = aprilTagsTable.getFloatTopic("13-Dist");
-  FloatTopic Dist14 = aprilTagsTable.getFloatTopic("14-Dist");
-  FloatTopic Dist15 = aprilTagsTable.getFloatTopic("15-Dist");
-  FloatTopic Dist16 = aprilTagsTable.getFloatTopic("16-Dist");
+  NetworkTableEntry Dist1 = aprilTagsTable.getEntry("1-Dist");
+  NetworkTableEntry Dist2 = aprilTagsTable.getEntry("2-Dist");
+  NetworkTableEntry Dist3 = aprilTagsTable.getEntry("3-Dist");
+  NetworkTableEntry Dist4 = aprilTagsTable.getEntry("4-Dist");
+  NetworkTableEntry Dist5 = aprilTagsTable.getEntry("5-Dist");
+  NetworkTableEntry Dist6 = aprilTagsTable.getEntry("6-Dist");
+  NetworkTableEntry Dist7 = aprilTagsTable.getEntry("7-Dist");
+  NetworkTableEntry Dist8 = aprilTagsTable.getEntry("8-Dist");
+  NetworkTableEntry Dist9 = aprilTagsTable.getEntry("9-Dist");
+  NetworkTableEntry Dist10 = aprilTagsTable.getEntry("10-Dist");
+  NetworkTableEntry Dist11 = aprilTagsTable.getEntry("11-Dist");
+  NetworkTableEntry Dist12 = aprilTagsTable.getEntry("12-Dist");
+  NetworkTableEntry Dist13 = aprilTagsTable.getEntry("13-Dist");
+  NetworkTableEntry Dist14 = aprilTagsTable.getEntry("14-Dist");
+  NetworkTableEntry Dist15 = aprilTagsTable.getEntry("15-Dist");
+  NetworkTableEntry Dist16 = aprilTagsTable.getEntry("16-Dist");
 
-  FloatTopic TimeSeen1 = aprilTagsTable.getFloatTopic("1-TimeSeen");
-  FloatTopic TimeSeen2 = aprilTagsTable.getFloatTopic("2-TimeSeen");
-  FloatTopic TimeSeen3 = aprilTagsTable.getFloatTopic("3-TimeSeen");
-  FloatTopic TimeSeen4 = aprilTagsTable.getFloatTopic("4-TimeSeen");
-  FloatTopic TimeSeen5 = aprilTagsTable.getFloatTopic("5-TimeSeen");
-  FloatTopic TimeSeen6 = aprilTagsTable.getFloatTopic("6-TimeSeen");
-  FloatTopic TimeSeen7 = aprilTagsTable.getFloatTopic("7-TimeSeen");
-  FloatTopic TimeSeen8 = aprilTagsTable.getFloatTopic("8-TimeSeen");
-  FloatTopic TimeSeen9 = aprilTagsTable.getFloatTopic("9-TimeSeen");
-  FloatTopic TimeSeen10 = aprilTagsTable.getFloatTopic("10-TimeSeen");
-  FloatTopic TimeSeen11 = aprilTagsTable.getFloatTopic("11-TimeSeen");
-  FloatTopic TimeSeen12 = aprilTagsTable.getFloatTopic("12-TimeSeen");
-  FloatTopic TimeSeen13 = aprilTagsTable.getFloatTopic("13-TimeSeen");
-  FloatTopic TimeSeen14 = aprilTagsTable.getFloatTopic("14-TimeSeen");
-  FloatTopic TimeSeen15 = aprilTagsTable.getFloatTopic("15-TimeSeen");
-  FloatTopic TimeSeen16 = aprilTagsTable.getFloatTopic("16-TimeSeen");
+  NetworkTableEntry TimeSeen1 = aprilTagsTable.getEntry("1-TimeSeen");
+  NetworkTableEntry TimeSeen2 = aprilTagsTable.getEntry("2-TimeSeen");
+  NetworkTableEntry TimeSeen3 = aprilTagsTable.getEntry("3-TimeSeen");
+  NetworkTableEntry TimeSeen4 = aprilTagsTable.getEntry("4-TimeSeen");
+  NetworkTableEntry TimeSeen5 = aprilTagsTable.getEntry("5-TimeSeen");
+  NetworkTableEntry TimeSeen6 = aprilTagsTable.getEntry("6-TimeSeen");
+  NetworkTableEntry TimeSeen7 = aprilTagsTable.getEntry("7-TimeSeen");
+  NetworkTableEntry TimeSeen8 = aprilTagsTable.getEntry("8-TimeSeen");
+  NetworkTableEntry TimeSeen9 = aprilTagsTable.getEntry("9-TimeSeen");
+  NetworkTableEntry TimeSeen10 = aprilTagsTable.getEntry("10-TimeSeen");
+  NetworkTableEntry TimeSeen11 = aprilTagsTable.getEntry("11-TimeSeen");
+  NetworkTableEntry TimeSeen12 = aprilTagsTable.getEntry("12-TimeSeen");
+  NetworkTableEntry TimeSeen13 = aprilTagsTable.getEntry("13-TimeSeen");
+  NetworkTableEntry TimeSeen14 = aprilTagsTable.getEntry("14-TimeSeen");
+  NetworkTableEntry TimeSeen15 = aprilTagsTable.getEntry ("15-TimeSeen");
+  NetworkTableEntry TimeSeen16 = aprilTagsTable.getEntry("16-TimeSeen");
 
-  FloatArrayTopic Center1 = aprilTagsTable.getFloatArrayTopic("1-Center");
-  FloatArrayTopic Center2 = aprilTagsTable.getFloatArrayTopic("2-Center");
-  FloatArrayTopic Center3 = aprilTagsTable.getFloatArrayTopic("3-Center");
-  FloatArrayTopic Center4 = aprilTagsTable.getFloatArrayTopic("4-Center");
-  FloatArrayTopic Center5 = aprilTagsTable.getFloatArrayTopic("5-Center");
-  FloatArrayTopic Center6 = aprilTagsTable.getFloatArrayTopic("6-Center");
-  FloatArrayTopic Center7 = aprilTagsTable.getFloatArrayTopic("7-Center");
-  FloatArrayTopic Center8 = aprilTagsTable.getFloatArrayTopic("8-Center");
-  FloatArrayTopic Center9 = aprilTagsTable.getFloatArrayTopic("9-Center");
-  FloatArrayTopic Center10 = aprilTagsTable.getFloatArrayTopic("10-Center");
-  FloatArrayTopic Center11 = aprilTagsTable.getFloatArrayTopic("11-Center");
-  FloatArrayTopic Center12 = aprilTagsTable.getFloatArrayTopic("12-Center");
-  FloatArrayTopic Center13 = aprilTagsTable.getFloatArrayTopic("13-Center");
-  FloatArrayTopic Center14 = aprilTagsTable.getFloatArrayTopic("14-Center");
-  FloatArrayTopic Center15 = aprilTagsTable.getFloatArrayTopic("15-Center");
-  FloatArrayTopic Center16 = aprilTagsTable.getFloatArrayTopic("16-Center");
+  NetworkTableEntry Center1 = aprilTagsTable.getEntry ("1-Center");
+  NetworkTableEntry Center2 = aprilTagsTable.getEntry ("2-Center");
+  NetworkTableEntry Center3 = aprilTagsTable.getEntry ("3-Center");
+  NetworkTableEntry Center4 = aprilTagsTable.getEntry ("4-Center");
+  NetworkTableEntry Center5 = aprilTagsTable.getEntry ("5-Center");
+  NetworkTableEntry Center6 = aprilTagsTable.getEntry ("6-Center");
+  NetworkTableEntry Center7 = aprilTagsTable.getEntry ("7-Center");
+  NetworkTableEntry Center8 = aprilTagsTable.getEntry ("8-Center");
+  NetworkTableEntry Center9 = aprilTagsTable.getEntry ("9-Center");
+  NetworkTableEntry Center10 = aprilTagsTable.getEntry ("10-Center");
+  NetworkTableEntry Center11 = aprilTagsTable.getEntry ("11-Center");
+  NetworkTableEntry Center12 = aprilTagsTable.getEntry ("12-Center");
+  NetworkTableEntry Center13 = aprilTagsTable.getEntry ("13-Center");
+  NetworkTableEntry Center14 = aprilTagsTable.getEntry ("14-Center");
+  NetworkTableEntry Center15 = aprilTagsTable.getEntry ("15-Center");
+  NetworkTableEntry Center16 = aprilTagsTable.getEntry ("16-Center");
 
-  FloatArrayTopic XYZ1 = aprilTagsTable.getFloatArrayTopic("1-XYZ");
-  FloatArrayTopic XYZ2 = aprilTagsTable.getFloatArrayTopic("2-XYZ");
-  FloatArrayTopic XYZ3 = aprilTagsTable.getFloatArrayTopic("3-XYZ");
-  FloatArrayTopic XYZ4 = aprilTagsTable.getFloatArrayTopic("4-XYZ");
-  FloatArrayTopic XYZ5 = aprilTagsTable.getFloatArrayTopic("5-XYZ");
-  FloatArrayTopic XYZ6 = aprilTagsTable.getFloatArrayTopic("6-XYZ");
-  FloatArrayTopic XYZ7 = aprilTagsTable.getFloatArrayTopic("7-XYZ");
-  FloatArrayTopic XYZ8 = aprilTagsTable.getFloatArrayTopic("8-XYZ");
-  FloatArrayTopic XYZ9 = aprilTagsTable.getFloatArrayTopic("9-XYZ");
-  FloatArrayTopic XYZ10 = aprilTagsTable.getFloatArrayTopic("10-XYZ");
-  FloatArrayTopic XYZ11 = aprilTagsTable.getFloatArrayTopic("11-XYZ");
-  FloatArrayTopic XYZ12 = aprilTagsTable.getFloatArrayTopic("12-XYZ");
-  FloatArrayTopic XYZ13 = aprilTagsTable.getFloatArrayTopic("13-XYZ");
-  FloatArrayTopic XYZ14 = aprilTagsTable.getFloatArrayTopic("14-XYZ");
-  FloatArrayTopic XYZ15 = aprilTagsTable.getFloatArrayTopic("15-XYZ");
-  FloatArrayTopic XYZ16 = aprilTagsTable.getFloatArrayTopic("16-XYZ");
+  NetworkTableEntry XYZ1 = aprilTagsTable.getEntry ("1-XYZ");
+  NetworkTableEntry XYZ2 = aprilTagsTable.getEntry ("2-XYZ");
+  NetworkTableEntry XYZ3 = aprilTagsTable.getEntry ("3-XYZ");
+  NetworkTableEntry XYZ4 = aprilTagsTable.getEntry ("4-XYZ");
+  NetworkTableEntry XYZ5 = aprilTagsTable.getEntry ("5-XYZ");
+  NetworkTableEntry XYZ6 = aprilTagsTable.getEntry ("6-XYZ");
+  NetworkTableEntry XYZ7 = aprilTagsTable.getEntry ("7-XYZ");
+  NetworkTableEntry XYZ8 = aprilTagsTable.getEntry ("8-XYZ");
+  NetworkTableEntry XYZ9 = aprilTagsTable.getEntry ("9-XYZ");
+  NetworkTableEntry XYZ10 = aprilTagsTable.getEntry ("10-XYZ");
+  NetworkTableEntry XYZ11 = aprilTagsTable.getEntry ("11-XYZ");
+  NetworkTableEntry XYZ12 = aprilTagsTable.getEntry("12-XYZ");
+  NetworkTableEntry XYZ13 = aprilTagsTable.getEntry ("13-XYZ");
+  NetworkTableEntry XYZ14 = aprilTagsTable.getEntry ("14-XYZ");
+  NetworkTableEntry XYZ15 = aprilTagsTable.getEntry ("15-XYZ");
+  NetworkTableEntry XYZ16 = aprilTagsTable.getEntry ("16-XYZ");
 
   private NetworkTable ringTable = inst.getTable("RingFinder");
 
@@ -101,16 +105,24 @@ public class VisionSubsystem extends SubsystemBase {
 
   private Set<String> tags;
 
-  //Actually extracting data
-  final GenericSubscriber SubDist4 = Dist4.genericSubscribe(PubSubOption.keepDuplicates(false));
-  final GenericSubscriber SubDist7 = Dist7.genericSubscribe(PubSubOption.keepDuplicates(false));
-  final GenericSubscriber SubCenter4 = Center4.genericSubscribe(PubSubOption.keepDuplicates(false));
-  final GenericSubscriber SubCenter7 = Center7.genericSubscribe(PubSubOption.keepDuplicates(false));
-  final GenericSubscriber SubXYZ4 = XYZ4.genericSubscribe(PubSubOption.keepDuplicates(false));
-  final GenericSubscriber SubXYZ7 = XYZ7.genericSubscribe(PubSubOption.keepDuplicates(false));
+  private float[] defaultfloat = {1};
 
-  final GenericSubscriber SubCenter9 = Center9.genericSubscribe(PubSubOption.keepDuplicates(false));
-  final GenericSubscriber SubCenter1 = Center1.genericSubscribe(PubSubOption.keepDuplicates(false));
+  //Actually extracting data
+  final float[] SubDist4 = Dist4.getFloatArray(defaultfloat);
+  final float[] SubDist7 = Dist7.getFloatArray(defaultfloat);
+  final float[] SubCenter4 = Center4.getFloatArray(defaultfloat);
+  final float[] SubCenter7 = Center7.getFloatArray(defaultfloat);
+  final float[] SubXYZ4 = XYZ4.getFloatArray(defaultfloat);
+  final float[] SubXYZ7 = XYZ7.getFloatArray(defaultfloat);;
+
+  final float[] SubCenter9 = Center9.getFloatArray(defaultfloat);
+  final float[] SubCenter1 = Center1.getFloatArray(defaultfloat);
+
+  final float Time1 = TimeSeen1.getFloat(0);
+  final float Time9 = TimeSeen9.getFloat(0);
+  final float Time4 = TimeSeen4.getFloat(0);
+  final float Time7 = TimeSeen7.getFloat(0);
+
 
   private final String[] speakerTags = {"4", "7"};
   private final String speakerDistanceToTagName = "Dist";
@@ -128,6 +140,29 @@ public class VisionSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    if(NetworkTablesJNI.now() + 10 >= Time1 && !tags.contains("1")){
+      tags.add("1");
+    }else if((NetworkTablesJNI.now() + 10 >= Time1) == false){
+      tags.remove("1");
+    }
+
+    if(NetworkTablesJNI.now() + 10 >= Time9 && !tags.contains("9")){
+      tags.add("9");
+    }else if((NetworkTablesJNI.now() + 10 >= Time9) == false){
+      tags.remove("9");
+    }
+
+    if(NetworkTablesJNI.now() + 10 >= Time4 && !tags.contains("4")){
+      tags.add("4");
+    }else if((NetworkTablesJNI.now() + 10 >= Time4) == false){
+      tags.remove("4");
+    }
+
+    if(NetworkTablesJNI.now() + 10 >= Time7 && !tags.contains("7")){
+      tags.add("7");
+    }else if((NetworkTablesJNI.now() + 10 >= Time7) == false){
+      tags.remove("7");
+    }
 
     if (checkForSpeakerTag()) {
       System.out.println("CurrSpeakerTag -> " + findSpeakerTagInView());
