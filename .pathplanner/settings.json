@@ -3,8 +3,10 @@
   "robotLength": 0.8382,
   "holonomicMode": true,
   "pathFolders": [
+    "AmpSideAutoAim",
     "AmpSideSubwoofer",
     "FrontSubwoofer",
+    "StationSideAutoAim",
     "StationSideSubwoofer"
   ],
   "autoFolders": [

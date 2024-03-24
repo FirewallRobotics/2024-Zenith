@@ -68,9 +68,12 @@ public class RobotContainer {
         "aimSpeaker", new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LED));
     NamedCommands.registerCommand(
         "autoShootSpeaker", new AutoShootSpeakerCommand(m_shooter, m_intake));
-    NamedCommands.registerCommand("intakeFloor", new IntakeFloorCommand(m_intake, m_axle, m_LED));
+    NamedCommands.registerCommand(
+        "intakeFloor", new IntakeFloorCommand(m_intake, m_axle, m_LED));
     NamedCommands.registerCommand(
         "adjustNote", new ReverseShooterCommand(m_shooter, m_intake, m_LED));
+    NamedCommands.registerCommand(
+        "autoAimSpeaker", new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LED));
 
     m_autoChooser = AutoBuilder.buildAutoChooser("ThreeMeterAuto");
     SmartDashboard.putData(m_autoChooser);

@@ -1,0 +1,58 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.166907896761163,
+        "y": 4.494638537970663
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.6501707112677895,
+        "y": 4.943127415946043
+      },
+      "isLocked": false,
+      "linkedName": "stationSideNote+Shoot"
+    },
+    {
+      "anchor": {
+        "x": 2.166907896761163,
+        "y": 5.567111941824834
+      },
+      "prevControl": {
+        "x": 1.562422887316085,
+        "y": 5.586611458258547
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "middleNote+Shoot"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.8,
+      "rotationDegrees": 0.0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "StationSideAutoAim",
+  "previewStartingState": {
+    "rotation": -23.629377730656827,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
