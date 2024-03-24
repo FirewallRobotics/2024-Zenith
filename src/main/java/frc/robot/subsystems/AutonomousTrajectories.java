@@ -667,6 +667,7 @@ public class AutonomousTrajectories extends SubsystemBase {
     return new SequentialCommandGroup(
         new AutoBasicAimSpeakerCommand(m_axle, m_climb),
         getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
+        new WaitCommand(9),
         getTrajectoryCommand(getShortForwardTrajectory(trajectoryConfig), thetaController),
         getTrajectoryCommand(
             getDiagonalTrajectory(trajectoryConfig, true, m_robotDrive.getPose()),
@@ -677,6 +678,7 @@ public class AutonomousTrajectories extends SubsystemBase {
     return new SequentialCommandGroup(
         new AutoBasicAimSpeakerCommand(m_axle, m_climb),
         getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
+        new WaitCommand(9),
         getTrajectoryCommand(getForwardTrajectory(trajectoryConfig), thetaController),
         getTrajectoryCommand(
             getDiagonalTrajectory(trajectoryConfig, false, m_robotDrive.getPose()),
@@ -687,6 +689,7 @@ public class AutonomousTrajectories extends SubsystemBase {
     return new SequentialCommandGroup(
         new AutoBasicAimSpeakerCommand(m_axle, m_climb),
         getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
+        new WaitCommand(9),
         getTrajectoryCommand(getForwardTrajectory(trajectoryConfig), thetaController),
         getTrajectoryCommand(
             getDiagonalTrajectory(trajectoryConfig, true, m_robotDrive.getPose()),
@@ -697,6 +700,7 @@ public class AutonomousTrajectories extends SubsystemBase {
     return new SequentialCommandGroup(
         new AutoBasicAimSpeakerCommand(m_axle, m_climb),
         getShootCommandWithTimeout(m_shooter, m_axle, m_intake),
+        new WaitCommand(9),
         getTrajectoryCommand(getShortForwardTrajectory(trajectoryConfig), thetaController),
         getTrajectoryCommand(
             getDiagonalTrajectory(trajectoryConfig, false, m_robotDrive.getPose()),
