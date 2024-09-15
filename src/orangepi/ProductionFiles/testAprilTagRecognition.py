@@ -169,8 +169,8 @@ while True:
                else:
                 frame=plotPoint(frame, corner, (0,255,255)) #yellow corner
                cornerIndex+=1
-   #cv2.imshow('frame', frame)
-   #cv2.waitKey(1)
+   cv2.imshow('frame', frame)
+   cv2.waitKey(1)
    iteration = iteration + 1
    time.sleep(0.1)
 

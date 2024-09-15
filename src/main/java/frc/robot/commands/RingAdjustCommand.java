@@ -45,8 +45,8 @@ public class RingAdjustCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    xOfRingOnGrid = m_VisionSubsystem.getPixelX();
-    yOfRingOnGrid = m_VisionSubsystem.getPixelY();
+    // xOfRingOnGrid = m_VisionSubsystem.getPixelX();
+    // yOfRingOnGrid = m_VisionSubsystem.getPixelY();
 
     if (xOfRingOnGrid > rangeForXPosRing[1]) {
       m_DriveSubsystem.m_frontLeft.setDesiredState(

@@ -14,7 +14,7 @@ import json
 import time
 import sys
 
-from cscore import CameraServer, VideoSource, UsbCamera, MjpegServer
+from cscore import CameraServer, VideoSource, UsbCamera, MjpegServer, CvSource
 from ntcore import NetworkTableInstance, EventFlags
 
 CamBroadcast = True
@@ -159,6 +159,20 @@ def average_position_of_pixels(mat, threshold=128):
     else:
         return 0, 0
 
+def plotPoint(image, Cord, color):
+    center = (int(Cord[0]), int(Cord[1]))
+    image = cv2.line(image,
+                     (center[0] - 5, center[1]),
+                     (center[0] + 5, center[1]),
+                     color,
+                     3)
+    image = cv2.line(image,
+                     (center[0], center[1] - 5),
+                     (center[0], center[1] + 5),
+                     color,
+                     3)
+    return image
+
 def RingDetection(vs):
     try:
         while True:
@@ -177,6 +191,8 @@ def RingDetection(vs):
                 avX, avY = average_position_of_pixels(output, 120)
                 #print(avX, avY)
                 table.putNumberArray("Rings", (avX, avY))
+                frame2 = plotPoint(frame2, (avX,avY), (255,255,255))
+                CvSource.putFrame(frame2)
     except:
         RingMode = False
         print("Rings disabled due to error")
@@ -437,9 +453,13 @@ while testmode == False | (iteration < 3 & testmode == True):
                 table.putNumberArray((str(detect.tag_id) + "-BotRht"), detect.corners[2])
                 table.putNumber((str(detect.tag_id) + "-Dist"), distance)
                 table.putNumberArray((str(detect.tag_id) + "-XYZ"), pos)
+            
+            #try:
+            #except:
+            #    print("STEM Anotation Fail 0_o")
     
-    if Livemode:
-        table2.putString("TagID", TagNum)
+            #if Livemode:
+           #     table2.putString("TagID", TagNum)
 
    #cv2.imshow('frame', frame)
    #cv2.waitKey(1)

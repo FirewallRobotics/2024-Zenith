@@ -1,11 +1,13 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
+import edu.wpi.first.wpilibj.ADIS16470_IMU;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-import java.util.Set;
+import frc.robot.LimelightHelpers;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -14,41 +16,38 @@ public class VisionSubsystem extends SubsystemBase {
   private static NetworkTableInstance inst = NetworkTableInstance.getDefault();
   private static NetworkTable aprilTagsTable = inst.getTable("PiDetector");
 
-  private NetworkTable ringTable = inst.getTable("RingFinder");
+  NetworkTable Limetable = NetworkTableInstance.getDefault().getTable("limelight");
+  NetworkTableEntry tx = Limetable.getEntry("tx");
+  NetworkTableEntry ty = Limetable.getEntry("ty");
+  NetworkTableEntry ta = Limetable.getEntry("ta");
 
   private static NetworkTable Unicorntable = inst.getTable("UnicornHatRIO");
   static final StringPublisher dblPub = Unicorntable.getStringTopic("ToUnicornStatus").publish();
-
-  private double decelerationDistance = Constants.VisionConstants.kDecelerationDistance;
-  private double[] declareRingPosNeeded = Constants.VisionConstants.kCenterOfScreen;
-
-  private Set<String> tags;
 
   private final String[] speakerTags = {"4", "7"};
   private final String speakerDistanceToTagName = "Dist";
   private final String speakerCenterName = "Center";
   private final String speakerRotationName = "XYZ";
 
-  private final String ringKey = "FoundRing";
-
   private final String[] ampTags = {"9", "1"};
   private final String ampCenterName = "Center";
+  public final ADIS16470_IMU m_gyro = new ADIS16470_IMU();
 
-  public VisionSubsystem() {}
+  public VisionSubsystem() {
+    int[] validIDs = {3, 4};
+    LimelightHelpers.SetFiducialIDFiltersOverride("limelight", validIDs);
+  }
 
   @Override
   public void periodic() {
-
-    // tags = aprilTagsTable.getKeys();
-
-    // if (checkForSpeakerTag()) {
-    //   System.out.println("Distance to Tag -> " + getSpeakerTagDistanceToTag());
-    //   System.out.println("CenterX -> " + getSpeakerTagCenterX());
-    //   System.out.println("RotationZ -> " + getSpeakerTagRotationZ());
-    // } else {
-    //   // System.out.print("No Speaker Tag - Current Tags: ");
-    //   // printAllTags();
-    // }
+    // read values periodically
+    double x = tx.getDouble(0.0);
+    double y = ty.getDouble(0.0);
+    double area = ta.getDouble(0.0);
+    // post to smart dashboard periodically
+    SmartDashboard.putNumber("LimelightX", x);
+    SmartDashboard.putNumber("LimelightY", y);
+    SmartDashboard.putNumber("LimelightArea", area);
   }
 
   public boolean checkForSpeakerTag() {
@@ -120,81 +119,9 @@ public class VisionSubsystem extends SubsystemBase {
     return null;
   }
 
-  private void printAllTags() {
-    String tagStr = "Tags: ";
-
-    for (String tag : tags) {
-      tagStr += tag + ", ";
-    }
-
-    System.out.println(tagStr);
-  }
-
-  private void testTag(String tagName) {
-    System.out.println("We have " + tagName + ": " + tags.contains(tagName));
-  }
-
-  private double VisionAdjust(double difference, double targetRange) {
-    // Distance from cone based on width
-    if (Math.abs(difference) <= targetRange) // Close enough
-    {
-      return 0.0;
-    } else if (difference < 0) // Too far
-    {
-      return 1 * DecelerationSpeed(difference, targetRange);
-    } else // Too close
-    {
-      return -1 * DecelerationSpeed(difference, targetRange);
-    }
-  }
-
   // Communication For The Unicornhat
   public static void UnicornNotify(String status) {
     dblPub.set(status);
-  }
-
-  private double DecelerationSpeed(double positionDifference, double targetRange) {
-    double distanceFromTarget = Math.abs(positionDifference) - targetRange;
-    double speed = (distanceFromTarget / decelerationDistance) * 9.0 / 10.0 + 0.1;
-
-    if (speed < 1) // Max value for speed is 1
-    {
-      return speed;
-    } else {
-      return 1.0;
-    }
-  }
-
-  public float getPixelX() {
-    Boolean orangeCheckBoolean = OrangeCheckInView();
-
-    if (orangeCheckBoolean) {
-      JSONObject jsonObj = new JSONObject(ringTable.getEntry(ringKey).getString("{\"X\": 0}"));
-
-      return jsonObj.getFloat("X");
-    }
-
-    return -1;
-  }
-
-  public float getPixelY() {
-    Boolean orangeCheckBoolean = OrangeCheckInView();
-
-    if (orangeCheckBoolean) {
-      JSONObject jsonObj = new JSONObject(ringTable.getEntry(ringKey).getString("{\"Y\": 0}"));
-
-      return jsonObj.getFloat("Y");
-    }
-
-    return -1;
-  }
-
-  private boolean OrangeCheckInView() {
-
-    if (ringTable.containsKey(ringKey)) {
-      return true;
-    }
-    return false;
   }
 
   public float getAmpTagCenterX() {

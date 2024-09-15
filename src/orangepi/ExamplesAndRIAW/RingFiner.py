@@ -107,6 +107,19 @@ def average_position_of_pixels(mat, threshold=128):
     else:
         return 0, 0
 
+def plotPoint(image, X, Y, color):
+    center = (int(X), int(Y))
+    image = cv2.line(image,
+                     (center[0] - 5, center[1]),
+                     (center[0] + 5, center[1]),
+                     color,
+                     3)
+    image = cv2.line(image,
+                     (center[0], center[1] - 5),
+                     (center[0], center[1] + 5),
+                     color,
+                     3)
+    return image
 
 # main program
 #configs the detector
@@ -115,7 +128,7 @@ vs = myWebcamVideoStream(0).start()
 
 # define the list of boundaries
 boundaries = [
-	([80,45,170], [100,145,255])
+	([70,35,160], [100,145,255])
 ]
 
 while True:
@@ -129,12 +142,20 @@ while True:
     # find the colors within the specified boundaries and apply
     # the mask
     mask = cv2.inRange(image, lower, upper)
-    output = cv2.bitwise_and(image, image, mask = mask)
-    output = cv2.cvtColor(output, cv2.COLOR_BGR2GRAY)
+    Color = cv2.bitwise_and(image, image, mask = mask)
+    output = cv2.cvtColor(Color, cv2.COLOR_BGR2GRAY)
     # show the images
     output = denoise_image(output)
     avX, avY = average_position_of_pixels(output, 120)
+    if avX != 0:
+
+        output = plotPoint(output,avX,avY,(255,0,0))
+        Color = plotPoint(Color,avX,avY,(255,0,0))
+        image = plotPoint(image,avX,avY,(255,0,0))
     print(avX, avY)
-    cv2.imshow("images", output)
+    Color = cv2.putText(Color,"Show Me An Orange Ring!", (100,100),1,1.5,(255,255,255),1)
+    cv2.imshow("Final", output)
+    cv2.imshow("Color Filter", Color)
+    cv2.imshow("Raw", image)
     cv2.waitKey(5)
-    time.sleep(0.1)
+    time.sleep(0.5)
