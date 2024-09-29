@@ -58,6 +58,7 @@ public class DriveSubsystem extends SubsystemBase {
   private double m_currentTranslationDir = 0.0;
   private double m_currentTranslationMag = 0.0;
 
+  // location of the swerve drive modules relative to the visulizer center(the robot center)
   private final Translation2d m_frontLeftLocation = new Translation2d(0.381, 0.381);
   private final Translation2d m_frontRightLocation = new Translation2d(0.381, -0.381);
   private final Translation2d m_backLeftLocation = new Translation2d(-0.381, 0.381);
@@ -90,7 +91,6 @@ public class DriveSubsystem extends SubsystemBase {
 
   /* Here we use SwerveDrivePoseEstimator so that we can fuse odometry readings. The numbers used
   below are robot specific, and should be tuned. */
-  //todo: move this to Vision Subsystem
   public final SwerveDrivePoseEstimator poseEstimator =
       new SwerveDrivePoseEstimator(
           m_kinematics,
@@ -285,7 +285,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   /** Updates the field relative position of the robot. */
-  //todo move to Vision Subsystem
+  // todo move to Vision Subsystem
   public void updateOdometry() {
     m_poseEstimator.update(
         Rotation2d.fromDegrees(m_gyro.getAngle(IMUAxis.kZ)),
