@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -8,6 +9,7 @@ import frc.robot.Constants;
 import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class VisionSubsystem extends SubsystemBase {
 
@@ -19,8 +21,17 @@ public class VisionSubsystem extends SubsystemBase {
   private static NetworkTable Unicorntable = inst.getTable("UnicornHatRIO");
   static final StringPublisher dblPub = Unicorntable.getStringTopic("ToUnicornStatus").publish();
 
+  NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+  NetworkTableEntry tx = table.getEntry("tx");
+  NetworkTableEntry ty = table.getEntry("ty");
+  NetworkTableEntry ta = table.getEntry("ta");
+
+  //read values periodically
+  double x = tx.getDouble(0.0);
+  double y = ty.getDouble(0.0);
+  double area = ta.getDouble(0.0);
+
   private double decelerationDistance = Constants.VisionConstants.kDecelerationDistance;
-  private double[] declareRingPosNeeded = Constants.VisionConstants.kCenterOfScreen;
 
   private Set<String> tags;
 
@@ -49,6 +60,12 @@ public class VisionSubsystem extends SubsystemBase {
     //   // System.out.print("No Speaker Tag - Current Tags: ");
     //   // printAllTags();
     // }
+
+
+    //post to smart dashboard periodically
+    SmartDashboard.putNumber("LimelightX", x);
+    SmartDashboard.putNumber("LimelightY", y);
+    SmartDashboard.putNumber("LimelightArea", area);
   }
 
   public boolean checkForSpeakerTag() {
