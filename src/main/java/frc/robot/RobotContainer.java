@@ -14,31 +14,14 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.XboxController.Button;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
-import frc.robot.commands.*;
-import frc.robot.subsystems.AutoAimSubsystem;
-import frc.robot.subsystems.AutonomousTrajectories;
-import frc.robot.subsystems.AxleSubsystem;
-import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.LEDSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
-// import frc.robot.subsystems.UltrasonicSensor;
-import frc.robot.subsystems.VisionSubsystem;
 import java.util.List;
 
 /*
@@ -50,30 +33,31 @@ import java.util.List;
 public class RobotContainer {
   // The robot's subsystems
   public final DriveSubsystem m_robotDrive = new DriveSubsystem();
-  private final ShooterSubsystem m_shooter = new ShooterSubsystem();
-  private final IntakeSubsystem m_intake = new IntakeSubsystem();
-  private final ClimbSubsystem m_climb = new ClimbSubsystem();
-  private final AxleSubsystem m_axle = new AxleSubsystem();
-  private final VisionSubsystem m_vision = new VisionSubsystem();
-  private final AutoAimSubsystem m_autoAim = new AutoAimSubsystem();
+  // private final ShooterSubsystem m_shooter = new ShooterSubsystem();
+  // private final IntakeSubsystem m_intake = new IntakeSubsystem();
+  // private final ClimbSubsystem m_climb = new ClimbSubsystem();
+  // private final AxleSubsystem m_axle = new AxleSubsystem();
+  // private final VisionSubsystem m_vision = new VisionSubsystem();
+  // private final AutoAimSubsystem m_autoAim = new AutoAimSubsystem();
   // private final UltrasonicSensor m_UltrasonicSensor = new UltrasonicSensor();
-  private final LEDSubsystem m_LED = new LEDSubsystem();
+  // private final LEDSubsystem m_LED = new LEDSubsystem();
 
-  private final AutonomousTrajectories m_trajectories =
-      new AutonomousTrajectories(
-          m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter);
+  // private final AutonomousTrajectories m_trajectories =
+  //   new AutonomousTrajectories(
+  //        m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter);
 
   // The driver's controller
 
   // Static for trigger
   static XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
 
-  SendableChooser<Command> m_chooser = new SendableChooser<>();
+  // endableChooser<Command> m_chooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
 
+    /*
     SmartDashboard.putNumber("Shoot Speaker Speed", Constants.ShooterConstants.kShootSpeakerSpeed);
     SmartDashboard.putNumber("Shoot Amp Speed", Constants.ShooterConstants.kShootAmpSpeed);
     SmartDashboard.putNumber("Index Speed", Constants.IntakeConstants.kIndexSpeed);
@@ -139,6 +123,7 @@ public class RobotContainer {
         m_trajectories.getSideOfSubwooferRoutine(4, false));
 
     SmartDashboard.putData(m_chooser);
+    */
 
     configureButtonBindings();
 
@@ -177,11 +162,11 @@ public class RobotContainer {
     //     .whileTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
 
     // THIS IS THE OG SHOOTER. DO NOT DELETE IN CASE I HAVE MESSED UP.
-    new JoystickButton(m_driverController, Button.kRightBumper.value)
-        .whileTrue(
-            new ParallelCommandGroup(
-                new SequentialCommandGroup(new ShootSpeakerCommand(m_shooter, m_axle, m_intake)),
-                new SequentialCommandGroup(new WaitCommand(4.0), new IndexCommand(m_intake))));
+    // new JoystickButton(m_driverController, Button.kRightBumper.value)
+    //    .whileTrue(
+    //        new ParallelCommandGroup(
+    //            new SequentialCommandGroup(new ShootSpeakerCommand(m_shooter, m_axle, m_intake)),
+    //            new SequentialCommandGroup(new WaitCommand(4.0), new IndexCommand(m_intake))));
 
     // New shooter. Hasn't been tested.
     // new JoystickButton(m_driverController, Button.kRightBumper.value)
@@ -190,11 +175,11 @@ public class RobotContainer {
     // new JoystickButton(m_driverController, Button.kRightBumper.value)
     //     .whileTrue(new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
 
-    new JoystickButton(m_driverController, Button.kLeftBumper.value)
-        .whileTrue(
-            new SequentialCommandGroup(
-                new IntakeFloorCommand(m_intake, m_axle, m_LED),
-                new ReverseShooterCommand(m_shooter, m_intake, m_LED)));
+    // new JoystickButton(m_driverController, Button.kLeftBumper.value)
+    //    .whileTrue(
+    //        new SequentialCommandGroup(
+    //            new IntakeFloorCommand(m_intake, m_axle, m_LED),
+    //            new ReverseShooterCommand(m_shooter, m_intake, m_LED)));
     // new SequentialCommandGroup(
     //   new IntakeFloorCommand(m_intake, m_axle, m_LED),
     //   new CenterNoteCommand(m_shooter, m_intake)));
@@ -202,31 +187,32 @@ public class RobotContainer {
     // new JoystickButton(m_driverController, Button.kX.value)
     //     .whileTrue(new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LED));
 
-    new JoystickButton(m_driverController, Button.kX.value)
-        .whileTrue(new IntakeAxleHeightCommand(m_axle, m_climb));
+    // new JoystickButton(m_driverController, Button.kX.value)
+    //    .whileTrue(new IntakeAxleHeightCommand(m_axle, m_climb));
 
-    new JoystickButton(m_driverController, Button.kY.value).whileTrue(new AimAmpCommand(m_axle));
+    // new JoystickButton(m_driverController, Button.kY.value).whileTrue(new AimAmpCommand(m_axle));
 
-    new POVButton(m_driverController, 0).whileTrue(new ClimberUpCommand(m_climb, m_axle));
+    // new POVButton(m_driverController, 0).whileTrue(new ClimberUpCommand(m_climb, m_axle));
 
-    new POVButton(m_driverController, 180).whileTrue(new ClimbDefaultCommand(m_climb, m_axle));
+    // new POVButton(m_driverController, 180).whileTrue(new ClimbDefaultCommand(m_climb, m_axle));
 
     // new JoystickButton(m_driverController, Button.kB.value).whileTrue(new AxleUpCommand(m_axle));
     // .whileFalse(new DefaultAxleHeightCommand(m_axle));
     // new JoystickButton(m_driverController, Button.kA.value)
     //     .whileTrue(new AxleEncoderTestCommand(m_axle));
 
-    new JoystickButton(m_driverController, Button.kB.value).whileTrue(new AxleUpCommand(m_axle));
+    // new JoystickButton(m_driverController, Button.kB.value).whileTrue(new AxleUpCommand(m_axle));
 
-    new JoystickButton(m_driverController, Button.kA.value).whileTrue(new AxleDownCommand(m_axle));
+    // new JoystickButton(m_driverController, Button.kA.value).whileTrue(new
+    // AxleDownCommand(m_axle));
 
-    new POVButton(m_driverController, 270) // left D-pad
-        .whileTrue(new GyroSetZeroCommand(m_robotDrive));
+    // new POVButton(m_driverController, 270) // left D-pad
+    //    .whileTrue(new GyroSetZeroCommand(m_robotDrive));
 
-    new POVButton(m_driverController, 90) // right D-pad
-        .whileTrue(
-            new ParallelCommandGroup(
-                new ShootAmpCommand(m_shooter, m_axle, m_intake), new IndexCommand(m_intake)));
+    // new POVButton(m_driverController, 90) // right D-pad
+    //    .whileTrue(
+    //        new ParallelCommandGroup(
+    //            new ShootAmpCommand(m_shooter, m_axle, m_intake), new IndexCommand(m_intake)));
     // right D-pad for AMP shoot
 
     // new JoystickButton(m_driverController, Axis.kRightTrigger);
@@ -250,7 +236,7 @@ public class RobotContainer {
     boolean doScoringAuto = true;
 
     if (doScoringAuto) {
-      return m_chooser.getSelected();
+      return null;
     }
 
     TrajectoryConfig config =
