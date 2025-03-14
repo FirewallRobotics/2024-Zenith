@@ -4,15 +4,11 @@
 
 package frc.robot;
 
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.VisionSubsystem;
-import org.littletonrobotics.urcl.URCL;
 
 // import org.littletonrobotics.urcl.URCL;
 
@@ -25,7 +21,6 @@ import org.littletonrobotics.urcl.URCL;
 public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
-  private UsbCamera m_Camera;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -39,13 +34,6 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
 
     m_robotContainer.m_robotDrive.m_gyro.calibrate();
-
-    m_Camera = CameraServer.startAutomaticCapture(0);
-    m_Camera.setResolution(640, 480);
-    m_Camera.setFPS(12);
-
-    DataLogManager.start();
-    URCL.start();
 
     // TacticChooser.setDefaultOption("Start Left, Shoot 0,",
     // m_robotContainer.getAutonomousSpeaker(red_alliance, 1));

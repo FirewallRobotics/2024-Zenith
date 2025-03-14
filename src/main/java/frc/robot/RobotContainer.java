@@ -14,6 +14,7 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -22,6 +23,8 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.DriveSubsystem;
+// import frc.robot.subsystems.UltrasonicSensor;
+import frc.robot.subsystems.VisionSubsystem;
 import java.util.List;
 
 /*
@@ -33,97 +36,19 @@ import java.util.List;
 public class RobotContainer {
   // The robot's subsystems
   public final DriveSubsystem m_robotDrive = new DriveSubsystem();
-  // private final ShooterSubsystem m_shooter = new ShooterSubsystem();
-  // private final IntakeSubsystem m_intake = new IntakeSubsystem();
-  // private final ClimbSubsystem m_climb = new ClimbSubsystem();
-  // private final AxleSubsystem m_axle = new AxleSubsystem();
-  // private final VisionSubsystem m_vision = new VisionSubsystem();
-  // private final AutoAimSubsystem m_autoAim = new AutoAimSubsystem();
-  // private final UltrasonicSensor m_UltrasonicSensor = new UltrasonicSensor();
-  // private final LEDSubsystem m_LED = new LEDSubsystem();
-
-  // private final AutonomousTrajectories m_trajectories =
-  //   new AutonomousTrajectories(
-  //        m_robotDrive, m_autoAim, m_vision, m_axle, m_intake, m_LED, m_climb, m_shooter);
+  @SuppressWarnings("unused")
+  private final VisionSubsystem m_vision = new VisionSubsystem();
 
   // The driver's controller
 
   // Static for trigger
   static XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
 
-  // endableChooser<Command> m_chooser = new SendableChooser<>();
+  SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
-
-    /*
-    SmartDashboard.putNumber("Shoot Speaker Speed", Constants.ShooterConstants.kShootSpeakerSpeed);
-    SmartDashboard.putNumber("Shoot Amp Speed", Constants.ShooterConstants.kShootAmpSpeed);
-    SmartDashboard.putNumber("Index Speed", Constants.IntakeConstants.kIndexSpeed);
-    SmartDashboard.putNumber("Reverse Index Speed", Constants.IntakeConstants.kIndexReverseSpeed);
-    SmartDashboard.putNumber("Intake Speed", Constants.IntakeConstants.kIntakeMotorSpeed);
-    SmartDashboard.putNumber("Arm Speed", Constants.AxleConstants.kAxleTestSpeed);
-    SmartDashboard.putNumber("Arm Test Angle", Constants.AxleConstants.kTestHeight);
-
-    m_chooser.setDefaultOption(
-        "Default Auto - Drive Straight 2 Meters", m_trajectories.getDriveStraight());
-    // m_chooser.addOption(
-    //     "Basic Auto: Start in front of Subwoofer, Score 2, Pick up middlfe note",
-    //     m_trajectories.getScore2InFrontOfSubwooferCommand(
-    //         m_robotDrive, m_axle, m_intake, m_shooter, m_climb, m_LED));
-    m_chooser.addOption(
-        "Basic Auto: Start in front of Subwoofer, Score 1, Park Past Line",
-        m_trajectories.getScore1InFrontOfSubwooferCommand());
-    m_chooser.addOption(
-        "Basic Auto: Start in front of Subwoofer, Score 2, Pick up middle note",
-        m_trajectories.getScore2InFrontOfSubwooferCommand());
-    m_chooser.addOption(
-        "Basic Auto: Start in front of Subwoofer, Score 3, Pick up middle note, then right note",
-        m_trajectories.getScore3InFrontOfSubwooferCommand(true));
-    m_chooser.addOption(
-        "Basic Auto: Start in front of Subwoofer, Score 3, Pick up middle note, then left note",
-        m_trajectories.getScore3InFrontOfSubwooferCommand(false));
-
-    m_chooser.addOption(
-        "Basic Auto: Start in front of Subwoofer, Score 4, Pick up middle note, then right note, then left note",
-        m_trajectories.getScore3InFrontOfSubwooferCommand(true));
-    m_chooser.addOption(
-        "Basic Auto: Start in front of Subwoofer, Score 4, Pick up middle note, then left note, then right note",
-        m_trajectories.getScore3InFrontOfSubwooferCommand(false));
-    m_chooser.addOption(
-        "Basic Auto: RED TEAM - Start left facing subwoofer, Score 1, Park Past Line",
-        m_trajectories.getRedScore1OnLeftSideOfSubwooferCommand());
-    m_chooser.addOption(
-        "Basic Auto: RED TEAM - Start right facing subwoofer, Score 1, Park Past Line",
-        m_trajectories.getRedScore1OnRightSideOfSubwooferCommand());
-    m_chooser.addOption(
-        "Basic Auto: BLUE TEAM - Start left facing subwoofer, Score 1, Park Past Line",
-        m_trajectories.getBlueScore1OnLeftSideOfSubwooferCommand());
-    m_chooser.addOption(
-        "Basic Auto: BLUE TEAM - Start right facing subwoofer, Score 1, Park Past Line",
-        m_trajectories.getBlueScore1OnRightSideOfSubwooferCommand());
-    m_chooser.addOption(
-        "Start facing right note, Score 2 Speaker, Pick Up Right Note, (WIP Park Far Right)",
-        m_trajectories.getSideOfSubwooferRoutine(2, true));
-    m_chooser.addOption(
-        "Start facing right note, Score 3 Speaker, Pick Up Right + Middle Notes, (WIP Park Right of Stage)",
-        m_trajectories.getSideOfSubwooferRoutine(3, true));
-    m_chooser.addOption(
-        "Start facing right note, Score 4 Speaker, Pick Up All Notes, (WIP Park Right of Stage)",
-        m_trajectories.getSideOfSubwooferRoutine(4, true));
-    m_chooser.addOption(
-        "Start facing left note, Score 2 Speaker, Pick Up Left Note, (WIP Park Left of Stage)",
-        m_trajectories.getSideOfSubwooferRoutine(2, false));
-    m_chooser.addOption(
-        "Start facing left note, Score 3 Speaker, Pick Up Left + Middle Notes, (WIP Park Right of Stage)",
-        m_trajectories.getSideOfSubwooferRoutine(3, false));
-    m_chooser.addOption(
-        "Start facing left note, Score 4 Speaker, Pick Up All Notes, (WIP Park Far Right)",
-        m_trajectories.getSideOfSubwooferRoutine(4, false));
-
-    SmartDashboard.putData(m_chooser);
-    */
 
     configureButtonBindings();
 
@@ -161,13 +86,6 @@ public class RobotContainer {
     // new JoystickButton(m_driverController, Button.kR1.value)
     //     .whileTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
 
-    // THIS IS THE OG SHOOTER. DO NOT DELETE IN CASE I HAVE MESSED UP.
-    // new JoystickButton(m_driverController, Button.kRightBumper.value)
-    //    .whileTrue(
-    //        new ParallelCommandGroup(
-    //            new SequentialCommandGroup(new ShootSpeakerCommand(m_shooter, m_axle, m_intake)),
-    //            new SequentialCommandGroup(new WaitCommand(4.0), new IndexCommand(m_intake))));
-
     // New shooter. Hasn't been tested.
     // new JoystickButton(m_driverController, Button.kRightBumper.value)
     //     .whileTrue(new ShootAtVelocityCommand(m_shooter, m_intake));
@@ -175,45 +93,12 @@ public class RobotContainer {
     // new JoystickButton(m_driverController, Button.kRightBumper.value)
     //     .whileTrue(new ShootSpeakerCommand(m_shooter, m_axle, m_intake));
 
-    // new JoystickButton(m_driverController, Button.kLeftBumper.value)
-    //    .whileTrue(
-    //        new SequentialCommandGroup(
-    //            new IntakeFloorCommand(m_intake, m_axle, m_LED),
-    //            new ReverseShooterCommand(m_shooter, m_intake, m_LED)));
     // new SequentialCommandGroup(
     //   new IntakeFloorCommand(m_intake, m_axle, m_LED),
     //   new CenterNoteCommand(m_shooter, m_intake)));
 
     // new JoystickButton(m_driverController, Button.kX.value)
     //     .whileTrue(new AimSpeakerCommand(m_robotDrive, m_autoAim, m_vision, m_axle, m_LED));
-
-    // new JoystickButton(m_driverController, Button.kX.value)
-    //    .whileTrue(new IntakeAxleHeightCommand(m_axle, m_climb));
-
-    // new JoystickButton(m_driverController, Button.kY.value).whileTrue(new AimAmpCommand(m_axle));
-
-    // new POVButton(m_driverController, 0).whileTrue(new ClimberUpCommand(m_climb, m_axle));
-
-    // new POVButton(m_driverController, 180).whileTrue(new ClimbDefaultCommand(m_climb, m_axle));
-
-    // new JoystickButton(m_driverController, Button.kB.value).whileTrue(new AxleUpCommand(m_axle));
-    // .whileFalse(new DefaultAxleHeightCommand(m_axle));
-    // new JoystickButton(m_driverController, Button.kA.value)
-    //     .whileTrue(new AxleEncoderTestCommand(m_axle));
-
-    // new JoystickButton(m_driverController, Button.kB.value).whileTrue(new AxleUpCommand(m_axle));
-
-    // new JoystickButton(m_driverController, Button.kA.value).whileTrue(new
-    // AxleDownCommand(m_axle));
-
-    // new POVButton(m_driverController, 270) // left D-pad
-    //    .whileTrue(new GyroSetZeroCommand(m_robotDrive));
-
-    // new POVButton(m_driverController, 90) // right D-pad
-    //    .whileTrue(
-    //        new ParallelCommandGroup(
-    //            new ShootAmpCommand(m_shooter, m_axle, m_intake), new IndexCommand(m_intake)));
-    // right D-pad for AMP shoot
 
     // new JoystickButton(m_driverController, Axis.kRightTrigger);
 
@@ -236,7 +121,7 @@ public class RobotContainer {
     boolean doScoringAuto = true;
 
     if (doScoringAuto) {
-      return null;
+      return m_chooser.getSelected();
     }
 
     TrajectoryConfig config =
